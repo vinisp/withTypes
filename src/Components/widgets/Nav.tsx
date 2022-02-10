@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 
