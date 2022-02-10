@@ -25,25 +25,25 @@ const CardSizes = styled("div")(({ theme }) => ({
   },
 }));
 
-interface Infos {
+interface Content {
     number: string
     name: string
     stats: string
 }
 
-function Plan(info : Infos) {
+function Plan(content : Content) {
   return (
     <>
       <CardSizes>
         <Card sx={{ backgroundColor: "#c7def1", height: "100%" }}>
           <CardContent sx={{ background: "#001d35", height: "10%" }}>
             <Typography sx={{ fontSize: "2rem", color: "white" }}>
-              {info.number}
+              {content.number}
             </Typography>
           </CardContent>
           <CardActions sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography>{info.name}</Typography>
-            <Typography>{info.stats}</Typography>
+            <Typography>{content.name}</Typography>
+            <Typography>{content.stats}</Typography>
             <Button size="small">Saiba mais</Button>
           </CardActions>
         </Card>

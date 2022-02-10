@@ -25,21 +25,21 @@ const CardSizes = styled("div")(({ theme }) => ({
   },
 }));
 
-interface Infos {
+interface Content {
     number: string
     name: string
     stats: string
 }
 
-function CardCustom(info: Infos) {
+function CardCustom(content: Content) {
   return (
     <>
       <CardSizes>
         <Card sx={{ backgroundColor: "#dcdcdc" }}>
           <CardContent>
-            <Typography>{info.number}</Typography>
-            <Typography>{info.name}</Typography>
-            <Typography>{info.stats}</Typography>
+            <Typography>{content.number}</Typography>
+            <Typography>{content.name}</Typography>
+            <Typography>{content.stats}</Typography>
           </CardContent>
           <CardActions>
             <Button size="small">Saiba mais</Button>
