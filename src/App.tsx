@@ -3,7 +3,7 @@ import Nav from './Components/widgets/Nav';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import { HashRouter as Router, Route, Switch} from 'react-router-dom'
-import './App.scss';
+import './App.css';
 
 import {
   Chart as ChartJS,
@@ -27,13 +27,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-
-
-
-
-
-
 
 function App() {
   return (
