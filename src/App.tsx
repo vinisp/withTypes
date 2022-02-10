@@ -2,6 +2,7 @@ import Home from './Pages/Home';
 import Nav from './Components/widgets/Nav';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
+import MemberArea from './Pages/MemberArea';
 import { HashRouter as Router, Route, Switch} from 'react-router-dom'
 import './App.css';
 
@@ -39,7 +40,8 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-        </Switch>
+            <Route exact path="/member" component={MemberArea} />
+      </Switch>
        
     </div>
     </Router> 
