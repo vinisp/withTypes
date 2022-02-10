@@ -1,4 +1,5 @@
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
+import { LineGraph } from "../graphs/LineGraph";
 
 import { Typography, Box, Button } from "@mui/material";
 
@@ -7,6 +8,7 @@ const theme = createTheme({
     fontFamily: "Open Sans, sans-serif",
     subtitle1: {
       /* border: "solid 2px white", */
+      color: "white",
 
       "@media (max-width:600px)": {
         padding: "0 2px",
@@ -48,11 +50,32 @@ const theme = createTheme({
         fontSize: 64,
       },
     },
+    h2: {
+        fontWeight: 600,
+        color: "white",
+  
+        "@media (max-width:600px)": {
+          fontSize: 32,
+        },
+        "@media (min-width:600px)": {
+          fontSize: 36,
+        },
+        "@media (min-width:900px)": {
+          fontSize: 32,
+        },
+        "@media (min-width:1200px)": {
+          fontSize: 48,
+        },
+        "@media (min-width:1536px)": {
+          fontSize: 64,
+        },
+      },
   },
 });
 
 const BoxText = styled("div")(({ theme }) => ({
-  padding: theme.spacing(1),
+  padding: theme.spacing(2),
+  marginBottom: 200,
   [theme.breakpoints.down("sm")]: {
     height: "420px",
     width: "100%",
@@ -67,7 +90,7 @@ const BoxText = styled("div")(({ theme }) => ({
     width: "80%",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "600px",
+    height: "900px",
     width: "60%",
   },
 }));
@@ -99,15 +122,19 @@ function Main() {
           }}
         >
           <ThemeProvider theme={theme}>
-            <Typography variant="h2"> LOCAL PARA INFORMAR DADOS </Typography>
+            <Typography variant="h2" textAlign={"center"}> LOCAL PARA INFORMAR DADOS </Typography>
             <Typography variant="subtitle1">
-              PODEMOS INCLUIR UM OU MAIS GRÁFICOS
-            </Typography>
+              Exemplo de seção com resultados em gráfico
+            </Typography>  
+            <Box sx={{ width: "100%", height: "100%", background: "#F3F3F310"}}>
+                <LineGraph />
+            </Box>
             <Button size="large" variant="outlined">
               Contrate já !
             </Button>
           </ThemeProvider>
         </BoxText>
+         
       </Box>
     </>
   );

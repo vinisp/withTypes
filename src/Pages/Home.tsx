@@ -5,16 +5,12 @@ import Plans from "../Components/sections/Plans";
 
 import Login from "./Login";
 import Register from "./Register";
-import { Route, Link, Switch } from 'react-router-dom'
+import { Route,  Switch } from 'react-router-dom'
 
 function Home() {
   return (
     <>
-        <nav>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
-        </nav>
-     
+      
         <Hero />
         <Results />
         <Main />

@@ -1,9 +1,38 @@
 import Home from './Pages/Home';
 import Nav from './Components/widgets/Nav';
-import { HashRouter as Router} from 'react-router-dom'
-
-
+import Login from './Pages/Login';
+import Register from './Pages/Register';
+import { HashRouter as Router, Route, Switch} from 'react-router-dom'
 import './App.scss';
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+
+
+
+
+
 
 
 function App() {
@@ -11,10 +40,19 @@ function App() {
     <Router>
      
     <div className="App">
+
       <Nav />
-      <Home />
+      <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+        </Switch>
+       
     </div>
-    </Router>
+    </Router> 
+ 
+  
+    
   );
 }
 

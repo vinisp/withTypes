@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 function PlanosSection() {
   return (
     <>
-      <Typography variant="h3" sx={{ color: "white" }}>
+      <Typography variant="h3" sx={{ color: "white", textAlign: "center" }}>
         Nossos Cursos
       </Typography>
       <Box
