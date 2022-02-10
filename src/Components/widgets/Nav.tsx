@@ -128,7 +128,7 @@ function Nav() {
       <MenuDesktop>
         <ButtonGroup>
           <Link to="/">
-            <Button> Home </Button>
+            <Button> Home's </Button>
           </Link>
           <Link to="/register">
             <Button> Cadastrar </Button>
