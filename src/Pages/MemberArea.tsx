@@ -8,7 +8,7 @@ function MemberArea() {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={0}>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography
               variant="h5"
@@ -21,11 +21,31 @@ function MemberArea() {
           <Grid item xs={1}>
             <SideMenu />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={10} spacing={2}>
             <TableResults />
           </Grid>
-          <Grid item xs={10}>
-            <TableWithTabs />
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              marginTop: "15px",
+            }}
+          >
+            <Grid item xs={5} lg={5} alignSelf={"center"}>
+              <TableWithTabs />
+            </Grid>
+            <Grid item xs={5} alignSelf={"center"}>
+              <TableWithTabs />
+            </Grid>
+            <Grid item xs={5} alignSelf={"center"}>
+              <TableWithTabs />
+            </Grid>
+            <Grid item xs={5} alignSelf={"center"}>
+              <TableWithTabs />
+            </Grid>
           </Grid>
         </Grid>
       </Box>

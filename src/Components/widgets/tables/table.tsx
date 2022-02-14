@@ -217,21 +217,20 @@ const TableSizes = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
 
   [theme.breakpoints.down("sm")]: {
-    height: "350px",
     width: "100%",
   },
   [theme.breakpoints.up("sm")]: {
-    height: "350px",
     width: "100%",
   },
 
   [theme.breakpoints.up("md")]: {
-    height: "460px",
+    height: "auto",
     width: "100%",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "460px",
+    height: "auto",
     width: "100%",
+    border: "0",
   },
 }));
 
@@ -239,8 +238,13 @@ function TableResults() {
   return (
     <>
       <TableSizes>
-        <Paper sx={{ width: "100%", overflow: "hidden" }}>
-          <TableContainer sx={{ maxHeight: 440 }}>
+        <Paper sx={{ width: "100%", overflow: "hidden", borderRadius: 0 }}>
+          <TableContainer
+            sx={{
+              maxHeight: "auto",
+              border: "solid 2px white",
+            }}
+          >
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
