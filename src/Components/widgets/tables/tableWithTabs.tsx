@@ -101,7 +101,7 @@ function TableWithTabs() {
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
-          sx={{ background: "white" }}
+          sx={{ background: "white", padding: "0 !important" }}
         >
           <Tab label="Item One" {...a11yProps(0)} />
           <Tab label="Item Two" {...a11yProps(1)} />

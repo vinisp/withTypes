@@ -242,7 +242,6 @@ function TableResults() {
           <TableContainer
             sx={{
               maxHeight: "auto",
-              border: "solid 2px white",
             }}
           >
             <Table stickyHeader aria-label="sticky table">
