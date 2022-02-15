@@ -1,9 +1,14 @@
+import { useState, ChangeEventHandler } from "react";
+
 import { Typography, Box } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import SideMenu from "../Components/widgets/SideMenuMember";
-import TableResults from "../Components/widgets/tables/table";
+import { TableResults, rows } from "../Components/widgets/tables/table";
 import TableWithTabs from "../Components/widgets/tables/tableWithTabs";
 import { styled } from "@mui/material/styles";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+
+import MenuItem from "@mui/material/MenuItem";
 
 const ResponsiveMeberSizes = styled("div")(({ theme }) => ({
   display: "flex",
@@ -55,6 +60,14 @@ const SideBarResponsive = styled("div")(({ theme }) => ({
 }));
 
 function MemberArea() {
+  const ListTracks = new Set<string>(rows.map((e) => e.track)).keys();
+  const FiltersByTrack = Array.from(ListTracks);
+
+  const [filter, setFilter] = useState("0");
+  const handleChange = (event: SelectChangeEvent) => {
+    setFilter(event.target.value as string);
+  };
+  console.log(filter);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -66,6 +79,16 @@ function MemberArea() {
       <ResponsiveMeberSizes>
         <SideBarResponsive>
           <SideMenu />
+          <Select sx={{ background: "white", width: "110px", color: "black" }}>
+            <MenuItem key={-1} value={"0"} sx={{ color: "black" }}>
+              Default
+            </MenuItem>
+            {FiltersByTrack.map((e) => (
+              <MenuItem key={e} value={e} sx={{ color: "black" }}>
+                {e}
+              </MenuItem>
+            ))}
+          </Select>
         </SideBarResponsive>
         <Grid container sx={{}} spacing={1}>
           <Grid

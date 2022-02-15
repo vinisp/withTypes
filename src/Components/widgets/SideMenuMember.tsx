@@ -1,60 +1,42 @@
-import Divider from "@mui/material/Divider";
-import Paper from "@mui/material/Paper";
-import MenuList from "@mui/material/MenuList";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ContentCut from "@mui/icons-material/ContentCut";
-import ContentCopy from "@mui/icons-material/ContentCopy";
-import ContentPaste from "@mui/icons-material/ContentPaste";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
-import Cloud from "@mui/icons-material/Cloud";
+export default function SideMenu() {
+  const [age, setAge] = React.useState("");
 
-function SideMenu() {
+  const handleChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value as string);
+  };
+
   return (
-    <>
-      <Paper
-        sx={{
-          maxWidth: "100%",
-          transition: "all 350ms ease",
-        }}
-      >
-        <MenuList>
-          <MenuItem>
-            <ListItemIcon>
-              <ContentCut fontSize="small" />
-            </ListItemIcon>
-            <ListItemText color="black">Ligas</ListItemText>
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
-              <ContentCopy fontSize="small" />
-            </ListItemIcon>
-            <ListItemText color="black">Ligas</ListItemText>
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
-              <ContentPaste fontSize="small" />
-            </ListItemIcon>
-            <ListItemText color="black">Ligas</ListItemText>
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
-              <ContentPaste fontSize="small" />
-            </ListItemIcon>
-            <ListItemText color="black">Ligas</ListItemText>
-          </MenuItem>
-          <Divider />
-          <MenuItem>
-            <ListItemIcon>
-              <Cloud fontSize="small" />
-            </ListItemIcon>
-            <ListItemText color="black">Ligas</ListItemText>
-          </MenuItem>
-        </MenuList>
-      </Paper>
-    </>
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          label="Age"
+          onChange={handleChange}
+          sx={[
+            { background: "white", border: "solid silver 1px" },
+            {
+              "&:active": {
+                border: "solid red 2px",
+                background: "#f2f2f2",
+              },
+            },
+          ]}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
   );
 }
-
-export default SideMenu;

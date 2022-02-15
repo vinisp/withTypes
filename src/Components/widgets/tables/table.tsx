@@ -129,6 +129,7 @@ const columns: readonly Column[] = [
 ];
 
 interface Data {
+  track: string;
   trap: string;
   galgo: string;
   sexo: string;
@@ -149,6 +150,7 @@ interface Data {
 }
 
 function createData(
+  track: string,
   trap: string,
   galgo: string,
   sexo: string,
@@ -168,6 +170,7 @@ function createData(
   brt: string
 ): Data {
   return {
+    track,
     trap,
     galgo,
     sexo,
@@ -191,10 +194,71 @@ function createData(
 // Não usar a palavra class ou Class, pois é uma palavra reservada
 
 //Mock Data
-const rows = [
+export const rows = [
   createData(
+    "Interlagos",
     "1",
     "Jaguar Blake",
+    "M",
+    32,
+    "10%",
+    "7%",
+    "-",
+    "75.9 ³",
+    "45%",
+    "25%",
+    "35%",
+    "78%",
+    "0%",
+    "29s",
+    "28.2s",
+    "17.04",
+    "44.7"
+  ),
+  createData(
+    "Interlagos",
+    "1",
+    "Jaguar Li",
+    "M",
+    32,
+    "10%",
+    "7%",
+    "-",
+    "75.9 ³",
+    "45%",
+    "25%",
+    "35%",
+    "78%",
+    "0%",
+    "29s",
+    "28.2s",
+    "17.04",
+    "44.7"
+  ),
+  createData(
+    "São Paulo",
+    "1",
+    "Monk Li",
+    "M",
+    32,
+    "10%",
+    "7%",
+    "-",
+    "75.9 ³",
+    "45%",
+    "25%",
+    "35%",
+    "78%",
+    "0%",
+    "29s",
+    "28.2s",
+    "17.04",
+    "44.7"
+  ),
+  createData(
+    "São Paulo",
+    "1",
+    "Monk Brown",
     "M",
     32,
     "10%",
@@ -234,7 +298,7 @@ const TableSizes = styled("div")(({ theme }) => ({
   },
 }));
 
-function TableResults() {
+export function TableResults() {
   return (
     <>
       <TableSizes>
@@ -288,5 +352,3 @@ function TableResults() {
     </>
   );
 }
-
-export default TableResults;

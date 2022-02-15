@@ -3,6 +3,7 @@ import Nav from "./Components/widgets/Nav";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import MemberArea from "./Pages/MemberArea";
+import MemberAreaHome from "./Pages/MemberHome";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 
@@ -37,6 +38,7 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/member" component={MemberArea} />
+          <Route exact path="/memberhome" component={MemberAreaHome} />
         </Switch>
       </div>
     </Router>

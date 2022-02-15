@@ -3,7 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import TableResults from "./table";
+import { TableResults } from "./table";
 import { styled } from "@mui/material/styles";
 
 const TableSizes = styled("div")(({ theme }) => ({
