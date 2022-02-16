@@ -1,12 +1,10 @@
-import { useState, ChangeEventHandler } from "react";
-
 import { Typography, Box } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import SideMenu from "../Components/widgets/SideMenuMember";
 import { TableResults, rows } from "../Components/widgets/tables/table";
 import TableWithTabs from "../Components/widgets/tables/tableWithTabs";
 import { styled } from "@mui/material/styles";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
 import MenuItem from "@mui/material/MenuItem";
 
@@ -63,10 +61,10 @@ function MemberArea() {
   const ListTracks = new Set<string>(rows.map((e) => e.track)).keys();
   const FiltersByTrack = Array.from(ListTracks);
 
-  const [filter, setFilter] = useState("0");
+  /*const [filter, setFilter] = useState("0");
   const handleChange = (event: SelectChangeEvent) => {
     setFilter(event.target.value as string);
-  };
+  }; */
   console.log(filter);
   return (
     <>
