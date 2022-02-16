@@ -65,7 +65,7 @@ function MemberArea() {
   const handleChange = (event: SelectChangeEvent) => {
     setFilter(event.target.value as string);
   }; */
-  console.log(filter);
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
