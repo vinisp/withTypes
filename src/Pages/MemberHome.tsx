@@ -187,7 +187,7 @@ function MemberAreaHome() {
             <Card sx={{ height: "100%" }} variant="elevation">
               <Typography
                 sx={{ background: "green", color: "white", padding: 1 }}
-                variant={"h5"}
+                variant={"h4"}
               >
                 Próximas Corridas
               </Typography>
