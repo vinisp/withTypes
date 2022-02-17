@@ -1,0 +1,17 @@
+.rulesTab button:nth-child(1) {
+  display: none;
+}
+
+.rulesTab {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.rulesTab button {
+  width: 100%;
+}
+
+.rulesTab button span {
+  text-align: left;
+}
