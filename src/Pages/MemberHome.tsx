@@ -2,6 +2,9 @@ import { Typography, Box, Card, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import { useState } from "react";
+import { Redirect } from "react-router-dom";
+
+import { useAuth } from "../hooks/useAuth";
 
 import "./memberHome.css";
 
@@ -159,6 +162,10 @@ const NextRaces = () =>
   );
 
 function MemberAreaHome() {
+  const { user } = useAuth();
+
+  console.log(user);
+
   const [racesBy, setRacesby] = useState([
     {
       raceID: "",
@@ -193,76 +200,93 @@ function MemberAreaHome() {
       </>
     );
   }
+  if (!user) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <Typography
-          variant="h5"
-          textAlign={"center"}
-          sx={{ color: "white" }}
-        ></Typography>
-        <ResponsiveCards>
-          <CardResponsive>
-            <Card sx={{ height: "100%", width: "100%" }} variant="outlined">
-              {cardContent("Australia", "/Australia")}
-            </Card>
-          </CardResponsive>
-          <CardResponsive>
-            <Card sx={{ height: "100%", width: "100%" }}>
-              {cardContent("EUA", "/EUA")}
-            </Card>
-          </CardResponsive>
-          <CardResponsive>
-            <Card sx={{ height: "100%", width: "100%" }}>
-              {cardContent("UK", "/UK")}
-            </Card>
-          </CardResponsive>
-        </ResponsiveCards>
-      </Box>
-      <Box sx={{ flexGrow: 1 }}>
-        {racesBy.length > 1 ? (
-          <ResponsiveCards>
-            <CardResponsiveRaces>
-              <Card sx={{ height: "100%", width: "100%" }} variant="elevation">
-                <Typography
-                  sx={{ background: "green", color: "white", padding: 1 }}
-                  variant={"h4"}
-                >
-                  Próximas Corridas
-                </Typography>
-                <div className="rulesTab">
-                  {racesBy.map((e) => (
-                    <Button>
+        {user ? (
+          <>
+            <Typography
+              variant="h5"
+              textAlign={"center"}
+              sx={{ color: "white" }}
+            >
+              Bem-Vindo
+            </Typography>
+            <ResponsiveCards>
+              <CardResponsive>
+                <Card sx={{ height: "100%", width: "100%" }} variant="outlined">
+                  {cardContent("Australia", "/Australia")}
+                </Card>
+              </CardResponsive>
+              <CardResponsive>
+                <Card sx={{ height: "100%", width: "100%" }}>
+                  {cardContent("EUA", "/EUA")}
+                </Card>
+              </CardResponsive>
+              <CardResponsive>
+                <Card sx={{ height: "100%", width: "100%" }}>
+                  {cardContent("UK", "/UK")}
+                </Card>
+              </CardResponsive>
+            </ResponsiveCards>
+            <Box sx={{ flexGrow: 1 }}>
+              {racesBy.length > 1 ? (
+                <ResponsiveCards>
+                  <CardResponsiveRaces>
+                    <Card
+                      sx={{ height: "100%", width: "100%" }}
+                      variant="elevation"
+                    >
                       <Typography
-                        sx={{
-                          borderBottom: "solid 1px silver",
-                          width: "100%",
-                          textAlign: "left",
-                        }}
+                        sx={{ background: "green", color: "white", padding: 1 }}
+                        variant={"h4"}
                       >
-                        {e.country} - {e.trackName}{" "}
+                        Próximas Corridas
                       </Typography>
-                    </Button>
-                  ))}
-                </div>
-              </Card>
-            </CardResponsiveRaces>
-          </ResponsiveCards>
+                      <div className="rulesTab">
+                        {racesBy.map((e) => (
+                          <Button>
+                            <Typography
+                              sx={{
+                                borderBottom: "solid 1px silver",
+                                width: "100%",
+                                textAlign: "left",
+                              }}
+                            >
+                              {e.country} - {e.trackName}{" "}
+                            </Typography>
+                          </Button>
+                        ))}
+                      </div>
+                    </Card>
+                  </CardResponsiveRaces>
+                </ResponsiveCards>
+              ) : (
+                <ResponsiveCards>
+                  <CardResponsiveRaces>
+                    <Card
+                      sx={{ height: "100%", width: "100%" }}
+                      variant="elevation"
+                    >
+                      <Typography
+                        sx={{ background: "green", color: "white", padding: 1 }}
+                        variant={"h4"}
+                      >
+                        Próximas Corridas
+                      </Typography>
+                      {NextRaces()}
+                    </Card>
+                  </CardResponsiveRaces>
+                </ResponsiveCards>
+              )}
+            </Box>
+          </>
         ) : (
-          <ResponsiveCards>
-            <CardResponsiveRaces>
-              <Card sx={{ height: "100%", width: "100%" }} variant="elevation">
-                <Typography
-                  sx={{ background: "green", color: "white", padding: 1 }}
-                  variant={"h4"}
-                >
-                  Próximas Corridas
-                </Typography>
-                {NextRaces()}
-              </Card>
-            </CardResponsiveRaces>
-          </ResponsiveCards>
+          false
         )}
       </Box>
     </>
