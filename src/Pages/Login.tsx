@@ -5,6 +5,60 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { Redirect } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { Button } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import TextField from "@mui/material/TextField";
+import { Link } from "react-router-dom";
+
+const MainBoxLogin = styled("div")(({ theme }) => ({
+  padding: theme.spacing(1),
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  background: "#f2f2f2",
+
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "100%",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    height: "auto",
+    width: "100%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    height: "500px",
+    width: "100%",
+  },
+}));
+
+const FieldGroup = styled("div")(({ theme }) => ({
+  padding: theme.spacing(1),
+  display: "flex",
+  flexDirection: "column",
+  background: "#f2f2f2",
+
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "100%",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    height: "auto",
+    width: "100%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    height: "auto",
+    width: "90%",
+    gap: 4,
+  },
+}));
 
 function Login() {
   const { user } = useAuth();
@@ -34,25 +88,41 @@ function Login() {
   return (
     <>
       <Container component="main" maxWidth="xs">
-        <Typography textAlign={"center"} color={"white"}>
-          Login
-        </Typography>
+        <MainBoxLogin>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography textAlign={"center"} variant={"h3"} color={"#020202"}>
+            Login
+          </Typography>
+          <FieldGroup>
+            <TextField
+              type="e-mail"
+              placeholder="Email..."
+              label="Email"
+              onChange={(event) => {
+                setLoginEmail(event.target.value);
+              }}
+            />
+          </FieldGroup>
+          <FieldGroup>
+            <TextField
+              type="password"
+              placeholder="Senha"
+              label="Senha"
+              onChange={(event) => {
+                setLoginPassword(event.target.value);
+              }}
+            />
+            <Button variant={"outlined"} color={"success"} onClick={login}>
+              Entrar
+            </Button>
 
-        <input
-          type="e-mail"
-          placeholder="Email..."
-          onChange={(event) => {
-            setLoginEmail(event.target.value);
-          }}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          onChange={(event) => {
-            setLoginPassword(event.target.value);
-          }}
-        />
-        <button onClick={login}>Login</button>
+            <Button>
+              <Link to="/register">Ainda não tem cadastro ?</Link>
+            </Button>
+          </FieldGroup>
+        </MainBoxLogin>
       </Container>
     </>
   );
