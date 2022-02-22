@@ -3,8 +3,29 @@ import { Button } from "@mui/material";
 import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
+import { useState } from "react";
 
 const BoxIntro = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  background: "#072143",
+  width: "100%",
+  height: "100%",
+
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {
+    height: "auto",
+  },
+  [theme.breakpoints.up("lg")]: {
+    height: "500px",
+  },
+}));
+
+const BoxCoursesMain = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -140,10 +161,73 @@ const coursesInfos = [
   },
 ];
 
-const categorys = new Set<string>(coursesInfos.map((e) => e.courseType));
-const ArrayCategorys = Array.from(categorys);
-
 export function AllCourses() {
+  const categorys = new Set<string>(coursesInfos.map((e) => e.courseType));
+  const ArrayCategorys = Array.from(categorys);
+  const [listCourses, setListCourses] = useState([
+    {
+      courseID: "",
+      courseName: "",
+      courseType: "",
+      coursePrice: "",
+      description: "",
+    },
+  ]);
+  function filterCourse(courseType: string) {
+    const filterCourses = coursesInfos.filter(
+      (e) => e.courseType === courseType
+    );
+    listCourses.splice(1, listCourses.length);
+    return filterCourses.flat().map((e) =>
+      setListCourses((listCourses) => [
+        ...listCourses,
+        {
+          courseID: e.courseID,
+          courseName: e.courseName,
+          courseType: e.courseType,
+          coursePrice: e.courseType,
+          description: e.description,
+        },
+      ])
+    );
+  }
+
+  function AllCourses() {
+    listCourses.splice(1, listCourses.length);
+    console.log(listCourses);
+    return (
+      <>
+        {coursesInfos.map((e) =>
+          setListCourses((listCourses) => [
+            ...listCourses,
+            {
+              courseID: e.courseID,
+              courseName: e.courseName,
+              courseType: e.courseType,
+              coursePrice: e.courseType,
+              description: e.description,
+            },
+          ])
+        )}
+      </>
+    );
+  }
+
+  function ListByCategory() {
+    return (
+      <>
+        {listCourses.map((e) => (
+          <>
+            <Paper>
+              <h3>{e.courseName}</h3>
+              <h4>{e.courseType}</h4>
+            </Paper>
+          </>
+        ))}
+      </>
+    );
+  }
+
   return (
     <>
       <Box
@@ -166,24 +250,21 @@ export function AllCourses() {
         <Typography color={"white"} variant={"h3"}>
           Nossos Cursos
         </Typography>
-        <BoxCourses>
-          {ArrayCategorys.map((e) => (
-            <>
-              <Button>
-                <Typography> {e} </Typography>
-              </Button>
-            </>
-          ))}
-          {coursesInfos.map((e) => (
-            <>
-              <Paper sx={{ height: "126px", width: "20% " }} elevation={3}>
-                <h3>{e.courseName} </h3>
-                <h4>{e.courseType}</h4>
-                <Button>Comprar</Button>
-              </Paper>
-            </>
-          ))}
-        </BoxCourses>
+        <BoxCoursesMain>
+          <BoxCourses>
+            <Button onClick={() => AllCourses()}>Todos os Cursos</Button>
+            {ArrayCategorys.map((e) => (
+              <>
+                <Button onClick={() => filterCourse(e)}>
+                  <Typography> {e} </Typography>
+                </Button>
+              </>
+            ))}
+          </BoxCourses>
+          <BoxCourses>
+            {listCourses.length > 1 ? ListByCategory() : AllCourses()}
+          </BoxCourses>
+        </BoxCoursesMain>
       </Box>
     </>
   );
