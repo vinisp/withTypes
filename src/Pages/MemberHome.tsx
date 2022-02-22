@@ -1,10 +1,10 @@
-import { Typography, Box, Card, Button } from "@mui/material";
+import { Typography, Box, Card } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-import { useState } from "react";
 import { Redirect } from "react-router-dom";
 
 import { useAuth } from "../hooks/useAuth";
+import data from "../backendFake/dogListFoda.json";
 
 import "./memberHome.css";
 
@@ -72,7 +72,7 @@ const CardResponsiveRaces = styled("div")(({ theme }) => ({
     width: "100%",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "320px",
+    height: "auto",
     width: "75%",
     display: "block",
     padding: 0,
@@ -81,82 +81,101 @@ const CardResponsiveRaces = styled("div")(({ theme }) => ({
 
 //MOCK RACES DATA
 
-const races = [
-  {
-    trackID: "1",
-    tracks: [
-      {
-        raceID: "1",
-        country: "Australia",
-        trackName: "Sidney",
-        date: "15-02-22",
-        hour: "3PM",
-        dogs: [
-          {
-            dogName: "Jack Black",
-            dogInfos: "...",
-          },
-          {
-            dogName: "Jack Black",
-            dogInfos: "...",
-          },
-        ],
-      },
-      {
-        raceID: "2",
-        country: "Australia",
-        trackName: "Melbourne",
-        date: "15-02-22",
-        hour: "3PM",
-        dogs: [
-          {
-            dogName: "Jack Black",
-            dogInfos: "...",
-          },
-          {
-            dogName: "Jack Black",
-            dogInfos: "...",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    trackID: "2",
-    tracks: [
-      {
-        raceID: "3",
-        country: "EUA",
-        trackName: "California",
-        date: "15-02-22",
-        hour: "4PM",
-        dogs: [
-          {
-            dogName: "Jack Black",
-            dogInfos: "...",
-          },
-          {
-            dogName: "Jack Black",
-            dogInfos: "...",
-          },
-        ],
-      },
-    ],
-  },
-];
+// const racesOld = [
+//   {
+//     trackID: "1",
+//     tracks: [
+//       {
+//         raceID: "1",
+//         country: "Australia",
+//         trackName: "Sidney",
+//         date: "15-02-22",
+//         hour: "3PM",
+//         dogs: [
+//           {
+//             dogName: "Jack Black",
+//             dogInfos: "...",
+//           },
+//           {
+//             dogName: "Jack Black",
+//             dogInfos: "...",
+//           },
+//         ],
+//       },
+//       {
+//         raceID: "2",
+//         country: "Australia",
+//         trackName: "Melbourne",
+//         date: "15-02-22",
+//         hour: "3PM",
+//         dogs: [
+//           {
+//             dogName: "Jack Black",
+//             dogInfos: "...",
+//           },
+//           {
+//             dogName: "Jack Black",
+//             dogInfos: "...",
+//           },
+//         ],
+//       },
+//     ],
+//   },
+//   {
+//     trackID: "2",
+//     tracks: [
+//       {
+//         raceID: "3",
+//         country: "EUA",
+//         trackName: "California",
+//         date: "15-02-22",
+//         hour: "4PM",
+//         dogs: [
+//           {
+//             dogName: "Jack Black",
+//             dogInfos: "...",
+//           },
+//           {
+//             dogName: "Jack Black",
+//             dogInfos: "...",
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// ];
 
-const filtersByCountry = (raceCon: string) => {
-  const filterRaces = races.map((e) =>
-    e.tracks?.filter((e) => e.country === raceCon)
-  );
-  return filterRaces.filter((e) => e.length > 0);
-};
+const races = data.map((e) => [
+  {
+    trackName: e.trackName,
+    raceTitle: e.raceTitle,
+    raceDate: e.raceDate,
+    distance: e.distance,
+    raceId: e.raceId,
+  },
+]);
+
+// const filtersByCountry = (raceCon: string) => {
+//   const filterRaces = races.map((e) =>
+//     e.tracks?.filter((e) => e.country === raceCon)
+//   );
+//   return filterRaces.filter((e) => e.length > 0);
+// };
+
+// const NextRaces = () =>
+//   races.map((e) =>
+//     e.tracks?.map((e) => (
+//       <h2>
+//         {e.trackName} - {e.hour} - {e.date} - {e.country} -
+//       </h2>
+//     ))
+//   );
 
 const NextRaces = () =>
   races.map((e) =>
-    e.tracks?.map((e) => (
+    e.map((e) => (
       <h2>
-        {e.trackName} - {e.hour} - {e.date} - {e.country} -
+        {e.trackName} - {e.raceTitle} - {e.distance} - {e.raceDate}
       </h2>
     ))
   );
@@ -164,40 +183,40 @@ const NextRaces = () =>
 function MemberAreaHome() {
   const { user } = useAuth();
 
-  const [racesBy, setRacesby] = useState([
-    {
-      raceID: "",
-      country: "",
-      trackName: "",
-    },
-  ]);
+  // const [racesBy, setRacesby] = useState([
+  //   {
+  //     raceID: "",
+  //     country: "",
+  //     trackName: "",
+  //   },
+  // ]);
 
-  function cardContent(country: string, link: string) {
-    const myCountry = filtersByCountry(country);
-    const countryFlat = myCountry.flat();
+  // function cardContent(country: string, link: string) {
+  //   // const myCountry = filtersByCountry(country);
+  //   // const countryFlat = myCountry.flat();
 
-    return (
-      <>
-        <Button
-          onClick={() => {
-            racesBy.splice(1, racesBy.length);
-            countryFlat.map((e) =>
-              setRacesby((racesBy) => [
-                ...racesBy,
-                {
-                  raceID: e.raceID,
-                  country: e.country,
-                  trackName: e.trackName,
-                },
-              ])
-            );
-          }}
-        >
-          {country}
-        </Button>
-      </>
-    );
-  }
+  //   return (
+  //     <>
+  //       <Button
+  //         onClick={() => {
+  //           racesBy.splice(1, racesBy.length);
+  //           countryFlat.map((e) =>
+  //             setRacesby((racesBy) => [
+  //               ...racesBy,
+  //               {
+  //                 raceID: e.raceID,
+  //                 country: e.country,
+  //                 trackName: e.trackName,
+  //               },
+  //             ])
+  //           );
+  //         }}
+  //       >
+  //         {country}
+  //       </Button>
+  //     </>
+  //   );
+  // }
   if (!user) {
     return <Redirect to="/login" />;
   }
@@ -212,22 +231,22 @@ function MemberAreaHome() {
           <ResponsiveCards>
             <CardResponsive>
               <Card sx={{ height: "100%", width: "100%" }} variant="outlined">
-                {cardContent("Australia", "/Australia")}
+                {/* {cardContent("Australia", "/Australia")} */}
               </Card>
             </CardResponsive>
             <CardResponsive>
               <Card sx={{ height: "100%", width: "100%" }}>
-                {cardContent("EUA", "/EUA")}
+                {/* {cardContent("EUA", "/EUA")} */}
               </Card>
             </CardResponsive>
             <CardResponsive>
               <Card sx={{ height: "100%", width: "100%" }}>
-                {cardContent("UK", "/UK")}
+                {/* {cardContent("UK", "/UK")} */}
               </Card>
             </CardResponsive>
           </ResponsiveCards>
           <Box sx={{ flexGrow: 1 }}>
-            {racesBy.length > 1 ? (
+            {/* {racesBy.length > 1 ? (
               <ResponsiveCards>
                 <CardResponsiveRaces>
                   <Card
@@ -258,24 +277,24 @@ function MemberAreaHome() {
                   </Card>
                 </CardResponsiveRaces>
               </ResponsiveCards>
-            ) : (
-              <ResponsiveCards>
-                <CardResponsiveRaces>
-                  <Card
-                    sx={{ height: "100%", width: "100%" }}
-                    variant="elevation"
+            ) : ( */}
+            <ResponsiveCards>
+              <CardResponsiveRaces>
+                <Card
+                  sx={{ height: "100%", width: "100%" }}
+                  variant="elevation"
+                >
+                  <Typography
+                    sx={{ background: "green", color: "white", padding: 1 }}
+                    variant={"h4"}
                   >
-                    <Typography
-                      sx={{ background: "green", color: "white", padding: 1 }}
-                      variant={"h4"}
-                    >
-                      Próximas Corridas
-                    </Typography>
-                    {NextRaces()}
-                  </Card>
-                </CardResponsiveRaces>
-              </ResponsiveCards>
-            )}
+                    Próximas Corridas
+                  </Typography>
+                  {NextRaces()}
+                </Card>
+              </CardResponsiveRaces>
+            </ResponsiveCards>
+            {/* )} */}
           </Box>
         </>
       </Box>
