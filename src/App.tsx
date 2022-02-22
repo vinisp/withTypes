@@ -4,6 +4,7 @@ import Home from "./Pages/Home";
 import Nav from "./Components/widgets/Nav";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
+import { AllCourses } from "./Pages/AllCourses";
 import { PageNotFound } from "./Pages/PageNotFound";
 
 //Private Routes
@@ -60,6 +61,7 @@ function App() {
             <Route exact path="/memberhome" component={MemberAreaHome} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/cart" component={CartPage} />
+            <Route exact path="/allcourses" component={AllCourses} />
             <Route exact path="/mycourses" component={MyCoursesPage} />
             <Route path="*" component={PageNotFound} />
           </Switch>

@@ -101,54 +101,52 @@ const BoxImg = styled("div")(({ theme }) => ({
 function Hero() {
   return (
     <>
-      
-        <Box
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: 2,
+          width: "100%",
+        }}
+      >
+        <BoxText
           sx={{
             display: "flex",
-            justifyContent: "center",
             alignItems: "center",
-            flexWrap: "wrap",
-            gap: 2,
-            width: "100%",
+            justifyContent: "center",
+            flexDirection: "column",
+            color: "white",
+            borderLeft: "solid 1px white",
+            borderBottom: "solid 1px white",
+            gap: 5,
           }}
         >
-          <BoxText
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              color: "white",
-              borderLeft: "solid 1px white",
-              borderBottom: "solid 1px white",
-              gap: 5,
-            }}
-          >
-            <ThemeProvider theme={theme}>
-              <Typography variant="h1"> TÍTULO COM RESUMO BREVE</Typography>
-              <Typography variant="subtitle1">
-                Faça um resumo com um texto breve, explicando de forma suscinta
-                como os cursos funcionam e podem ajudar as pessoas a obterem
-                resultados, aqui a venda começa! Faça um resumo com um texto
-                breve, explicando de forma suscinta como os cursos funcionam e
-                podem ajudar as pessoas a obterem resultados, aqui a venda
-                começa! Faça um resumo com um texto breve, explicando de forma
-                suscinta como os cursos funcionam e podem ajudar as pessoas a
-                obterem resultados, aqui a venda começa!
-              </Typography>
+          <ThemeProvider theme={theme}>
+            <Typography variant="h1"> TÍTULO COM RESUMO BREVE</Typography>
+            <Typography variant="subtitle1">
+              Faça um resumo com um texto breve, explicando de forma suscinta
+              como os cursos funcionam e podem ajudar as pessoas a obterem
+              resultados, aqui a venda começa! Faça um resumo com um texto
+              breve, explicando de forma suscinta como os cursos funcionam e
+              podem ajudar as pessoas a obterem resultados, aqui a venda começa!
+              Faça um resumo com um texto breve, explicando de forma suscinta
+              como os cursos funcionam e podem ajudar as pessoas a obterem
+              resultados, aqui a venda começa!
+            </Typography>
 
-              <Link to="/contratar">
-                <Button size="large" variant="outlined" color="secondary">
-                  Contrate já !
-                </Button>
-              </Link>
-            </ThemeProvider>
-          </BoxText>
-          <BoxImg sx={{ border: "solid 2px white", color: "white" }}>
-            iLUSTRAÇÃO
-          </BoxImg>
-        </Box>
-   
+            <Link to="/allcourses">
+              <Button size="large" variant="outlined" color="secondary">
+                Contrate já !
+              </Button>
+            </Link>
+          </ThemeProvider>
+        </BoxText>
+        <BoxImg sx={{ border: "solid 2px white", color: "white" }}>
+          iLUSTRAÇÃO
+        </BoxImg>
+      </Box>
     </>
   );
 }
