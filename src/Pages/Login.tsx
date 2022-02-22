@@ -4,6 +4,7 @@ import Container from "@mui/material/Container";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Redirect } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { Typography } from "@mui/material";
 
 function Login() {
   const { user } = useAuth();
@@ -17,6 +18,9 @@ function Login() {
         loginEmail,
         loginPassword
       );
+      if (user) {
+        return <Redirect to="/memberhome" />;
+      }
       console.log(user);
     } catch (error) {
       console.log(error);
@@ -30,7 +34,9 @@ function Login() {
   return (
     <>
       <Container component="main" maxWidth="xs">
-        <h3>Cadastrar</h3>
+        <Typography textAlign={"center"} color={"white"}>
+          Login
+        </Typography>
 
         <input
           type="e-mail"
@@ -46,7 +52,7 @@ function Login() {
             setLoginPassword(event.target.value);
           }}
         />
-        <button onClick={login}>Confirmar cadastro</button>
+        <button onClick={login}>Login</button>
       </Container>
     </>
   );

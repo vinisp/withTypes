@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
+import { useAuth } from "../../hooks/useAuth";
+import { signOut } from "firebase/auth";
+import { auth } from "../../services/firebase";
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -34,6 +37,7 @@ const theme = createTheme({
         fontSize: 18,
       },
     },
+
     h1: {
       fontWeight: 600,
 
@@ -51,6 +55,9 @@ const theme = createTheme({
       },
       "@media (min-width:1536px)": {
         fontSize: 64,
+      },
+      a: {
+        color: "red !important",
       },
     },
   },
@@ -93,6 +100,17 @@ const MenuDesktop = styled("div")(({ theme }) => ({
 }));
 
 function Nav() {
+  const { user } = useAuth();
+
+  const LogOut = () =>
+    signOut(auth)
+      .then(() => {
+        console.log("deslogado");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
   return (
     <>
       <MenuMobile>
@@ -127,15 +145,29 @@ function Nav() {
       </MenuMobile>
       <MenuDesktop>
         <ButtonGroup>
-          <Link to="/">
-            <Button> Home</Button>
-          </Link>
-          <Link to="/register">
-            <Button> Cadastrar </Button>
-          </Link>
-          <Link to="/login" replace>
-            <Button> Login </Button>
-          </Link>
+          {user ? (
+            <>
+              <Button>
+                <Link to="/cart">Carrinho</Link>
+              </Button>
+              <Button>
+                <Link to="/profile">Perfil</Link>
+              </Button>
+              <Button onClick={LogOut}>Logout</Button>
+            </>
+          ) : (
+            <>
+              <Button>
+                <Link to="/">Home</Link>
+              </Button>
+              <Button>
+                <Link to="login">Login</Link>
+              </Button>
+              <Button>
+                <Link to="/register">Cadastrar</Link>
+              </Button>
+            </>
+          )}
         </ButtonGroup>
       </MenuDesktop>
     </>

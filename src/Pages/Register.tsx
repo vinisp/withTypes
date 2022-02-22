@@ -3,11 +3,14 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../services/firebase";
 import { Redirect } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 import { useAuth } from "../hooks/useAuth";
 
 function Register() {
   const { user } = useAuth();
+
+  console.log();
 
   const [registerEmail, setRegisterEmail] = useState("");
 
@@ -33,7 +36,10 @@ function Register() {
   return (
     <>
       <Container component="main" maxWidth="xs">
-        <h3>Cadastrar</h3>
+        <Typography textAlign={"center"} color={"white"}>
+          Cadastrar
+        </Typography>
+
         <input
           type="e-mail"
           placeholder="Email..."
