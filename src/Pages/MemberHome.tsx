@@ -6,6 +6,9 @@ import { Redirect } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import data from "../backendFake/dogListFoda.json";
 
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
+
 import "./memberHome.css";
 
 const ResponsiveCards = styled("div")(({ theme }) => ({
@@ -176,6 +179,9 @@ const NextRaces = () =>
     e.map((e) => (
       <h2>
         {e.trackName} - {e.raceTitle} - {e.distance} - {e.raceDate}
+        <Button>
+          <Link to={"/race/" + e.raceId}>Ver Detalhes</Link>
+        </Button>
       </h2>
     ))
   );

@@ -1,3 +1,10 @@
+//ReactTools
+
+//Test Pages
+
+import { CartApp } from "./Components/widgets/Cart/CartApp";
+import { CartContextItems } from "./Components/widgets/Cart/CartContext";
+
 //Default Pages
 
 import Home from "./Pages/Home";
@@ -9,6 +16,7 @@ import { PageNotFound } from "./Pages/PageNotFound";
 
 //Private Routes
 import MemberAreaHome from "./Pages/MemberHome";
+import { RacePage } from "./Pages/RacePage";
 import { Profile } from "./Pages/Profile";
 import { CartPage } from "./Pages/CartPage";
 import { MyCoursesPage } from "./Pages/MyCoursesPage";
@@ -17,6 +25,8 @@ import { MyCoursesPage } from "./Pages/MyCoursesPage";
 
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
+//UI
+
 //Context
 
 import { AuthContextProvider } from "./context/AuthContext";
@@ -24,6 +34,8 @@ import { AuthContextProvider } from "./context/AuthContext";
 //Styles
 
 import "./App.css";
+
+//MockDataCourse
 
 //Chart Generator
 
@@ -53,18 +65,22 @@ function App() {
     <Router>
       <div className="App">
         <AuthContextProvider>
-          <Nav />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/memberhome" component={MemberAreaHome} />
-            <Route exact path="/profile" component={Profile} />
-            <Route exact path="/cart" component={CartPage} />
-            <Route exact path="/allcourses" component={AllCourses} />
-            <Route exact path="/mycourses" component={MyCoursesPage} />
-            <Route path="*" component={PageNotFound} />
-          </Switch>
+          <CartContextItems>
+            <Nav />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/memberhome" component={MemberAreaHome} />
+              <Route exact path="/race/:idRace" component={RacePage} />
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path="/cart" component={CartPage} />
+              <Route exact path="/allcourses" component={AllCourses} />
+              <Route exact path="/mycourses" component={MyCoursesPage} />
+              <Route exact path="/cartApp" component={CartApp} />
+              <Route path="*" component={PageNotFound} />
+            </Switch>
+          </CartContextItems>
         </AuthContextProvider>
       </div>
     </Router>

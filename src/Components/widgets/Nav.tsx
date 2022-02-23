@@ -5,6 +5,8 @@ import { useAuth } from "../../hooks/useAuth";
 import { signOut } from "firebase/auth";
 import { auth } from "../../services/firebase";
 
+import { CartNav } from "./Cart/CartApp";
+
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
@@ -148,11 +150,13 @@ function Nav() {
           {user ? (
             <>
               <Button>
-                <Link to="/cart">Carrinho</Link>
+                <Link to="/memberhome">Corridas</Link>
               </Button>
+              <CartNav />
               <Button>
                 <Link to="/profile">Perfil</Link>
               </Button>
+
               <Button onClick={LogOut}>Logout</Button>
             </>
           ) : (

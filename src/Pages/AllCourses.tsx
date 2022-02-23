@@ -5,6 +5,8 @@ import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import { useState } from "react";
 
+import "./styles/AllCourses.css";
+
 const BoxIntro = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -32,7 +34,7 @@ const BoxCoursesMain = styled("div")(({ theme }) => ({
   justifyContent: "center",
   background: "#072143",
   width: "100%",
-  height: "100%",
+  height: "auto",
 
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -41,7 +43,7 @@ const BoxCoursesMain = styled("div")(({ theme }) => ({
     height: "auto",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "500px",
+    heigth: "auto",
   },
 }));
 
@@ -50,12 +52,12 @@ const BoxCourses = styled("div")(({ theme }) => ({
   flexWrap: "wrap",
   alignItems: "center",
   justifyContent: "center",
-  width: "80%",
+  width: "60%",
   height: "100%",
+  padding: "35px 0",
   gap: 10,
   background: "#f2f2f2f2",
   borderRadius: "4px",
-  padding: 15,
 
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -68,9 +70,50 @@ const BoxCourses = styled("div")(({ theme }) => ({
   },
 }));
 
+const BoxCategorys = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexWrap: "wrap",
+  alignItems: "flex-start",
+  justifyContent: "flex-start",
+  width: "70%",
+  height: "100%",
+  gap: 10,
+
+  borderRadius: "4px",
+
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {
+    height: "auto",
+  },
+  [theme.breakpoints.up("lg")]: {
+    height: "auto",
+  },
+}));
+
+const StyledCardCourse = styled("div")(({ theme }) => ({
+  flex: "0 0 70%",
+  justifyContent: "center",
+  [theme.breakpoints.down("sm")]: {
+    flex: "0 0 100%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    flex: "0 0 100%",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    height: "auto",
+    flex: "0 0 40%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    height: "auto",
+  },
+}));
+
 //Mock Data
 
-const coursesInfos = [
+export const coursesInfos = [
   {
     courseID: "1",
     courseName: "Course1",
@@ -194,7 +237,7 @@ export function AllCourses() {
 
   function AllCourses() {
     listCourses.splice(1, listCourses.length);
-    console.log(listCourses);
+
     return (
       <>
         {coursesInfos.map((e) =>
@@ -218,10 +261,21 @@ export function AllCourses() {
       <>
         {listCourses.map((e) => (
           <>
-            <Paper>
-              <h3>{e.courseName}</h3>
-              <h4>{e.courseType}</h4>
-            </Paper>
+            <StyledCardCourse className="myCardsCourses" key={e.courseID}>
+              <Paper
+                sx={{
+                  width: "auto",
+                  height: 200,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <h3>{e.courseName}</h3>
+                <h4>{e.courseType}</h4>
+                <Button variant="outlined">Adicionar ao carrinho</Button>
+              </Paper>
+            </StyledCardCourse>
           </>
         ))}
       </>
@@ -251,7 +305,7 @@ export function AllCourses() {
           Nossos Cursos
         </Typography>
         <BoxCoursesMain>
-          <BoxCourses>
+          <BoxCategorys>
             <Button onClick={() => AllCourses()}>Todos os Cursos</Button>
             {ArrayCategorys.map((e) => (
               <>
@@ -260,7 +314,7 @@ export function AllCourses() {
                 </Button>
               </>
             ))}
-          </BoxCourses>
+          </BoxCategorys>
           <BoxCourses>
             {listCourses.length > 1 ? ListByCategory() : AllCourses()}
           </BoxCourses>
