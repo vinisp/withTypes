@@ -3,7 +3,7 @@
 //Test Pages
 
 import { CartApp } from "./Components/widgets/Cart/CartApp";
-import { CartContextItems } from "./Components/widgets/Cart/CartContext";
+import { CartContextItemsProvider } from "./Components/widgets/Cart/CartContext";
 
 //Default Pages
 
@@ -65,7 +65,7 @@ function App() {
     <Router>
       <div className="App">
         <AuthContextProvider>
-          <CartContextItems>
+          <CartContextItemsProvider>
             <Nav />
             <Switch>
               <Route exact path="/" component={Home} />
@@ -80,7 +80,7 @@ function App() {
               <Route exact path="/cartApp" component={CartApp} />
               <Route path="*" component={PageNotFound} />
             </Switch>
-          </CartContextItems>
+          </CartContextItemsProvider>
         </AuthContextProvider>
       </div>
     </Router>

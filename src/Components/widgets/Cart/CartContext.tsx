@@ -6,12 +6,23 @@ type CardContextProviderProps = {
   children: ReactNode;
 };
 
-export const CartContextItems = (props: CardContextProviderProps) => {
-  const CartContext = createContext("meuItem");
+const myCartItems: any = [
+  {
+    id: 0,
+    category: "",
+    description: "",
+    image: "",
+    price: 0,
+    title: "",
+    amount: 0,
+  },
+];
+export const CartContext = createContext(myCartItems);
 
+export const CartContextItemsProvider = (props: CardContextProviderProps) => {
   return (
     <>
-      <CartContext.Provider value="meuItem">
+      <CartContext.Provider value={myCartItems}>
         {props.children}
       </CartContext.Provider>
     </>

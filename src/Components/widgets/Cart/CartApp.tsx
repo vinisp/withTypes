@@ -4,10 +4,14 @@ import { useState } from "react";
 import Item from "./Item";
 import Cart from "./Cart";
 
+import { useContext } from "react";
+
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 import { Button, Badge, Drawer, Grid } from "@mui/material";
 // data
+
+import { CartContext } from "./CartContext";
 
 import data from "../../../backendFake/allcourses.json";
 
@@ -32,7 +36,8 @@ export const CartNav = () => {
   //     "products",
   //     getProducts
   //   );
-  console.log(data);
+
+  const myCart = useContext(CartContext);
 
   const getTotalItems = (items: CartItemType[]) =>
     items.reduce((ack: number, item) => ack + item.amount, 0);
@@ -74,7 +79,7 @@ export const CartNav = () => {
     <>
       <Drawer anchor="right" open={cartOpen} onClose={() => setCartOpen(false)}>
         <Cart
-          cartItems={cartItems}
+          cartItems={myCart}
           addToCart={handleAddToCart}
           removeFromCart={handleRemoveFromCart}
         />
@@ -96,10 +101,13 @@ export const CartApp = () => {
   //     getProducts
   //   );
 
+  const myCart = useContext(CartContext);
+
   const getTotalItems = (items: CartItemType[]) =>
     items.reduce((ack: number, item) => ack + item.amount, 0);
 
   const handleAddToCart = (clickedItem: CartItemType) => {
+    myCart.push({ id: clickedItem.id });
     setCartItems((prev) => {
       // 1. Is the item already added in the cart?
       const isItemInCart = prev.find((item) => item.id === clickedItem.id);
