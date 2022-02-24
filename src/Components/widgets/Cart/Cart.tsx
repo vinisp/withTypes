@@ -2,6 +2,10 @@ import CartItem from "./CartItem";
 
 import { CartItemType } from "./CartApp";
 
+import { Link } from "react-router-dom";
+
+import { Button } from "@mui/material";
+
 import "./Styles/Cart.css";
 
 type Props = {
@@ -29,6 +33,11 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
         ))}
       </div>
       <h2>Total: ${calculateTotal(cartItems).toFixed(2)}</h2>
+      {cartItems.length > 1 ? (
+        <Button>
+          <Link to="/checkout">Finalizar Compra</Link>
+        </Button>
+      ) : null}
     </>
   );
 };
