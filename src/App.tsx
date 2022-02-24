@@ -77,7 +77,7 @@ function App() {
               <Route exact path="/cart" component={CartPage} />
               <Route exact path="/allcourses" component={AllCourses} />
               <Route exact path="/mycourses" component={MyCoursesPage} />
-              <Route exact path="/cartApp" component={CartApp} />
+              <Route exact path="/store" component={CartApp} />
               <Route path="*" component={PageNotFound} />
             </Switch>
           </CartContextItemsProvider>

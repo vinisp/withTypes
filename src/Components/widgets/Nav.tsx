@@ -150,6 +150,12 @@ function Nav() {
           {user ? (
             <>
               <Button>
+                <Link to="/">Home</Link>
+              </Button>
+              <Button>
+                <Link to="/store">Loja</Link>
+              </Button>
+              <Button>
                 <Link to="/memberhome">Corridas</Link>
               </Button>
               <CartNav />
@@ -163,6 +169,9 @@ function Nav() {
             <>
               <Button>
                 <Link to="/">Home</Link>
+              </Button>
+              <Button>
+                <Link to="/store">Loja</Link>
               </Button>
               <Button>
                 <Link to="login">Login</Link>

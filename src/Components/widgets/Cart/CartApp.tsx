@@ -8,7 +8,7 @@ import { useContext } from "react";
 
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
-import { Button, Badge, Drawer, Grid } from "@mui/material";
+import { Button, Badge, Drawer, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 // data
 
@@ -27,14 +27,36 @@ export type CartItemType = {
   amount: number;
 };
 
-const BoxCoursesMain = styled("div")(({ theme }) => ({
+const BoxIntro = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
   background: "#072143",
   width: "100%",
+  height: "100%",
+
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {
+    height: "auto",
+  },
+  [theme.breakpoints.up("lg")]: {
+    height: "500px",
+  },
+}));
+
+const BoxCoursesMain = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexWrap: "wrap",
+  background: "#072143",
+  width: "100%",
   height: "auto",
+  gap: 15,
+  padding: "30px 0",
 
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -48,35 +70,32 @@ const BoxCoursesMain = styled("div")(({ theme }) => ({
 }));
 
 const StyledCardCourse = styled("div")(({ theme }) => ({
-  flex: "0 0 70%",
   justifyContent: "center",
+  alignItems: "center",
+
   background: "#f2f2f2",
+  borderRadius: "8px",
+
   [theme.breakpoints.down("sm")]: {
-    flex: "0 0 100%",
+    flex: "0 0 30%",
   },
   [theme.breakpoints.up("sm")]: {
-    flex: "0 0 100%",
+    flex: "0 0 30%",
   },
 
   [theme.breakpoints.up("md")]: {
     height: "auto",
-    flex: "0 0 40%",
+    flex: "0 0 30%",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "auto",
+    height: "250px",
+    flex: "0 0 22%",
   },
 }));
-
-// const getProducts = async (): Promise<CartItemType[]> =>
-//   await (await fetch("https://fakestoreapi.com/products")).json();
 
 export const CartNav = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([] as CartItemType[]);
-  //   const { data, isLoading, error } = useQuery<CartItemType[]>(
-  //     "products",
-  //     getProducts
-  //   );
 
   let myCartItems = useContext(CartContext);
 
@@ -101,7 +120,7 @@ export const CartNav = () => {
             : item
         );
       }
-      // First time the item is added
+
       return [...prev, { ...clickedItem, amount: 1 }];
     });
   };
@@ -118,20 +137,7 @@ export const CartNav = () => {
         }
       }, [] as CartItemType[])
     );
-
-    // setIsMyCart((prev: any) =>
-    //   prev.reduce((ack: any, item: any) => {
-    //     if (item.id === id) {
-    //       if (item.amount === 1) return ack;
-    //       return [...ack, { ...item, amount: item.amount - 1 }];
-    //     } else {
-    //       return [...ack, item];
-    //     }
-    //   }, [] as CartItemType[])
-    // );
   };
-  //   if (isLoading) return <LinearProgress />;
-  //   if (error) return <div>Something went wrong ...</div>;
 
   return (
     <>
@@ -152,11 +158,6 @@ export const CartNav = () => {
 };
 
 export const CartApp = () => {
-  //   const { data, isLoading, error } = useQuery<CartItemType[]>(
-  //     "products",
-  //     getProducts
-  //   );
-  // console.log(cartItems, setCartItems);
   const myCartItems = useContext(CartContext);
 
   const handleAddToCart = (clickedItem: CartItemType) => {
@@ -177,39 +178,33 @@ export const CartApp = () => {
         amount: clickedItem.amount,
       });
     }
-
-    // setCartItems((prev) => {
-    //   //   // 1. Is the item already added in the cart?
-    //   const isItemInCart = prev.find((item) => item.id === clickedItem.id);
-
-    //   if (isItemInCart) {
-    //     return prev.map((item) =>
-    //       item.id === clickedItem.id
-    //         ? { ...item, amount: item.amount + 1 }
-    //         : item
-    //     );
-    //   }
-    //   // First time the item is added
-    //   return [...prev, { ...clickedItem, amount: 1 }];
-    // });
   };
-
-  //   if (isLoading) return <LinearProgress />;
-  //   if (error) return <div>Something went wrong ...</div>;
 
   return (
     <>
+      <BoxIntro>
+        <Typography
+          color={"#6CD1FC"}
+          variant={"h3"}
+          sx={{ fontWeight: 600, textAlign: "left" }}
+        >
+          Cursos da escola Pro Tipster
+        </Typography>
+        <Typography sx={{ width: "50% ", color: "white" }}>
+          Desenvolva suas habilidades para se tornar um tipster profissional com
+          altos rendimentos, nós vamos te ensinar técnicas avançadas para
+          alavancar sua banca de forma consistente
+        </Typography>
+      </BoxIntro>
+      <Typography color={"white"} variant={"h3"} textAlign={"center"}>
+        Nossos Cursos
+      </Typography>
       <BoxCoursesMain>
-        <Grid container spacing={3}>
-          {data?.map((item) => (
-            <StyledCardCourse>
-              <Grid item key={item.id} xs={12} sm={4}>
-                <Item item={item} handleAddToCart={handleAddToCart} />
-                {item.title}
-              </Grid>
-            </StyledCardCourse>
-          ))}
-        </Grid>
+        {data?.map((item) => (
+          <StyledCardCourse>
+            <Item item={item} handleAddToCart={handleAddToCart} />
+          </StyledCardCourse>
+        ))}
       </BoxCoursesMain>
     </>
   );
