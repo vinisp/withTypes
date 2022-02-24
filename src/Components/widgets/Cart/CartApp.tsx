@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Components
 import Item from "./Item";
 import Cart from "./Cart";
 
 import { useContext } from "react";
-import { useLocalStorage } from "usehooks-ts";
 
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
@@ -79,8 +78,13 @@ export const CartNav = () => {
   //     getProducts
   //   );
 
-  const myCartItems = useContext(CartContext);
-  const [isMyCart, setIsMyCart] = useLocalStorage("cart", myCartItems);
+  let myCartItems = useContext(CartContext);
+
+  useEffect(() => {
+    setCartItems(myCartItems);
+
+    return () => console.log("ok");
+  }, [myCartItems, cartItems]);
 
   const getTotalItems = (items: CartItemType[]) =>
     items.reduce((ack: number, item) => ack + item.amount, 0);
@@ -103,6 +107,7 @@ export const CartNav = () => {
   };
 
   const handleRemoveFromCart = (id: number) => {
+    console.log(id);
     setCartItems((prev) =>
       prev.reduce((ack, item) => {
         if (item.id === id) {
@@ -113,17 +118,17 @@ export const CartNav = () => {
         }
       }, [] as CartItemType[])
     );
-    // setIsMyCart(isMyCart.filter((e: any) => e.id !== id));
-    setIsMyCart((prev: any) =>
-      prev.reduce((ack: any, item: any) => {
-        if (item.id === id) {
-          if (item.amount === 1) return ack;
-          return [...ack, { ...item, amount: item.amount - 1 }];
-        } else {
-          return [...ack, item];
-        }
-      }, [] as CartItemType[])
-    );
+
+    // setIsMyCart((prev: any) =>
+    //   prev.reduce((ack: any, item: any) => {
+    //     if (item.id === id) {
+    //       if (item.amount === 1) return ack;
+    //       return [...ack, { ...item, amount: item.amount - 1 }];
+    //     } else {
+    //       return [...ack, item];
+    //     }
+    //   }, [] as CartItemType[])
+    // );
   };
   //   if (isLoading) return <LinearProgress />;
   //   if (error) return <div>Something went wrong ...</div>;
@@ -132,7 +137,7 @@ export const CartNav = () => {
     <>
       <Drawer anchor="right" open={cartOpen} onClose={() => setCartOpen(false)}>
         <Cart
-          cartItems={isMyCart}
+          cartItems={cartItems}
           addToCart={handleAddToCart}
           removeFromCart={handleRemoveFromCart}
         />
@@ -147,29 +152,34 @@ export const CartNav = () => {
 };
 
 export const CartApp = () => {
-  const [cartItems, setCartItems] = useState([] as CartItemType[]);
   //   const { data, isLoading, error } = useQuery<CartItemType[]>(
   //     "products",
   //     getProducts
   //   );
-  console.log(cartItems, setCartItems);
+  // console.log(cartItems, setCartItems);
   const myCartItems = useContext(CartContext);
-  const [isMyCart, setIsMyCart] = useLocalStorage("cart", myCartItems);
-  console.log([isMyCart, setIsMyCart]);
 
   const handleAddToCart = (clickedItem: CartItemType) => {
-    myCartItems.push({
-      id: clickedItem.id,
-      category: clickedItem.category,
-      description: clickedItem.description,
-      image: clickedItem.image,
-      price: clickedItem.price,
-      title: clickedItem.title,
-      amount: clickedItem.amount,
-    });
-    setIsMyCart(myCartItems);
+    const isItemInCart = myCartItems.find(
+      (item: CartItemType) => item.id === clickedItem.id
+    );
+
+    if (isItemInCart) {
+      return console.log("este item já foi adicionado");
+    } else {
+      return myCartItems.push({
+        id: clickedItem.id,
+        category: clickedItem.category,
+        description: clickedItem.description,
+        image: clickedItem.image,
+        price: clickedItem.price,
+        title: clickedItem.title,
+        amount: clickedItem.amount,
+      });
+    }
+
     // setCartItems((prev) => {
-    //   // 1. Is the item already added in the cart?
+    //   //   // 1. Is the item already added in the cart?
     //   const isItemInCart = prev.find((item) => item.id === clickedItem.id);
 
     //   if (isItemInCart) {

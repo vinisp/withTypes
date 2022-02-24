@@ -2,6 +2,8 @@ import CartItem from "./CartItem";
 
 import { CartItemType } from "./CartApp";
 
+import "./Styles/Cart.css";
+
 type Props = {
   cartItems: CartItemType[];
   addToCart: (clickedItem: CartItemType) => void;
@@ -15,15 +17,17 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart }) => {
   return (
     <>
       <h2>Seu carrinho de compras</h2>
-      {cartItems.length === 0 ? <p>Sem Items no carrinho</p> : null}
-      {cartItems.map((item) => (
-        <CartItem
-          key={item.id}
-          item={item}
-          addToCart={addToCart}
-          removeFromCart={removeFromCart}
-        />
-      ))}
+      {cartItems.length === 1 ? <p>Sem Items no carrinho</p> : null}
+      <div className="GroupItems">
+        {cartItems.map((item) => (
+          <CartItem
+            key={item.id}
+            item={item}
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
+          />
+        ))}
+      </div>
       <h2>Total: ${calculateTotal(cartItems).toFixed(2)}</h2>
     </>
   );

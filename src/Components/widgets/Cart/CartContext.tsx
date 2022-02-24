@@ -1,5 +1,4 @@
 import { createContext, ReactNode } from "react";
-import { useLocalStorage } from "usehooks-ts";
 
 // import data from "../../../backendFake/allcourses.json";
 
@@ -18,12 +17,9 @@ const myCartItems: any = [
     amount: 0,
   },
 ];
-export const CartContext = createContext(myCartItems);
+export let CartContext = createContext(myCartItems);
 
 export const CartContextItemsProvider = (props: CardContextProviderProps) => {
-  const [isMyCart, setIsMyCart] = useLocalStorage("cart", myCartItems);
-  console.log([isMyCart, setIsMyCart]);
-
   return (
     <>
       <CartContext.Provider value={myCartItems}>

@@ -1,0 +1,3 @@
+.ItemsInCart:nth-child(1) {
+  display: none;
+}
