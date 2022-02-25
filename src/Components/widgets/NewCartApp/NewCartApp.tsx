@@ -47,6 +47,7 @@ export const CartNav = () => {
   useEffect(() => {
     myCartItems.splice(0, myCartItems.length);
     myCartItems.push(cartItems);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems.length]);
 
   function handleRemoveFromCart(id: number) {
@@ -122,6 +123,7 @@ export const MyStore = () => {
   useEffect(() => {
     myCartItems.splice(0, myCartItems.length);
     myCartItems.push(cartItems);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems.length]);
 
   return (
