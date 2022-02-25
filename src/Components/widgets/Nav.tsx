@@ -177,9 +177,7 @@ function Nav() {
               <Button>
                 <Link to="/store">Loja</Link>
               </Button>
-              <Button>
-                <CartNav />
-              </Button>
+
               <Button>
                 <Link to="login">Login</Link>
               </Button>
