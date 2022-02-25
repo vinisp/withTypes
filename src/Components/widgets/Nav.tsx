@@ -158,13 +158,11 @@ function Nav() {
               <Button>
                 <Link to="/memberhome">Corridas</Link>
               </Button>
-              <CartNav />
-              <Button>
-                <Link to="/profile">Perfil</Link>
-              </Button>
-
               <Button>
                 <CartNav />
+              </Button>
+              <Button>
+                <Link to="/profile">Perfil</Link>
               </Button>
 
               <Button onClick={LogOut}>Logout</Button>
@@ -177,7 +175,9 @@ function Nav() {
               <Button>
                 <Link to="/store">Loja</Link>
               </Button>
-
+              <Button>
+                <CartNav />
+              </Button>
               <Button>
                 <Link to="login">Login</Link>
               </Button>
