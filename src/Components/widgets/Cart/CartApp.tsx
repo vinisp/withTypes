@@ -103,7 +103,7 @@ export const CartNav = () => {
     setCartItems(myCartItems);
 
     return () => console.log("ok");
-  }, [myCartItems, cartItems]);
+  }, [myCartItems]);
 
   const getTotalItems = (items: CartItemType[]) =>
     items.reduce((ack: number, item) => ack + item.amount, 0);

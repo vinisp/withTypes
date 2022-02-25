@@ -5,7 +5,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { signOut } from "firebase/auth";
 import { auth } from "../../services/firebase";
 
-import { CartNav } from "./Cart/CartApp";
+import { CartNav } from "./NewCartApp/NewCartApp";
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -163,6 +163,10 @@ function Nav() {
                 <Link to="/profile">Perfil</Link>
               </Button>
 
+              <Button>
+                <CartNav />
+              </Button>
+
               <Button onClick={LogOut}>Logout</Button>
             </>
           ) : (
@@ -172,6 +176,9 @@ function Nav() {
               </Button>
               <Button>
                 <Link to="/store">Loja</Link>
+              </Button>
+              <Button>
+                <CartNav />
               </Button>
               <Button>
                 <Link to="login">Login</Link>

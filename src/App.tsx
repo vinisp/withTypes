@@ -2,8 +2,9 @@
 
 //Test Pages
 
-import { CartApp } from "./Components/widgets/Cart/CartApp";
+// import { CartApp } from "./Components/widgets/Cart/CartApp";
 import { CheckoutPage } from "./Components/widgets/Cart/Checkout";
+import { MyStore } from "./Components/widgets/NewCartApp/NewCartApp";
 
 //Default Pages
 
@@ -30,7 +31,7 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 //Context
 
 import { AuthContextProvider } from "./context/AuthContext";
-import { CartContextItemsProvider } from "./Components/widgets/Cart/CartContext";
+import { CartContextItemsProvider } from "./Components/widgets/NewCartApp/CartContext";
 
 //Styles
 
@@ -78,8 +79,9 @@ function App() {
               <Route exact path="/cart" component={CartPage} />
 
               <Route exact path="/mycourses" component={MyCoursesPage} />
-              <Route exact path="/store" component={CartApp} />
+              {/* <Route exact path="/store" component={CartApp} /> */}
               <Route exact path="/checkout" component={CheckoutPage} />
+              <Route exact path="/store" component={MyStore} />
               <Route path="*" component={PageNotFound} />
             </Switch>
           </CartContextItemsProvider>
