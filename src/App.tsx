@@ -3,7 +3,7 @@
 //Test Pages
 
 // import { CartApp } from "./Components/widgets/Cart/CartApp";
-import { CheckoutPage } from "./Components/widgets/Cart/Checkout";
+import { CheckoutPage } from "./Components/widgets/NewCartApp/Checkout";
 import { MyStore } from "./Components/widgets/NewCartApp/NewCartApp";
 
 //Default Pages

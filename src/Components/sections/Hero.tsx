@@ -136,7 +136,7 @@ function Hero() {
               resultados, aqui a venda começa!
             </Typography>
 
-            <Link to="/allcourses">
+            <Link to="/store">
               <Button size="large" variant="outlined" color="secondary">
                 Contrate já !
               </Button>

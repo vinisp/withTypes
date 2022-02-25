@@ -2,6 +2,7 @@ import React from "react";
 import CartItem from "../CartItem/CartItem";
 import { CartItemType } from "../NewCartApp";
 import { Wrapper } from "./Cart.styles";
+import { Link } from "react-router-dom";
 
 type Props = {
   cartItems: CartItemType[];
@@ -30,6 +31,7 @@ const Cart: React.FC<Props> = ({ cartItems, removeFromCart }) => {
         <div>No items in cart</div>
       )}
       <h2>Total: ${calculateTotal(cartItems).toFixed(2)}</h2>
+      <Link to="/checkout">Finalizar compra</Link>
     </Wrapper>
   );
 };

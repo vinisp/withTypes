@@ -8,7 +8,7 @@
 
 import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
-import { CartItemType } from "./CartApp";
+import { CartItemType } from "./NewCartApp";
 
 import { styled } from "@mui/material/styles";
 
@@ -42,44 +42,64 @@ export function CheckoutPage() {
   const calculateTotal = (items: CartItemType[]) =>
     items.reduce((ack: number, item) => ack + item.amount * item.price, 0);
   let myCartItems = useContext(CartContext);
+
+  console.log(myCartItems);
   const [checkoutData, setCheckoutData] = useState({
     cartId: 0,
     cartItems: [],
     total: "",
     PaymentMethod: "",
   });
-  console.log(checkoutData);
+
   return (
     <>
       <CheckoutWrapper>
         <div>
           <h1>MY CHECKOUT PAGE</h1>
         </div>
-        {myCartItems.map((e: any) => (
-          <div className="wrapperCheckout">
-            <h3>Curso: {e.title} </h3>
-            <span>Preço: R$ {e.price}</span>
-          </div>
-        ))}
-        <h2>Total: R${calculateTotal(myCartItems).toFixed(2)}</h2>
-        <div>
-          <div>
-            <h3>Método de pagamento</h3>
-          </div>
-          <div>Opções de pagamento</div>
-        </div>
+
+        {myCartItems.length
+          ? myCartItems[0].length > 0
+            ? myCartItems[0].map((e: any) => (
+                <>
+                  <span> {e.title} </span> <span> R$ {e.price} </span>
+                </>
+              ))
+            : "não temos items"
+          : "sem items no carrinho"}
+
+        {myCartItems.length ? (
+          myCartItems[0].length > 0 ? (
+            <h2> Total : R${calculateTotal(myCartItems[0])},00 </h2>
+          ) : (
+            "não temos items"
+          )
+        ) : (
+          "sem items no carrinho"
+        )}
         <Button
-          variant="outlined"
-          onClick={() =>
-            setCheckoutData({
-              cartId: 1,
-              cartItems: myCartItems,
-              total: calculateTotal(myCartItems).toFixed(2),
-              PaymentMethod: "2",
-            })
-          }
+          onClick={() => {
+            myCartItems.length
+              ? myCartItems[0].length > 0
+                ? setCheckoutData({
+                    cartId: 1,
+                    cartItems: myCartItems[0],
+                    total: calculateTotal(myCartItems[0]).toString(),
+                    PaymentMethod: "2",
+                  })
+                : console.log("não temos items")
+              : console.log("sem items no carrinho");
+          }}
         >
-          ok
+          Finalizar Compra
+        </Button>
+
+        <Button
+          onClick={() => {
+            console.log(checkoutData);
+          }}
+        >
+          Ver itens enviados
         </Button>
       </CheckoutWrapper>
     </>
