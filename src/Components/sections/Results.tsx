@@ -10,6 +10,7 @@ function ResultSection() {
           flexWrap: "wrap",
           width: "100%",
           justifyContent: "center",
+          marginTop: "80px",
         }}
       >
         <CardCustom number="+10 milions" name="users" stats="active" />

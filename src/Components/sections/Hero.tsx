@@ -4,6 +4,10 @@ import { Typography, Box, Button } from "@mui/material";
 
 import { Link } from "react-router-dom";
 
+import { motion } from "framer-motion";
+
+import myVideo from "./assets/Home.mp4";
+
 const theme = createTheme({
   typography: {
     fontFamily: "Open Sans, sans-serif",
@@ -74,27 +78,23 @@ const BoxText = styled("div")(({ theme }) => ({
   },
 }));
 
-const BoxImg = styled("div")(({ theme }) => ({
-  padding: theme.spacing(1),
-  [theme.breakpoints.down("sm")]: {
-    height: "150px",
-    width: "100%",
-    order: -1,
+const BoxMovie = styled("div")(({ theme }) => ({
+  video: {
+    minWidth: "100%",
   },
-  [theme.breakpoints.up("sm")]: {
-    height: "200px",
-    width: "90%",
-    order: -1,
-  },
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
 
-  [theme.breakpoints.up("md")]: {
-    height: "350px",
-    width: "50%",
-    order: 2,
-  },
+  [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {
-    height: "350px",
-    width: "30%",
+    zIndex: "-1",
+    position: "absolute",
+    right: 0,
+    bottom: 0,
+    top: 0,
+    width: "100%",
+    height: "30%",
+    opacity: "0.1",
   },
 }));
 
@@ -111,6 +111,11 @@ function Hero() {
           width: "100%",
         }}
       >
+        <BoxMovie>
+          <video autoPlay loop muted id="myVideoHome">
+            <source src={myVideo} type="video/mp4 " />
+          </video>
+        </BoxMovie>
         <BoxText
           sx={{
             display: "flex",
@@ -118,14 +123,14 @@ function Hero() {
             justifyContent: "center",
             flexDirection: "column",
             color: "white",
-            borderLeft: "solid 1px white",
-            borderBottom: "solid 1px white",
             gap: 5,
           }}
         >
           <ThemeProvider theme={theme}>
-            <Typography variant="h1"> TÍTULO COM RESUMO BREVE</Typography>
-            <Typography variant="subtitle1">
+            <Typography variant="h1" textAlign={"center"}>
+              TÍTULO COM RESUMO BREVE
+            </Typography>
+            <Typography variant="subtitle1" textAlign={"center"}>
               Faça um resumo com um texto breve, explicando de forma suscinta
               como os cursos funcionam e podem ajudar as pessoas a obterem
               resultados, aqui a venda começa! Faça um resumo com um texto
@@ -136,16 +141,20 @@ function Hero() {
               resultados, aqui a venda começa!
             </Typography>
 
-            <Link to="/store">
-              <Button size="large" variant="outlined" color="secondary">
-                Contrate já !
-              </Button>
-            </Link>
+            <motion.div
+              drag="x"
+              dragConstraints={{ left: -100, right: 100 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Link to="/store">
+                <Button size="large" variant="outlined" color="secondary">
+                  Contrate já !
+                </Button>
+              </Link>
+            </motion.div>
           </ThemeProvider>
         </BoxText>
-        <BoxImg sx={{ border: "solid 2px white", color: "white" }}>
-          iLUSTRAÇÃO
-        </BoxImg>
       </Box>
     </>
   );

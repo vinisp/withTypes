@@ -51,25 +51,25 @@ const theme = createTheme({
       },
     },
     h2: {
-        fontWeight: 600,
-        color: "white",
-  
-        "@media (max-width:600px)": {
-          fontSize: 32,
-        },
-        "@media (min-width:600px)": {
-          fontSize: 36,
-        },
-        "@media (min-width:900px)": {
-          fontSize: 32,
-        },
-        "@media (min-width:1200px)": {
-          fontSize: 48,
-        },
-        "@media (min-width:1536px)": {
-          fontSize: 64,
-        },
+      fontWeight: 600,
+      color: "white",
+
+      "@media (max-width:600px)": {
+        fontSize: 32,
       },
+      "@media (min-width:600px)": {
+        fontSize: 36,
+      },
+      "@media (min-width:900px)": {
+        fontSize: 32,
+      },
+      "@media (min-width:1200px)": {
+        fontSize: 48,
+      },
+      "@media (min-width:1536px)": {
+        fontSize: 64,
+      },
+    },
   },
 });
 
@@ -106,6 +106,7 @@ function Main() {
           flexWrap: "wrap",
           gap: 2,
           width: "100%",
+          marginTop: "60px",
         }}
       >
         <BoxText
@@ -116,25 +117,27 @@ function Main() {
             flexDirection: "column",
             color: "whNossos Cursosite",
 
-            borderTop: "solid 1px white",
-            borderRight: "solid 1px white",
             gap: 5,
           }}
         >
           <ThemeProvider theme={theme}>
-            <Typography variant="h2" textAlign={"center"}> LOCAL PARA INFORMAR DADOS </Typography>
+            <Typography variant="h2" textAlign={"center"}>
+              {" "}
+              LOCAL PARA INFORMAR DADOS{" "}
+            </Typography>
             <Typography variant="subtitle1">
               Exemplo de seção com resultados em gráfico
-            </Typography>  
-            <Box sx={{ width: "100%", height: "100%", background: "#F3F3F310"}}>
-                <LineGraph />
+            </Typography>
+            <Box
+              sx={{ width: "100%", height: "100%", background: "#F3F3F310" }}
+            >
+              <LineGraph />
             </Box>
             <Button size="large" variant="outlined">
               Contrate já !
             </Button>
           </ThemeProvider>
         </BoxText>
-         
       </Box>
     </>
   );
