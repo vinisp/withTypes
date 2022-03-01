@@ -1,7 +1,6 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import { CartItemType } from "../NewCartApp";
-import { Wrapper } from "./Item.styles";
 
 type Props = {
   item: CartItemType;
@@ -9,7 +8,7 @@ type Props = {
 };
 
 const Item: React.FC<Props> = ({ item, handleAddToCart }) => (
-  <Wrapper>
+  <Paper elevation={3} sx={{ width: "100%", padding: "10px" }}>
     <img src={item.image} alt={item.title} />
     <div>
       <div>
@@ -23,10 +22,10 @@ const Item: React.FC<Props> = ({ item, handleAddToCart }) => (
         disableElevation
         onClick={() => handleAddToCart(item)}
       >
-        Add to cart
+        PROMOVER ESSE PRODUTO
       </Button>
     </div>
-  </Wrapper>
+  </Paper>
 );
 
 export default Item;

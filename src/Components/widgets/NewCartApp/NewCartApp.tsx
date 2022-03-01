@@ -1,11 +1,12 @@
 import { useState, useContext, useEffect } from "react";
 import { CartContext } from "./CartContext";
 
-import { Drawer, Grid, Badge } from "@mui/material";
+import { Drawer, Badge } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Item from "./Item/Item";
 import Cart from "./Cart/Cart";
 import { Wrapper, StyledButton } from "./NewCart.styles";
+import { styled } from "@mui/material/styles";
 
 import data from "../../../backendFake/allcourses.json";
 
@@ -18,6 +19,63 @@ export type CartItemType = {
   image: string;
   amount: number;
 };
+const CourseWrapperMain = styled("div")(({ theme }) => ({
+  padding: theme.spacing(1),
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  background: "#f2f2f2",
+  border: "solid 2px black",
+  [theme.breakpoints.down("sm")]: {
+    display: "flex",
+  },
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    flex: "0 0 35%",
+  },
+}));
+
+const CoursesGrid = styled("div")(({ theme }) => ({
+  padding: theme.spacing(1),
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "center",
+  gap: "25px",
+
+  [theme.breakpoints.down("xs")]: {
+    width: "100%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "100%",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    width: "60%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "60%",
+  },
+}));
+
+const CourseBox = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  width: "100%",
+
+  [theme.breakpoints.down("sm")]: {
+    display: "flex",
+  },
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    flex: "0 0 35%",
+  },
+}));
 
 export const CartNav = () => {
   const [cartOpen, setCartOpen] = useState(false);
@@ -127,14 +185,17 @@ export const MyStore = () => {
   }, [cartItems.length]);
 
   return (
-    <Wrapper>
-      <Grid container spacing={3}>
+    <CourseWrapperMain>
+      <div>
+        <h2>Loja</h2>
+      </div>
+      <CoursesGrid>
         {data?.map((item) => (
-          <Grid item key={item.id} xs={12} sm={4}>
+          <CourseBox key={item.id}>
             <Item item={item} handleAddToCart={handleAddToCart}></Item>
-          </Grid>
+          </CourseBox>
         ))}
-      </Grid>
-    </Wrapper>
+      </CoursesGrid>
+    </CourseWrapperMain>
   );
 };
