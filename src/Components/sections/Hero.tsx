@@ -58,7 +58,8 @@ const theme = createTheme({
 });
 
 const BoxText = styled("div")(({ theme }) => ({
-  padding: theme.spacing(1),
+  padding: 0,
+  margin: 0,
   [theme.breakpoints.down("sm")]: {
     height: "420px",
     width: "100%",
@@ -79,13 +80,41 @@ const BoxText = styled("div")(({ theme }) => ({
 }));
 
 const BoxMovie = styled("div")(({ theme }) => ({
+  padding: 0,
   video: {
-    minWidth: "100%",
+    overflowX: "hidden",
+    padding: 0,
+    width: "100%",
   },
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.up("xs")]: {
+    zIndex: "-1",
+    position: "absolute",
+    left: 0,
+    top: 0,
+    opacity: "0.1",
+    video: {
+      padding: 0,
+      margin: 0,
+      width: "100%",
+      overflowX: "hidden",
+    },
+  },
+  [theme.breakpoints.up("sm")]: {
+    zIndex: "-1",
+    position: "absolute",
+    left: 0,
+    top: 0,
+    opacity: "0.5",
+  },
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    zIndex: "-1",
+    position: "absolute",
+    right: 0,
+    bottom: 0,
+    top: 0,
+    opacity: "0.1",
+  },
   [theme.breakpoints.up("lg")]: {
     zIndex: "-1",
     position: "absolute",
@@ -112,7 +141,7 @@ function Hero() {
         }}
       >
         <BoxMovie>
-          <video autoPlay loop muted id="myVideoHome">
+          <video autoPlay loop muted id="myVideoHome" width={"100%"}>
             <source src={myVideo} type="video/mp4 " />
           </video>
         </BoxMovie>
