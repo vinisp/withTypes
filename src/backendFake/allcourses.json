@@ -6,7 +6,39 @@
         "price": 1,
         "description": "Descrição resumida do item",
         "image" : "https://images.unsplash.com/photo-1470208564179-dd5b52a0d010?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1562&q=80",
-        "amount": 1
+        "amount": 1,
+        "courseAbout": "Resume about course",
+        "modules": [{
+            "moduleTitle": "Module 1",
+            "subTitle": "subTitleModule",
+            "moduleResume": "resume about module content",
+            "videos": ["url1","url2","url3"],
+            "paragraphs": "<p> This is module Paragrafh </p>"
+        },
+        {
+            "moduleTitle": "Module 2",
+            "subTitle": "subTitleModule",
+            "moduleResume": "resume about module content",
+            "videos": ["url1","url2","url3"],
+            "paragraphs": "<p> This is module Paragrafh </p>"
+
+        },
+        {
+            "moduleTitle": "Module 3",
+            "subTitle": "subTitleModule",
+            "moduleResume": "resume about module content",
+            "videos": ["url1","url2","url3"],
+            "paragraphs": "<p> This is module Paragrafh </p>"
+
+        },
+        {
+            "moduleTitle": "Module 4",
+            "subTitle": "subTitleModule",
+            "moduleResume": "resume about module content",
+            "videos": ["url1","url2","url3"],
+            "paragraphs": "<p> This is module Paragrafh </p>"
+
+        }]
     },
     {
         "id": 2,
