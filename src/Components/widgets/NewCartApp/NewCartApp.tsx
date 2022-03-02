@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { CartContext } from "./CartContext";
 
-import { Drawer, Badge } from "@mui/material";
+import { Drawer, Badge, Button } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Item from "./Item/Item";
 import Cart from "./Cart/Cart";
@@ -81,9 +81,10 @@ const CategoriesWrapper = styled("div")(({ theme }) => ({
 
 const CategoryCard = styled("div")(({ theme }) => ({
   display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "center",
-  border: "solid 2px black",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "space-around",
+  border: "solid 1px silver",
 
   [theme.breakpoints.down("xs")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -91,7 +92,6 @@ const CategoryCard = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {
     flex: "0 0 15%",
-    background: "green",
   },
 }));
 
@@ -143,8 +143,9 @@ export const CartNav = () => {
 
   let myCartItems = useContext(CartContext);
 
-  const getTotalItems = (items: CartItemType[]) =>
-    items.reduce((acc, item) => acc + item.amount, 0);
+  function getTotalItems(items: CartItemType[]): number {
+    return items.reduce((acc, item) => acc + item.amount, 0);
+  }
 
   function checkActualCart() {
     cartItems.length === 0
@@ -202,6 +203,7 @@ export const CartNav = () => {
 
 export const MyStore = () => {
   const [cartItems, setCartItems] = useState([] as CartItemType[]);
+  const [listCourses, setListCourses] = useState([] as CartItemType[]);
 
   let myCartItems = useContext(CartContext);
 
@@ -244,6 +246,11 @@ export const MyStore = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems.length]);
 
+  function FilterByTipe(type: any) {
+    const coursesByType = data.filter((e) => e.category === type);
+    return setListCourses(coursesByType);
+  }
+
   return (
     <CourseWrapperMain>
       <div>
@@ -256,16 +263,27 @@ export const MyStore = () => {
         </div>
         <CategoriesWrapper>
           {ListCategorys.map((e) => (
-            <CategoryCard> {e} </CategoryCard>
+            <>
+              <CategoryCard>
+                {e}
+                <Button onClick={() => FilterByTipe(e)}>Clica Aqui </Button>
+              </CategoryCard>
+            </>
           ))}
         </CategoriesWrapper>
       </CategoriesMainWrapper>
       <CoursesGrid>
-        {data?.map((item) => (
-          <CourseBox key={item.id}>
-            <Item item={item} handleAddToCart={handleAddToCart}></Item>
-          </CourseBox>
-        ))}
+        {listCourses.length > 0
+          ? listCourses.map((item) => (
+              <CourseBox key={item.id}>
+                <Item item={item} handleAddToCart={handleAddToCart}></Item>
+              </CourseBox>
+            ))
+          : data?.map((item) => (
+              <CourseBox key={item.id}>
+                <Item item={item} handleAddToCart={handleAddToCart}></Item>
+              </CourseBox>
+            ))}
       </CoursesGrid>
     </CourseWrapperMain>
   );
