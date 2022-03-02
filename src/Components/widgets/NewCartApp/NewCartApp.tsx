@@ -20,21 +20,78 @@ export type CartItemType = {
   amount: number;
 };
 const CourseWrapperMain = styled("div")(({ theme }) => ({
-  padding: theme.spacing(1),
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
   alignItems: "center",
   background: "#f2f2f2",
-  border: "solid 2px black",
+  padding: "40px 0",
+
   [theme.breakpoints.down("sm")]: {
     display: "flex",
   },
   [theme.breakpoints.up("sm")]: {},
 
   [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const CategoriesMainWrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexWrap: "wrap",
+  flexDirection: "column",
+  alignItems: "center",
+  borderBottom: "solid 3px silver",
+  [theme.breakpoints.down("xs")]: {
+    width: "100%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "100%",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    width: "60%",
+  },
   [theme.breakpoints.up("lg")]: {
-    flex: "0 0 35%",
+    width: "80%",
+    height: "300px",
+  },
+}));
+
+const CategoriesWrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "center",
+
+  gap: "20px",
+  [theme.breakpoints.down("xs")]: {
+    width: "100%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "100%",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    width: "60%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "100%",
+    flex: "0 0 65%",
+  },
+}));
+
+const CategoryCard = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "center",
+  border: "solid 2px black",
+
+  [theme.breakpoints.down("xs")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    flex: "0 0 15%",
+    background: "green",
   },
 }));
 
@@ -76,6 +133,9 @@ const CourseBox = styled("div")(({ theme }) => ({
     flex: "0 0 35%",
   },
 }));
+
+const Categories = new Set<string>(data.map((e) => e.category));
+const ListCategorys = Array.from(Categories);
 
 export const CartNav = () => {
   const [cartOpen, setCartOpen] = useState(false);
@@ -187,8 +247,19 @@ export const MyStore = () => {
   return (
     <CourseWrapperMain>
       <div>
-        <h2>Loja</h2>
+        <h2>TAGLINE PARA DESCREVER A LOJA</h2>
       </div>
+      <CategoriesMainWrapper>
+        <div>
+          <h3>Categorias</h3>
+          <p>Explicação sobre as categorias</p>
+        </div>
+        <CategoriesWrapper>
+          {ListCategorys.map((e) => (
+            <CategoryCard> {e} </CategoryCard>
+          ))}
+        </CategoriesWrapper>
+      </CategoriesMainWrapper>
       <CoursesGrid>
         {data?.map((item) => (
           <CourseBox key={item.id}>
