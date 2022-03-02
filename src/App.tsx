@@ -2,9 +2,7 @@
 
 //Test Pages
 
-// import { CartApp } from "./Components/widgets/Cart/CartApp";
-import { CheckoutPage } from "./Components/widgets/NewCartApp/Checkout";
-import { MyStore } from "./Components/widgets/NewCartApp/NewCartApp";
+import { CourseDetail } from "./Pages/CourseDetail";
 
 //Default Pages
 
@@ -12,6 +10,8 @@ import Home from "./Pages/Home";
 import Nav from "./Components/widgets/Nav";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
+import { CheckoutPage } from "./Components/widgets/NewCartApp/Checkout";
+import { MyStore } from "./Components/widgets/NewCartApp/NewCartApp";
 
 import { PageNotFound } from "./Pages/PageNotFound";
 
@@ -79,9 +79,11 @@ function App() {
               <Route exact path="/cart" component={CartPage} />
 
               <Route exact path="/mycourses" component={MyCoursesPage} />
-              {/* <Route exact path="/store" component={CartApp} /> */}
+
               <Route exact path="/checkout" component={CheckoutPage} />
+
               <Route exact path="/store" component={MyStore} />
+              <Route exact path="/course/:idCourse" component={CourseDetail} />
               <Route path="*" component={PageNotFound} />
             </Switch>
           </CartContextItemsProvider>

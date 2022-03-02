@@ -56,7 +56,7 @@ const Item: React.FC<Props> = ({ item, handleAddToCart }) => (
           >
             PROMOVER ESSE PRODUTO
           </Button>
-          <Link to={`/couser/` + item.id}>Ver Detalhes</Link>
+          <Link to={`/course/` + item.id}>Ver Detalhes</Link>
         </div>
       </ContentWrapper>
     </Paper>
