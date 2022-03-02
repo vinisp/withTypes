@@ -28,10 +28,28 @@ const ContentArea = styled("div")(({ theme }) => ({
   "&:hover": {
     border: "solid 2px silver",
   },
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.up("xs")]: {
+    img: {
+      height: "200px",
+      width: "280px",
+      padding: "5px",
+    },
+  },
+  [theme.breakpoints.up("sm")]: {
+    img: {
+      height: "200px",
+      width: "280px",
+      padding: "5px",
+    },
+  },
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    img: {
+      height: "200px",
+      width: "280px",
+      padding: "5px",
+    },
+  },
   [theme.breakpoints.up("lg")]: {
     img: {
       height: "200px",
