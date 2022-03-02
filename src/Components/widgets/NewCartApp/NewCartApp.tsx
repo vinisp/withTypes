@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { CartContext } from "./CartContext";
 
-import { Drawer, Badge, Button } from "@mui/material";
+import { Drawer, Badge, Button, Typography } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Item from "./Item/Item";
 import Cart from "./Cart/Cart";
@@ -37,10 +37,11 @@ const CourseWrapperMain = styled("div")(({ theme }) => ({
 
 const CategoriesMainWrapper = styled("div")(({ theme }) => ({
   display: "flex",
-  flexWrap: "wrap",
+
   flexDirection: "column",
   alignItems: "center",
   borderBottom: "solid 3px silver",
+  gap: "15px",
   [theme.breakpoints.down("xs")]: {
     width: "100%",
   },
@@ -53,7 +54,7 @@ const CategoriesMainWrapper = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     width: "80%",
-    height: "300px",
+    height: "420px",
   },
 }));
 
@@ -253,13 +254,16 @@ export const MyStore = () => {
 
   return (
     <CourseWrapperMain>
-      <div>
-        <h2>TAGLINE PARA DESCREVER A LOJA</h2>
-      </div>
       <CategoriesMainWrapper>
         <div>
-          <h3>Categorias</h3>
-          <p>Explicação sobre as categorias</p>
+          <Typography variant="h3">TAGLINE PARA DESCREVER A LOJA</Typography>
+
+          <Typography variant="h4" textAlign={"center"}>
+            Categorias
+          </Typography>
+          <Typography variant="subtitle1" textAlign={"center"}>
+            Explicação sobre as categorias
+          </Typography>
         </div>
         <CategoriesWrapper>
           {ListCategorys.map((e) => (

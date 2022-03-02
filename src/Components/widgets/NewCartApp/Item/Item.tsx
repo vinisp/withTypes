@@ -22,6 +22,12 @@ const ContentWrapper = styled("div")(({ theme }) => ({
 }));
 
 const ContentArea = styled("div")(({ theme }) => ({
+  border: "solid 2px transparent",
+  borderRadius: "4px",
+  transition: "all 350ms ease",
+  "&:hover": {
+    border: "solid 2px silver",
+  },
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
@@ -32,8 +38,19 @@ const ContentArea = styled("div")(({ theme }) => ({
       width: "280px",
       padding: "5px",
     },
-    height: "420px",
+    height: "460px",
   },
+}));
+
+const ButtonsWrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "15px",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
 }));
 
 const Item: React.FC<Props> = ({ item, handleAddToCart }) => (
@@ -48,15 +65,19 @@ const Item: React.FC<Props> = ({ item, handleAddToCart }) => (
             <p>{item.description}</p>
             <h4>${item.price}</h4>
           </div>
-          <Button
-            color="primary"
-            variant="contained"
-            disableElevation
-            onClick={() => handleAddToCart(item)}
-          >
-            PROMOVER ESSE PRODUTO
-          </Button>
-          <Link to={`/course/` + item.id}>Ver Detalhes</Link>
+          <ButtonsWrapper>
+            <Button
+              color="primary"
+              variant="contained"
+              disableElevation
+              onClick={() => handleAddToCart(item)}
+            >
+              PROMOVER ESSE PRODUTO
+            </Button>
+            <Button variant="outlined">
+              <Link to={`/course/` + item.id}>Ver Detalhes</Link>{" "}
+            </Button>
+          </ButtonsWrapper>
         </div>
       </ContentWrapper>
     </Paper>
