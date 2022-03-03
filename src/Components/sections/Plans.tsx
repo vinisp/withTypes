@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 const MainBox = styled("div")(({ theme }) => ({
-  background: "#1f270a",
+  background: "#1e1e1e",
 
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -29,21 +29,21 @@ function PlanosSection() {
         >
           <Plan
             courseName="Básico"
-            price="199,00"
+            price="R$ 199,00"
             featurePri="Primeiro Recurso"
             featureSec="Segundo Recurso"
             featureTh="Terceiro Recurso"
           />
           <Plan
             courseName="Profissional"
-            price="220,00"
+            price="R$ 220,00"
             featurePri="Primeiro Recurso"
             featureSec="Segundo Recurso"
             featureTh="Terceiro Recurso"
           />
           <Plan
             courseName="Avançado"
-            price="399,00"
+            price="R$ 399,00"
             featurePri="Primeiro Recurso"
             featureSec="Segundo Recurso"
             featureTh="Terceiro Recurso"
