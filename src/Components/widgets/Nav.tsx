@@ -82,8 +82,37 @@ const MenuMobile = styled("div")(({ theme }) => ({
   },
 }));
 
-const MenuDesktop = styled("div")(({ theme }) => ({
-  padding: theme.spacing(1),
+const LogoBox = styled("div")(({ theme }) => ({
+  margin: "0 165px",
+}));
+
+const MenuDesktop = styled("nav")(({ theme }) => ({
+  background: "rgba(242, 242, 242, 0.123)",
+  color: "white",
+  position: "fixed",
+  width: "100%",
+  padding: "15px",
+  ul: {
+    margin: "0 35px",
+    padding: 0,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "25px",
+  },
+  li: {
+    color: "white",
+    listStyle: "none",
+    textTransform: "uppercase",
+    transition: "350ms all ease",
+    paddingBottom: "2px",
+    borderBottom: "solid 2px transparent",
+
+    "&:hover": {
+      color: "lightBlue",
+      borderBottom: "solid 2px black",
+    },
+  },
   [theme.breakpoints.down("sm")]: {
     display: "None",
   },
@@ -97,7 +126,8 @@ const MenuDesktop = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 }));
 
@@ -146,26 +176,28 @@ function Nav() {
         </ThemeProvider>
       </MenuMobile>
       <MenuDesktop>
-        <ButtonGroup>
+        <LogoBox>Logo</LogoBox>
+        <ul>
           {user ? (
             <>
-              <Button>
+              <li>
                 <Link to="/">Home</Link>
-              </Button>
-              <Button>
+              </li>
+              <li>
                 <Link to="/store">Loja</Link>
-              </Button>
-              <Button>
+              </li>
+              <li>
                 <Link to="/memberhome">Corridas</Link>
-              </Button>
-              <Button>
+              </li>
+              <li>
                 <CartNav />
-              </Button>
-              <Button>
+              </li>
+              <li>
                 <Link to="/profile">Perfil</Link>
-              </Button>
-
-              <Button onClick={LogOut}>Logout</Button>
+              </li>
+              <li>
+                <Button onClick={LogOut}>Logout</Button>
+              </li>
             </>
           ) : (
             <>
@@ -186,7 +218,7 @@ function Nav() {
               </Button>
             </>
           )}
-        </ButtonGroup>
+        </ul>
       </MenuDesktop>
     </>
   );
