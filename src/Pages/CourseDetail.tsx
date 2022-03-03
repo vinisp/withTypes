@@ -19,6 +19,7 @@ const TitleSection = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {
     img: {
       width: "450px",
+      height: "300px",
     },
   },
 }));
