@@ -85,12 +85,24 @@ const LogoBox = styled("div")(({ theme }) => ({
   margin: "0 165px",
 }));
 
+const StyledButton = styled("button")(({ theme }) => ({
+  border: "0",
+  background: "0",
+  color: "#0e0e0e",
+  fontWeight: "600",
+  fontSize: "14px",
+  textTransform: "uppercase",
+  cursor: "pointer",
+}));
+
 const MenuDesktop = styled("nav")(({ theme }) => ({
-  background: "rgba(242, 242, 242, 0.123)",
+  background: "#97C930",
+  boxShadow: "0 2px 10px 2px rgba(0, 0, 0, 0.2)",
   color: "white",
   position: "fixed",
   width: "100%",
-  padding: "15px",
+  padding: "2px",
+  zIndex: "9999",
   ul: {
     margin: "0 35px",
     padding: 0,
@@ -100,7 +112,9 @@ const MenuDesktop = styled("nav")(({ theme }) => ({
     gap: "25px",
   },
   li: {
-    color: "white",
+    color: "#0e0e0e",
+    fontWeight: "600",
+    fontSize: "14px",
     listStyle: "none",
     textTransform: "uppercase",
     transition: "350ms all ease",
@@ -108,7 +122,7 @@ const MenuDesktop = styled("nav")(({ theme }) => ({
     borderBottom: "solid 2px transparent",
 
     "&:hover": {
-      color: "lightBlue",
+      color: "#0e0e0e",
       borderBottom: "solid 2px black",
     },
   },
@@ -183,10 +197,10 @@ function Nav() {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/store">Loja</Link>
+                <Link to="/memberhome">Corridas</Link>
               </li>
               <li>
-                <Link to="/memberhome">Corridas</Link>
+                <Link to="/store">Loja</Link>
               </li>
               <li>
                 <CartNav />
@@ -195,7 +209,7 @@ function Nav() {
                 <Link to="/profile">Perfil</Link>
               </li>
               <li>
-                <Button onClick={LogOut}>Logout</Button>
+                <StyledButton onClick={LogOut}>Logout</StyledButton>
               </li>
             </>
           ) : (
