@@ -1,12 +1,7 @@
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import { Typography, Button } from "@mui/material";
+import { Typography, Button, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 const CardSizes = styled("div")(({ theme }) => ({
-  padding: theme.spacing(1),
-
   [theme.breakpoints.down("sm")]: {
     height: "450px",
     width: "95%",
@@ -21,39 +16,101 @@ const CardSizes = styled("div")(({ theme }) => ({
     width: "30%",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "650px",
-    width: "20%",
+    height: "450px",
+    width: "18%",
   },
 }));
 
+const Card = styled("div")(({ theme }) => ({
+  borderRadius: "8px",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    backgroundColor: "#f2f2f2",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "25px",
+  },
+}));
+
+const PlansList = styled("ul")(({ theme }) => ({
+  padding: 0,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: 9,
+
+  width: "100%",
+
+  li: {
+    width: "60%",
+    listStyle: "none",
+    paddingBottom: "20px",
+
+    borderBottom: "solid 2px silver",
+    display: "flex",
+    justifyContent: "center",
+    "&:nth-child(1)": {
+      paddingTop: "20px",
+      borderTop: "solid 2px silver",
+    },
+  },
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
 interface Content {
-  number: string;
-  name: string;
-  stats: string;
+  courseName: string;
+  price?: string;
+  featurePri?: string;
+  featureSec?: string;
+  featureTh?: string;
 }
 
 function Plan(content: Content) {
   return (
     <>
       <CardSizes>
-        <Card
+        <Paper
+          elevation={3}
           sx={{
-            backgroundColor: "#c7def1",
             height: "100%",
+            border: "solid 2px silver",
             borderRadius: "8px",
           }}
         >
-          <CardContent sx={{ background: "#001d35", height: "10%" }}>
-            <Typography sx={{ fontSize: "2rem", color: "white" }}>
-              {content.number}
+          <Card>
+            <Typography
+              sx={{ fontSize: "2rem", color: "#001d35" }}
+              textAlign={"center"}
+            >
+              {content.courseName}
             </Typography>
-          </CardContent>
-          <CardActions sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography>{content.name}</Typography>
-            <Typography>{content.stats}</Typography>
+
+            <Typography
+              sx={{ fontSize: "2rem", color: "#001d35" }}
+              textAlign={"center"}
+            >
+              {content.price}
+            </Typography>
+
+            <PlansList>
+              <li>{content.featurePri}</li>
+              <li>{content.featureSec}</li>
+              <li>{content.featureTh}</li>
+            </PlansList>
+
             <Button size="small">Saiba mais</Button>
-          </CardActions>
-        </Card>
+          </Card>
+        </Paper>
       </CardSizes>
     </>
   );
