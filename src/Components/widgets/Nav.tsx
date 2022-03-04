@@ -214,21 +214,21 @@ function Nav() {
             </>
           ) : (
             <>
-              <Button>
+              <li>
                 <Link to="/">Home</Link>
-              </Button>
-              <Button>
+              </li>
+              <li>
                 <Link to="/store">Loja</Link>
-              </Button>
-              <Button>
+              </li>
+              <li>
                 <CartNav />
-              </Button>
-              <Button>
+              </li>
+              <li>
                 <Link to="login">Login</Link>
-              </Button>
-              <Button>
+              </li>
+              <li>
                 <Link to="/register">Cadastrar</Link>
-              </Button>
+              </li>
             </>
           )}
         </ul>
