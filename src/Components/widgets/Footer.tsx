@@ -5,6 +5,8 @@ const FooterStyled = styled("footer")(({ theme }) => ({
   padding: 0,
   margin: 0,
   height: 80,
+
+  width: "100%",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
