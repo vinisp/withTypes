@@ -50,13 +50,12 @@ const PlansList = styled("ul")(({ theme }) => ({
   li: {
     width: "60%",
     listStyle: "none",
-    paddingBottom: "20px",
+    padding: "15px 0",
 
     borderBottom: "solid 2px silver",
     display: "flex",
     justifyContent: "center",
     "&:nth-child(1)": {
-      paddingTop: "20px",
       borderTop: "solid 2px silver",
     },
   },
@@ -108,7 +107,9 @@ function Plan(content: Content) {
               <li>{content.featureTh}</li>
             </PlansList>
 
-            <Button size="small">Saiba mais</Button>
+            <Button variant="outlined" sx={{ width: "200px" }} color="success">
+              Saiba mais
+            </Button>
           </Card>
         </Paper>
       </CardSizes>
