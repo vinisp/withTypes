@@ -6,8 +6,6 @@ import { Link } from "react-router-dom";
 
 import { motion } from "framer-motion";
 
-import myVideo from "./assets/Home.mp4";
-
 const theme = createTheme({
   typography: {
     fontFamily: "Open Sans, sans-serif",
@@ -59,7 +57,13 @@ const theme = createTheme({
 
 const BoxText = styled("div")(({ theme }) => ({
   padding: 0,
-  margin: 0,
+  marginTop: 65,
+
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  justifyContent: "center",
+  color: "white",
   [theme.breakpoints.down("sm")]: {
     height: "420px",
     width: "100%",
@@ -75,55 +79,31 @@ const BoxText = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     height: "600px",
-    width: "60%",
+    width: "100%",
   },
 }));
 
-const BoxMovie = styled("div")(({ theme }) => ({
-  padding: 0,
-  video: {
-    overflowX: "hidden",
-    padding: 0,
+const BoxTitle = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  [theme.breakpoints.down("sm")]: {
+    height: "420px",
     width: "100%",
   },
-  [theme.breakpoints.up("xs")]: {
-    zIndex: "-1",
-    position: "absolute",
-    left: 0,
-    top: 0,
-    opacity: "0.1",
-    video: {
-      padding: 0,
-      margin: 0,
-      width: "100%",
-      overflowX: "hidden",
-    },
-  },
   [theme.breakpoints.up("sm")]: {
-    zIndex: "-1",
-    position: "absolute",
-    left: 0,
-    top: 0,
-    opacity: "0.5",
+    height: "450px",
+    width: "90%",
   },
 
   [theme.breakpoints.up("md")]: {
-    zIndex: "-1",
-    position: "absolute",
-    right: 0,
-    bottom: 0,
-    top: 0,
-    opacity: "0.1",
+    height: "600px",
+    width: "40%",
   },
   [theme.breakpoints.up("lg")]: {
-    zIndex: "-1",
-    position: "absolute",
-    right: 0,
-    bottom: 0,
-    top: 0,
-    width: "100%",
-    height: "30%",
-    opacity: "0.1",
+    padding: "0px 0px 0px 160px",
+    height: "auto",
+    width: "25%",
+    gap: "20px",
   },
 }));
 
@@ -140,48 +120,32 @@ function Hero() {
           width: "100%",
         }}
       >
-        <BoxMovie>
-          <video autoPlay loop muted id="myVideoHome" width={"100%"}>
-            <source src={myVideo} type="video/mp4 " />
-          </video>
-        </BoxMovie>
-        <BoxText
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "column",
-            color: "white",
-            gap: 5,
-          }}
-        >
+        <BoxText>
           <ThemeProvider theme={theme}>
-            <Typography variant="h1" textAlign={"center"}>
-              TÍTULO COM RESUMO BREVE
-            </Typography>
-            <Typography variant="subtitle1" textAlign={"center"}>
-              Faça um resumo com um texto breve, explicando de forma suscinta
-              como os cursos funcionam e podem ajudar as pessoas a obterem
-              resultados, aqui a venda começa! Faça um resumo com um texto
-              breve, explicando de forma suscinta como os cursos funcionam e
-              podem ajudar as pessoas a obterem resultados, aqui a venda começa!
-              Faça um resumo com um texto breve, explicando de forma suscinta
-              como os cursos funcionam e podem ajudar as pessoas a obterem
-              resultados, aqui a venda começa!
-            </Typography>
-
-            <motion.div
-              drag="x"
-              dragConstraints={{ left: -100, right: 100 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <Link to="/store">
-                <Button size="large" variant="outlined" color="secondary">
-                  Contrate já !
-                </Button>
-              </Link>
-            </motion.div>
+            <BoxTitle>
+              <div>
+                <Typography textAlign={"center"} color={"#97C930"}>
+                  SEJA PROFTEAM
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="h1" textAlign={"left"} color={"#97C930"}>
+                  APOSTAS RENTÁVEIS GALGOS FUTEBOL
+                </Typography>
+              </div>
+              <motion.div whileHover={{ scale: 1 }} whileTap={{ scale: 0.9 }}>
+                <Link to="/store">
+                  <Button
+                    size="large"
+                    variant="outlined"
+                    color="success"
+                    sx={{ width: "300px" }}
+                  >
+                    Contrate já !
+                  </Button>
+                </Link>
+              </motion.div>
+            </BoxTitle>
           </ThemeProvider>
         </BoxText>
       </Box>

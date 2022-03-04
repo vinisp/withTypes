@@ -1,10 +1,10 @@
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import { Typography, Button } from "@mui/material";
+import { Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 const CardSizes = styled("div")(({ theme }) => ({
+  color: "white",
   padding: theme.spacing(1),
   [theme.breakpoints.down("sm")]: {
     height: "200px",
@@ -26,24 +26,23 @@ const CardSizes = styled("div")(({ theme }) => ({
 }));
 
 interface Content {
-    number: string
-    name: string
-    stats: string
+  number: string;
+  name: string;
+  stats: string;
 }
 
 function CardCustom(content: Content) {
   return (
     <>
       <CardSizes>
-        <Card sx={{ backgroundColor: "#dcdcdc" }}>
-          <CardContent>
+        <Card
+          sx={{ backgroundColor: "transparent", border: "solid 1px green" }}
+        >
+          <CardContent sx={{ color: "white", textAlign: "center" }}>
             <Typography>{content.number}</Typography>
             <Typography>{content.name}</Typography>
             <Typography>{content.stats}</Typography>
           </CardContent>
-          <CardActions>
-            <Button size="small">Saiba mais</Button>
-          </CardActions>
         </Card>
       </CardSizes>
     </>

@@ -13,10 +13,10 @@ function ResultSection() {
           marginTop: "80px",
         }}
       >
-        <CardCustom number="+10 milions" name="users" stats="active" />
-        <CardCustom number="+60 milions" name="dolar's" stats="gain" />
-        <CardCustom number="+60 milions" name="dolar's" stats="gain" />
-        <CardCustom number="+60 milions" name="dolar's" stats="gain" />
+        <CardCustom number="+10 milions" name="SOLUÇÃO 1" stats="INFORMAÇÕES" />
+        <CardCustom number="+60 milions" name="SOLUÇÃO 2" stats="INFORMAÇÕES" />
+        <CardCustom number="+60 milions" name="SOLUÇÃO 3" stats="INFORMAÇÕES" />
+        <CardCustom number="+60 milions" name="SOLUÇÃO 4" stats="INFORMAÇÕES" />
       </Box>
     </>
   );

@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import { Typography, Box, Card } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
@@ -82,72 +84,6 @@ const CardResponsiveRaces = styled("div")(({ theme }) => ({
   },
 }));
 
-//MOCK RACES DATA
-
-// const racesOld = [
-//   {
-//     trackID: "1",
-//     tracks: [
-//       {
-//         raceID: "1",
-//         country: "Australia",
-//         trackName: "Sidney",
-//         date: "15-02-22",
-//         hour: "3PM",
-//         dogs: [
-//           {
-//             dogName: "Jack Black",
-//             dogInfos: "...",
-//           },
-//           {
-//             dogName: "Jack Black",
-//             dogInfos: "...",
-//           },
-//         ],
-//       },
-//       {
-//         raceID: "2",
-//         country: "Australia",
-//         trackName: "Melbourne",
-//         date: "15-02-22",
-//         hour: "3PM",
-//         dogs: [
-//           {
-//             dogName: "Jack Black",
-//             dogInfos: "...",
-//           },
-//           {
-//             dogName: "Jack Black",
-//             dogInfos: "...",
-//           },
-//         ],
-//       },
-//     ],
-//   },
-//   {
-//     trackID: "2",
-//     tracks: [
-//       {
-//         raceID: "3",
-//         country: "EUA",
-//         trackName: "California",
-//         date: "15-02-22",
-//         hour: "4PM",
-//         dogs: [
-//           {
-//             dogName: "Jack Black",
-//             dogInfos: "...",
-//           },
-//           {
-//             dogName: "Jack Black",
-//             dogInfos: "...",
-//           },
-//         ],
-//       },
-//     ],
-//   },
-// ];
-
 const races = data.map((e) => [
   {
     trackName: e.trackName,
@@ -158,26 +94,10 @@ const races = data.map((e) => [
   },
 ]);
 
-// const filtersByCountry = (raceCon: string) => {
-//   const filterRaces = races.map((e) =>
-//     e.tracks?.filter((e) => e.country === raceCon)
-//   );
-//   return filterRaces.filter((e) => e.length > 0);
-// };
-
-// const NextRaces = () =>
-//   races.map((e) =>
-//     e.tracks?.map((e) => (
-//       <h2>
-//         {e.trackName} - {e.hour} - {e.date} - {e.country} -
-//       </h2>
-//     ))
-//   );
-
 const NextRaces = () =>
   races.map((e) =>
     e.map((e) => (
-      <h2>
+      <h2 key={e.raceId}>
         {e.trackName} - {e.raceTitle} - {e.distance} - {e.raceDate}
         <Button>
           <Link to={"/race/" + e.raceId}>Ver Detalhes</Link>
@@ -189,43 +109,42 @@ const NextRaces = () =>
 function MemberAreaHome() {
   const { user } = useAuth();
 
-  // const [racesBy, setRacesby] = useState([
-  //   {
-  //     raceID: "",
-  //     country: "",
-  //     trackName: "",
-  //   },
-  // ]);
-
-  // function cardContent(country: string, link: string) {
-  //   // const myCountry = filtersByCountry(country);
-  //   // const countryFlat = myCountry.flat();
-
-  //   return (
-  //     <>
-  //       <Button
-  //         onClick={() => {
-  //           racesBy.splice(1, racesBy.length);
-  //           countryFlat.map((e) =>
-  //             setRacesby((racesBy) => [
-  //               ...racesBy,
-  //               {
-  //                 raceID: e.raceID,
-  //                 country: e.country,
-  //                 trackName: e.trackName,
-  //               },
-  //             ])
-  //           );
-  //         }}
-  //       >
-  //         {country}
-  //       </Button>
-  //     </>
-  //   );
-  // }
   if (!user) {
     return <Redirect to="/login" />;
   }
+
+  function registerUserInDatabse(firebaseID: any, email: any) {
+    return axios.post("http://localhost:3001/users/", {
+      idfirebase: firebaseID,
+      email: email,
+    });
+  }
+
+  async function findUserByID() {
+    try {
+      const userID = await user;
+      const response = await axios.get(
+        `http://localhost:3001/findUser/${userID?.id}`
+      );
+      return response.data.status;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function sendUserData() {
+    try {
+      const userID = await user;
+      const result = await findUserByID();
+      result === true
+        ? console.log("achamos o usuário")
+        : registerUserInDatabse(userID?.id, userID?.email);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  sendUserData();
 
   return (
     <>
@@ -252,38 +171,6 @@ function MemberAreaHome() {
             </CardResponsive>
           </ResponsiveCards>
           <Box sx={{ flexGrow: 1 }}>
-            {/* {racesBy.length > 1 ? (
-              <ResponsiveCards>
-                <CardResponsiveRaces>
-                  <Card
-                    sx={{ height: "100%", width: "100%" }}
-                    variant="elevation"
-                  >
-                    <Typography
-                      sx={{ background: "green", color: "white", padding: 1 }}
-                      variant={"h4"}
-                    >
-                      Próximas Corridas
-                    </Typography>
-                    <div className="rulesTab">
-                      {racesBy.map((e) => (
-                        <Button>
-                          <Typography
-                            sx={{
-                              borderBottom: "solid 1px silver",
-                              width: "100%",
-                              textAlign: "left",
-                            }}
-                          >
-                            {e.country} - {e.trackName}{" "}
-                          </Typography>
-                        </Button>
-                      ))}
-                    </div>
-                  </Card>
-                </CardResponsiveRaces>
-              </ResponsiveCards>
-            ) : ( */}
             <ResponsiveCards>
               <CardResponsiveRaces>
                 <Card
@@ -300,7 +187,6 @@ function MemberAreaHome() {
                 </Card>
               </CardResponsiveRaces>
             </ResponsiveCards>
-            {/* )} */}
           </Box>
         </>
       </Box>

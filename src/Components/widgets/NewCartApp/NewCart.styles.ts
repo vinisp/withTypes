@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
 `;
 
 export const StyledButton = styled(StorefrontIcon)`
-  color: black;
+  color: #97C930;
   background: transparent;
   margin: 0;
   padding: 0; 

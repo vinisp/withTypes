@@ -96,7 +96,7 @@ const StyledButton = styled("button")(({ theme }) => ({
 }));
 
 const MenuDesktop = styled("nav")(({ theme }) => ({
-  background: "#97C930",
+  background: "#0e0e0e",
   boxShadow: "0 2px 10px 2px rgba(0, 0, 0, 0.2)",
   color: "white",
   position: "fixed",
@@ -112,7 +112,7 @@ const MenuDesktop = styled("nav")(({ theme }) => ({
     gap: "25px",
   },
   li: {
-    color: "#0e0e0e",
+    color: "#97C930",
     fontWeight: "600",
     fontSize: "14px",
     listStyle: "none",
