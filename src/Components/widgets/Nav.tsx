@@ -88,7 +88,7 @@ const LogoBox = styled("div")(({ theme }) => ({
 const StyledButton = styled("button")(({ theme }) => ({
   border: "0",
   background: "0",
-  color: "#0e0e0e",
+  color: "#97C930",
   fontWeight: "600",
   fontSize: "14px",
   textTransform: "uppercase",
