@@ -3,6 +3,7 @@ import data from "../backendFake/allcourses.json";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import {
   Typography,
+  Button,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -55,6 +56,10 @@ const theme = createTheme({
         fontSize: 64,
       },
     },
+    h4: {
+      fontSize: 42,
+    },
+
     h5: {
       fontSize: 18,
       marginBottom: 12,
@@ -204,10 +209,89 @@ const TechDetailsBox = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {
+    paddingTop: "25px",
     gridColumn: "8/11",
-    gridRow: "3/ 20",
+    gridRow: "3/10",
 
     width: "100%",
+    img: {
+      width: "350px",
+      borderRadius: "8px",
+    },
+  },
+}));
+
+const MicoInfoBox = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexWrap: "wrap",
+  alignItems: "center",
+  justifyContent: "space-between",
+  width: "80%",
+  padding: "10px 10px",
+  margin: "0 0px",
+  borderBottom: "solid silver 1px",
+
+  [theme.breakpoints.down("sm")]: {
+    display: "flex",
+  },
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    button: {
+      width: "50%",
+    },
+  },
+}));
+
+const MicoInfoBoxColumn = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  width: "80%",
+  padding: "10px 10px",
+  margin: "0 0px",
+  borderBottom: "solid silver 1px",
+
+  [theme.breakpoints.down("sm")]: {
+    display: "flex",
+  },
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    button: {
+      width: "50%",
+    },
+  },
+  ul: {
+    listStyle: "none",
+    padding: 0,
+  },
+}));
+
+const MicoInfoBoxBGCOLOR = styled("div")(({ theme }) => ({
+  background: "#0e0e0e",
+  display: "flex",
+  flexWrap: "wrap",
+  alignItems: "center",
+  justifyContent: "space-between",
+  width: "80%",
+  padding: "10px 10px",
+  margin: "0 0px",
+  borderBottom: "solid silver 1px",
+  borderRadius: "8px",
+  color: "white",
+
+  [theme.breakpoints.down("sm")]: {
+    display: "flex",
+  },
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    button: {
+      width: "50%",
+    },
   },
 }));
 
@@ -318,11 +402,28 @@ export function CourseDetail() {
                 </ModulesBox>
               </FlexContainer>
               <TechDetailsBox>
-                <div>Details Tech</div>
-                <div>Details Tech</div>
-                <div>Details Tech</div>
-                <div>Details Tech</div>
-                <div>Details Tech</div>
+                <img src={e.image} alt={e.title} />
+                <MicoInfoBox>
+                  <Typography variant="h4">R$ {e.price},00</Typography>
+                  <Button variant="outlined" color="success">
+                    Compre Agora
+                  </Button>
+                </MicoInfoBox>
+                <MicoInfoBoxBGCOLOR>
+                  50% de desconto na próxima compra
+                </MicoInfoBoxBGCOLOR>
+                <Button>100% do dinheiro garantido</Button>
+                <MicoInfoBoxColumn>
+                  <Typography>
+                    <strong> Incluso </strong>
+                  </Typography>
+                  <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                    <li>Item 4</li>
+                  </ul>
+                </MicoInfoBoxColumn>
               </TechDetailsBox>
             </Container>
           </ThemeProvider>
