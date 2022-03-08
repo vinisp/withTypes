@@ -25,7 +25,7 @@ const CourseWrapperMain = styled("div")(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   background: "#f2f2f2",
-  padding: "30px 0",
+  padding: "30px 0 0",
 
   [theme.breakpoints.down("sm")]: {
     display: "flex",
