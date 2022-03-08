@@ -30,6 +30,7 @@ const FooterStyled = styled("footer")(({ theme }) => ({
 
 const ContainerFooter = styled("footer")(({ theme }) => ({
   display: "flex",
+  justifyContent: "center",
   gap: "35px",
 
   padding: "20px 0px 15px 35px",
