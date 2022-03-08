@@ -176,8 +176,8 @@ const PriceAndTitleBox = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {
-    padding: "15px 0 35px 0px",
-    flex: "0 0 80%",
+    padding: "0px 0 0x 0px",
+    flex: `0 0 20%`,
   },
 }));
 
