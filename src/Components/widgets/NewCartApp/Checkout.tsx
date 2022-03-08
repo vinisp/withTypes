@@ -150,6 +150,7 @@ const ItemBoxCheckout = styled("div")(({ theme }) => ({
 }));
 
 const SubTitleBox = styled("div")(({ theme }) => ({
+  borderBottom: "solid 2px rgba(211,211,211, 0.6)",
   [theme.breakpoints.down("sm")]: {
     width: "95%",
   },
