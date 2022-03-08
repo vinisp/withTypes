@@ -11,7 +11,16 @@ import { Link } from "react-router-dom";
 import { CartContext } from "./CartContext";
 import { CartItemType } from "./NewCartApp";
 import { Footer } from "../Footer";
-import { Button, Typography } from "@mui/material";
+import {
+  Button,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  Typography,
+  TextField,
+} from "@mui/material";
 import { useAuth } from "../../../hooks/useAuth";
 import { styled } from "@mui/material/styles";
 
@@ -44,10 +53,26 @@ const CheckoutMain = styled("div")(({ theme }) => ({
   },
 }));
 
+const ButtonsWraper = styled("div")(({ theme }) => ({
+  [theme.breakpoints.down("sm")]: {
+    width: "95%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "80%",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    width: "30%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "100%",
+  },
+}));
+
 const CheckoutWrapper = styled("div")(({ theme }) => ({
   gridColumn: "2 / 8",
   gridRow: "2 / 8",
-  padding: "120px 0",
+  padding: "20px 25px",
   background: "#F2F2F2",
   borderRadius: "8px",
   boxShadow: "0 0 10px 2px rgba(0,0,0, 0.2)",
@@ -74,7 +99,9 @@ const CheckoutWrapper = styled("div")(({ theme }) => ({
 const CheckoutBoxLoginInfo = styled("div")(({ theme }) => ({
   gridColumn: "2 / 8",
   gridRow: "1 / 2",
-
+  padding: "0 35px",
+  display: "flex",
+  alignItems: "center",
   background: "#F2F2F2",
   borderRadius: "8px",
   boxShadow: "0 0 10px 2px rgba(0,0,0, 0.2)",
@@ -192,6 +219,20 @@ const TotalValueBox = styled("div")(({ theme }) => ({
   },
 }));
 
+const RowForm3Box = styled("div")(({ theme }) => ({
+  display: "flex",
+  width: "100%",
+
+  gap: "3rem",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    padding: "15px 0 35px 25px",
+  },
+}));
+
 export function CheckoutPage() {
   const { user } = useAuth();
 
@@ -212,10 +253,10 @@ export function CheckoutPage() {
       <CheckoutMain>
         <CheckoutBoxLoginInfo>
           {user ? (
-            true
+            <p>Olá {user.email}, seja bem-vindo!</p>
           ) : (
             <p>
-              Você não está logado !{" "}
+              Você não está logado !
               <Link to="/login">Clique aqui para efetuar o login</Link>
             </p>
           )}
@@ -258,26 +299,56 @@ export function CheckoutPage() {
           <div>
             <h1>DADOS PESSOAIS</h1>
           </div>
-
-          {myCartItems.length
-            ? myCartItems[0].length > 0
-              ? myCartItems[0].map((e: any) => (
-                  <>
-                    <span> {e.title} </span> <span> R$ {e.price} </span>
-                  </>
-                ))
-              : "não temos items"
-            : "sem items no carrinho"}
-
-          {myCartItems.length ? (
-            myCartItems[0].length > 0 ? (
-              <h2> Total : R${calculateTotal(myCartItems[0])},00 </h2>
-            ) : (
-              "não temos items"
-            )
-          ) : (
-            "sem items no carrinho"
-          )}
+          <RowForm3Box>
+            <TextField
+              required
+              id="outlined-required"
+              variant="filled"
+              label="Primeiro Nome"
+              placeholder="Primeiro nome..."
+            />
+            <TextField
+              required
+              id="outlined-required"
+              variant="filled"
+              label="Segundo Nome"
+              placeholder="Segundo nome..."
+            />
+            <TextField
+              required
+              id="outlined-required"
+              variant="filled"
+              label="Telefone"
+              placeholder="Telefone"
+            />
+          </RowForm3Box>
+          <FormControl>
+            <FormLabel id="demo-radio-buttons-group-label">
+              Forma de Pagamento
+            </FormLabel>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue="debito"
+              name="radio-buttons-group"
+            >
+              <FormControlLabel
+                value="debito"
+                control={<Radio />}
+                label="Débito"
+              />
+              <FormControlLabel
+                value="credito"
+                control={<Radio />}
+                label="Crédito"
+              />
+              <FormControlLabel
+                value="boleto"
+                control={<Radio />}
+                label="Boleto"
+              />
+            </RadioGroup>
+          </FormControl>
+          <ButtonsWraper></ButtonsWraper>
           <Button
             onClick={() => {
               myCartItems.length
