@@ -236,6 +236,12 @@ const RowForm3Box = styled("div")(({ theme }) => ({
 export function CheckoutPage() {
   const { user } = useAuth();
 
+  const [value, setValue] = useState("");
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState("Choose wisely");
+
+  console.log(error, helperText);
+
   const calculateTotal = (items: CartItemType[]) =>
     items.reduce((ack: number, item) => ack + item.amount * item.price, 0);
   let myCartItems = useContext(CartContext);
@@ -247,6 +253,27 @@ export function CheckoutPage() {
     total: "",
     PaymentMethod: "",
   });
+
+  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue((event.target as HTMLInputElement).value);
+    setHelperText(" ");
+    setError(false);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (value === "best") {
+      setHelperText("You got it!");
+      setError(false);
+    } else if (value === "worst") {
+      setHelperText("Sorry, wrong answer!");
+      setError(true);
+    } else {
+      setHelperText("Please select an option.");
+      setError(true);
+    }
+  };
 
   return (
     <>
@@ -299,55 +326,62 @@ export function CheckoutPage() {
           <div>
             <h1>DADOS PESSOAIS</h1>
           </div>
-          <RowForm3Box>
-            <TextField
-              required
-              id="outlined-required"
-              variant="filled"
-              label="Primeiro Nome"
-              placeholder="Primeiro nome..."
-            />
-            <TextField
-              required
-              id="outlined-required"
-              variant="filled"
-              label="Segundo Nome"
-              placeholder="Segundo nome..."
-            />
-            <TextField
-              required
-              id="outlined-required"
-              variant="filled"
-              label="Telefone"
-              placeholder="Telefone"
-            />
-          </RowForm3Box>
-          <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label">
-              Forma de Pagamento
-            </FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="debito"
-              name="radio-buttons-group"
-            >
-              <FormControlLabel
-                value="debito"
-                control={<Radio />}
-                label="Débito"
-              />
-              <FormControlLabel
-                value="credito"
-                control={<Radio />}
-                label="Crédito"
-              />
-              <FormControlLabel
-                value="boleto"
-                control={<Radio />}
-                label="Boleto"
-              />
-            </RadioGroup>
-          </FormControl>
+          <form onSubmit={handleSubmit}>
+            <FormControl>
+              <RowForm3Box>
+                <TextField
+                  required
+                  id="outlined-required"
+                  variant="filled"
+                  label="Primeiro Nome"
+                  placeholder="Primeiro nome..."
+                />
+                <TextField
+                  required
+                  id="outlined-required"
+                  variant="filled"
+                  label="Segundo Nome"
+                  placeholder="Segundo nome..."
+                />
+                <TextField
+                  required
+                  id="outlined-required"
+                  variant="filled"
+                  label="Telefone"
+                  placeholder="Telefone"
+                />
+              </RowForm3Box>
+              <FormLabel id="demo-radio-buttons-group-label">
+                Forma de Pagamento
+              </FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                defaultValue="debito"
+                name="radio-buttons-group"
+                value={value}
+                onChange={handleRadioChange}
+              >
+                <FormControlLabel
+                  value="debito"
+                  control={<Radio />}
+                  label="Débito"
+                />
+                <FormControlLabel
+                  value="credito"
+                  control={<Radio />}
+                  label="Crédito"
+                />
+                <FormControlLabel
+                  value="boleto"
+                  control={<Radio />}
+                  label="Boleto"
+                />
+              </RadioGroup>
+              <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined">
+                Finalizar Compra
+              </Button>
+            </FormControl>
+          </form>
           <ButtonsWraper></ButtonsWraper>
           <Button
             onClick={() => {
