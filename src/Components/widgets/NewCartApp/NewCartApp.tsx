@@ -7,6 +7,7 @@ import Item from "./Item/Item";
 import Cart from "./Cart/Cart";
 import { Wrapper, StyledButton } from "./NewCart.styles";
 import { styled } from "@mui/material/styles";
+import { Footer } from "../Footer";
 
 import data from "../../../backendFake/allcourses.json";
 
@@ -302,6 +303,7 @@ export const MyStore = () => {
               </CourseBox>
             ))}
       </CoursesGrid>
+      <Footer />
     </CourseWrapperMain>
   );
 };

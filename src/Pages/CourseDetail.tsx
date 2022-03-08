@@ -9,6 +9,7 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Footer } from "../Components/widgets/Footer";
 
 const theme = createTheme({
   typography: {
@@ -426,6 +427,7 @@ export function CourseDetail() {
                 </MicoInfoBoxColumn>
               </TechDetailsBox>
             </Container>
+            <Footer />
           </ThemeProvider>
         </>
       ))}

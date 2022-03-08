@@ -8,7 +8,7 @@ import { CourseDetail } from "./Pages/CourseDetail";
 
 import Home from "./Pages/Home";
 import Nav from "./Components/widgets/Nav";
-// import { Footer } from "./Components/widgets/Footer";
+
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import { CheckoutPage } from "./Components/widgets/NewCartApp/Checkout";
