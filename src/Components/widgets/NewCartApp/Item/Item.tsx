@@ -49,6 +49,7 @@ const ContentArea = styled("div")(({ theme }) => ({
       width: "280px",
       padding: "5px",
     },
+    height: "460px",
   },
   [theme.breakpoints.up("lg")]: {
     img: {

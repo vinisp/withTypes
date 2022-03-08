@@ -24,7 +24,7 @@ const CourseWrapperMain = styled("div")(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   background: "#f2f2f2",
-  padding: "40px 0",
+  padding: "30px 0",
 
   [theme.breakpoints.down("sm")]: {
     display: "flex",
@@ -37,9 +37,10 @@ const CourseWrapperMain = styled("div")(({ theme }) => ({
 
 const CategoriesMainWrapper = styled("div")(({ theme }) => ({
   display: "flex",
-
+  background: "#0e0e0e",
   flexDirection: "column",
   alignItems: "center",
+  justifyContent: "space-around",
   borderBottom: "solid 3px silver",
   gap: "15px",
   [theme.breakpoints.down("xs")]: {
@@ -50,15 +51,17 @@ const CategoriesMainWrapper = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.up("md")]: {
-    width: "60%",
+    width: "100%",
+    height: "400px",
   },
   [theme.breakpoints.up("lg")]: {
-    width: "80%",
+    width: "100%",
     height: "420px",
   },
 }));
 
 const CategoriesWrapper = styled("div")(({ theme }) => ({
+  marginTop: "45px",
   display: "flex",
   flexWrap: "wrap",
   justifyContent: "center",
@@ -72,27 +75,11 @@ const CategoriesWrapper = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.up("md")]: {
-    width: "60%",
+    width: "100%",
   },
   [theme.breakpoints.up("lg")]: {
     width: "100%",
     flex: "0 0 65%",
-  },
-}));
-
-const CategoryCard = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "space-around",
-  border: "solid 1px silver",
-
-  [theme.breakpoints.down("xs")]: {},
-  [theme.breakpoints.up("sm")]: {},
-
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {
-    flex: "0 0 15%",
   },
 }));
 
@@ -111,7 +98,7 @@ const CoursesGrid = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.up("md")]: {
-    width: "60%",
+    width: "100%",
   },
   [theme.breakpoints.up("lg")]: {
     width: "60%",
@@ -127,11 +114,15 @@ const CourseBox = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     display: "flex",
   },
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.up("sm")]: {
+    flex: "0 0 25%",
+  },
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    flex: "0 0 25%",
+  },
   [theme.breakpoints.up("lg")]: {
-    flex: "0 0 35%",
+    flex: "0 0 25%",
   },
 }));
 
@@ -149,9 +140,7 @@ export const CartNav = () => {
   }
 
   function checkActualCart() {
-    cartItems.length === 0
-      ? checkPreviewCart()
-      : console.log("adicionamos items ao carrinho");
+    cartItems.length === 0 ? checkPreviewCart() : console.log("myCartItems");
   }
 
   checkActualCart();
@@ -252,29 +241,53 @@ export const MyStore = () => {
     return setListCourses(coursesByType);
   }
 
+  function ShowAllCourses() {
+    const coursesByType = data.map((e) => e);
+    return setListCourses(coursesByType);
+  }
+
   return (
     <CourseWrapperMain>
       <CategoriesMainWrapper>
         <div>
-          <Typography variant="h3">TAGLINE PARA DESCREVER A LOJA</Typography>
+          <Typography variant="h3" color={"#97C930"}>
+            TAGLINE PARA DESCREVER A LOJA
+          </Typography>
 
-          <Typography variant="h4" textAlign={"center"}>
+          <Typography variant="h4" textAlign={"center"} color={"#97C930"}>
             Categorias
           </Typography>
-          <Typography variant="subtitle1" textAlign={"center"}>
+          <Typography
+            variant="subtitle1"
+            textAlign={"center"}
+            color={"#97C930"}
+          >
             Explicação sobre as categorias
           </Typography>
+          <CategoriesWrapper>
+            <Button
+              onClick={() => ShowAllCourses()}
+              color="success"
+              sx={{ width: "120px" }}
+              variant="outlined"
+            >
+              Todos os Cursos
+            </Button>
+
+            {ListCategorys.map((e) => (
+              <>
+                <Button
+                  onClick={() => FilterByTipe(e)}
+                  color="success"
+                  sx={{ width: "120px" }}
+                  variant="outlined"
+                >
+                  {e}
+                </Button>
+              </>
+            ))}
+          </CategoriesWrapper>
         </div>
-        <CategoriesWrapper>
-          {ListCategorys.map((e) => (
-            <>
-              <CategoryCard>
-                {e}
-                <Button onClick={() => FilterByTipe(e)}>Clica Aqui </Button>
-              </CategoryCard>
-            </>
-          ))}
-        </CategoriesWrapper>
       </CategoriesMainWrapper>
       <CoursesGrid>
         {listCourses.length > 0
