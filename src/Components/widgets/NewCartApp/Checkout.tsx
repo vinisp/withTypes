@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { CartContext } from "./CartContext";
 import { CartItemType } from "./NewCartApp";
 import { Footer } from "../Footer";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useAuth } from "../../../hooks/useAuth";
 import { styled } from "@mui/material/styles";
 
@@ -100,11 +100,11 @@ const CheckoutBoxLoginInfo = styled("div")(({ theme }) => ({
 
 const CheckoutBoxBuyInfo = styled("div")(({ theme }) => ({
   gridColumn: "8 / 12",
-  gridRow: "1 / 6",
-
+  gridRow: "1 / 8",
   background: "#F2F2F2",
   borderRadius: "8px",
   boxShadow: "0 0 10px 2px rgba(0,0,0, 0.2)",
+  padding: "15px 25px",
 
   [theme.breakpoints.down("sm")]: {
     height: "100%",
@@ -126,6 +126,10 @@ const CheckoutBoxBuyInfo = styled("div")(({ theme }) => ({
 }));
 
 const ItemBoxCheckout = styled("div")(({ theme }) => ({
+  display: "flex",
+  gap: "2rem",
+  padding: "15px 0",
+  borderBottom: "solid 2px rgba(211,211,211, 0.6)",
   [theme.breakpoints.down("sm")]: {
     width: "95%",
   },
@@ -142,6 +146,48 @@ const ItemBoxCheckout = styled("div")(({ theme }) => ({
     img: {
       width: "150px",
     },
+  },
+}));
+
+const SubTitleBox = styled("div")(({ theme }) => ({
+  [theme.breakpoints.down("sm")]: {
+    width: "95%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "80%",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    width: "30%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "100%",
+    padding: "15px 0 35px 0px",
+  },
+}));
+
+const PriceAndTitleBox = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "1rem",
+  borderBottom: "solid 2px rgba(211,211,211, 0.4)",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    padding: "15px 0 35px 0px",
+    flex: "0 0 80%",
+  },
+}));
+
+const TotalValueBox = styled("div")(({ theme }) => ({
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    padding: "15px 0 35px 0px",
   },
 }));
 
@@ -175,33 +221,41 @@ export function CheckoutPage() {
         </CheckoutBoxLoginInfo>
 
         <CheckoutBoxBuyInfo>
-          <div>Suas compras!</div>
+          <SubTitleBox>
+            <Typography variant="subtitle1">Suas compras</Typography>
+          </SubTitleBox>
           {myCartItems.length
             ? myCartItems[0].length > 0
               ? myCartItems[0].map((e: any) => (
                   <>
                     <ItemBoxCheckout>
-                      <span> {e.title} </span> <span> R$ {e.price} </span>
                       <img src={e.image} alt={e.title} />
+                      <PriceAndTitleBox>
+                        <span> {e.title} </span>{" "}
+                        <span>
+                          <strong> R$ {e.price},00</strong>{" "}
+                        </span>
+                      </PriceAndTitleBox>
                     </ItemBoxCheckout>
                   </>
                 ))
               : "não temos items"
             : "sem items no carrinho"}
-
-          {myCartItems.length ? (
-            myCartItems[0].length > 0 ? (
-              <h2> Total : R${calculateTotal(myCartItems[0])},00 </h2>
+          <TotalValueBox>
+            {myCartItems.length ? (
+              myCartItems[0].length > 0 ? (
+                <h2> Total : R${calculateTotal(myCartItems[0])},00 </h2>
+              ) : (
+                "não temos items"
+              )
             ) : (
-              "não temos items"
-            )
-          ) : (
-            "sem items no carrinho"
-          )}
+              "sem items no carrinho"
+            )}
+          </TotalValueBox>
         </CheckoutBoxBuyInfo>
         <CheckoutWrapper>
           <div>
-            <h1>MY CHECKOUT PAGE</h1>
+            <h1>DADOS PESSOAIS</h1>
           </div>
 
           {myCartItems.length
