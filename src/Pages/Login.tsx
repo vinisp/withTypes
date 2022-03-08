@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { auth } from "../services/firebase";
-import Container from "@mui/material/Container";
+
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Redirect } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
@@ -11,6 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
+import { Footer } from "../Components/widgets/Footer";
 
 const MainBoxLogin = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -18,6 +19,7 @@ const MainBoxLogin = styled("div")(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   background: "#f2f2f2",
+  borderRadius: "8px",
 
   [theme.breakpoints.down("sm")]: {
     width: "100%",
@@ -32,6 +34,29 @@ const MainBoxLogin = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     height: "500px",
+    width: "25%",
+  },
+}));
+
+const ContainerLogin = styled("div")(({ theme }) => ({
+  padding: "120px 0",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "100%",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    height: "auto",
+    width: "100%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    height: "100%",
     width: "100%",
   },
 }));
@@ -87,7 +112,7 @@ function Login() {
 
   return (
     <>
-      <Container component="main" maxWidth="xs">
+      <ContainerLogin>
         <MainBoxLogin>
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
@@ -123,7 +148,8 @@ function Login() {
             </Button>
           </FieldGroup>
         </MainBoxLogin>
-      </Container>
+      </ContainerLogin>
+      <Footer />
     </>
   );
 }

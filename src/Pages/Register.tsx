@@ -1,4 +1,3 @@
-import Container from "@mui/material/Container";
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../services/firebase";
@@ -10,8 +9,32 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Footer } from "../Components/widgets/Footer";
 
 import { useAuth } from "../hooks/useAuth";
+
+const ContainerLogin = styled("div")(({ theme }) => ({
+  padding: "120px 0",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "100%",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    height: "auto",
+    width: "100%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    height: "100%",
+    width: "100%",
+  },
+}));
 
 const MainBoxRegister = styled("div")(({ theme }) => ({
   padding: theme.spacing(1),
@@ -19,6 +42,7 @@ const MainBoxRegister = styled("div")(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   background: "#f2f2f2",
+  borderRadius: "8px",
 
   [theme.breakpoints.down("sm")]: {
     width: "100%",
@@ -33,7 +57,7 @@ const MainBoxRegister = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     height: "500px",
-    width: "100%",
+    width: "25%",
   },
 }));
 
@@ -89,7 +113,7 @@ function Register() {
 
   return (
     <>
-      <Container component="main" maxWidth="xs">
+      <ContainerLogin>
         <MainBoxRegister>
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
@@ -127,7 +151,8 @@ function Register() {
           </FieldGroup>
           {auth.currentUser?.email}
         </MainBoxRegister>
-      </Container>
+      </ContainerLogin>
+      <Footer />
     </>
   );
 }
