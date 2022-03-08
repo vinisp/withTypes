@@ -2,8 +2,6 @@
 
 //Test Pages
 
-import { CourseDetail } from "./Pages/CourseDetail";
-
 //Default Pages
 
 import Home from "./Pages/Home";
@@ -13,6 +11,7 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import { CheckoutPage } from "./Components/widgets/NewCartApp/Checkout";
 import { MyStore } from "./Components/widgets/NewCartApp/NewCartApp";
+import { CourseDetail } from "./Pages/CourseDetail";
 
 import { PageNotFound } from "./Pages/PageNotFound";
 
@@ -37,8 +36,6 @@ import { CartContextItemsProvider } from "./Components/widgets/NewCartApp/CartCo
 //Styles
 
 import "./App.css";
-
-//MockDataCourse
 
 //Chart Generator
 
