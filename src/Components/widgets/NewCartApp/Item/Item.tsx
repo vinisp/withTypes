@@ -12,6 +12,8 @@ const ContentWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  justifyContent: "space-around",
+  gap: "25px",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
@@ -79,25 +81,23 @@ const Item: React.FC<Props> = ({ item, handleAddToCart }) => (
         <img src={item.image} alt="Minha Figura" />
 
         <div>
-          <div>
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-            <h4>${item.price}</h4>
-          </div>
-          <ButtonsWrapper>
-            <Button
-              color="primary"
-              variant="contained"
-              disableElevation
-              onClick={() => handleAddToCart(item)}
-            >
-              PROMOVER ESSE PRODUTO
-            </Button>
-            <Button variant="outlined">
-              <Link to={`/course/` + item.id}>Ver Detalhes</Link>{" "}
-            </Button>
-          </ButtonsWrapper>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+          <h4>${item.price}</h4>
         </div>
+        <ButtonsWrapper>
+          <Button
+            color="primary"
+            variant="contained"
+            disableElevation
+            onClick={() => handleAddToCart(item)}
+          >
+            PROMOVER ESSE PRODUTO
+          </Button>
+          <Button variant="outlined">
+            <Link to={`/course/` + item.id}>Ver Detalhes</Link>{" "}
+          </Button>
+        </ButtonsWrapper>
       </ContentWrapper>
     </Paper>
   </ContentArea>

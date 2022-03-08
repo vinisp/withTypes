@@ -25,7 +25,7 @@ const CourseWrapperMain = styled("div")(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   background: "#f2f2f2",
-  padding: "30px 0 0",
+  padding: "30px 0 0 0",
 
   [theme.breakpoints.down("sm")]: {
     display: "flex",
@@ -42,8 +42,9 @@ const CategoriesMainWrapper = styled("div")(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "space-around",
-  borderBottom: "solid 3px silver",
+
   gap: "15px",
+
   [theme.breakpoints.down("xs")]: {
     width: "100%",
   },
@@ -85,11 +86,11 @@ const CategoriesWrapper = styled("div")(({ theme }) => ({
 }));
 
 const CoursesGrid = styled("div")(({ theme }) => ({
-  padding: theme.spacing(1),
   display: "flex",
   flexWrap: "wrap",
   justifyContent: "center",
   gap: "25px",
+  padding: "45px 0",
 
   [theme.breakpoints.down("xs")]: {
     width: "100%",
