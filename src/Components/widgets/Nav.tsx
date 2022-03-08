@@ -122,7 +122,7 @@ const MenuDesktop = styled("nav")(({ theme }) => ({
     borderBottom: "solid 2px transparent",
 
     "&:hover": {
-      color: "#0e0e0e",
+      color: "#f2f2f2",
       borderBottom: "solid 2px black",
     },
   },
