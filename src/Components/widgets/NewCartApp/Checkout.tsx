@@ -236,6 +236,8 @@ const RowForm3Box = styled("div")(({ theme }) => ({
 export function CheckoutPage() {
   const { user } = useAuth();
 
+  const [showCredit, setShowCredit] = useState(0);
+
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState("Choose wisely");
@@ -274,6 +276,16 @@ export function CheckoutPage() {
       setError(true);
     }
   };
+
+  async function Hello() {
+    return <></>;
+  }
+
+  function ClickTest(x: number) {
+    return x === 1
+      ? console.log("f1")
+      : console.log("você escolheu outra opção");
+  }
 
   return (
     <>
@@ -365,16 +377,19 @@ export function CheckoutPage() {
                   value="debito"
                   control={<Radio />}
                   label="Débito"
+                  onClick={() => ClickTest(0)}
                 />
                 <FormControlLabel
                   value="credito"
                   control={<Radio />}
                   label="Crédito"
+                  onClick={() => ClickTest(1)}
                 />
                 <FormControlLabel
                   value="boleto"
                   control={<Radio />}
                   label="Boleto"
+                  onClick={() => ClickTest(0)}
                 />
               </RadioGroup>
               <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined">
