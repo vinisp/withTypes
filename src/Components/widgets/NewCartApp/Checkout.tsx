@@ -236,7 +236,7 @@ const RowForm3Box = styled("div")(({ theme }) => ({
 export function CheckoutPage() {
   const { user } = useAuth();
 
-  const [showCredit, setShowCredit] = useState(0);
+  // const [showCredit, setShowCredit] = useState(0);
 
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
@@ -277,7 +277,7 @@ export function CheckoutPage() {
     }
   };
 
-  async function Hello() {
+  function Hello() {
     return <></>;
   }
 
@@ -391,6 +391,7 @@ export function CheckoutPage() {
                   label="Boleto"
                   onClick={() => ClickTest(0)}
                 />
+                {Hello()}
               </RadioGroup>
               <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined">
                 Finalizar Compra
