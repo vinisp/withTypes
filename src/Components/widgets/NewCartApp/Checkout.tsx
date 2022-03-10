@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { CartContext } from "./CartContext";
 import { CartItemType } from "./NewCartApp";
 import { Footer } from "../Footer";
-import { Typography } from "@mui/material";
+import { Typography, Button, Box } from "@mui/material";
 import { useAuth } from "../../../hooks/useAuth";
 import { styled } from "@mui/material/styles";
 
@@ -46,29 +46,53 @@ const CheckoutMain = styled("div")(({ theme }) => ({
   },
 }));
 
+let containerHeight = 8;
+
 const CheckoutWrapper = styled("div")(({ theme }) => ({
   gridColumn: "2 / 8",
-  gridRow: "2 / 12",
+  gridRow: `2 / ${containerHeight}`,
   padding: "20px 25px",
   background: "#F2F2F2",
   borderRadius: "8px",
-  boxShadow: "0 0 10px 2px rgba(0,0,0, 0.2)",
-
   [theme.breakpoints.down("sm")]: {
-    height: "450px",
+    height: "auto",
     width: "95%",
   },
   [theme.breakpoints.up("sm")]: {
-    height: "450px",
+    height: "auto",
     width: "80%",
   },
 
   [theme.breakpoints.up("md")]: {
-    height: "450px",
+    height: "auto",
     width: "30%",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "100%",
+    height: "auto",
+    width: "100%",
+  },
+}));
+
+const CheckoutInnerPayment = styled("div")(({ theme }) => ({
+  background: "#F2F2F2",
+  borderRadius: "8px",
+
+  boxShadow: "0 0 10px 2px rgba(0,0,0, 0.2)",
+  [theme.breakpoints.down("sm")]: {
+    height: "auto",
+    width: "95%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    height: "auto",
+    width: "80%",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    height: "auto",
+    width: "30%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    height: "auto",
     width: "100%",
   },
 }));
@@ -134,6 +158,7 @@ const ItemBoxCheckout = styled("div")(({ theme }) => ({
   gap: "2rem",
   padding: "15px 0",
   borderBottom: "solid 2px rgba(211,211,211, 0.6)",
+
   [theme.breakpoints.down("sm")]: {
     width: "95%",
   },
@@ -294,15 +319,25 @@ export function CheckoutPage() {
           </TotalValueBox>
         </CheckoutBoxBuyInfo>
         <CheckoutWrapper>
-          <div>
-            <h1>DADOS PARA O PAGAMENTO</h1>
-          </div>
-
-          {checkout ? (
-            <PayPal />
-          ) : (
-            <button onClick={() => setCheckout(true)}>Checkout</button>
-          )}
+          <CheckoutInnerPayment>
+            <div>
+              <h1>DADOS PARA O PAGAMENTO</h1>
+            </div>
+            <Box sx={{ display: "none" }}>
+              {checkout ? (containerHeight = 12) : (containerHeight = 8)}
+            </Box>
+            {checkout ? (
+              <PayPal />
+            ) : (
+              <Button
+                variant={"outlined"}
+                fullWidth
+                onClick={() => setCheckout(true)}
+              >
+                Realizar o pagamento
+              </Button>
+            )}
+          </CheckoutInnerPayment>
         </CheckoutWrapper>
       </CheckoutMain>
       <Footer />
