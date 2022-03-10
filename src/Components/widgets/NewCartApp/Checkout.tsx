@@ -6,21 +6,14 @@
 //FORMA DE PAGAMENTO
 //GERAR ID DA OPERAÇÃO
 
-import { useContext, useState } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+// import * as Yup from "yup";
+
 import { CartContext } from "./CartContext";
 import { CartItemType } from "./NewCartApp";
 import { Footer } from "../Footer";
-import {
-  Button,
-  FormControlLabel,
-  FormControl,
-  FormLabel,
-  Radio,
-  RadioGroup,
-  Typography,
-  TextField,
-} from "@mui/material";
+import { Typography } from "@mui/material";
 import { useAuth } from "../../../hooks/useAuth";
 import { styled } from "@mui/material/styles";
 
@@ -48,30 +41,14 @@ const CheckoutMain = styled("div")(({ theme }) => ({
     width: "30%",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "900px",
+    height: "auto",
     width: "100%",
   },
 }));
 
-// const ButtonsWraper = styled("div")(({ theme }) => ({
-//   [theme.breakpoints.down("sm")]: {
-//     width: "95%",
-//   },
-//   [theme.breakpoints.up("sm")]: {
-//     width: "80%",
-//   },
-
-//   [theme.breakpoints.up("md")]: {
-//     width: "30%",
-//   },
-//   [theme.breakpoints.up("lg")]: {
-//     width: "100%",
-//   },
-// }));
-
 const CheckoutWrapper = styled("div")(({ theme }) => ({
   gridColumn: "2 / 8",
-  gridRow: "2 / 8",
+  gridRow: "2 / 12",
   padding: "20px 25px",
   background: "#F2F2F2",
   borderRadius: "8px",
@@ -219,125 +196,55 @@ const TotalValueBox = styled("div")(({ theme }) => ({
   },
 }));
 
-const RowForm3Box = styled("div")(({ theme }) => ({
-  display: "flex",
-  width: "100%",
+function PayPal() {
+  const win: any = window as any;
+  const paypal = useRef<HTMLInputElement>(null);
 
-  gap: "3rem",
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  useEffect(() => {
+    win.paypal
+      .Buttons({
+        createOrder: (data: any, actions: any, err: any) => {
+          return actions.order.create({
+            intent: "CAPTURE",
+            purchase_units: [
+              {
+                description: "Cool looking table",
+                amount: {
+                  currency_code: "BRL",
+                  value: 650.0,
+                },
+              },
+            ],
+          });
+        },
+        onApprove: async (data: any, actions: any) => {
+          const order = await actions.order.capture();
+          console.log(order);
+        },
+        onError: (err: any) => {
+          console.log(err);
+        },
+      })
+      .render(paypal.current);
+  });
 
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {
-    padding: "15px 0 35px 25px",
-  },
-}));
-
-const CreditOptionStyle = styled("div")(({ theme }) => ({
-  display: "flex",
-  width: "50%",
-  borderBottom: "solid 2px rgba(211,211,211, 0.8)",
-  gap: "3rem",
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
-
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
-}));
-
-const CreditOptionsStyle = styled("div")(({ theme }) => ({
-  margin: "0 20%",
-  display: "flex",
-  width: "30%",
-
-  borderLeft: "solid 2px rgba(211,211,211, 0.8)",
-  flexDirection: "column",
-  alignItems: "flex-start",
-  padding: "0.2rem ",
-  transition: "all 350ms ease both",
-
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
-
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
-}));
+  return (
+    <>
+      <div ref={paypal}></div>
+    </>
+  );
+}
 
 export function CheckoutPage() {
   const { user } = useAuth();
 
-  const [showCredit, setShowCredit] = useState(0);
-
-  const [value, setValue] = useState("");
-  const [error, setError] = useState(false);
-  const [helperText, setHelperText] = useState("Choose wisely");
-
-  console.log(error, helperText);
+  const [checkout, setCheckout] = useState(false);
 
   const calculateTotal = (items: CartItemType[]) =>
     items.reduce((ack: number, item) => ack + item.amount * item.price, 0);
   let myCartItems = useContext(CartContext);
 
   console.log(myCartItems);
-  // const [checkoutData, setCheckoutData] = useState({
-  //   cartId: 0,
-  //   cartItems: [],
-  //   total: "",
-  //   PaymentMethod: "",
-  // });
-
-  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
-    setHelperText(" ");
-    setError(false);
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (value === "best") {
-      setHelperText("You got it!");
-      setError(false);
-    } else if (value === "worst") {
-      setHelperText("Sorry, wrong answer!");
-      setError(true);
-    } else {
-      setHelperText("Please select an option.");
-      setError(true);
-    }
-  };
-
-  function ClickTest(x: number) {
-    return x === 1 ? setShowCredit(1) : setShowCredit(0);
-  }
-
-  const CreditOptions = () => {
-    return (
-      <>
-        <RadioGroup
-          aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue="debito"
-          name="radio-buttons-group"
-          value={value}
-          onChange={handleRadioChange}
-        >
-          <CreditOptionsStyle>
-            <FormControlLabel value="visa" control={<Radio />} label="Visa" />
-            <FormControlLabel
-              value="masterCard"
-              control={<Radio />}
-              label="Master Card"
-            />
-            <FormControlLabel
-              value="Dinners"
-              control={<Radio />}
-              label="Dinners"
-            />
-          </CreditOptionsStyle>
-        </RadioGroup>
-      </>
-    );
-  };
 
   return (
     <>
@@ -388,96 +295,14 @@ export function CheckoutPage() {
         </CheckoutBoxBuyInfo>
         <CheckoutWrapper>
           <div>
-            <h1>DADOS PESSOAIS</h1>
+            <h1>DADOS PARA O PAGAMENTO</h1>
           </div>
-          <form onSubmit={handleSubmit}>
-            <FormControl>
-              <RowForm3Box>
-                <TextField
-                  required
-                  id="outlined-required"
-                  variant="filled"
-                  label="Primeiro Nome"
-                  placeholder="Primeiro nome..."
-                />
-                <TextField
-                  required
-                  id="outlined-required"
-                  variant="filled"
-                  label="Segundo Nome"
-                  placeholder="Segundo nome..."
-                />
-                <TextField
-                  required
-                  id="outlined-required"
-                  variant="filled"
-                  label="Telefone"
-                  placeholder="Telefone"
-                />
-              </RowForm3Box>
-              <FormLabel id="demo-radio-buttons-group-label">
-                Forma de Pagamento
-              </FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="debito"
-                name="radio-buttons-group"
-                value={value}
-                onChange={handleRadioChange}
-              >
-                <CreditOptionStyle>
-                  <FormControlLabel
-                    value="debito"
-                    control={<Radio />}
-                    label="Débito"
-                    onClick={() => ClickTest(0)}
-                  />
-                  <FormControlLabel
-                    value="credito"
-                    control={<Radio />}
-                    label="Crédito"
-                    onClick={() => ClickTest(1)}
-                  />
-                  <FormControlLabel
-                    value="boleto"
-                    control={<Radio />}
-                    label="Boleto"
-                    onClick={() => ClickTest(0)}
-                  />
-                </CreditOptionStyle>
-                {showCredit === 1 ? CreditOptions() : false}
-              </RadioGroup>
-              <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined">
-                Finalizar Compra
-              </Button>
-            </FormControl>
-          </form>
-          {/* <ButtonsWraper>
-            <Button
-              onClick={() => {
-                myCartItems.length
-                  ? myCartItems[0].length > 0
-                    ? setCheckoutData({
-                        cartId: 1,
-                        cartItems: myCartItems[0],
-                        total: calculateTotal(myCartItems[0]).toString(),
-                        PaymentMethod: "2",
-                      })
-                    : console.log("não temos items")
-                  : console.log("sem items no carrinho");
-              }}
-            >
-              Finalizar Compra
-            </Button>
-            <div>Informações do cadastro e pagamento</div>
-            <Button
-              onClick={() => {
-                console.log(checkoutData);
-              }}
-            >
-              Ver itens enviados
-            </Button>
-          </ButtonsWraper> */}
+
+          {checkout ? (
+            <PayPal />
+          ) : (
+            <button onClick={() => setCheckout(true)}>Checkout</button>
+          )}
         </CheckoutWrapper>
       </CheckoutMain>
       <Footer />
