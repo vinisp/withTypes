@@ -71,8 +71,16 @@ const theme = createTheme({
 const Container = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    paddingTop: "0px",
   },
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.up("sm")]: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    paddingTop: "0px",
+  },
 
   [theme.breakpoints.up("md")]: {
     display: "flex",
@@ -102,9 +110,15 @@ const TitleSection = styled("div")(({ theme }) => ({
   color: "#97C930",
 
   [theme.breakpoints.down("sm")]: {
-    display: "flex",
+    order: "-6",
+    width: "100%",
+    padding: "60px 80px",
   },
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.up("sm")]: {
+    order: "-6",
+    width: "100%",
+    padding: "20px 80px",
+  },
 
   [theme.breakpoints.up("md")]: {
     order: "-6",
@@ -128,9 +142,13 @@ const HintBox = styled("div")(({ theme }) => ({
   boxShadow: "0 0 12px 1px rgba(0,0,0, 0.2)",
 
   [theme.breakpoints.down("sm")]: {
-    display: "flex",
+    width: "85%",
+    height: "350px",
   },
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.up("sm")]: {
+    width: "60%",
+    height: "350px",
+  },
 
   [theme.breakpoints.up("md")]: {
     width: "50%",
@@ -190,9 +208,11 @@ const ModulesBox = styled("div")(({ theme }) => ({
   padding: "40px 0",
 
   [theme.breakpoints.down("sm")]: {
-    display: "flex",
+    width: "85%",
   },
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.up("sm")]: {
+    width: "60%",
+  },
 
   [theme.breakpoints.up("md")]: {
     width: "50%",
@@ -215,9 +235,19 @@ const TechDetailsBox = styled("div")(({ theme }) => ({
   boxShadow: "0 0 12px 1px rgba(0,0,0, 0.2)",
 
   [theme.breakpoints.down("sm")]: {
-    display: "flex",
+    order: "-2",
+    width: "85%",
+    img: {
+      width: "350px",
+    },
   },
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.up("sm")]: {
+    order: "-1",
+    width: "60%",
+    img: {
+      width: "350px",
+    },
+  },
 
   [theme.breakpoints.up("md")]: {
     order: "-2",
