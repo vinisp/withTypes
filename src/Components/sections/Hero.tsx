@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 
 import { motion } from "framer-motion";
 
+import HeroImage from "./assets/heroImg.png";
+
 const theme = createTheme({
   typography: {
     fontFamily: "Open Sans, sans-serif",
@@ -86,6 +88,7 @@ const BoxText = styled("div")(({ theme }) => ({
 const BoxTitle = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+
   [theme.breakpoints.down("sm")]: {
     height: "420px",
     width: "100%",
@@ -97,13 +100,33 @@ const BoxTitle = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {
     height: "600px",
-    width: "40%",
+    width: "80%",
   },
   [theme.breakpoints.up("lg")]: {
     padding: "0px 0px 0px 160px",
     height: "auto",
-    width: "25%",
+    flex: "0 0 50%",
     gap: "20px",
+  },
+}));
+
+const BoxImg = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "flex-start",
+  width: "50%",
+  flex: "0 0 50%",
+  paddingTop: "45px",
+
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    height: "auto",
+    img: {
+      width: "750px",
+      padding: 0,
+    },
   },
 }));
 
@@ -115,9 +138,9 @@ function Hero() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          flexWrap: "wrap",
           gap: 2,
           width: "100%",
+          padding: "0 60px",
         }}
       >
         <BoxText>
@@ -148,6 +171,9 @@ function Hero() {
             </BoxTitle>
           </ThemeProvider>
         </BoxText>
+        <BoxImg>
+          <img src={HeroImage} alt="heroImg" />
+        </BoxImg>
       </Box>
     </>
   );
