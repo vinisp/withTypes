@@ -77,6 +77,7 @@ const Container = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("md")]: {
     display: "flex",
     flexDirection: "column",
+    alignItems: "center",
     paddingTop: "30px",
   },
   [theme.breakpoints.up("lg")]: {
@@ -106,8 +107,9 @@ const TitleSection = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {},
 
   [theme.breakpoints.up("md")]: {
-    border: "solid 2px red",
-    padding: "10px 0",
+    order: "-6",
+    width: "100%",
+    padding: "40px 80px",
   },
   [theme.breakpoints.up("lg")]: {
     height: "500px",
@@ -130,7 +132,10 @@ const HintBox = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("sm")]: {},
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    width: "50%",
+    height: "350px",
+  },
   [theme.breakpoints.up("lg")]: {
     gridColumn: "3/8",
     gridRow: "6/8",
@@ -191,7 +196,9 @@ const ModulesBox = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("sm")]: {},
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    width: "50%",
+  },
   [theme.breakpoints.up("lg")]: {
     gridColumn: "3/8",
     gridRow: "12/16",
@@ -214,7 +221,13 @@ const TechDetailsBox = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("sm")]: {},
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    order: "-2",
+    width: "50%",
+    img: {
+      width: "350px",
+    },
+  },
   [theme.breakpoints.up("lg")]: {
     paddingTop: "25px",
     gridColumn: "8/11",
