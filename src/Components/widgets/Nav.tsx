@@ -82,7 +82,13 @@ const MenuMobile = styled("div")(({ theme }) => ({
 }));
 
 const LogoBox = styled("div")(({ theme }) => ({
-  margin: "0 165px",
+  color: "#97C930",
+  fontWeight: "600",
+  fontFamily: "Verdana, sans-serif",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flex: "0 0 30%",
 }));
 
 const StyledButton = styled("button")(({ theme }) => ({
@@ -103,13 +109,15 @@ const MenuDesktop = styled("nav")(({ theme }) => ({
   width: "100%",
   padding: "2px",
   zIndex: "9999",
+  display: "flex",
   ul: {
     margin: "0 35px",
     padding: 0,
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-end",
     gap: "25px",
+    flex: "0 0 60%",
   },
   li: {
     color: "#97C930",
@@ -189,7 +197,7 @@ function Nav() {
         </ThemeProvider>
       </MenuMobile>
       <MenuDesktop>
-        <LogoBox>Logo</LogoBox>
+        <LogoBox>PROFTEAM</LogoBox>
         <ul>
           {user ? (
             <>

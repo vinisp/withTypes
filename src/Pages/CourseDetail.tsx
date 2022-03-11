@@ -69,21 +69,25 @@ const theme = createTheme({
 });
 
 const Container = styled("div")(({ theme }) => ({
-  height: "auto",
-  display: "grid",
-  gridTemplateColumns: "repeat(12, 1fr)",
-  gridAutoRows: "80px",
-  columnGap: "50px",
-  background: "#f2f2f2",
-  padding: "0",
-
   [theme.breakpoints.down("sm")]: {
     display: "flex",
   },
   [theme.breakpoints.up("sm")]: {},
 
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+    flexDirection: "column",
+    paddingTop: "30px",
+  },
+  [theme.breakpoints.up("lg")]: {
+    height: "auto",
+    display: "grid",
+    gridTemplateColumns: "repeat(12, 1fr)",
+    gridAutoRows: "80px",
+    columnGap: "50px",
+    background: "#f2f2f2",
+    padding: "0",
+  },
 }));
 
 const TitleSection = styled("div")(({ theme }) => ({
@@ -95,14 +99,16 @@ const TitleSection = styled("div")(({ theme }) => ({
   background:
     "linear-gradient(90deg, rgba(14,14,14,0.8855917366946778) 34%, rgba(62,92,0,1) 94%)",
   color: "#97C930",
-  padding: "0px 0",
 
   [theme.breakpoints.down("sm")]: {
     display: "flex",
   },
   [theme.breakpoints.up("sm")]: {},
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    border: "solid 2px red",
+    padding: "10px 0",
+  },
   [theme.breakpoints.up("lg")]: {
     height: "500px",
     div: {
