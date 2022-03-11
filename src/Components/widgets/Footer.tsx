@@ -31,6 +31,7 @@ const FooterStyled = styled("footer")(({ theme }) => ({
 const ContainerFooter = styled("footer")(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
+  flexWrap: "wrap",
   gap: "35px",
 
   padding: "20px 0px 15px 35px",
@@ -46,7 +47,6 @@ const ContainerFooter = styled("footer")(({ theme }) => ({
 }));
 
 const AboutText = styled("footer")(({ theme }) => ({
-  flex: "0 0 30%",
   padding: 0,
   margin: 0,
 
@@ -55,38 +55,53 @@ const AboutText = styled("footer")(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {},
 
   [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("lg")]: {
+    flex: "0 0 30%",
+  },
 }));
 
 const PoliticsFooterBlock = styled("footer")(({ theme }) => ({
-  flex: "0 0 20%",
   padding: 0,
   margin: 0,
 
   width: "100%",
 
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    flex: "0 0 50%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    flex: "0 0 50%",
+  },
 
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("md")]: {
+    flex: "0 0 20%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    flex: "0 0 20%",
+  },
 }));
 
 const ContactsFooterBlock = styled("footer")(({ theme }) => ({
-  flex: "0 0 20%",
   padding: 0,
   margin: 0,
 
   width: "100%",
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    flex: "0 0 30%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    flex: "0 0 30%",
+  },
 
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("md")]: {
+    flex: "0 0 30%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    flex: "0 0 20%",
+  },
 }));
 
 const SocialFooterBlock = styled("footer")(({ theme }) => ({
-  flex: "0 0 20%",
   padding: 0,
   margin: 0,
 
@@ -96,11 +111,19 @@ const SocialFooterBlock = styled("footer")(({ theme }) => ({
     display: "flex",
     gap: "15px",
   },
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    flex: "0 0 100%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    flex: "0 0 100%",
+  },
 
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("md")]: {
+    flex: "0 0 20%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    flex: "0 0 20%",
+  },
 }));
 
 const CopyFooterBlock = styled("footer")(({ theme }) => ({

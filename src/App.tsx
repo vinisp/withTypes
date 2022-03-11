@@ -19,7 +19,6 @@ import { PageNotFound } from "./Pages/PageNotFound";
 import MemberAreaHome from "./Pages/MemberHome";
 import { RacePage } from "./Pages/RacePage";
 import { Profile } from "./Pages/Profile";
-import { CartPage } from "./Pages/CartPage";
 import { MyCoursesPage } from "./Pages/MyCoursesPage";
 
 //Libs
@@ -74,7 +73,6 @@ function App() {
               <Route exact path="/memberhome" component={MemberAreaHome} />
               <Route exact path="/race/:idRace" component={RacePage} />
               <Route exact path="/profile" component={Profile} />
-              <Route exact path="/cart" component={CartPage} />
 
               <Route exact path="/mycourses" component={MyCoursesPage} />
 

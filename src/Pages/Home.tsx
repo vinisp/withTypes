@@ -1,8 +1,10 @@
+import { styled } from "@mui/material/styles";
+import { useContext } from "react";
+
 import Hero from "../Components/sections/Hero";
 import Results from "../Components/sections/Results";
 import Plans from "../Components/sections/Plans";
 import Faq from "../Components/sections/Faq";
-import { useContext } from "react";
 import { Footer } from "../Components/widgets/Footer";
 
 // import axios from "axios";
@@ -20,17 +22,31 @@ import { CartContext } from "../Components/widgets/NewCartApp/CartContext";
 
 // testConect();
 
+const MainContainerHome = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "15px",
+
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
 function Home() {
   let myCartItems = useContext(CartContext);
 
   console.log(myCartItems);
   return (
     <>
-      <Hero />
-      <Results />
-      <Plans />
-      <Faq />
-      <Footer />
+      <MainContainerHome>
+        <Hero />
+        <Results />
+        <Plans />
+        <Faq />
+        <Footer />
+      </MainContainerHome>
     </>
   );
 }
