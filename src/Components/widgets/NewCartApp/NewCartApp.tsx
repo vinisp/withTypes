@@ -196,8 +196,6 @@ export const MyStore = () => {
   const myCartItems = useContext(CartContext);
 
   const handleAddToCart = (clickedItem: CartItemType) => {
-    // console.log(setCartItems);
-    console.log(myCartItems[0]);
     myCartItems[0].find((e: any) => e.id === clickedItem.id)
       ? console.log("achamos")
       : myCartItems[0].push(clickedItem);
