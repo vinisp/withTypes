@@ -157,35 +157,11 @@ export const CartNav = () => {
       : console.log("não temos items no carrinho primeira seção");
   }
 
-  // useEffect(() => {
-  //   myCartItems.splice(0, myCartItems.length);
-  //   myCartItems.push(cartItems);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [cartItems.length]);
-
   useEffect(() => {
     cartItems.splice(0, cartItems.length);
     checkPreviewCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myCartItems[0]?.length]);
-
-  // function handleRemoveFromCart(id: number) {
-  //   setCartItems((prev) =>
-  //     prev.reduce((acc, item) => {
-  //       if (item.id === id) {
-  //         if (item.amount === 1) return acc;
-  //         return [...acc, { ...item, amount: item.amount - 1 }];
-  //       } else {
-  //         return [...acc, item];
-  //       }
-  //     }, [] as CartItemType[])
-  //   );
-  //   return myCartItems.length > 0
-  //     ? myCartItems[0].findIndex((e: any) => e.id === id)
-  //       ? console.log("achamos o elemento")
-  //       : myCartItems.splice(0, myCartItems.length)
-  //     : console.log("não precisa de update");
-  // }
 
   const updateRender = () => {
     cartItems.splice(0, cartItems.length);
@@ -219,52 +195,27 @@ export const MyStore = () => {
 
   const myCartItems = useContext(CartContext);
 
-  // function checkActualCart(item: any) {
-  //   cartItems.length === 0
-  //     ? checkPreviewCart()
-  //     : console.log({
-  //         result: cartItems.find((e) => e.id === item.id)
-  //           ? "achamos"
-  //           : setCartItems((cartItems) => [...cartItems, ...myCartItems[0]]),
-  //       });
-  // }
-
-  // const handleAddToCart = (clickedItem: CartItemType) => {
-  //   console.log(myCartItems);
-  //   const evitarDuplos = cartItems.find((e) => e.id === clickedItem.id);
-  //   console.log(evitarDuplos, cartItems);
-  //   const doubleCheck = evitarDuplos
-  //     ? false
-  //     : setCartItems((prev) => {
-  //         const isItemInCart = prev.find((item) => item.id === clickedItem.id);
-  //         const verificar = !isItemInCart
-  //           ? [...prev, { ...clickedItem, amount: 1 }]
-  //           : "curso já adicionado";
-
-  //         return [...prev, { ...clickedItem, amount: 1 }];
-  //       });
-  //   checkActualCart(clickedItem);
-  // };
-
   const handleAddToCart = (clickedItem: CartItemType) => {
-    console.log(setCartItems);
+    // console.log(setCartItems);
     console.log(myCartItems[0]);
     myCartItems[0].find((e: any) => e.id === clickedItem.id)
       ? console.log("achamos")
       : myCartItems[0].push(clickedItem);
   };
 
-  // function checkPreviewCart() {
-  //   myCartItems.length > 0
-  //     ? myCartItems[0].length > 0
-  //       ? setCartItems((cartItems) => [...cartItems, ...myCartItems[0]])
-  //       : console.log("não é a primeira seção e não temos item no carrinho")
-  //     : console.log("não temos items no carrinho primeira seção");
-  // }
-
-  useEffect(() => {
+  const handleUpdate = () => {
     myCartItems.splice(0, myCartItems.length);
     myCartItems.push(cartItems);
+  };
+
+  const youNeedUpdate = () => {
+    myCartItems[0]
+      ? setCartItems((cartItems) => [...cartItems, ...myCartItems[0]])
+      : handleUpdate();
+  };
+
+  useEffect(() => {
+    youNeedUpdate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems.length]);
 
