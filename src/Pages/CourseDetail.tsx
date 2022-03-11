@@ -137,8 +137,6 @@ const HintBox = styled("div")(({ theme }) => ({
     height: "350px",
   },
   [theme.breakpoints.up("lg")]: {
-    gridColumn: "3/8",
-    gridRow: "6/8",
     height: "400px",
     width: "100%",
   },
@@ -331,7 +329,7 @@ const FlexContainer = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {
     gridColumn: "3/8",
-    gridRow: "6/ 30",
+    gridRow: "1/ 30",
 
     width: "100%",
   },

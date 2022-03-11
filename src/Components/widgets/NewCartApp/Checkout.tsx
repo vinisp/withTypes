@@ -13,47 +13,70 @@ import { Link } from "react-router-dom";
 import { CartContext } from "./CartContext";
 import { CartItemType } from "./NewCartApp";
 import { Footer } from "../Footer";
-import { Typography, Button, Box } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 import { useAuth } from "../../../hooks/useAuth";
 import { styled } from "@mui/material/styles";
 
 import "./Styles/Checkout.css";
 
 const CheckoutMain = styled("div")(({ theme }) => ({
-  padding: "60px 0 0",
   background: "#f2f2f2",
-  display: "grid",
-  gridTemplateColumns: "repeat(12, 1fr)",
-  gridAutoRows: "80px",
+  display: "flex",
   gap: "2rem",
-
+  height: "auto",
+  padding: "60px",
   [theme.breakpoints.down("sm")]: {
-    height: "450px",
     width: "95%",
   },
   [theme.breakpoints.up("sm")]: {
-    height: "450px",
     width: "80%",
   },
 
   [theme.breakpoints.up("md")]: {
-    height: "450px",
     width: "30%",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "auto",
     width: "100%",
   },
 }));
 
-let containerHeight: number = 8;
+const PaymentBox = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+
+  gap: "25px",
+  minHeight: "auto",
+  [theme.breakpoints.down("sm")]: {
+    width: "95%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "80%",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    width: "30%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    flex: "0 0 70%",
+  },
+}));
+
+const PaymentDivBox = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  height: "auto",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
 
 const CheckoutWrapper = styled("div")(({ theme }) => ({
-  gridColumn: "2 / 8",
-  gridRow: `2 / ${containerHeight}`,
-  padding: "20px 25px",
   background: "#F2F2F2",
   borderRadius: "8px",
+  display: "flex",
+  minHeight: "525px",
   [theme.breakpoints.down("sm")]: {
     height: "auto",
     width: "95%",
@@ -98,8 +121,6 @@ const CheckoutInnerPayment = styled("div")(({ theme }) => ({
 }));
 
 const CheckoutBoxLoginInfo = styled("div")(({ theme }) => ({
-  gridColumn: "2 / 8",
-  gridRow: "1 / 2",
   padding: "0 35px",
   display: "flex",
   alignItems: "center",
@@ -108,50 +129,22 @@ const CheckoutBoxLoginInfo = styled("div")(({ theme }) => ({
   boxShadow: "0 0 10px 2px rgba(0,0,0, 0.2)",
 
   [theme.breakpoints.down("sm")]: {
-    height: "100%",
     width: "95%",
   },
   [theme.breakpoints.up("sm")]: {
-    height: "100%",
     width: "80%",
   },
 
   [theme.breakpoints.up("md")]: {
-    height: "100%",
     width: "30%",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "100%",
-    width: "100%",
-  },
-}));
-
-const DynamicFooter = styled("div")(({ theme }) => ({
-  gridColumn: "1 / -1",
-  gridRow: `${containerHeight + 1} / ${containerHeight + 4}`,
-
-  [theme.breakpoints.down("sm")]: {
-    height: "100%",
-    width: "95%",
-  },
-  [theme.breakpoints.up("sm")]: {
-    height: "100%",
-    width: "80%",
-  },
-
-  [theme.breakpoints.up("md")]: {
-    height: "100%",
-    width: "30%",
-  },
-  [theme.breakpoints.up("lg")]: {
-    height: "100%",
+    height: "100px",
     width: "100%",
   },
 }));
 
 const CheckoutBoxBuyInfo = styled("div")(({ theme }) => ({
-  gridColumn: "8 / 12",
-  gridRow: "1 / 8",
   background: "#F2F2F2",
   borderRadius: "8px",
   boxShadow: "0 0 10px 2px rgba(0,0,0, 0.2)",
@@ -171,7 +164,7 @@ const CheckoutBoxBuyInfo = styled("div")(({ theme }) => ({
     width: "30%",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "100%",
+    minHeight: "650px ",
     width: "100%",
   },
 }));
@@ -278,7 +271,7 @@ function PayPal() {
 
   return (
     <>
-      <div ref={paypal}></div>
+      <PaymentDivBox ref={paypal}></PaymentDivBox>
     </>
   );
 }
@@ -292,21 +285,40 @@ export function CheckoutPage() {
     items.reduce((ack: number, item) => ack + item.amount * item.price, 0);
   let myCartItems = useContext(CartContext);
 
-  console.log(myCartItems);
-
   return (
     <>
       <CheckoutMain>
-        <CheckoutBoxLoginInfo>
-          {user ? (
-            <p>Olá {user.email}, seja bem-vindo!</p>
-          ) : (
-            <p>
-              Você não está logado !
-              <Link to="/login">Clique aqui para efetuar o login</Link>
-            </p>
-          )}
-        </CheckoutBoxLoginInfo>
+        <PaymentBox>
+          <CheckoutBoxLoginInfo>
+            {user ? (
+              <p>Olá {user.email}, seja bem-vindo!</p>
+            ) : (
+              <p>
+                Você não está logado !
+                <Link to="/login">Clique aqui para efetuar o login</Link>
+              </p>
+            )}
+          </CheckoutBoxLoginInfo>
+          <CheckoutWrapper>
+            <CheckoutInnerPayment>
+              <div>
+                <h1>DADOS PARA O PAGAMENTO</h1>
+              </div>
+
+              {checkout ? (
+                <PayPal />
+              ) : (
+                <Button
+                  variant={"outlined"}
+                  fullWidth
+                  onClick={() => setCheckout(true)}
+                >
+                  Realizar o pagamento
+                </Button>
+              )}
+            </CheckoutInnerPayment>
+          </CheckoutWrapper>
+        </PaymentBox>
 
         <CheckoutBoxBuyInfo>
           <SubTitleBox>
@@ -341,32 +353,8 @@ export function CheckoutPage() {
             )}
           </TotalValueBox>
         </CheckoutBoxBuyInfo>
-        <CheckoutWrapper>
-          <CheckoutInnerPayment>
-            <div>
-              <h1>DADOS PARA O PAGAMENTO</h1>
-            </div>
-            <Box sx={{ display: "none" }}>
-              {checkout ? (containerHeight = 12) : (containerHeight = 8)}
-            </Box>
-            {checkout ? (
-              <PayPal />
-            ) : (
-              <Button
-                variant={"outlined"}
-                fullWidth
-                onClick={() => setCheckout(true)}
-              >
-                Realizar o pagamento
-              </Button>
-            )}
-          </CheckoutInnerPayment>
-        </CheckoutWrapper>
-
-        <DynamicFooter>
-          <Footer />
-        </DynamicFooter>
       </CheckoutMain>
+      <Footer />
     </>
   );
 }
