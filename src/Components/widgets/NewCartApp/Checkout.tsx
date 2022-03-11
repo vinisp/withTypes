@@ -20,7 +20,7 @@ import { styled } from "@mui/material/styles";
 import "./Styles/Checkout.css";
 
 const CheckoutMain = styled("div")(({ theme }) => ({
-  padding: "60px 0",
+  padding: "60px 0 0",
   background: "#f2f2f2",
   display: "grid",
   gridTemplateColumns: "repeat(12, 1fr)",
@@ -46,7 +46,7 @@ const CheckoutMain = styled("div")(({ theme }) => ({
   },
 }));
 
-let containerHeight = 8;
+let containerHeight: number = 8;
 
 const CheckoutWrapper = styled("div")(({ theme }) => ({
   gridColumn: "2 / 8",
@@ -106,6 +106,29 @@ const CheckoutBoxLoginInfo = styled("div")(({ theme }) => ({
   background: "#F2F2F2",
   borderRadius: "8px",
   boxShadow: "0 0 10px 2px rgba(0,0,0, 0.2)",
+
+  [theme.breakpoints.down("sm")]: {
+    height: "100%",
+    width: "95%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    height: "100%",
+    width: "80%",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    height: "100%",
+    width: "30%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    height: "100%",
+    width: "100%",
+  },
+}));
+
+const DynamicFooter = styled("div")(({ theme }) => ({
+  gridColumn: "1 / -1",
+  gridRow: `${containerHeight + 1} / ${containerHeight + 4}`,
 
   [theme.breakpoints.down("sm")]: {
     height: "100%",
@@ -339,8 +362,11 @@ export function CheckoutPage() {
             )}
           </CheckoutInnerPayment>
         </CheckoutWrapper>
+
+        <DynamicFooter>
+          <Footer />
+        </DynamicFooter>
       </CheckoutMain>
-      <Footer />
     </>
   );
 }

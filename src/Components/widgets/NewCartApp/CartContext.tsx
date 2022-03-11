@@ -8,7 +8,7 @@ type CardContextProviderProps = {
 
 const myCartItems: any = [];
 
-export let CartContext = createContext(myCartItems);
+export const CartContext = createContext(myCartItems);
 
 export const CartContextItemsProvider = (props: CardContextProviderProps) => {
   return (

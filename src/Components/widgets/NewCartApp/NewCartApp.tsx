@@ -135,14 +135,16 @@ export const CartNav = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([] as CartItemType[]);
 
-  let myCartItems = useContext(CartContext);
+  const myCartItems: any = useContext(CartContext);
 
   function getTotalItems(items: CartItemType[]): number {
     return items.reduce((acc, item) => acc + item.amount, 0);
   }
 
   function checkActualCart() {
-    cartItems.length === 0 ? checkPreviewCart() : console.log("myCartItems");
+    cartItems.length === 0
+      ? checkPreviewCart()
+      : console.log({ HookUSe: cartItems, HookContext: myCartItems[0] });
   }
 
   checkActualCart();
@@ -155,29 +157,47 @@ export const CartNav = () => {
       : console.log("não temos items no carrinho primeira seção");
   }
 
-  useEffect(() => {
-    myCartItems.splice(0, myCartItems.length);
-    myCartItems.push(cartItems);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartItems.length]);
+  // useEffect(() => {
+  //   myCartItems.splice(0, myCartItems.length);
+  //   myCartItems.push(cartItems);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [cartItems.length]);
 
-  function handleRemoveFromCart(id: number) {
-    setCartItems((prev) =>
-      prev.reduce((acc, item) => {
-        if (item.id === id) {
-          if (item.amount === 1) return acc;
-          return [...acc, { ...item, amount: item.amount - 1 }];
-        } else {
-          return [...acc, item];
-        }
-      }, [] as CartItemType[])
-    );
-    return myCartItems.length > 0
-      ? myCartItems[0].findIndex((e: any) => e.id === id)
-        ? console.log("achamos o elemento")
-        : myCartItems.splice(0, myCartItems.length)
-      : console.log("não precisa de update");
-  }
+  useEffect(() => {
+    cartItems.splice(0, cartItems.length);
+    checkPreviewCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [myCartItems[0]?.length]);
+
+  // function handleRemoveFromCart(id: number) {
+  //   setCartItems((prev) =>
+  //     prev.reduce((acc, item) => {
+  //       if (item.id === id) {
+  //         if (item.amount === 1) return acc;
+  //         return [...acc, { ...item, amount: item.amount - 1 }];
+  //       } else {
+  //         return [...acc, item];
+  //       }
+  //     }, [] as CartItemType[])
+  //   );
+  //   return myCartItems.length > 0
+  //     ? myCartItems[0].findIndex((e: any) => e.id === id)
+  //       ? console.log("achamos o elemento")
+  //       : myCartItems.splice(0, myCartItems.length)
+  //     : console.log("não precisa de update");
+  // }
+
+  const updateRender = () => {
+    cartItems.splice(0, cartItems.length);
+    setCartItems((cartItems) => [...cartItems, ...myCartItems[0]]);
+  };
+
+  const handleRemoveFromCart = (id: any) => {
+    const IndexElement = myCartItems[0].findIndex((e: any) => e.id === id);
+    myCartItems[0].splice(IndexElement, 1);
+    console.log(myCartItems[0]);
+    updateRender();
+  };
 
   return (
     <Wrapper>
@@ -197,40 +217,50 @@ export const MyStore = () => {
   const [cartItems, setCartItems] = useState([] as CartItemType[]);
   const [listCourses, setListCourses] = useState([] as CartItemType[]);
 
-  let myCartItems = useContext(CartContext);
+  const myCartItems = useContext(CartContext);
+
+  // function checkActualCart(item: any) {
+  //   cartItems.length === 0
+  //     ? checkPreviewCart()
+  //     : console.log({
+  //         result: cartItems.find((e) => e.id === item.id)
+  //           ? "achamos"
+  //           : setCartItems((cartItems) => [...cartItems, ...myCartItems[0]]),
+  //       });
+  // }
+
+  // const handleAddToCart = (clickedItem: CartItemType) => {
+  //   console.log(myCartItems);
+  //   const evitarDuplos = cartItems.find((e) => e.id === clickedItem.id);
+  //   console.log(evitarDuplos, cartItems);
+  //   const doubleCheck = evitarDuplos
+  //     ? false
+  //     : setCartItems((prev) => {
+  //         const isItemInCart = prev.find((item) => item.id === clickedItem.id);
+  //         const verificar = !isItemInCart
+  //           ? [...prev, { ...clickedItem, amount: 1 }]
+  //           : "curso já adicionado";
+
+  //         return [...prev, { ...clickedItem, amount: 1 }];
+  //       });
+  //   checkActualCart(clickedItem);
+  // };
 
   const handleAddToCart = (clickedItem: CartItemType) => {
-    const evitarDuplos = cartItems.find((e) => e.id === clickedItem.id);
-    const doubleCheck = evitarDuplos
-      ? false
-      : setCartItems((prev) => {
-          const isItemInCart = prev.find((item) => item.id === clickedItem.id);
-          const verificar = !isItemInCart
-            ? [...prev, { ...clickedItem, amount: 1 }]
-            : "curso já adicionado";
-
-          console.log(verificar);
-
-          return [...prev, { ...clickedItem, amount: 1 }];
-        });
-    console.log(doubleCheck);
+    console.log(setCartItems);
+    console.log(myCartItems[0]);
+    myCartItems[0].find((e: any) => e.id === clickedItem.id)
+      ? console.log("achamos")
+      : myCartItems[0].push(clickedItem);
   };
 
-  function checkActualCart() {
-    cartItems.length === 0
-      ? checkPreviewCart()
-      : console.log("adicionamos items ao carrinho");
-  }
-
-  checkActualCart();
-
-  function checkPreviewCart() {
-    myCartItems.length > 0
-      ? myCartItems[0].length > 0
-        ? setCartItems((cartItems) => [...cartItems, ...myCartItems[0]])
-        : console.log("não é a primeira seção e não temos item no carrinho")
-      : console.log("não temos items no carrinho primeira seção");
-  }
+  // function checkPreviewCart() {
+  //   myCartItems.length > 0
+  //     ? myCartItems[0].length > 0
+  //       ? setCartItems((cartItems) => [...cartItems, ...myCartItems[0]])
+  //       : console.log("não é a primeira seção e não temos item no carrinho")
+  //     : console.log("não temos items no carrinho primeira seção");
+  // }
 
   useEffect(() => {
     myCartItems.splice(0, myCartItems.length);
@@ -279,6 +309,7 @@ export const MyStore = () => {
             {ListCategorys.map((e) => (
               <>
                 <Button
+                  key={e}
                   onClick={() => FilterByTipe(e)}
                   color="success"
                   sx={{ width: "120px" }}
