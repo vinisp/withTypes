@@ -57,31 +57,27 @@ const theme = createTheme({
   },
 });
 
-const BoxText = styled("div")(({ theme }) => ({
+const HeroContainer = styled("div")(({ theme }) => ({
   padding: 0,
   marginTop: 65,
-
   display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
+  alignItems: "center",
   justifyContent: "center",
+  width: "100%",
   color: "white",
+
   [theme.breakpoints.down("sm")]: {
     height: "420px",
-    width: "100%",
   },
   [theme.breakpoints.up("sm")]: {
     height: "450px",
-    width: "90%",
   },
 
   [theme.breakpoints.up("md")]: {
     height: "600px",
-    width: "40%",
   },
   [theme.breakpoints.up("lg")]: {
     height: "600px",
-    width: "100%",
   },
 }));
 
@@ -90,22 +86,20 @@ const BoxTitle = styled("div")(({ theme }) => ({
   flexDirection: "column",
 
   [theme.breakpoints.down("sm")]: {
-    height: "420px",
     width: "100%",
   },
   [theme.breakpoints.up("sm")]: {
-    height: "450px",
+    padding: "0",
     width: "90%",
   },
 
   [theme.breakpoints.up("md")]: {
-    height: "600px",
     width: "80%",
   },
   [theme.breakpoints.up("lg")]: {
     padding: "0px 0px 0px 160px",
     height: "auto",
-    flex: "0 0 50%",
+    flex: "0 0 30%",
     gap: "20px",
   },
 }));
@@ -117,14 +111,36 @@ const BoxImg = styled("div")(({ theme }) => ({
   flex: "0 0 50%",
   paddingTop: "45px",
 
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    paddingTop: "0",
+    justifyContent: "center",
+    height: "auto",
+    img: {
+      width: "300px",
+      padding: 0,
+    },
+  },
+  [theme.breakpoints.up("sm")]: {
+    paddingTop: "0",
+    justifyContent: "center",
+    height: "auto",
+    img: {
+      width: "40px",
+      padding: 0,
+    },
+  },
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    height: "auto",
+    img: {
+      width: "550px",
+      padding: 0,
+    },
+  },
   [theme.breakpoints.up("lg")]: {
     height: "auto",
     img: {
-      width: "750px",
+      width: "550px",
       padding: 0,
     },
   },
@@ -133,48 +149,38 @@ const BoxImg = styled("div")(({ theme }) => ({
 function Hero() {
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: 2,
-          width: "100%",
-          padding: "0 60px",
-        }}
-      >
-        <BoxText>
-          <ThemeProvider theme={theme}>
-            <BoxTitle>
-              <div>
-                <Typography textAlign={"center"} color={"#97C930"}>
-                  SEJA PROFTEAM
-                </Typography>
-              </div>
-              <div>
-                <Typography variant="h1" textAlign={"left"} color={"#97C930"}>
-                  APOSTAS RENTÁVEIS GALGOS FUTEBOL
-                </Typography>
-              </div>
-              <motion.div whileHover={{ scale: 1 }} whileTap={{ scale: 0.9 }}>
-                <Link to="/store">
-                  <Button
-                    size="large"
-                    variant="outlined"
-                    color="success"
-                    sx={{ width: "300px" }}
-                  >
-                    Contrate já !
-                  </Button>
-                </Link>
-              </motion.div>
-            </BoxTitle>
-          </ThemeProvider>
-        </BoxText>
-        <BoxImg>
-          <img src={HeroImage} alt="heroImg" />
-        </BoxImg>
-      </Box>
+      <HeroContainer>
+        <ThemeProvider theme={theme}>
+          <BoxTitle>
+            <div>
+              <Typography textAlign={"center"} color={"#97C930"}>
+                SEJA PROFTEAM
+              </Typography>
+            </div>
+            <div>
+              <Typography variant="h1" textAlign={"left"} color={"#97C930"}>
+                APOSTAS RENTÁVEIS GALGOS FUTEBOL
+              </Typography>
+            </div>
+            <motion.div whileHover={{ scale: 1 }} whileTap={{ scale: 0.9 }}>
+              <Link to="/store">
+                <Button
+                  size="large"
+                  variant="outlined"
+                  color="success"
+                  sx={{ width: "300px" }}
+                >
+                  Saiba mais
+                </Button>
+              </Link>
+            </motion.div>
+          </BoxTitle>
+
+          <BoxImg>
+            <img src={HeroImage} alt="heroImg" />
+          </BoxImg>
+        </ThemeProvider>
+      </HeroContainer>
     </>
   );
 }
