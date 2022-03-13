@@ -2,6 +2,8 @@
 
 //Test Pages
 
+import { CreateCourse } from "./Pages/CreateCourse";
+
 //Default Pages
 
 import Home from "./Pages/Home";
@@ -75,6 +77,7 @@ function App() {
               <Route exact path="/profile" component={Profile} />
 
               <Route exact path="/mycourses" component={MyCoursesPage} />
+              <Route exact path="/createcourse" component={CreateCourse} />
 
               <Route exact path="/checkout" component={CheckoutPage} />
 
