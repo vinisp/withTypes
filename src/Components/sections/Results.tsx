@@ -7,7 +7,7 @@ const FeatureBox = styled("div")(({ theme }) => ({
   width: "100%",
   justifyContent: "center",
   marginTop: "80px",
-  padding: "0 25  0px",
+  padding: "0 250px",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 

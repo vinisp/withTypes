@@ -14,8 +14,8 @@ const theme = createTheme({
     subtitle1: {
       /* border: "solid 2px white", */
 
+      padding: "0 2px",
       "@media (max-width:600px)": {
-        padding: "0 2px",
         fontSize: 14,
       },
       "@media (min-width:600px)": {
