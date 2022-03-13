@@ -47,7 +47,7 @@ function CardCustom(content: Content) {
               variant="h5"
               sx={{
                 borderBottom: "solid 1px green",
-                paddingBottom: "9px",
+                paddingBottom: "9 px",
                 marginBottom: "15px",
               }}
             >

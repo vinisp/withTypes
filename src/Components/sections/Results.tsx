@@ -1,5 +1,4 @@
 import CardCustom from "../widgets/Card";
-import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 const FeatureBox = styled("div")(({ theme }) => ({
@@ -8,7 +7,7 @@ const FeatureBox = styled("div")(({ theme }) => ({
   width: "100%",
   justifyContent: "center",
   marginTop: "80px",
-  padding: "0 250px",
+  padding: "0 25  0px",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 

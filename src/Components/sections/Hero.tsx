@@ -1,6 +1,6 @@
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 
-import { Typography, Box, Button } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 
 import { Link } from "react-router-dom";
 
