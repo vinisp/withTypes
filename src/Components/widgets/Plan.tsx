@@ -108,7 +108,7 @@ function Plan(content: Content) {
             </PlansList>
 
             <Button variant="outlined" sx={{ width: "200px" }} color="success">
-              Saiba mais
+              Comprar
             </Button>
           </Card>
         </Paper>

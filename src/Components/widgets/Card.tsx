@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 
 const CardSizes = styled("div")(({ theme }) => ({
   color: "white",
-  padding: theme.spacing(1),
+  padding: theme.spacing(2),
   [theme.breakpoints.down("sm")]: {
     height: "200px",
     width: "95%",
@@ -16,18 +16,18 @@ const CardSizes = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.up("md")]: {
-    height: "200px",
+    height: "350px",
     width: "30%",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "200px",
-    width: "20%",
+    height: "250px",
+    flex: "0 0 30%",
   },
 }));
 
 interface Content {
   number: string;
-  name: string;
+  name?: string;
   stats: string;
 }
 
@@ -36,10 +36,23 @@ function CardCustom(content: Content) {
     <>
       <CardSizes>
         <Card
-          sx={{ backgroundColor: "transparent", border: "solid 1px green" }}
+          sx={{
+            backgroundColor: "transparent",
+            border: "solid 1px green",
+            height: "100%",
+          }}
         >
           <CardContent sx={{ color: "white", textAlign: "center" }}>
-            <Typography>{content.number}</Typography>
+            <Typography
+              variant="h5"
+              sx={{
+                borderBottom: "solid 1px green",
+                paddingBottom: "9px",
+                marginBottom: "15px",
+              }}
+            >
+              {content.number}
+            </Typography>
             <Typography>{content.name}</Typography>
             <Typography>{content.stats}</Typography>
           </CardContent>
