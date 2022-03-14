@@ -1,0 +1,12 @@
+.highlight {
+  background: silver;
+}
+
+.is-dragging {
+  cursor: move;
+  opacity: 0.3;
+}
+
+.over {
+  background: #4cd13711;
+}
