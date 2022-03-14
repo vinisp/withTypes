@@ -86,8 +86,8 @@ const Container = styled("div")(({ theme }) => ({
     paddingTop: "30px",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "auto",
     display: "flex",
+    gap: "30px",
     color: "white",
     border: "solid 1px white",
     padding: "60px",
@@ -158,15 +158,42 @@ export function CreateCourse() {
   });
 
   function dragenter() {
-    console.log("entrou na zona");
+    // console.log("entrou na zona");
   }
 
-  function dragover(this: any) {
-    this.classList.add("over");
+  function dragover(this: any, e: any) {
+    e.preventDefault();
+    const afterElement = getDragAfterElement(this, e.clientY);
     const elementBeignDragged = document.querySelector(".is-dragging");
-    elementBeignDragged?.classList.add("dragElement");
+    console.log(afterElement);
+    if (afterElement == null) {
+      this.appendChild(elementBeignDragged);
+    } else {
+      this.insertBefore(elementBeignDragged, afterElement);
+    }
+    this.classList.add("over");
 
-    this.appendChild(elementBeignDragged);
+    elementBeignDragged?.classList.add("dragElement");
+  }
+
+  function getDragAfterElement(container: any, y: any) {
+    const draggableElements = [
+      ...container.querySelectorAll(".is-dragging:not(.dragging)"),
+    ];
+    return draggableElements.reduce(
+      (closeset, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        console.log(offset);
+
+        if (offset < 0 && offset > closeset.offset) {
+          return { offset: offset, element: child };
+        } else {
+          return closeset;
+        }
+      },
+      { offset: Number.NEGATIVE_INFINITY }
+    ).element;
   }
 
   function dragleave(this: any) {
@@ -180,9 +207,20 @@ export function CreateCourse() {
   function selectDropZoneElements() {
     const dragElements = document.querySelectorAll(".dragElement");
     const myElements = Array.from(dragElements);
-    const paragraphs = myElements.map((e) => e.innerHTML);
-    return console.log(paragraphs);
+    const CourseItems = myElements.map((e) => e.innerHTML);
+    return console.log(CourseItems);
   }
+
+  const dragElements = document.querySelectorAll(".dragElement");
+  dragElements.forEach((draggable) => {
+    draggable.addEventListener("dragstart", () => {
+      draggable.classList.add("dragging");
+    });
+
+    draggable.addEventListener("dragend", () => {
+      draggable.classList.remove("dragging");
+    });
+  });
 
   const addItem = () => {
     setItemList([item].concat(itemList));

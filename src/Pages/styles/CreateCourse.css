@@ -1,21 +1,20 @@
-.highlight {
-  background: silver;
+.container {
+  background-color: #333;
+  padding: 1rem;
+  margin-top: 1rem;
 }
 
-.is-dragging {
+.draggable {
+  padding: 1rem;
+  background-color: white;
+  border: 1px solid black;
   cursor: move;
-  opacity: 0.3;
 }
 
-.over {
-  background: #4cd13711;
+.draggable.dragging {
+  opacity: 0.5;
 }
 
-.dragElement {
-  border: solid 1px white;
-  width: 250px;
-}
-
-.yellow {
-  color: yellow;
+.moduleElements:nth-child(1) {
+  display: none;
 }
