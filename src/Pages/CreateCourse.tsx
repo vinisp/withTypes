@@ -94,16 +94,30 @@ const Container = styled("div")(({ theme }) => ({
   },
 }));
 
+const ContainerItensForDrop = styled("div")(({ theme }) => ({
+  marginBottom: "15px",
+  display: "flex",
+  flexWrap: "wrap",
+  color: "white",
+  justifyContent: "space-around",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
 const MyParagraphs = styled("div")(({ theme }) => ({
-  border: "solid 2px black",
+  width: "300px",
+  minHeight: "250px",
+  border: "solid 1px white",
 }));
-const CardParagraph = styled("div")(({ theme }) => ({
-  border: "solid 2px black",
-}));
+const CardParagraph = styled("div")(({ theme }) => ({}));
 
 export function CreateCourse() {
   const { user } = useAuth();
   const [modulesTitle, setModulesTitle] = useState("");
+  const [listModulesTitle, setListModulesTitle] = useState([""]);
   const [textModule, setTextModule] = useState("");
   const [listTextModule, setListTextModule] = useState([""]);
   const [item, setItem] = useState("");
@@ -150,6 +164,7 @@ export function CreateCourse() {
   function dragover(this: any) {
     this.classList.add("over");
     const elementBeignDragged = document.querySelector(".is-dragging");
+    elementBeignDragged?.classList.add("dragElement");
 
     this.appendChild(elementBeignDragged);
   }
@@ -162,6 +177,13 @@ export function CreateCourse() {
     this.classList.remove("over");
   }
 
+  function selectDropZoneElements() {
+    const dragElements = document.querySelectorAll(".dragElement");
+    const myElements = Array.from(dragElements);
+    const paragraphs = myElements.map((e) => e.innerHTML);
+    return console.log(paragraphs);
+  }
+
   const addItem = () => {
     setItemList([item].concat(itemList));
     setItem("");
@@ -170,6 +192,11 @@ export function CreateCourse() {
   const addParagraph = () => {
     setListTextModule([textModule].concat(listTextModule));
     setTextModule("");
+  };
+
+  const addTitle = () => {
+    setListModulesTitle([modulesTitle].concat(listModulesTitle));
+    setModulesTitle("");
   };
 
   if (!user) {
@@ -196,11 +223,12 @@ export function CreateCourse() {
           <h2>{modulesTitle}</h2>
 
           <div>
-            <h3>Escolha o título do módulo </h3>
+            <h3>Adicione os Subtitulos para o seu módulo </h3>
             <input
               type="text"
               onChange={(event) => setModulesTitle(event.target.value)}
             />
+            <button onClick={addTitle}>Salvar Texto</button>
           </div>
           <div>
             <h3>Insira o paragráfo</h3>
@@ -221,21 +249,47 @@ export function CreateCourse() {
           </div>
           <button onClick={() => ChangeValue()}>Save</button>
         </Container>
-        <Container>
-          <h2>Organizando seu módulo</h2>
-          <h2>{modulesTitle}</h2>
+        <ContainerItensForDrop>
+          <MyParagraphs>
+            <h3>Meus Títulos</h3>
+            {listModulesTitle.map((e) => (
+              <CardParagraph draggable="true" className="paragraphs">
+                <h1 className="yellow"> {e} </h1>
+              </CardParagraph>
+            ))}
+          </MyParagraphs>
+
           <MyParagraphs>
             <h3>Meus Parágrafos</h3>
+            {listTextModule.map((e) => (
+              <CardParagraph draggable="true" className="paragraphs">
+                <p> {e} </p>
+              </CardParagraph>
+            ))}
+          </MyParagraphs>
+
+          <MyParagraphs>
+            <h3>Meus Vídeos</h3>
             {listTextModule.map((e) => (
               <CardParagraph draggable="true" className="paragraphs">
                 {e}
               </CardParagraph>
             ))}
           </MyParagraphs>
-        </Container>
+
+          <MyParagraphs>
+            <h3>Minhas Imagens</h3>
+            {listTextModule.map((e) => (
+              <CardParagraph draggable="true" className="paragraphs">
+                {e}
+              </CardParagraph>
+            ))}
+          </MyParagraphs>
+        </ContainerItensForDrop>
 
         <Container className="dropZone">
           <h1>Layout do Curso</h1>
+          <button onClick={selectDropZoneElements}>Ver elementos</button>
         </Container>
       </ThemeProvider>
     </>

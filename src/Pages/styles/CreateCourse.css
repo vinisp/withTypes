@@ -10,3 +10,12 @@
 .over {
   background: #4cd13711;
 }
+
+.dragElement {
+  border: solid 1px white;
+  width: 250px;
+}
+
+.yellow {
+  color: yellow;
+}
