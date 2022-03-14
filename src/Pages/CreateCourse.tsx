@@ -4,7 +4,6 @@ import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
-import { text } from "stream/consumers";
 
 const theme = createTheme({
   typography: {
