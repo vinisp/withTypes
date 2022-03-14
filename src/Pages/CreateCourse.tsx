@@ -1,19 +1,10 @@
 import { Redirect } from "react-router-dom";
 
 import { useAuth } from "../hooks/useAuth";
-import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
+import { useState } from "react";
 
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
-
-const initialValues = {
-  module: [
-    {
-      name: "",
-      textContent: "",
-      videoUrl: "",
-    },
-  ],
-};
+import { text } from "stream/consumers";
 
 const theme = createTheme({
   typography: {
@@ -103,102 +94,56 @@ const Container = styled("div")(({ theme }) => ({
 
 export function CreateCourse() {
   const { user } = useAuth();
+  const [modulesTitle, setModulesTitle] = useState("");
+  const [textModule, setTextModule] = useState("");
+  const [item, setItem] = useState("");
+  const [itemList, setItemList] = useState([""]);
+
+  const addItem = () => {
+    setItemList([item].concat(itemList));
+    setItem("");
+  };
 
   if (!user) {
     return <Redirect to="/login" />;
   }
+
+  function ChangeValue() {
+    return console.log({
+      title: modulesTitle,
+      text: textModule,
+      Urls: itemList,
+    });
+  }
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <Container>
-          <h1>Create Course Page</h1>
-          <Formik
-            initialValues={initialValues}
-            onSubmit={async (values) => {
-              await new Promise((r) => setTimeout(r, 500));
-              alert(JSON.stringify(values, null, 2));
-            }}
-          >
-            {({ values }) => (
-              <Form>
-                <FieldArray name="module">
-                  {({ insert, remove, push }) => (
-                    <div>
-                      {values.module.length > 0 &&
-                        values.module.map((module, index) => (
-                          <div className="row" key={index}>
-                            <div className="col">
-                              <label htmlFor={`module.${index}.name`}>
-                                Name
-                              </label>
-                              <Field
-                                name={`module.${index}.name`}
-                                placeholder="Jane Doe"
-                                type="text"
-                              />
-                              <ErrorMessage
-                                name={`module.${index}.name`}
-                                component="div"
-                                className="field-error"
-                              />
-                            </div>
-                            <div className="col">
-                              <label htmlFor={`module.${index}.textContent`}>
-                                Text Content
-                              </label>
-                              <Field
-                                name={`module.${index}.textContent`}
-                                placeholder="insira o texto"
-                                type="text"
-                              />
-                              <ErrorMessage
-                                name={`module.${index}.textContent`}
-                                component="div"
-                                className="field-error"
-                              />
-                            </div>
-                            <div className="col">
-                              <label htmlFor={`module.${index}.videoUrl`}>
-                                Video Url
-                              </label>
-                              <Field
-                                name={`module.${index}.videUrl`}
-                                placeholder="insira o texto"
-                                type="text"
-                              />
-                              <ErrorMessage
-                                name={`module.${index}.videoUrl`}
-                                component="div"
-                                className="field-error"
-                              />
-                            </div>
-                            <div className="col">
-                              <button
-                                type="button"
-                                className="secondary"
-                                onClick={() => remove(index)}
-                              >
-                                X
-                              </button>
-                            </div>
-                          </div>
-                        ))}
-                      <button
-                        type="button"
-                        className="secondary"
-                        onClick={() =>
-                          push({ module: "", textContent: "", videoUrl: "" })
-                        }
-                      >
-                        Add module
-                      </button>
-                    </div>
-                  )}
-                </FieldArray>
-                <button type="submit">Invite</button>
-              </Form>
-            )}
-          </Formik>
+          <h1>{modulesTitle}</h1>
+
+          <p> {textModule} </p>
+          <input
+            type="text"
+            onChange={(event) => setModulesTitle(event.target.value)}
+          />
+          <textarea onChange={(event) => setTextModule(event.target.value)} />
+          <input
+            type="text"
+            placeholder="Item"
+            value={item}
+            name="item"
+            onChange={(e) => setItem(e.target.value)}
+          />
+
+          <button onClick={addItem}>Adicionar Item</button>
+
+          <button onClick={() => ChangeValue()}>Save</button>
+          <ul>
+            {itemList.map((e) => (
+              <li> {e} </li>
+            ))}
+          </ul>
         </Container>
       </ThemeProvider>
     </>
