@@ -15,10 +15,6 @@
   opacity: 0.5;
 }
 
-.moduleElements:nth-child(1) {
-  display: none;
-}
-
 .moduleElements {
   min-height: 60px;
 }
@@ -35,6 +31,5 @@ option {
 }
 
 .todo {
-  width: 80%;
-  margin: "15px";
+  width: 95%;
 }

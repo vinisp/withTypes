@@ -81,6 +81,10 @@ const SubTitleElement = styled("h3")(({ theme }) => ({
   textAlign: "center",
 }));
 
+const ImgResized = styled("img")(({ theme }) => ({
+  width: "200px",
+}));
+
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   width: "auto",
   background: isDragging ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,1)",
@@ -95,10 +99,16 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   ...draggableStyle,
 });
 
+interface ModuleElement {
+  id: string;
+  title?: string;
+  subTitle?: string;
+  paragraph?: string;
+  image?: string;
+}
+
 export function CreateCourse() {
-  const [todo, setTodo] = useState([
-    { id: "0", title: "", subTitle: "", paragraph: "" },
-  ]);
+  const [todo, setTodo] = useState<ModuleElement[]>([]);
 
   const [moduleName, setModuleName] = useState("");
 
@@ -125,8 +135,18 @@ export function CreateCourse() {
       {
         id: todo.length.toString(),
         title: module,
-        subTitle: "",
-        paragraph: "",
+      },
+    ]);
+    setModules("");
+    console.log(todo, module);
+  };
+
+  const addImage = () => {
+    setTodo((todo) => [
+      ...todo,
+      {
+        id: todo.length.toString(),
+        image: module,
       },
     ]);
     setModules("");
@@ -137,9 +157,7 @@ export function CreateCourse() {
       ...todo,
       {
         id: todo.length.toString(),
-        title: "",
         subTitle: module,
-        paragraph: "",
       },
     ]);
     setModules("");
@@ -150,8 +168,6 @@ export function CreateCourse() {
       ...todo,
       {
         id: todo.length.toString(),
-        title: "",
-        subTitle: "",
         paragraph: module,
       },
     ]);
@@ -165,7 +181,6 @@ export function CreateCourse() {
         id: todo.length.toString(),
         title: module,
         subTitle: secModule,
-        paragraph: "",
       },
     ]);
     setModules("");
@@ -176,7 +191,7 @@ export function CreateCourse() {
       ...todo,
       {
         id: todo.length.toString(),
-        title: "",
+
         subTitle: module,
         paragraph: secModule,
       },
@@ -260,6 +275,28 @@ export function CreateCourse() {
           onClick={addParagraph}
         >
           Salvar Parágrafo
+        </Button>
+      </>
+    );
+  }
+
+  function RenderImageCreate() {
+    return (
+      <>
+        <TextField
+          id="filled-basic"
+          label="Url da imagem"
+          variant="filled"
+          sx={{ background: "white", width: "70%" }}
+          onChange={(event) => setModules(event.target.value)}
+        />
+        <Button
+          variant="contained"
+          sx={{ width: "70%" }}
+          color="success"
+          onClick={addImage}
+        >
+          Salvar Imagem
         </Button>
       </>
     );
@@ -388,6 +425,7 @@ export function CreateCourse() {
             <option value="subtitle">Subtítulo</option>
             <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
             <option value="paragraph">Parágrafo</option>
+            <option value="image">Imagem</option>
           </select>
           {valueState === "title" ? RenderTitleCreate() : false}
           {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
@@ -399,12 +437,19 @@ export function CreateCourse() {
           {valueState === "titleAndSubAndParagraph"
             ? RenderTitleSubtitleAndParagraph()
             : false}
+          {valueState === "image" ? RenderImageCreate() : false}
           <Button
             color="warning"
             sx={{ width: "70%" }}
             variant="contained"
             onClick={() =>
-              console.log({ moduleName: moduleName, content: todo })
+              alert(
+                JSON.stringify(
+                  { moduleName: moduleName, content: todo },
+                  null,
+                  2
+                )
+              )
             }
           >
             Salvar Módulo
@@ -427,43 +472,52 @@ export function CreateCourse() {
                   ref={provided.innerRef}
                 >
                   <LayoutArea>
-                    {todo.length > 1 ? (
-                      todo.map(({ id, title, paragraph, subTitle }, index) => {
-                        return (
-                          <Draggable key={id} draggableId={id} index={index}>
-                            {(provided, snapshot) => (
-                              <div
-                                className="moduleElements"
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                style={getItemStyle(
-                                  snapshot.isDragging,
-                                  provided.draggableProps.style
-                                )}
-                              >
-                                {title.length > 0 ? (
-                                  <TitleElement>{title} </TitleElement>
-                                ) : (
-                                  false
-                                )}
-                                {subTitle.length > 0 ? (
-                                  <SubTitleElement>{subTitle} </SubTitleElement>
-                                ) : (
-                                  false
-                                )}
-                                {paragraph.length > 0 ? (
-                                  <ParagraphElement>
-                                    {paragraph}
-                                  </ParagraphElement>
-                                ) : (
-                                  false
-                                )}
-                              </div>
-                            )}
-                          </Draggable>
-                        );
-                      })
+                    {todo.length > 0 ? (
+                      todo.map(
+                        ({ id, title, subTitle, paragraph, image }, index) => {
+                          return (
+                            <Draggable key={id} draggableId={id} index={index}>
+                              {(provided, snapshot) => (
+                                <div
+                                  className="moduleElements"
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  style={getItemStyle(
+                                    snapshot.isDragging,
+                                    provided.draggableProps.style
+                                  )}
+                                >
+                                  {title ? (
+                                    <TitleElement>{title} </TitleElement>
+                                  ) : (
+                                    false
+                                  )}
+                                  {subTitle ? (
+                                    <SubTitleElement>
+                                      {subTitle}{" "}
+                                    </SubTitleElement>
+                                  ) : (
+                                    false
+                                  )}
+                                  {paragraph ? (
+                                    <ParagraphElement>
+                                      {paragraph}
+                                    </ParagraphElement>
+                                  ) : (
+                                    false
+                                  )}
+                                  {image ? (
+                                    <ImgResized src={image} alt="" />
+                                  ) : (
+                                    "não"
+                                  )}
+                                </div>
+                              )}
+                            </Draggable>
+                          );
+                        }
+                      )
                     ) : (
                       <NoItemsCard> "Sem items adicionados" </NoItemsCard>
                     )}
