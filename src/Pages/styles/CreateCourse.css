@@ -27,3 +27,8 @@ select {
   padding: 20px;
   min-width: 230px;
 }
+
+.todo {
+  width: 80%;
+  margin: "15px";
+}

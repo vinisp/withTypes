@@ -12,44 +12,72 @@ import {
 import "../styles/CreateCourse.css";
 
 const ContainerRegisterNewModule = styled("div")(({ theme }) => ({
-  paddingTop: "60px",
+  padding: "60px 0",
   minHeight: 350,
-  background: "rgba(0,211,211, 0.2)",
-  border: "solid 1px white",
+  background: "rgba(0,0,0, 0.3)",
   marginBottom: "15px",
   display: "flex",
   flexDirection: "column",
   gap: 20,
   color: "white",
   alignItems: "center",
+  transition: "height 350ms",
+  borderBottom: "solid 2px green",
 }));
 
 const ShowAndOrganizeModules = styled("div")(({ theme }) => ({
-  paddingTop: "160px",
-  minHeight: 350,
-  background: "rgba(211,211,211, 0.3)",
-  border: "solid 1px white",
   marginBottom: "15px",
+  padding: "20px 0",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: 35,
+  minHeight: 350,
+  color: "white",
+  background: "rgba(211,211,211, 0.3)",
 }));
 
 const LayoutArea = styled("div")(({ theme }) => ({
-  padding: "160px",
-  minHeight: 600,
-  background: "rgba(11,11,211, 0.3)",
-  border: "solid 1px red",
+  padding: "80px",
+  width: "100%",
+  minHeight: 500,
+  background: "rgba(211,211,211, 0.3)",
+  borderRadius: "4px",
+  border: "solid 1px silver",
 }));
 
-const ParagraphElement = styled("div")(({ theme }) => ({
-  border: "solid 1px red",
-  padding: "25px",
+const NoItemsCard = styled("div")(({ theme }) => ({
+  padding: "80px 0",
+  width: "100%",
+  background: "rgba(211,211,211)",
+  borderRadius: "4px",
+  border: "solid 1px silver",
+  color: "black",
+  fontSize: "32px",
+  textAlign: "center",
+}));
+
+const ParagraphElement = styled("p")(({ theme }) => ({
+  marginTop: "1rem",
+  textAlign: "center",
+}));
+
+const TitleElement = styled("h1")(({ theme }) => ({
+  textAlign: "center",
+}));
+
+const SubTitleElement = styled("h3")(({ theme }) => ({
+  textAlign: "center",
 }));
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   width: "auto",
-  background: isDragging ? "#4a2975" : "white",
+  background: isDragging ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,1)",
   color: isDragging ? "white" : "black",
-  border: `1px solid black`,
+  border: isDragging ? "2px solid yellow" : "1px solid rgba(0,0,255,0.2)",
   borderRadius: `4px`,
+
+  padding: "5px 7px",
 
   ...draggableStyle,
 });
@@ -58,6 +86,8 @@ export function CreateCourse() {
   const [todo, setTodo] = useState([
     { id: "0", title: "", subTitle: "", paragraph: "" },
   ]);
+
+  const [moduleName, setModuleName] = useState("");
 
   const [module, setModules] = useState("");
   const [secModule, setSecModule] = useState("");
@@ -166,7 +196,14 @@ export function CreateCourse() {
           sx={{ background: "white", minWidth: "360px" }}
           onChange={(event) => setModules(event.target.value)}
         />
-        <Button onClick={addTitle}>Salvar Título</Button>
+        <Button
+          variant="contained"
+          sx={{ minWidth: "300px" }}
+          color="success"
+          onClick={addTitle}
+        >
+          Salvar Título
+        </Button>
       </>
     );
   }
@@ -181,7 +218,14 @@ export function CreateCourse() {
           sx={{ background: "white", minWidth: "360px" }}
           onChange={(event) => setModules(event.target.value)}
         />
-        <Button onClick={addSubtitle}>Salvar Subtítulo</Button>
+        <Button
+          variant="contained"
+          sx={{ minWidth: "300px" }}
+          color="success"
+          onClick={addSubtitle}
+        >
+          Salvar Subtítulo
+        </Button>
       </>
     );
   }
@@ -193,10 +237,17 @@ export function CreateCourse() {
           id="filled-basic"
           minRows={10}
           onChange={(event) => setModules(event.target.value)}
-          style={{ padding: 50 }}
+          style={{ padding: "15px", minHeight: "30px", minWidth: "650px" }}
           placeholder="seu texto..."
         />
-        <Button onClick={addParagraph}>Salvar Parágrafo</Button>
+        <Button
+          variant="outlined"
+          sx={{ minWidth: "300px" }}
+          color="success"
+          onClick={addParagraph}
+        >
+          Salvar Parágrafo
+        </Button>
       </>
     );
   }
@@ -220,7 +271,14 @@ export function CreateCourse() {
           sx={{ background: "white", minWidth: "360px" }}
           onChange={(event) => setSecModule(event.target.value)}
         />
-        <Button onClick={addTitleAndSubTitle}>Salvar Título e Subtítulo</Button>
+        <Button
+          variant="contained"
+          sx={{ minWidth: "300px" }}
+          color="success"
+          onClick={addTitleAndSubTitle}
+        >
+          Salvar Título e Subtítulo
+        </Button>
       </>
     );
   }
@@ -239,10 +297,15 @@ export function CreateCourse() {
           id="filled-basic"
           minRows={10}
           onChange={(event) => setSecModule(event.target.value)}
-          style={{ padding: 50 }}
+          style={{ padding: "15px", minHeight: "30px", minWidth: "650px" }}
           placeholder="seu texto..."
         />
-        <Button onClick={addSubtitleAndParagraph}>
+        <Button
+          variant="contained"
+          sx={{ minWidth: "300px" }}
+          color="success"
+          onClick={addSubtitleAndParagraph}
+        >
           Salvar Subtítulo e Parágrafo
         </Button>
       </>
@@ -272,10 +335,15 @@ export function CreateCourse() {
           id="filled-basic"
           minRows={10}
           onChange={(event) => setThirdModule(event.target.value)}
-          style={{ padding: 50 }}
+          style={{ padding: "15px", minHeight: "30px", minWidth: "650px" }}
           placeholder="seu texto..."
         />
-        <Button onClick={addTitleSubtitleAndParagraph}>
+        <Button
+          variant="contained"
+          sx={{ minWidth: "300px" }}
+          color="success"
+          onClick={addTitleSubtitleAndParagraph}
+        >
           Salvar Título, Subtítulo e Parágrafo
         </Button>
       </>
@@ -285,7 +353,17 @@ export function CreateCourse() {
   return (
     <>
       <ContainerRegisterNewModule>
-        <h1>Crie um novo elemento</h1>
+        <h2>Escolha o nome do módulo: </h2>
+        <TextField
+          id="filled-basic"
+          label="Nome do módulo"
+          variant="filled"
+          sx={{ background: "white", minWidth: "360px" }}
+          onChange={(event) => setModuleName(event.target.value)}
+        />
+
+        <h1>Crie um novo capítulo</h1>
+
         <select onChange={(e) => setValueState(e.target.value)}>
           <option>Escolha um Elemento </option>
           <option value="title">Título</option>
@@ -294,8 +372,8 @@ export function CreateCourse() {
             Título + Subtítulo + Parágrafo
           </option>
           <option value="subtitle">Subtítulo</option>
+          <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
           <option value="paragraph">Parágrafo</option>
-          <option value="paragraphAndSub">Parágrafo + Subtítulo</option>
         </select>
         {valueState === "title" ? RenderTitleCreate() : false}
         {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
@@ -307,11 +385,21 @@ export function CreateCourse() {
         {valueState === "titleAndSubAndParagraph"
           ? RenderTitleSubtitleAndParagraph()
           : false}
+        <Button
+          color="warning"
+          variant="contained"
+          onClick={() => console.log({ moduleName: moduleName, content: todo })}
+        >
+          Salvar Módulo
+        </Button>
       </ContainerRegisterNewModule>
 
       <DragDropContext onDragEnd={onDragEnd}>
         <ShowAndOrganizeModules>
-          <h1>Abaixo você pode ver e organizar os elementos do seu módulo</h1>
+          <div>
+            <h1>Abaixo você pode ver e organizar os elementos do seu módulo</h1>
+          </div>
+          <div>O título do módulo é: {moduleName}</div>
           <Droppable droppableId="todo">
             {(provided) => (
               <div
@@ -320,40 +408,44 @@ export function CreateCourse() {
                 ref={provided.innerRef}
               >
                 <LayoutArea>
-                  {todo.length > 1
-                    ? todo.map(({ id, title, paragraph, subTitle }, index) => {
-                        return (
-                          <Draggable key={id} draggableId={id} index={index}>
-                            {(provided, snapshot) => (
-                              <div
-                                className="moduleElements"
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                style={getItemStyle(
-                                  snapshot.isDragging,
-                                  provided.draggableProps.style
-                                )}
-                              >
-                                {title.length > 0 ? <h1>{title} </h1> : false}
-                                {subTitle.length > 0 ? (
-                                  <h2>{subTitle} </h2>
-                                ) : (
-                                  false
-                                )}
-                                {paragraph.length > 0 ? (
-                                  <ParagraphElement>
-                                    {paragraph}
-                                  </ParagraphElement>
-                                ) : (
-                                  false
-                                )}
-                              </div>
-                            )}
-                          </Draggable>
-                        );
-                      })
-                    : "não temos itens"}
+                  {todo.length > 1 ? (
+                    todo.map(({ id, title, paragraph, subTitle }, index) => {
+                      return (
+                        <Draggable key={id} draggableId={id} index={index}>
+                          {(provided, snapshot) => (
+                            <div
+                              className="moduleElements"
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              style={getItemStyle(
+                                snapshot.isDragging,
+                                provided.draggableProps.style
+                              )}
+                            >
+                              {title.length > 0 ? (
+                                <TitleElement>{title} </TitleElement>
+                              ) : (
+                                false
+                              )}
+                              {subTitle.length > 0 ? (
+                                <SubTitleElement>{subTitle} </SubTitleElement>
+                              ) : (
+                                false
+                              )}
+                              {paragraph.length > 0 ? (
+                                <ParagraphElement>{paragraph}</ParagraphElement>
+                              ) : (
+                                false
+                              )}
+                            </div>
+                          )}
+                        </Draggable>
+                      );
+                    })
+                  ) : (
+                    <NoItemsCard> "Sem items adicionados" </NoItemsCard>
+                  )}
                 </LayoutArea>
               </div>
             )}
