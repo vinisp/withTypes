@@ -2,7 +2,7 @@
 
 //Test Pages
 
-import { CreateCourse } from "./Pages/CreateCourse2";
+import { CreateCourse } from "./Pages/CreateCourse/CreateCourse2";
 
 //Default Pages
 
