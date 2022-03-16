@@ -149,10 +149,6 @@ export function CreateCourse() {
     setTodo(items);
   };
 
-  function Update() {
-    setTodo(todo);
-  }
-
   function genereteId() {
     const allIds = todo.map((e) => +e.id);
     const newID = allIds.length > 0 ? Math.max(...allIds) + 1 : 1;
@@ -165,7 +161,6 @@ export function CreateCourse() {
 
   function handleEditItem(id: string, element: any, newValue: string) {
     todo.filter((e) => e.id === id).map((e: any) => (e[element] = newValue));
-    Update();
   }
 
   const addTitle = () => {
@@ -233,6 +228,7 @@ export function CreateCourse() {
       },
     ]);
     setModules("");
+    setSecModule("");
   };
 
   const addSubtitleAndParagraph = () => {
@@ -264,6 +260,7 @@ export function CreateCourse() {
 
   function ShowEditModal(id: string, element: string) {
     const [open, setOpen] = useState(false);
+    const [editValue, setEditValue] = useState("");
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -289,13 +286,13 @@ export function CreateCourse() {
               label={nomeDoCampo}
               variant="filled"
               sx={{ background: "white", width: "70%" }}
-              onChange={(event) => setModules(event.target.value)}
+              onChange={(event) => setEditValue(event.target.value)}
             />
             <Button
               variant="contained"
               sx={{ width: "70%" }}
               color="success"
-              onClick={() => CloseAndSave(module)}
+              onClick={() => CloseAndSave(editValue)}
             >
               Salvar Alteração
             </Button>
@@ -438,12 +435,15 @@ export function CreateCourse() {
           variant="filled"
           sx={{ background: "white", width: "70%" }}
           onChange={(event) => setModules(event.target.value)}
+          value={module}
         />
         <Button
           variant="contained"
           sx={{ width: "70%" }}
           color="success"
-          onClick={addTitle}
+          onClick={() => {
+            addTitle();
+          }}
         >
           Salvar Título
         </Button>
@@ -460,6 +460,7 @@ export function CreateCourse() {
           variant="filled"
           sx={{ background: "white", width: "70%" }}
           onChange={(event) => setModules(event.target.value)}
+          value={module}
         />
         <Button
           variant="contained"
@@ -482,6 +483,7 @@ export function CreateCourse() {
           onChange={(event) => setModules(event.target.value)}
           style={{ padding: "15px", minHeight: "30px", width: "70%" }}
           placeholder="seu texto..."
+          value={module}
         />
         <Button
           variant="outlined"
@@ -504,6 +506,7 @@ export function CreateCourse() {
           variant="filled"
           sx={{ background: "white", width: "70%" }}
           onChange={(event) => setModules(event.target.value)}
+          value={module}
         />
         <Button
           variant="contained"
@@ -526,6 +529,7 @@ export function CreateCourse() {
           variant="filled"
           sx={{ background: "white", width: "70%" }}
           onChange={(event) => setModules(event.target.value)}
+          value={module}
         />
         <Button
           variant="contained"
@@ -550,6 +554,7 @@ export function CreateCourse() {
           variant="filled"
           sx={{ background: "white", width: "70%" }}
           onChange={(event) => setModules(event.target.value)}
+          value={module}
         />
         <TextField
           id="filled-basic"
@@ -557,6 +562,7 @@ export function CreateCourse() {
           variant="filled"
           sx={{ background: "white", width: "70%" }}
           onChange={(event) => setSecModule(event.target.value)}
+          value={secModule}
         />
         <Button
           variant="contained"
