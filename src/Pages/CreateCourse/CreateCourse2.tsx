@@ -132,6 +132,10 @@ export function CreateCourse() {
     setTodo(items);
   };
 
+  function handleRemoveItem(id: string) {
+    setTodo(todo.filter((e) => e.id !== id));
+  }
+
   const addTitle = () => {
     setTodo((todo) => [
       ...todo,
@@ -141,7 +145,6 @@ export function CreateCourse() {
       },
     ]);
     setModules("");
-    console.log(todo, module);
   };
 
   const addImage = () => {
@@ -227,6 +230,103 @@ export function CreateCourse() {
   };
 
   //Single Elements
+
+  function ShowItems() {
+    return (
+      <>
+        <ShowAndOrganizeModules>
+          <div>
+            <h1>Abaixo você pode ver e organizar os elementos do seu módulo</h1>
+          </div>
+          <div>O título do módulo é: {moduleName}</div>
+          <Droppable droppableId="todo">
+            {(provided) => (
+              <div
+                className="todo"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                <LayoutArea>
+                  {todo.length > 0 ? (
+                    todo.map(
+                      (
+                        { id, title, subTitle, paragraph, image, video },
+                        index
+                      ) => {
+                        return (
+                          <Draggable key={id} draggableId={id} index={index}>
+                            {(provided, snapshot) => (
+                              <div
+                                className="moduleElements"
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                style={getItemStyle(
+                                  snapshot.isDragging,
+                                  provided.draggableProps.style
+                                )}
+                              >
+                                {title ? (
+                                  <>
+                                    <TitleElement>{title} </TitleElement>
+                                    <button
+                                      onClick={() => handleRemoveItem(id)}
+                                    >
+                                      Item Clicado
+                                    </button>
+                                  </>
+                                ) : (
+                                  false
+                                )}
+                                {subTitle ? (
+                                  <SubTitleElement>{subTitle} </SubTitleElement>
+                                ) : (
+                                  false
+                                )}
+                                {paragraph ? (
+                                  <ParagraphElement>
+                                    {paragraph}
+                                  </ParagraphElement>
+                                ) : (
+                                  false
+                                )}
+                                {image ? (
+                                  <ImgResized src={image} alt="" />
+                                ) : (
+                                  false
+                                )}
+                                {video ? (
+                                  <>
+                                    <ReactPlayer
+                                      controls
+                                      url={`https://vimeo.com/${video}`}
+                                    />
+                                    <button
+                                      onClick={() => handleRemoveItem(id)}
+                                    >
+                                      Item Clicado
+                                    </button>
+                                  </>
+                                ) : (
+                                  false
+                                )}
+                              </div>
+                            )}
+                          </Draggable>
+                        );
+                      }
+                    )
+                  ) : (
+                    <NoItemsCard> "Sem items adicionados" </NoItemsCard>
+                  )}
+                </LayoutArea>
+              </div>
+            )}
+          </Droppable>
+        </ShowAndOrganizeModules>
+      </>
+    );
+  }
 
   function RenderTitleCreate() {
     return (
@@ -496,88 +596,7 @@ export function CreateCourse() {
           </Button>
         </ContainerRegisterNewModule>
 
-        <DragDropContext onDragEnd={onDragEnd}>
-          <ShowAndOrganizeModules>
-            <div>
-              <h1>
-                Abaixo você pode ver e organizar os elementos do seu módulo
-              </h1>
-            </div>
-            <div>O título do módulo é: {moduleName}</div>
-            <Droppable droppableId="todo">
-              {(provided) => (
-                <div
-                  className="todo"
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  <LayoutArea>
-                    {todo.length > 0 ? (
-                      todo.map(
-                        (
-                          { id, title, subTitle, paragraph, image, video },
-                          index
-                        ) => {
-                          return (
-                            <Draggable key={id} draggableId={id} index={index}>
-                              {(provided, snapshot) => (
-                                <div
-                                  className="moduleElements"
-                                  ref={provided.innerRef}
-                                  {...provided.draggableProps}
-                                  {...provided.dragHandleProps}
-                                  style={getItemStyle(
-                                    snapshot.isDragging,
-                                    provided.draggableProps.style
-                                  )}
-                                >
-                                  {title ? (
-                                    <TitleElement>{title} </TitleElement>
-                                  ) : (
-                                    false
-                                  )}
-                                  {subTitle ? (
-                                    <SubTitleElement>
-                                      {subTitle}{" "}
-                                    </SubTitleElement>
-                                  ) : (
-                                    false
-                                  )}
-                                  {paragraph ? (
-                                    <ParagraphElement>
-                                      {paragraph}
-                                    </ParagraphElement>
-                                  ) : (
-                                    false
-                                  )}
-                                  {image ? (
-                                    <ImgResized src={image} alt="" />
-                                  ) : (
-                                    false
-                                  )}
-                                  {video ? (
-                                    <ReactPlayer
-                                      controls
-                                      url={`https://vimeo.com/${video}`}
-                                    />
-                                  ) : (
-                                    false
-                                  )}
-                                </div>
-                              )}
-                            </Draggable>
-                          );
-                        }
-                      )
-                    ) : (
-                      <NoItemsCard> "Sem items adicionados" </NoItemsCard>
-                    )}
-                  </LayoutArea>
-                </div>
-              )}
-            </Droppable>
-          </ShowAndOrganizeModules>
-        </DragDropContext>
+        <DragDropContext onDragEnd={onDragEnd}>{ShowItems()}</DragDropContext>
       </MainContainer>
       <Footer />
     </>
