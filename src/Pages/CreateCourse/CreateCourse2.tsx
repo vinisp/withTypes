@@ -278,26 +278,49 @@ export function CreateCourse() {
                                     <button
                                       onClick={() => handleRemoveItem(id)}
                                     >
-                                      Item Clicado
+                                      X
                                     </button>
                                   </>
                                 ) : (
                                   false
                                 )}
                                 {subTitle ? (
-                                  <SubTitleElement>{subTitle} </SubTitleElement>
+                                  <>
+                                    <SubTitleElement>
+                                      {subTitle}
+                                    </SubTitleElement>
+                                    <button
+                                      onClick={() => handleRemoveItem(id)}
+                                    >
+                                      X
+                                    </button>
+                                  </>
                                 ) : (
                                   false
                                 )}
                                 {paragraph ? (
-                                  <ParagraphElement>
-                                    {paragraph}
-                                  </ParagraphElement>
+                                  <>
+                                    <ParagraphElement>
+                                      {paragraph}
+                                    </ParagraphElement>
+                                    <button
+                                      onClick={() => handleRemoveItem(id)}
+                                    >
+                                      X
+                                    </button>
+                                  </>
                                 ) : (
                                   false
                                 )}
                                 {image ? (
-                                  <ImgResized src={image} alt="" />
+                                  <>
+                                    <ImgResized src={image} alt="" />
+                                    <button
+                                      onClick={() => handleRemoveItem(id)}
+                                    >
+                                      X
+                                    </button>
+                                  </>
                                 ) : (
                                   false
                                 )}
@@ -310,7 +333,7 @@ export function CreateCourse() {
                                     <button
                                       onClick={() => handleRemoveItem(id)}
                                     >
-                                      Item Clicado
+                                      X
                                     </button>
                                   </>
                                 ) : (
@@ -547,7 +570,6 @@ export function CreateCourse() {
       <MainContainer>
         <ContainerRegisterNewModule>
           <h2>Escolha o nome do módulo: </h2>
-          <button onClick={() => genereteId()}>Ver gerador de ids</button>
           <TextField
             id="filled-basic"
             label="Nome do módulo"
