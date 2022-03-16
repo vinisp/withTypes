@@ -2,7 +2,13 @@ import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import ReactPlayer from "react-player";
 
-import { TextField, Button, TextareaAutosize } from "@mui/material/";
+import {
+  TextField,
+  Button,
+  TextareaAutosize,
+  Box,
+  Modal,
+} from "@mui/material/";
 import { Footer } from "../../Components/widgets/Footer";
 
 import {
@@ -13,6 +19,18 @@ import {
 } from "react-beautiful-dnd";
 
 import "../styles/CreateCourse.css";
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const MainContainer = styled("div")(({ theme }) => ({
   padding: "60px 0",
@@ -132,6 +150,10 @@ export function CreateCourse() {
     setTodo(items);
   };
 
+  function Update() {
+    setTodo(todo);
+  }
+
   function genereteId() {
     const allIds = todo.map((e) => +e.id);
     const newID = allIds.length > 0 ? Math.max(...allIds) + 1 : 1;
@@ -140,6 +162,11 @@ export function CreateCourse() {
 
   function handleRemoveItem(id: string) {
     setTodo(todo.filter((e) => e.id !== id));
+  }
+
+  function handleEditItem(id: string, element: any, newValue: string) {
+    todo.filter((e) => e.id === id).map((e: any) => (e[element] = newValue));
+    Update();
   }
 
   const addTitle = () => {
@@ -236,6 +263,49 @@ export function CreateCourse() {
 
   //Single Elements
 
+  function ShowEditModal(id: string, element: string) {
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    function CloseAndSave(newValue: string) {
+      handleEditItem(id, element, newValue);
+      handleClose();
+    }
+
+    const nomeDoCampo: string = `new ${element}`;
+
+    return (
+      <>
+        <Button onClick={handleOpen}>Editar</Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <TextField
+              id="filled-basic"
+              label={nomeDoCampo}
+              variant="filled"
+              sx={{ background: "white", width: "70%" }}
+              onChange={(event) => setModules(event.target.value)}
+            />
+            <Button
+              variant="contained"
+              sx={{ width: "70%" }}
+              color="success"
+              onClick={() => CloseAndSave(module)}
+            >
+              Salvar Alteração
+            </Button>
+          </Box>
+        </Modal>
+      </>
+    );
+  }
+
   function ShowItems() {
     return (
       <>
@@ -280,6 +350,8 @@ export function CreateCourse() {
                                     >
                                       X
                                     </button>
+
+                                    {ShowEditModal(id, "title")}
                                   </>
                                 ) : (
                                   false
@@ -294,6 +366,7 @@ export function CreateCourse() {
                                     >
                                       X
                                     </button>
+                                    {ShowEditModal(id, "subTitle")}
                                   </>
                                 ) : (
                                   false
