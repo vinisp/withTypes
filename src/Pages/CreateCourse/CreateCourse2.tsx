@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
+import ReactPlayer from "react-player";
+
 import { TextField, Button, TextareaAutosize } from "@mui/material/";
 import { Footer } from "../../Components/widgets/Footer";
 
@@ -105,6 +107,7 @@ interface ModuleElement {
   subTitle?: string;
   paragraph?: string;
   image?: string;
+  video?: string;
 }
 
 export function CreateCourse() {
@@ -169,6 +172,17 @@ export function CreateCourse() {
       {
         id: todo.length.toString(),
         paragraph: module,
+      },
+    ]);
+    setModules(" ");
+  };
+
+  const addVideo = () => {
+    setTodo((todo) => [
+      ...todo,
+      {
+        id: todo.length.toString(),
+        video: module,
       },
     ]);
     setModules(" ");
@@ -302,6 +316,28 @@ export function CreateCourse() {
     );
   }
 
+  function RenderVideoCreate() {
+    return (
+      <>
+        <TextField
+          id="filled-basic"
+          label="url do vídeo"
+          variant="filled"
+          sx={{ background: "white", width: "70%" }}
+          onChange={(event) => setModules(event.target.value)}
+        />
+        <Button
+          variant="contained"
+          sx={{ width: "70%" }}
+          color="success"
+          onClick={addVideo}
+        >
+          Salvar Vídeo
+        </Button>
+      </>
+    );
+  }
+
   //Double Elements
 
   function RenderTitleAndSubCreate() {
@@ -414,19 +450,22 @@ export function CreateCourse() {
           />
 
           <h1>Crie um novo capítulo</h1>
-
-          <select onChange={(e) => setValueState(e.target.value)}>
-            <option>Escolha um Elemento </option>
-            <option value="title">Título</option>
-            <option value="titleAndSub">Título + Subtítulo</option>
-            <option value="titleAndSubAndParagraph">
-              Título + Subtítulo + Parágrafo
-            </option>
-            <option value="subtitle">Subtítulo</option>
-            <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
-            <option value="paragraph">Parágrafo</option>
-            <option value="image">Imagem</option>
-          </select>
+          <div className="custom-select">
+            <select onChange={(e) => setValueState(e.target.value)}>
+              <option>Escolha um Elemento </option>
+              <option value="title">Título</option>
+              <option value="titleAndSub">Título + Subtítulo</option>
+              <option value="titleAndSubAndParagraph">
+                Título + Subtítulo + Parágrafo
+              </option>
+              <option value="subtitle">Subtítulo</option>
+              <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
+              <option value="paragraph">Parágrafo</option>
+              <option value="image">Imagem</option>
+              <option value="video">Vídeo</option>
+            </select>
+            <span className="custom-arrow"></span>
+          </div>
           {valueState === "title" ? RenderTitleCreate() : false}
           {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
           {valueState === "paragraph" ? RenderParagraphCreate() : false}
@@ -438,6 +477,7 @@ export function CreateCourse() {
             ? RenderTitleSubtitleAndParagraph()
             : false}
           {valueState === "image" ? RenderImageCreate() : false}
+          {valueState === "video" ? RenderVideoCreate() : false}
           <Button
             color="warning"
             sx={{ width: "70%" }}
@@ -474,7 +514,10 @@ export function CreateCourse() {
                   <LayoutArea>
                     {todo.length > 0 ? (
                       todo.map(
-                        ({ id, title, subTitle, paragraph, image }, index) => {
+                        (
+                          { id, title, subTitle, paragraph, image, video },
+                          index
+                        ) => {
                           return (
                             <Draggable key={id} draggableId={id} index={index}>
                               {(provided, snapshot) => (
@@ -510,7 +553,15 @@ export function CreateCourse() {
                                   {image ? (
                                     <ImgResized src={image} alt="" />
                                   ) : (
-                                    "não"
+                                    false
+                                  )}
+                                  {video ? (
+                                    <ReactPlayer
+                                      controls
+                                      url={`https://vimeo.com/${video}`}
+                                    />
+                                  ) : (
+                                    false
                                   )}
                                 </div>
                               )}

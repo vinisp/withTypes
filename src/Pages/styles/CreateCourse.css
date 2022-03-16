@@ -19,10 +19,46 @@
   min-height: 60px;
 }
 
-select {
-  padding: 20px;
+.custom-select {
   width: 70%;
+}
+
+select {
+  padding: 1em 1.5em;
   font-size: 18px;
+  width: 100%;
+  background: #4d5061;
+  color: white;
+  border: 0;
+}
+
+.custom-select {
+  position: relative;
+}
+
+.custom-arrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #3b3c47;
+  display: block;
+  height: 100%;
+  width: 4rem;
+  pointer-events: none;
+}
+
+.custom-arrow::before,
+.custom-arrow::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.custom-arrow::before {
+  border-left: 1em solid transparent;
+  border-top: 1em solid red;
+  border-left: 1em solid transparent;
 }
 
 option {
