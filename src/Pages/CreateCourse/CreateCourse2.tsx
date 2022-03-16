@@ -132,6 +132,12 @@ export function CreateCourse() {
     setTodo(items);
   };
 
+  function genereteId() {
+    const allIds = todo.map((e) => +e.id);
+    const newID = allIds.length > 0 ? Math.max(...allIds) + 1 : 1;
+    return newID.toString();
+  }
+
   function handleRemoveItem(id: string) {
     setTodo(todo.filter((e) => e.id !== id));
   }
@@ -140,7 +146,7 @@ export function CreateCourse() {
     setTodo((todo) => [
       ...todo,
       {
-        id: todo.length.toString(),
+        id: genereteId(),
         title: module,
       },
     ]);
@@ -151,7 +157,7 @@ export function CreateCourse() {
     setTodo((todo) => [
       ...todo,
       {
-        id: todo.length.toString(),
+        id: genereteId(),
         image: module,
       },
     ]);
@@ -162,7 +168,7 @@ export function CreateCourse() {
     setTodo((todo) => [
       ...todo,
       {
-        id: todo.length.toString(),
+        id: genereteId(),
         subTitle: module,
       },
     ]);
@@ -173,7 +179,7 @@ export function CreateCourse() {
     setTodo((todo) => [
       ...todo,
       {
-        id: todo.length.toString(),
+        id: genereteId(),
         paragraph: module,
       },
     ]);
@@ -184,7 +190,7 @@ export function CreateCourse() {
     setTodo((todo) => [
       ...todo,
       {
-        id: todo.length.toString(),
+        id: genereteId(),
         video: module,
       },
     ]);
@@ -195,7 +201,7 @@ export function CreateCourse() {
     setTodo((todo) => [
       ...todo,
       {
-        id: todo.length.toString(),
+        id: genereteId(),
         title: module,
         subTitle: secModule,
       },
@@ -207,8 +213,7 @@ export function CreateCourse() {
     setTodo((todo) => [
       ...todo,
       {
-        id: todo.length.toString(),
-
+        id: genereteId(),
         subTitle: module,
         paragraph: secModule,
       },
@@ -220,7 +225,7 @@ export function CreateCourse() {
     setTodo((todo) => [
       ...todo,
       {
-        id: todo.length.toString(),
+        id: genereteId(),
         title: module,
         subTitle: secModule,
         paragraph: thirdModule,
@@ -238,6 +243,7 @@ export function CreateCourse() {
           <div>
             <h1>Abaixo você pode ver e organizar os elementos do seu módulo</h1>
           </div>
+
           <div>O título do módulo é: {moduleName}</div>
           <Droppable droppableId="todo">
             {(provided) => (
@@ -541,6 +547,7 @@ export function CreateCourse() {
       <MainContainer>
         <ContainerRegisterNewModule>
           <h2>Escolha o nome do módulo: </h2>
+          <button onClick={() => genereteId()}>Ver gerador de ids</button>
           <TextField
             id="filled-basic"
             label="Nome do módulo"
