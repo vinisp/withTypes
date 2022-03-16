@@ -132,7 +132,6 @@ export function CreateCourse() {
   const [todo, setTodo] = useState<ModuleElement[]>([]);
 
   const [moduleName, setModuleName] = useState("");
-
   const [module, setModules] = useState("");
   const [secModule, setSecModule] = useState("");
   const [thirdModule, setThirdModule] = useState("");
@@ -652,22 +651,21 @@ export function CreateCourse() {
           />
 
           <h1>Crie um novo capítulo</h1>
-          <div className="custom-select">
-            <select onChange={(e) => setValueState(e.target.value)}>
-              <option>Escolha um Elemento </option>
-              <option value="title">Título</option>
-              <option value="titleAndSub">Título + Subtítulo</option>
-              <option value="titleAndSubAndParagraph">
-                Título + Subtítulo + Parágrafo
-              </option>
-              <option value="subtitle">Subtítulo</option>
-              <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
-              <option value="paragraph">Parágrafo</option>
-              <option value="image">Imagem</option>
-              <option value="video">Vídeo</option>
-            </select>
-            <span className="custom-arrow"></span>
-          </div>
+
+          <select onChange={(e) => setValueState(e.target.value)}>
+            <option>Escolha um Elemento </option>
+            <option value="title">Título</option>
+            <option value="titleAndSub">Título + Subtítulo</option>
+            <option value="titleAndSubAndParagraph">
+              Título + Subtítulo + Parágrafo
+            </option>
+            <option value="subtitle">Subtítulo</option>
+            <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
+            <option value="paragraph">Parágrafo</option>
+            <option value="image">Imagem</option>
+            <option value="video">Vídeo</option>
+          </select>
+
           {valueState === "title" ? RenderTitleCreate() : false}
           {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
           {valueState === "paragraph" ? RenderParagraphCreate() : false}
