@@ -10,6 +10,10 @@ import {
   Modal,
   CssBaseline,
 } from "@mui/material/";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Footer } from "../../Components/widgets/Footer";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -41,6 +45,13 @@ const MainContainer = styled("div")(({ theme }) => ({
   background: "rgba(0,0,0, 1)",
   display: "flex",
   flexWrap: "wrap",
+}));
+
+const MainDetails = styled("ul")(({ theme }) => ({
+  listStyle: "none",
+  display: "flex",
+  flexDirection: "column",
+  gap: "15px",
 }));
 
 const ContainerRegisterNewModule = styled("div")(({ theme }) => ({
@@ -135,6 +146,10 @@ interface ModuleElement {
 export function CreateCourse() {
   const [todo, setTodo] = useState<ModuleElement[]>([]);
 
+  const [courseName, setCourseName] = useState("");
+  const [courseDescription, setCourseDescription] = useState("");
+  /* const [sumary, setSumary] = useState(""); */
+
   const [moduleName, setModuleName] = useState("");
   const [module, setModules] = useState("");
   const [secModule, setSecModule] = useState("");
@@ -167,6 +182,14 @@ export function CreateCourse() {
     todo.filter((e) => e.id === id).map((e: any) => (e[element] = newValue));
     setTodo(todo.filter((e) => e));
   }
+
+  const editCourseName = () => {
+    setCourseName(courseName);
+  };
+
+  const editDescription = () => {
+    setCourseDescription(courseDescription);
+  };
 
   const addTitle = () => {
     setTodo((todo) => [
@@ -352,6 +375,87 @@ export function CreateCourse() {
             </Button>
           </Box>
         </Modal>
+      </>
+    );
+  }
+
+  //Components
+
+  function CourseInformations() {
+    return (
+      <>
+        <div>
+          <MainDetails>
+            <li>
+              <div>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <span> Nome do curso: {courseName} </span>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <TextField
+                      id="filled-basic"
+                      label="Título"
+                      variant="filled"
+                      sx={{ background: "white", width: "100%" }}
+                      onChange={(event) => setCourseName(event.target.value)}
+                      value={courseName}
+                    />
+                    <Button
+                      variant="contained"
+                      sx={{ width: "100%" }}
+                      color="success"
+                      onClick={() => {
+                        editCourseName();
+                      }}
+                    >
+                      Salvar
+                    </Button>
+                  </AccordionDetails>
+                </Accordion>
+              </div>
+            </li>
+            <li>
+              <div>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <span> Descrição </span>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <TextField
+                      id="filled-basic"
+                      label="Descrição"
+                      variant="filled"
+                      sx={{ background: "white", width: "100%" }}
+                      onChange={(event) =>
+                        setCourseDescription(event.target.value)
+                      }
+                      value={courseDescription}
+                    />
+                    <Button
+                      variant="contained"
+                      sx={{ width: "100%" }}
+                      color="success"
+                      onClick={() => {
+                        editDescription();
+                      }}
+                    >
+                      Salvar
+                    </Button>
+                  </AccordionDetails>
+                </Accordion>
+              </div>
+            </li>
+          </MainDetails>
+        </div>
       </>
     );
   }
@@ -584,7 +688,7 @@ export function CreateCourse() {
       <>
         <TextField
           id="filled-basic"
-          label="url do vídeo"
+          label="id do vídeo"
           variant="filled"
           sx={{ background: "white", width: "70%" }}
           onChange={(event) => setModules(event.target.value)}
@@ -712,6 +816,7 @@ export function CreateCourse() {
       <CssBaseline>
         <MainContainer>
           <ContainerRegisterNewModule>
+            {CourseInformations()}
             <h2>Escolha o nome do módulo: </h2>
             <TextField
               id="filled-basic"
@@ -721,20 +826,25 @@ export function CreateCourse() {
               onChange={(event) => setModuleName(event.target.value)}
             />
 
-            <h1>Crie um novo capítulo</h1>
+            <h1>Crie um novo elemento</h1>
 
             <select onChange={(e) => setValueState(e.target.value)}>
               <option>Escolha um Elemento </option>
-              <option value="title">Título</option>
-              <option value="titleAndSub">Título + Subtítulo</option>
-              <option value="titleAndSubAndParagraph">
-                Título + Subtítulo + Parágrafo
-              </option>
-              <option value="subtitle">Subtítulo</option>
-              <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
-              <option value="paragraph">Parágrafo</option>
-              <option value="image">Imagem</option>
-              <option value="video">Vídeo</option>
+              <optgroup label="Elemento Sozinho">
+                <option value="title">Título</option>
+                <option value="subtitle">Subtítulo</option>
+                <option value="paragraph">Parágrafo</option>
+                <option value="image">Imagem</option>
+                <option value="video">Vídeo</option>
+              </optgroup>
+              <optgroup label="Elementos Agrupados">
+                <option value="titleAndSub">Título + Subtítulo</option>
+                <option value="titleAndSubAndParagraph">
+                  Título + Subtítulo + Parágrafo
+                </option>
+
+                <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
+              </optgroup>
             </select>
 
             {valueState === "title" ? RenderTitleCreate() : false}
@@ -756,7 +866,12 @@ export function CreateCourse() {
               onClick={() =>
                 alert(
                   JSON.stringify(
-                    { moduleName: moduleName, content: todo },
+                    {
+                      courseName: courseName,
+                      description: courseDescription,
+                      moduleName: moduleName,
+                      content: todo,
+                    },
                     null,
                     2
                   )
