@@ -71,7 +71,7 @@ option {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 80px;
+  min-height: 100px;
   padding: 0 2px;
 }
 
@@ -114,6 +114,7 @@ option {
   gap: 3px;
   text-transform: uppercase;
   align-self: flex-end;
+  justify-self: flex-end;
   margin-bottom: 6px;
 }
 

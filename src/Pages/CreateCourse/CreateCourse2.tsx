@@ -246,6 +246,7 @@ export function CreateCourse() {
       },
     ]);
     setModules("");
+    setSecModule("");
   };
 
   const addTitleSubtitleAndParagraph = () => {
@@ -259,6 +260,8 @@ export function CreateCourse() {
       },
     ]);
     setModules("");
+    setSecModule("");
+    setThirdModule("");
   };
 
   //Single Elements
@@ -322,9 +325,9 @@ export function CreateCourse() {
 
     return (
       <>
-        <Button fullWidth variant="outlined" onClick={handleOpen}>
-          Editar
-        </Button>
+        <button className="editButton" onClick={handleOpen}>
+          <span> Editar </span> <EditIcon />
+        </button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -422,7 +425,7 @@ export function CreateCourse() {
                                   false
                                 )}
                                 {paragraph ? (
-                                  <div>
+                                  <div className="elementSoloStyle">
                                     <ParagraphElement>
                                       {paragraph}
                                     </ParagraphElement>
@@ -430,7 +433,7 @@ export function CreateCourse() {
                                       className="deleteElementButton red"
                                       onClick={() => handleRemoveItem(id)}
                                     >
-                                      X
+                                      EXCLUIR <DeleteOutlineIcon />
                                     </button>
                                     {ShowEditParagraph(id, "paragraph")}
                                   </div>
@@ -641,6 +644,7 @@ export function CreateCourse() {
           variant="filled"
           sx={{ background: "white", width: "70%" }}
           onChange={(event) => setModules(event.target.value)}
+          value={module}
         />
         <TextareaAutosize
           id="filled-basic"
@@ -648,6 +652,7 @@ export function CreateCourse() {
           onChange={(event) => setSecModule(event.target.value)}
           style={{ padding: "15px", minHeight: "30px", width: "70%" }}
           placeholder="seu texto..."
+          value={secModule}
         />
         <Button
           variant="contained"
@@ -672,6 +677,7 @@ export function CreateCourse() {
           variant="filled"
           sx={{ background: "white", width: "70%" }}
           onChange={(event) => setModules(event.target.value)}
+          value={module}
         />
         <TextField
           id="filled-basic"
@@ -679,6 +685,7 @@ export function CreateCourse() {
           variant="filled"
           sx={{ background: "white", width: "70%" }}
           onChange={(event) => setSecModule(event.target.value)}
+          value={secModule}
         />
         <TextareaAutosize
           id="filled-basic"
@@ -686,6 +693,7 @@ export function CreateCourse() {
           onChange={(event) => setThirdModule(event.target.value)}
           style={{ padding: "15px", minHeight: "30px", width: "70%" }}
           placeholder="seu texto..."
+          value={thirdModule}
         />
         <Button
           variant="contained"
