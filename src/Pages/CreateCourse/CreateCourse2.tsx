@@ -8,8 +8,12 @@ import {
   TextareaAutosize,
   Box,
   Modal,
+  CssBaseline,
 } from "@mui/material/";
 import { Footer } from "../../Components/widgets/Footer";
+
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
 
 import {
   DragDropContext,
@@ -111,7 +115,7 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   color: isDragging ? "white" : "black",
   borderBottom: isDragging
     ? "2px solid yellow"
-    : "2px solid rgba(34,119,34,0.4)",
+    : "3px solid rgba(34,119,34,0.7)",
   borderRadius: `4px`,
 
   padding: "5px 7px",
@@ -161,6 +165,7 @@ export function CreateCourse() {
 
   function handleEditItem(id: string, element: any, newValue: string) {
     todo.filter((e) => e.id === id).map((e: any) => (e[element] = newValue));
+    setTodo(todo.filter((e) => e));
   }
 
   const addTitle = () => {
@@ -273,7 +278,9 @@ export function CreateCourse() {
 
     return (
       <>
-        <Button onClick={handleOpen}>Editar</Button>
+        <button className="editButton" onClick={handleOpen}>
+          <span> Editar </span> <EditIcon />
+        </button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -290,11 +297,55 @@ export function CreateCourse() {
             />
             <Button
               variant="contained"
+              color="success"
+              onClick={() => CloseAndSave(editValue)}
+              fullWidth
+            >
+              Salvar Alteração
+            </Button>
+          </Box>
+        </Modal>
+      </>
+    );
+  }
+
+  function ShowEditParagraph(id: string, element: string) {
+    const [open, setOpen] = useState(false);
+    const [editValue, setEditValue] = useState("");
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    function CloseAndSave(newValue: string) {
+      handleEditItem(id, element, newValue);
+      handleClose();
+    }
+
+    return (
+      <>
+        <Button fullWidth variant="outlined" onClick={handleOpen}>
+          Editar
+        </Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <TextareaAutosize
+              id="filled-basic"
+              minRows={10}
+              onChange={(event) => setEditValue(event.target.value)}
+              style={{ padding: "15px", minHeight: "30px", width: "70%" }}
+              placeholder="seu texto..."
+            />
+            <Button
+              variant="outlined"
               sx={{ width: "70%" }}
               color="success"
               onClick={() => CloseAndSave(editValue)}
             >
-              Salvar Alteração
+              Salvar Parágrafo
             </Button>
           </Box>
         </Modal>
@@ -339,45 +390,50 @@ export function CreateCourse() {
                                 )}
                               >
                                 {title ? (
-                                  <>
+                                  <div className="elementSoloStyle">
                                     <TitleElement>{title} </TitleElement>
+
                                     <button
+                                      className="deleteElementButton"
                                       onClick={() => handleRemoveItem(id)}
                                     >
-                                      X
+                                      EXCLUIR <DeleteOutlineIcon />
                                     </button>
 
                                     {ShowEditModal(id, "title")}
-                                  </>
+                                  </div>
                                 ) : (
                                   false
                                 )}
                                 {subTitle ? (
-                                  <>
+                                  <div className="elementSoloStyle">
                                     <SubTitleElement>
                                       {subTitle}
                                     </SubTitleElement>
                                     <button
+                                      className="deleteElementButton red"
                                       onClick={() => handleRemoveItem(id)}
                                     >
-                                      X
+                                      EXCLUIR <DeleteOutlineIcon />
                                     </button>
                                     {ShowEditModal(id, "subTitle")}
-                                  </>
+                                  </div>
                                 ) : (
                                   false
                                 )}
                                 {paragraph ? (
-                                  <>
+                                  <div>
                                     <ParagraphElement>
                                       {paragraph}
                                     </ParagraphElement>
                                     <button
+                                      className="deleteElementButton red"
                                       onClick={() => handleRemoveItem(id)}
                                     >
                                       X
                                     </button>
-                                  </>
+                                    {ShowEditParagraph(id, "paragraph")}
+                                  </div>
                                 ) : (
                                   false
                                 )}
@@ -645,65 +701,67 @@ export function CreateCourse() {
 
   return (
     <>
-      <MainContainer>
-        <ContainerRegisterNewModule>
-          <h2>Escolha o nome do módulo: </h2>
-          <TextField
-            id="filled-basic"
-            label="Nome do módulo"
-            variant="filled"
-            sx={{ background: "white", minWidth: "360px" }}
-            onChange={(event) => setModuleName(event.target.value)}
-          />
+      <CssBaseline>
+        <MainContainer>
+          <ContainerRegisterNewModule>
+            <h2>Escolha o nome do módulo: </h2>
+            <TextField
+              id="filled-basic"
+              label="Nome do módulo"
+              variant="filled"
+              sx={{ background: "white", minWidth: "360px" }}
+              onChange={(event) => setModuleName(event.target.value)}
+            />
 
-          <h1>Crie um novo capítulo</h1>
+            <h1>Crie um novo capítulo</h1>
 
-          <select onChange={(e) => setValueState(e.target.value)}>
-            <option>Escolha um Elemento </option>
-            <option value="title">Título</option>
-            <option value="titleAndSub">Título + Subtítulo</option>
-            <option value="titleAndSubAndParagraph">
-              Título + Subtítulo + Parágrafo
-            </option>
-            <option value="subtitle">Subtítulo</option>
-            <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
-            <option value="paragraph">Parágrafo</option>
-            <option value="image">Imagem</option>
-            <option value="video">Vídeo</option>
-          </select>
+            <select onChange={(e) => setValueState(e.target.value)}>
+              <option>Escolha um Elemento </option>
+              <option value="title">Título</option>
+              <option value="titleAndSub">Título + Subtítulo</option>
+              <option value="titleAndSubAndParagraph">
+                Título + Subtítulo + Parágrafo
+              </option>
+              <option value="subtitle">Subtítulo</option>
+              <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
+              <option value="paragraph">Parágrafo</option>
+              <option value="image">Imagem</option>
+              <option value="video">Vídeo</option>
+            </select>
 
-          {valueState === "title" ? RenderTitleCreate() : false}
-          {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
-          {valueState === "paragraph" ? RenderParagraphCreate() : false}
-          {valueState === "subtitle" ? RenderSubtitleCreate() : false}
-          {valueState === "paragraphAndSub"
-            ? RenderSubtitleAndParagraph()
-            : false}
-          {valueState === "titleAndSubAndParagraph"
-            ? RenderTitleSubtitleAndParagraph()
-            : false}
-          {valueState === "image" ? RenderImageCreate() : false}
-          {valueState === "video" ? RenderVideoCreate() : false}
-          <Button
-            color="warning"
-            sx={{ width: "70%" }}
-            variant="contained"
-            onClick={() =>
-              alert(
-                JSON.stringify(
-                  { moduleName: moduleName, content: todo },
-                  null,
-                  2
+            {valueState === "title" ? RenderTitleCreate() : false}
+            {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
+            {valueState === "paragraph" ? RenderParagraphCreate() : false}
+            {valueState === "subtitle" ? RenderSubtitleCreate() : false}
+            {valueState === "paragraphAndSub"
+              ? RenderSubtitleAndParagraph()
+              : false}
+            {valueState === "titleAndSubAndParagraph"
+              ? RenderTitleSubtitleAndParagraph()
+              : false}
+            {valueState === "image" ? RenderImageCreate() : false}
+            {valueState === "video" ? RenderVideoCreate() : false}
+            <Button
+              color="warning"
+              sx={{ width: "70%" }}
+              variant="contained"
+              onClick={() =>
+                alert(
+                  JSON.stringify(
+                    { moduleName: moduleName, content: todo },
+                    null,
+                    2
+                  )
                 )
-              )
-            }
-          >
-            Salvar Módulo
-          </Button>
-        </ContainerRegisterNewModule>
+              }
+            >
+              Salvar Módulo
+            </Button>
+          </ContainerRegisterNewModule>
 
-        <DragDropContext onDragEnd={onDragEnd}>{ShowItems()}</DragDropContext>
-      </MainContainer>
+          <DragDropContext onDragEnd={onDragEnd}>{ShowItems()}</DragDropContext>
+        </MainContainer>
+      </CssBaseline>
       <Footer />
     </>
   );
