@@ -56,7 +56,7 @@ const MainDetails = styled("ul")(({ theme }) => ({
 
 const ContainerRegisterNewModule = styled("div")(({ theme }) => ({
   padding: "60px 0px 0 30px",
-  height: "640px",
+  height: "auto",
   background: "rgba(0,0,0, 0.3)",
   marginBottom: "15px",
   display: "flex",
@@ -77,7 +77,7 @@ const ShowAndOrganizeModules = styled("div")(({ theme }) => ({
   gap: 35,
   minHeight: 350,
   color: "white",
-  background: "rgba(211,211,211, 0.3)",
+  background: "rgba(211,211,211, 0.1)",
   flex: "0 0 70%",
   width: "100%",
   borderLeft: "solid 2px green",
