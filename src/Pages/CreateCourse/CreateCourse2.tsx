@@ -134,6 +134,12 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
   ...draggableStyle,
 });
 
+interface Module {
+  moduleName: string;
+  moduleId: string;
+  moduleContent?: any;
+}
+
 interface ModuleElement {
   id: string;
   title?: string;
@@ -145,6 +151,8 @@ interface ModuleElement {
 
 export function CreateCourse() {
   const [todo, setTodo] = useState<ModuleElement[]>([]);
+
+  const [allModules, setAllModules] = useState<Module[]>([]);
 
   const [courseName, setCourseName] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
@@ -170,6 +178,12 @@ export function CreateCourse() {
 
   function genereteId() {
     const allIds = todo.map((e) => +e.id);
+    const newID = allIds.length > 0 ? Math.max(...allIds) + 1 : 1;
+    return newID.toString();
+  }
+
+  function genereteId2() {
+    const allIds = allModules.map((e) => +e.moduleId);
     const newID = allIds.length > 0 ? Math.max(...allIds) + 1 : 1;
     return newID.toString();
   }
@@ -811,12 +825,50 @@ export function CreateCourse() {
     );
   }
 
+  function SaveModule() {
+    // Temos algum módulo ?
+    // Esse módulo já existe ?
+    function SaveNewModule() {
+      setAllModules((allModules: any) => [
+        ...allModules,
+        {
+          moduleName: moduleName,
+          moduleId: genereteId2(),
+          moduleContent: todo,
+        },
+      ]);
+    }
+
+    function SelectToEdit() {
+      const editItem = allModules.filter((e) => e.moduleName === moduleName);
+      editItem.map((e) => e.moduleContent.splice(0, e.moduleContent.length));
+      editItem.map((e) => e.moduleContent.push(todo));
+    }
+
+    if (moduleName.length > 0) {
+      allModules.length > 0
+        ? allModules.filter((e) =>
+            e.moduleName === moduleName ? SelectToEdit() : SaveNewModule()
+          )
+        : SaveNewModule();
+    }
+
+    allModules.filter((e) => e.moduleName === moduleName);
+  }
+
+  function NewModule() {
+    setModuleName("");
+    todo.splice(0, todo.length);
+    setTodo(todo.filter((e) => e));
+  }
+
   return (
     <>
       <CssBaseline>
         <MainContainer>
           <ContainerRegisterNewModule>
             {CourseInformations()}
+
             <h2>Escolha o nome do módulo: </h2>
             <TextField
               id="filled-basic"
@@ -824,6 +876,7 @@ export function CreateCourse() {
               variant="filled"
               sx={{ background: "white", minWidth: "360px" }}
               onChange={(event) => setModuleName(event.target.value)}
+              value={moduleName}
             />
 
             <h1>Crie um novo elemento</h1>
@@ -859,7 +912,7 @@ export function CreateCourse() {
               : false}
             {valueState === "image" ? RenderImageCreate() : false}
             {valueState === "video" ? RenderVideoCreate() : false}
-            <Button
+            {/* <Button
               color="warning"
               sx={{ width: "70%" }}
               variant="contained"
@@ -879,7 +932,36 @@ export function CreateCourse() {
               }
             >
               Salvar Módulo
+            </Button> */}
+
+            <Button
+              color="warning"
+              sx={{ width: "70%" }}
+              variant="contained"
+              onClick={() => {
+                SaveModule();
+              }}
+            >
+              Salvar Módulo
             </Button>
+
+            <Button
+              sx={{ width: "70%" }}
+              variant="contained"
+              onClick={() => {
+                NewModule();
+              }}
+            >
+              Novo Módulo
+            </Button>
+
+            <button
+              onClick={() => {
+                console.log(allModules);
+              }}
+            >
+              Ver Items
+            </button>
           </ContainerRegisterNewModule>
 
           <DragDropContext onDragEnd={onDragEnd}>{ShowItems()}</DragDropContext>
