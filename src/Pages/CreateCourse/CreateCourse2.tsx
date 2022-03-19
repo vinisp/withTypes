@@ -42,9 +42,27 @@ const style = {
 
 const MainContainer = styled("div")(({ theme }) => ({
   padding: "60px 0",
-  background: "rgba(0,0,0, 1)",
+  background: "rgba(43,45,45, 1)",
   display: "flex",
   flexWrap: "wrap",
+}));
+
+const ControlsContainer = styled("div")(({ theme }) => ({
+  background: "rgba(116,116,116,0.4)",
+  display: "flex",
+  flexDirection: "column",
+  padding: "30px",
+  borderRadius: "4px",
+  gap: "25px",
+  alignItems: "center",
+  button: {
+    width: "100%",
+  },
+  select: {
+    width: "100%",
+  },
+
+  width: "90%",
 }));
 
 const MainDetails = styled("ul")(({ theme }) => ({
@@ -52,16 +70,19 @@ const MainDetails = styled("ul")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "15px",
+  width: "100%",
 }));
 
 const ContainerRegisterNewModule = styled("div")(({ theme }) => ({
-  padding: "60px 0px 0 30px",
+  padding: "60px 0",
   height: "auto",
   background: "rgba(0,0,0, 0.3)",
+  border: "solid 1px rgb(169,169,169)",
+  borderRight: 0,
   marginBottom: "15px",
   display: "flex",
   flexDirection: "column",
-  alignItems: "flex-start",
+  alignItems: "center",
   gap: 15,
   color: "white",
   transition: "height 350ms",
@@ -160,7 +181,6 @@ export function CreateCourse() {
 
   //Module states
   const [moduleName, setModuleName] = useState("");
-  const [moduleId, setModuleId] = useState("");
   const [module, setModules] = useState("");
   const [secModule, setSecModule] = useState("");
   const [thirdModule, setThirdModule] = useState("");
@@ -406,81 +426,82 @@ export function CreateCourse() {
   function CourseInformations() {
     return (
       <>
-        <div>
-          <MainDetails>
-            <li>
-              <div>
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
+        <MainDetails>
+          <li>
+            <div>
+              <Accordion sx={{ width: "100%" }}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                  sx={{ width: "100%" }}
+                >
+                  <span> Nome do curso: {courseName} </span>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <TextField
+                    id="filled-basic"
+                    label="Título"
+                    variant="filled"
+                    sx={{ background: "white", width: "100%" }}
+                    onChange={(event) => setCourseName(event.target.value)}
+                    value={courseName}
+                  />
+                  <Button
+                    variant="contained"
+                    sx={{ width: "100%" }}
+                    color="success"
+                    onClick={() => {
+                      editCourseName();
+                    }}
                   >
-                    <span> Nome do curso: {courseName} </span>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <TextField
-                      id="filled-basic"
-                      label="Título"
-                      variant="filled"
-                      sx={{ background: "white", width: "100%" }}
-                      onChange={(event) => setCourseName(event.target.value)}
-                      value={courseName}
-                    />
-                    <Button
-                      variant="contained"
-                      sx={{ width: "100%" }}
-                      color="success"
-                      onClick={() => {
-                        editCourseName();
-                      }}
-                    >
-                      Salvar
-                    </Button>
-                  </AccordionDetails>
-                </Accordion>
-              </div>
-            </li>
-            <li>
-              <div>
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
+                    Salvar
+                  </Button>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+          </li>
+          <li>
+            <div>
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <span> Descrição </span>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <TextField
+                    id="filled-basic"
+                    label="Descrição"
+                    variant="filled"
+                    sx={{ background: "white", width: "100%" }}
+                    onChange={(event) =>
+                      setCourseDescription(event.target.value)
+                    }
+                    value={courseDescription}
+                  />
+                  <Button
+                    variant="contained"
+                    sx={{ width: "100%" }}
+                    color="success"
+                    onClick={() => {
+                      editDescription();
+                    }}
                   >
-                    <span> Descrição </span>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <TextField
-                      id="filled-basic"
-                      label="Descrição"
-                      variant="filled"
-                      sx={{ background: "white", width: "100%" }}
-                      onChange={(event) =>
-                        setCourseDescription(event.target.value)
-                      }
-                      value={courseDescription}
-                    />
-                    <Button
-                      variant="contained"
-                      sx={{ width: "100%" }}
-                      color="success"
-                      onClick={() => {
-                        editDescription();
-                      }}
-                    >
-                      Salvar
-                    </Button>
-                  </AccordionDetails>
-                </Accordion>
-              </div>
-            </li>
-          </MainDetails>
-        </div>
+                    Salvar
+                  </Button>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+          </li>
+        </MainDetails>
       </>
     );
   }
+
+  console.log(CourseInformations());
 
   function ShowItems() {
     return (
@@ -491,8 +512,11 @@ export function CreateCourse() {
           </div>
 
           <div>
-            O título do módulo é:
-            {allModules.length > 0 ? <p>{moduleName}</p> : "nenhum módulo"}
+            {allModules.length > 0 ? (
+              <span>Você está editando o módulo {moduleName}</span>
+            ) : (
+              "Nenhum módulo neste curso"
+            )}
           </div>
           <Droppable droppableId="todo">
             {(provided) => (
@@ -621,7 +645,7 @@ export function CreateCourse() {
           id="filled-basic"
           label="Título"
           variant="filled"
-          sx={{ background: "white", width: "70%" }}
+          sx={{ background: "white", width: "100%" }}
           onChange={(event) => setModules(event.target.value)}
           value={module}
         />
@@ -646,7 +670,10 @@ export function CreateCourse() {
           id="filled-basic"
           label="Subtítulo"
           variant="filled"
-          sx={{ background: "white", width: "70%" }}
+          sx={{
+            background: "white",
+            width: "100%",
+          }}
           onChange={(event) => setModules(event.target.value)}
           value={module}
         />
@@ -669,7 +696,7 @@ export function CreateCourse() {
           id="filled-basic"
           minRows={10}
           onChange={(event) => setModules(event.target.value)}
-          style={{ padding: "15px", minHeight: "30px", width: "70%" }}
+          style={{ padding: "15px", minHeight: "30px", width: "100%" }}
           placeholder="seu texto..."
           value={module}
         />
@@ -692,7 +719,7 @@ export function CreateCourse() {
           id="filled-basic"
           label="Url da imagem"
           variant="filled"
-          sx={{ background: "white", width: "70%" }}
+          sx={{ background: "white", width: "100%" }}
           onChange={(event) => setModules(event.target.value)}
           value={module}
         />
@@ -715,7 +742,7 @@ export function CreateCourse() {
           id="filled-basic"
           label="id do vídeo"
           variant="filled"
-          sx={{ background: "white", width: "70%" }}
+          sx={{ background: "white", width: "100%" }}
           onChange={(event) => setModules(event.target.value)}
           value={module}
         />
@@ -740,7 +767,7 @@ export function CreateCourse() {
           id="filled-basic"
           label="Título"
           variant="filled"
-          sx={{ background: "white", width: "70%" }}
+          sx={{ background: "white", width: "100%" }}
           onChange={(event) => setModules(event.target.value)}
           value={module}
         />
@@ -748,7 +775,7 @@ export function CreateCourse() {
           id="filled-basic"
           label="SubTítulo"
           variant="filled"
-          sx={{ background: "white", width: "70%" }}
+          sx={{ background: "white", width: "100%" }}
           onChange={(event) => setSecModule(event.target.value)}
           value={secModule}
         />
@@ -771,7 +798,7 @@ export function CreateCourse() {
           id="filled-basic"
           label="SubTítulo"
           variant="filled"
-          sx={{ background: "white", width: "70%" }}
+          sx={{ background: "white", width: "100%" }}
           onChange={(event) => setModules(event.target.value)}
           value={module}
         />
@@ -779,7 +806,7 @@ export function CreateCourse() {
           id="filled-basic"
           minRows={10}
           onChange={(event) => setSecModule(event.target.value)}
-          style={{ padding: "15px", minHeight: "30px", width: "70%" }}
+          style={{ padding: "15px", minHeight: "30px", width: "100%" }}
           placeholder="seu texto..."
           value={secModule}
         />
@@ -804,7 +831,7 @@ export function CreateCourse() {
           id="filled-basic"
           label="Título"
           variant="filled"
-          sx={{ background: "white", width: "70%" }}
+          sx={{ background: "white", width: "100%" }}
           onChange={(event) => setModules(event.target.value)}
           value={module}
         />
@@ -812,7 +839,7 @@ export function CreateCourse() {
           id="filled-basic"
           label="SubTítulo"
           variant="filled"
-          sx={{ background: "white", width: "70%" }}
+          sx={{ background: "white", width: "100%" }}
           onChange={(event) => setSecModule(event.target.value)}
           value={secModule}
         />
@@ -820,7 +847,7 @@ export function CreateCourse() {
           id="filled-basic"
           minRows={10}
           onChange={(event) => setThirdModule(event.target.value)}
-          style={{ padding: "15px", minHeight: "30px", width: "70%" }}
+          style={{ padding: "15px", minHeight: "30px", width: "100%" }}
           placeholder="seu texto..."
           value={thirdModule}
         />
@@ -836,29 +863,10 @@ export function CreateCourse() {
     );
   }
 
-  /* function LoadFirstModule() {
-    const FirstModuleID = genereteId2();
-    allModules.filter((e) => e.moduleId);
-    allModules.length === 0 ? setModuleId(FirstModuleID) : console.log(false);
-  } */
-
   function SaveModule(id: any) {
-    console.log({ enterValue: id });
-    console.log(
-      "step1",
-      { selectItem: allModules.filter((e) => e.moduleId === id) },
-      { saveElements: todo }
-    );
     const selectItem = allModules.filter((e) => e.moduleId === id);
     selectItem[0].moduleContent.splice(0, selectItem[0].moduleContent.length);
     selectItem[0].moduleContent.push(...todo);
-    console.log(
-      "step2",
-      { selectItem: allModules.filter((e) => e.moduleId === id) },
-      { saveElements: todo }
-    );
-    /* allModules.filter((e) => e.moduleId === valueIDSelectModule);
-    selectItem[0].moduleContent.push(todo); */
   }
 
   function NewModule() {
@@ -890,7 +898,12 @@ export function CreateCourse() {
 
     return (
       <>
-        <Button variant={"outlined"} onClick={handleOpen}>
+        <Button
+          color="success"
+          sx={{ width: "70%" }}
+          variant={"contained"}
+          onClick={handleOpen}
+        >
           <span> Criar novo Módulo </span> <EditIcon />
         </Button>
         <Modal
@@ -906,12 +919,7 @@ export function CreateCourse() {
               placeholder="seu texto..."
               onChange={(e: any) => setNewModuleName(e.target.value)}
             />
-            <Button
-              variant="outlined"
-              sx={{ width: "70%" }}
-              color="success"
-              onClick={() => CloseAndSave()}
-            >
+            <Button variant="outlined" onClick={() => CloseAndSave()}>
               Criar novo módulo
             </Button>
           </Box>
@@ -920,98 +928,101 @@ export function CreateCourse() {
     );
   }
 
+  function SelectModule() {
+    return (
+      <>
+        <div>
+          <h1>Qual módulo deseja editar ?</h1>
+          <select onChange={(e) => setValueIDSelectModule(e.target.value)}>
+            {allModules.length > 0
+              ? allModules.map((e) => (
+                  <option value={e.moduleId}> {e.moduleName}</option>
+                ))
+              : false}
+          </select>
+          <Button
+            variant="contained"
+            onClick={() => {
+              const selectModule = allModules
+                .filter((e) => e.moduleId === valueIDSelectModule)
+                .flat();
+
+              selectModule.flatMap((e) => e.moduleContent.flat()).length > 0
+                ? setTodo(selectModule.flatMap((e) => e.moduleContent.flat()))
+                : DeleteAndUpdate();
+              setModuleName(selectModule[0].moduleName);
+              console.log(selectModule[0].moduleName);
+            }}
+          >
+            VER ITENS DO MÓDULO ESCOLHIDO ACIMA
+          </Button>
+        </div>
+      </>
+    );
+  }
+
+  function CreateItemInModule() {
+    return (
+      <>
+        <ControlsContainer>
+          <h1>Crie um novo elemento</h1>
+
+          <select onChange={(e) => setValueState(e.target.value)}>
+            <option>Escolha um Elemento </option>
+            <optgroup label="Elemento Sozinho">
+              <option value="title">Título</option>
+              <option value="subtitle">Subtítulo</option>
+              <option value="paragraph">Parágrafo</option>
+              <option value="image">Imagem</option>
+              <option value="video">Vídeo</option>
+            </optgroup>
+            <optgroup label="Elementos Agrupados">
+              <option value="titleAndSub">Título + Subtítulo</option>
+              <option value="titleAndSubAndParagraph">
+                Título + Subtítulo + Parágrafo
+              </option>
+
+              <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
+            </optgroup>
+          </select>
+
+          {valueState === "title" ? RenderTitleCreate() : false}
+          {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
+          {valueState === "paragraph" ? RenderParagraphCreate() : false}
+          {valueState === "subtitle" ? RenderSubtitleCreate() : false}
+          {valueState === "paragraphAndSub"
+            ? RenderSubtitleAndParagraph()
+            : false}
+          {valueState === "titleAndSubAndParagraph"
+            ? RenderTitleSubtitleAndParagraph()
+            : false}
+          {valueState === "image" ? RenderImageCreate() : false}
+          {valueState === "video" ? RenderVideoCreate() : false}
+
+          <Button
+            color="warning"
+            variant="contained"
+            onClick={() => SaveModule(valueIDSelectModule)}
+          >
+            Salvar Módulo
+          </Button>
+        </ControlsContainer>
+      </>
+    );
+  }
+
   return (
-    //Definir rota para salvar os items do módulo
-    //Alternar módulos
     <>
       <CssBaseline>
         <MainContainer>
           <ContainerRegisterNewModule>
-            {CourseInformations()}
-            <select onChange={(e) => setValueIDSelectModule(e.target.value)}>
-              {allModules.length > 0
-                ? allModules.map((e) => (
-                    <option value={e.moduleId}> {e.moduleName}</option>
-                  ))
-                : false}
-            </select>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                const selectModule = allModules
-                  .filter((e) => e.moduleId === valueIDSelectModule)
-                  .flat();
-
-                selectModule.flatMap((e) => e.moduleContent.flat()).length > 0
-                  ? setTodo(selectModule.flatMap((e) => e.moduleContent.flat()))
-                  : DeleteAndUpdate();
-                setModuleName(selectModule[0].moduleName);
-                console.log(selectModule[0].moduleName);
-              }}
-            >
-              VER ITENS DO MÓDULO ESCOLHIDO ACIMA
-            </Button>
-
-            {NewModule()}
-            <h1> {valueIDSelectModule} </h1>
-
-            <h1>Crie um novo elemento</h1>
-
-            <select onChange={(e) => setValueState(e.target.value)}>
-              <option>Escolha um Elemento </option>
-              <optgroup label="Elemento Sozinho">
-                <option value="title">Título</option>
-                <option value="subtitle">Subtítulo</option>
-                <option value="paragraph">Parágrafo</option>
-                <option value="image">Imagem</option>
-                <option value="video">Vídeo</option>
-              </optgroup>
-              <optgroup label="Elementos Agrupados">
-                <option value="titleAndSub">Título + Subtítulo</option>
-                <option value="titleAndSubAndParagraph">
-                  Título + Subtítulo + Parágrafo
-                </option>
-
-                <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
-              </optgroup>
-            </select>
-
-            {valueState === "title" ? RenderTitleCreate() : false}
-            {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
-            {valueState === "paragraph" ? RenderParagraphCreate() : false}
-            {valueState === "subtitle" ? RenderSubtitleCreate() : false}
-            {valueState === "paragraphAndSub"
-              ? RenderSubtitleAndParagraph()
-              : false}
-            {valueState === "titleAndSubAndParagraph"
-              ? RenderTitleSubtitleAndParagraph()
-              : false}
-            {valueState === "image" ? RenderImageCreate() : false}
-            {valueState === "video" ? RenderVideoCreate() : false}
-
-            {/*<Button
-              color="warning"
-              sx={{ width: "70%" }}
-              variant="contained"
-              onClick={() =>
-                console.log(
-                  allModules.filter((e) => e.moduleId === valueIDSelectModule)
-                )
-              }
-            >
-              Salvar Módulo
-            </Button>*/}
-
-            <Button
-              color="warning"
-              sx={{ width: "70%" }}
-              variant="contained"
-              onClick={() => SaveModule(valueIDSelectModule)}
-            >
-              Salvar Módulo
-            </Button>
+            <ControlsContainer>
+              {/* CourseInformations() */}
+              {allModules.length > 0 ? SelectModule() : false}
+              {NewModule()}
+            </ControlsContainer>
+            {allModules.length > 0 ? CreateItemInModule() : false}
           </ContainerRegisterNewModule>
-
           <DragDropContext onDragEnd={onDragEnd}>{ShowItems()}</DragDropContext>
         </MainContainer>
       </CssBaseline>
