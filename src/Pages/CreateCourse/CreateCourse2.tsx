@@ -158,12 +158,15 @@ export function CreateCourse() {
   const [courseDescription, setCourseDescription] = useState("");
   /* const [sumary, setSumary] = useState(""); */
 
+  //Module states
   const [moduleName, setModuleName] = useState("");
+  const [moduleId, setModuleId] = useState("");
   const [module, setModules] = useState("");
   const [secModule, setSecModule] = useState("");
   const [thirdModule, setThirdModule] = useState("");
 
   const [valueState, setValueState] = useState("");
+  const [valueIDSelectModule, setValueIDSelectModule] = useState("0");
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
@@ -186,6 +189,11 @@ export function CreateCourse() {
     const allIds = allModules.map((e) => +e.moduleId);
     const newID = allIds.length > 0 ? Math.max(...allIds) + 1 : 1;
     return newID.toString();
+  }
+
+  function DeleteAndUpdate() {
+    todo.splice(0, todo.length);
+    setTodo(todo.filter((e) => e));
   }
 
   function handleRemoveItem(id: string) {
@@ -482,7 +490,10 @@ export function CreateCourse() {
             <h1>Abaixo você pode ver e organizar os elementos do seu módulo</h1>
           </div>
 
-          <div>O título do módulo é: {moduleName}</div>
+          <div>
+            O título do módulo é:
+            {allModules.length > 0 ? <p>{moduleName}</p> : "nenhum módulo"}
+          </div>
           <Droppable droppableId="todo">
             {(provided) => (
               <div
@@ -825,59 +836,124 @@ export function CreateCourse() {
     );
   }
 
-  function SaveModule() {
-    // Temos algum módulo ?
-    // Esse módulo já existe ?
-    function SaveNewModule() {
-      setAllModules((allModules: any) => [
-        ...allModules,
-        {
-          moduleName: moduleName,
-          moduleId: genereteId2(),
-          moduleContent: todo,
-        },
-      ]);
-    }
+  /* function LoadFirstModule() {
+    const FirstModuleID = genereteId2();
+    allModules.filter((e) => e.moduleId);
+    allModules.length === 0 ? setModuleId(FirstModuleID) : console.log(false);
+  } */
 
-    function SelectToEdit() {
-      const editItem = allModules.filter((e) => e.moduleName === moduleName);
-      editItem.map((e) => e.moduleContent.splice(0, e.moduleContent.length));
-      editItem.map((e) => e.moduleContent.push(todo));
-    }
-
-    if (moduleName.length > 0) {
-      allModules.length > 0
-        ? allModules.filter((e) =>
-            e.moduleName === moduleName ? SelectToEdit() : SaveNewModule()
-          )
-        : SaveNewModule();
-    }
-
-    allModules.filter((e) => e.moduleName === moduleName);
+  function SaveModule(id: any) {
+    console.log({ enterValue: id });
+    console.log(
+      "step1",
+      { selectItem: allModules.filter((e) => e.moduleId === id) },
+      { saveElements: todo }
+    );
+    const selectItem = allModules.filter((e) => e.moduleId === id);
+    selectItem[0].moduleContent.splice(0, selectItem[0].moduleContent.length);
+    selectItem[0].moduleContent.push(...todo);
+    console.log(
+      "step2",
+      { selectItem: allModules.filter((e) => e.moduleId === id) },
+      { saveElements: todo }
+    );
+    /* allModules.filter((e) => e.moduleId === valueIDSelectModule);
+    selectItem[0].moduleContent.push(todo); */
   }
 
   function NewModule() {
-    setModuleName("");
-    todo.splice(0, todo.length);
-    setTodo(todo.filter((e) => e));
+    const [open, setOpen] = useState(false);
+    const [newModuleName, setNewModuleName] = useState("");
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    function CloseAndSave() {
+      setModuleName(newModuleName);
+      setAllModules((allModules) => [
+        ...allModules,
+        {
+          moduleId: genereteId2(),
+          moduleName: newModuleName,
+          moduleContent: todo,
+        },
+      ]);
+
+      const lastID =
+        allModules.length === 0
+          ? "1"
+          : Math.max(...allModules.map((e: any) => +e.moduleId)) + 1;
+      setValueIDSelectModule(lastID.toString());
+      todo.splice(0, todo.length);
+      setTodo(todo.filter((e) => e));
+      handleClose();
+    }
+
+    return (
+      <>
+        <Button variant={"outlined"} onClick={handleOpen}>
+          <span> Criar novo Módulo </span> <EditIcon />
+        </Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <TextField
+              id="filled-basic"
+              style={{ padding: "15px", minHeight: "30px", width: "70%" }}
+              placeholder="seu texto..."
+              onChange={(e: any) => setNewModuleName(e.target.value)}
+            />
+            <Button
+              variant="outlined"
+              sx={{ width: "70%" }}
+              color="success"
+              onClick={() => CloseAndSave()}
+            >
+              Criar novo módulo
+            </Button>
+          </Box>
+        </Modal>
+      </>
+    );
   }
 
   return (
+    //Definir rota para salvar os items do módulo
+    //Alternar módulos
     <>
       <CssBaseline>
         <MainContainer>
           <ContainerRegisterNewModule>
             {CourseInformations()}
+            <select onChange={(e) => setValueIDSelectModule(e.target.value)}>
+              {allModules.length > 0
+                ? allModules.map((e) => (
+                    <option value={e.moduleId}> {e.moduleName}</option>
+                  ))
+                : false}
+            </select>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                const selectModule = allModules
+                  .filter((e) => e.moduleId === valueIDSelectModule)
+                  .flat();
 
-            <h2>Escolha o nome do módulo: </h2>
-            <TextField
-              id="filled-basic"
-              label="Nome do módulo"
-              variant="filled"
-              sx={{ background: "white", minWidth: "360px" }}
-              onChange={(event) => setModuleName(event.target.value)}
-              value={moduleName}
-            />
+                selectModule.flatMap((e) => e.moduleContent.flat()).length > 0
+                  ? setTodo(selectModule.flatMap((e) => e.moduleContent.flat()))
+                  : DeleteAndUpdate();
+                setModuleName(selectModule[0].moduleName);
+                console.log(selectModule[0].moduleName);
+              }}
+            >
+              VER ITENS DO MÓDULO ESCOLHIDO ACIMA
+            </Button>
+
+            {NewModule()}
+            <h1> {valueIDSelectModule} </h1>
 
             <h1>Crie um novo elemento</h1>
 
@@ -912,56 +988,28 @@ export function CreateCourse() {
               : false}
             {valueState === "image" ? RenderImageCreate() : false}
             {valueState === "video" ? RenderVideoCreate() : false}
-            {/* <Button
+
+            {/*<Button
               color="warning"
               sx={{ width: "70%" }}
               variant="contained"
               onClick={() =>
-                alert(
-                  JSON.stringify(
-                    {
-                      courseName: courseName,
-                      description: courseDescription,
-                      moduleName: moduleName,
-                      content: todo,
-                    },
-                    null,
-                    2
-                  )
+                console.log(
+                  allModules.filter((e) => e.moduleId === valueIDSelectModule)
                 )
               }
             >
               Salvar Módulo
-            </Button> */}
+            </Button>*/}
 
             <Button
               color="warning"
               sx={{ width: "70%" }}
               variant="contained"
-              onClick={() => {
-                SaveModule();
-              }}
+              onClick={() => SaveModule(valueIDSelectModule)}
             >
               Salvar Módulo
             </Button>
-
-            <Button
-              sx={{ width: "70%" }}
-              variant="contained"
-              onClick={() => {
-                NewModule();
-              }}
-            >
-              Novo Módulo
-            </Button>
-
-            <button
-              onClick={() => {
-                console.log(allModules);
-              }}
-            >
-              Ver Items
-            </button>
           </ContainerRegisterNewModule>
 
           <DragDropContext onDragEnd={onDragEnd}>{ShowItems()}</DragDropContext>
