@@ -701,7 +701,7 @@ export function CreateCourse() {
           value={module}
         />
         <Button
-          variant="outlined"
+          variant="contained"
           sx={{ width: "70%" }}
           color="success"
           onClick={addParagraph}
