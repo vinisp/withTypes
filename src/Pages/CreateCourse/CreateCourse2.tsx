@@ -124,17 +124,20 @@ const ManageCard = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  height: "60px",
+  height: "120px",
   span: {
     flex: "0 0 70%",
     display: "flex",
     justifyContent: "center",
   },
-  button: {
-    padding: "15px",
-    height: "20px",
+
+  ".ButtonsWrapperEditModule": {
     flex: "0 0 20%",
-    margin: "0 5px",
+    display: "",
+
+    button: {
+      height: "35px",
+    },
   },
 }));
 
@@ -263,6 +266,13 @@ export function CreateCourse() {
   function handleEditItem(id: string, element: any, newValue: string) {
     todo.filter((e) => e.id === id).map((e: any) => (e[element] = newValue));
     setTodo(todo.filter((e) => e));
+  }
+
+  function handleEditModuleName(id: string, newValue: string) {
+    allModules
+      .filter((e) => e.moduleId === id)
+      .map((e: any) => (e.moduleName = newValue));
+    setAllModules(allModules.filter((e) => e));
   }
 
   const editCourseName = () => {
@@ -399,6 +409,50 @@ export function CreateCourse() {
             <TextField
               id="filled-basic"
               label={nomeDoCampo}
+              variant="filled"
+              sx={{ background: "white", width: "70%" }}
+              onChange={(event) => setEditValue(event.target.value)}
+            />
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() => CloseAndSave(editValue)}
+              fullWidth
+            >
+              Salvar Alteração
+            </Button>
+          </Box>
+        </Modal>
+      </>
+    );
+  }
+
+  function ShowEditModalModuleName(id: string) {
+    const [open, setOpen] = useState(false);
+    const [editValue, setEditValue] = useState("");
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    function CloseAndSave(newValue: string) {
+      handleEditModuleName(id, newValue);
+      handleClose();
+    }
+
+    return (
+      <>
+        <Button variant="outlined" onClick={handleOpen}>
+          <span> Editar </span> <EditIcon />
+        </Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <TextField
+              id="filled-basic"
+              label="Novo nome para o módulo"
               variant="filled"
               sx={{ background: "white", width: "70%" }}
               onChange={(event) => setEditValue(event.target.value)}
@@ -1043,13 +1097,16 @@ export function CreateCourse() {
                             >
                               <ManageCard>
                                 <span> {moduleName} </span>
-                                <Button
-                                  variant="outlined"
-                                  color="warning"
-                                  onClick={() => handleRemoveModule(moduleId)}
-                                >
-                                  Deletar
-                                </Button>
+                                <div className="ButtonsWrapperEditModule">
+                                  <Button
+                                    variant="outlined"
+                                    color="warning"
+                                    onClick={() => handleRemoveModule(moduleId)}
+                                  >
+                                    Deletar
+                                  </Button>
+                                  {ShowEditModalModuleName(moduleId)}
+                                </div>
                               </ManageCard>
                             </div>
                           )}
