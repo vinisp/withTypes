@@ -113,6 +113,31 @@ const LayoutArea = styled("div")(({ theme }) => ({
   border: "solid 1px silver",
 }));
 
+const ManageCard = styled("div")(({ theme }) => ({
+  borderBottom: 0,
+  border: "solid 1px green",
+  background: "rgba(0,0,0, 1)",
+  borderRadius: "4px",
+  fontSize: "36px",
+  color: "white",
+  padding: "",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "60px",
+  span: {
+    flex: "0 0 70%",
+    display: "flex",
+    justifyContent: "center",
+  },
+  button: {
+    padding: "15px",
+    height: "20px",
+    flex: "0 0 20%",
+    margin: "0 5px",
+  },
+}));
+
 const NoItemsCard = styled("div")(({ theme }) => ({
   padding: "80px 0",
   width: "100%",
@@ -229,6 +254,10 @@ export function CreateCourse() {
 
   function handleRemoveItem(id: string) {
     setTodo(todo.filter((e) => e.id !== id));
+  }
+
+  function handleRemoveModule(id: string) {
+    setAllModules(allModules.filter((e) => e.moduleId !== id));
   }
 
   function handleEditItem(id: string, element: any, newValue: string) {
@@ -1012,7 +1041,16 @@ export function CreateCourse() {
                                 provided.draggableProps.style
                               )}
                             >
-                              <div>{moduleName}</div>
+                              <ManageCard>
+                                <span> {moduleName} </span>
+                                <Button
+                                  variant="outlined"
+                                  color="warning"
+                                  onClick={() => handleRemoveModule(moduleId)}
+                                >
+                                  Deletar
+                                </Button>
+                              </ManageCard>
                             </div>
                           )}
                         </Draggable>
