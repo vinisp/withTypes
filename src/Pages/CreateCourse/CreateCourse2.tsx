@@ -199,6 +199,17 @@ export function CreateCourse() {
     setTodo(items);
   };
 
+  const onDragEndModules = (result: DropResult) => {
+    const { source, destination } = result;
+    if (!destination) return;
+
+    const items = Array.from(allModules);
+    const [newOrder] = items.splice(source.index, 1);
+    items.splice(destination.index, 0, newOrder);
+
+    setAllModules(items);
+  };
+
   function genereteId() {
     const allIds = todo.map((e) => +e.id);
     const newID = allIds.length > 0 ? Math.max(...allIds) + 1 : 1;
@@ -961,6 +972,62 @@ export function CreateCourse() {
     );
   }
 
+  function ManageModules() {
+    return (
+      <>
+        <Accordion sx={{ width: "100%" }}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+            sx={{ width: "100%" }}
+          >
+            Gerenciar módulos
+          </AccordionSummary>
+          <AccordionDetails sx={{ height: "600px" }}>
+            <h2>Reorganize seus módulos</h2>
+            <DragDropContext onDragEnd={onDragEndModules}>
+              <Droppable droppableId="allModules">
+                {(provided) => (
+                  <div
+                    className="allModules"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {allModules.map(({ moduleId, moduleName }, index) => {
+                      return (
+                        <Draggable
+                          key={moduleId}
+                          draggableId={moduleId}
+                          index={index}
+                        >
+                          {(provided, snapshot) => (
+                            <div
+                              className="moduleElements"
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              style={getItemStyle(
+                                snapshot.isDragging,
+                                provided.draggableProps.style
+                              )}
+                            >
+                              <div>{moduleName}</div>
+                            </div>
+                          )}
+                        </Draggable>
+                      );
+                    })}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </AccordionDetails>
+        </Accordion>
+      </>
+    );
+  }
+
   function CreateItemInModule() {
     return (
       <>
@@ -1020,6 +1087,7 @@ export function CreateCourse() {
               {/* CourseInformations() */}
               {allModules.length > 0 ? SelectModule() : false}
               {NewModule()}
+              {allModules.length > 0 ? ManageModules() : false}
             </ControlsContainer>
             {allModules.length > 0 ? CreateItemInModule() : false}
           </ContainerRegisterNewModule>
