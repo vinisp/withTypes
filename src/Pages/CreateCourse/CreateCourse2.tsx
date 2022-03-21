@@ -1196,7 +1196,7 @@ export function CreateCourse() {
               flex: `0 0 ${openWidthControls}`,
               transition: "all 250ms ease",
               minHeight: 650,
-              background: "darkslategray",
+              background: "rgba(38,48,24)",
             }}
           >
             <ContainerRegisterNewModule>
