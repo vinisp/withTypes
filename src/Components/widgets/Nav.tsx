@@ -11,7 +11,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import MenuIcon from "@mui/icons-material/Menu";
-import Icon from "@mui/material/Icon";
 
 import Logo from "../../Components/sections/assets/logo.png";
 
