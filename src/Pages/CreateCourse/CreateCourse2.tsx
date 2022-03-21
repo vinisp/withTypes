@@ -44,7 +44,7 @@ const style = {
 };
 
 const MainContainer = styled("div")(({ theme }) => ({
-  padding: "30px 0",
+  padding: "80px 0",
   background: "rgba(43,45,45, 1)",
   display: "flex",
   flexWrap: "wrap",
@@ -1250,7 +1250,21 @@ export function CreateCourse() {
                 </ControlsContainer>
                 {allModules.length > 0 ? CreateItemInModule() : false}
               </Box>
-              <Box></Box>
+
+              <Box>
+                {openControls ? (
+                  false
+                ) : (
+                  <div>
+                    <ul>
+                      <li>1</li>
+                      <li>2</li>
+                      <li>3</li>
+                      <li>4</li>
+                    </ul>
+                  </div>
+                )}{" "}
+              </Box>
             </ContainerRegisterNewModule>
           </Box>
           <Box

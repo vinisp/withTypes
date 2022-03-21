@@ -13,6 +13,8 @@ import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import MenuIcon from "@mui/icons-material/Menu";
 import Icon from "@mui/material/Icon";
 
+import Logo from "../../Components/sections/assets/logo.png";
+
 const theme = createTheme({
   typography: {
     fontFamily: "Open Sans, sans-serif",
@@ -65,6 +67,13 @@ const theme = createTheme({
 });
 
 const MenuMobile = styled("div")(({ theme }) => ({
+  background: "#0e0e0e",
+  boxShadow: "0 2px 10px 2px rgba(0, 0, 0, 0.2)",
+  color: "white",
+  position: "fixed",
+  width: "100%",
+  zIndex: "9999",
+  display: "flex",
   padding: theme.spacing(1),
   [theme.breakpoints.down("sm")]: {
     display: "flex",
@@ -101,13 +110,27 @@ const StyledButton = styled("button")(({ theme }) => ({
   cursor: "pointer",
 }));
 
+const BoxLogoMobile = styled("button")(({ theme }) => ({
+  border: "0",
+  background: 0,
+  flex: "0 0 50%",
+  display: "flex",
+}));
+
+const BoxDrawer = styled("button")(({ theme }) => ({
+  border: "0",
+  background: 0,
+  flex: "0 0 50%",
+  display: "flex",
+}));
+
 const MenuDesktop = styled("nav")(({ theme }) => ({
   background: "#0e0e0e",
   boxShadow: "0 2px 10px 2px rgba(0, 0, 0, 0.2)",
   color: "white",
   position: "fixed",
   width: "100%",
-  padding: "2px",
+  padding: "5px 0",
   zIndex: "9999",
   display: "flex",
   ul: {
@@ -171,33 +194,35 @@ function Nav() {
           <PopupState variant="popover" popupId="demo-popup-menu">
             {(popupState) => (
               <>
-                <Button
-                  variant="outlined"
-                  {...bindTrigger(popupState)}
-                  sx={{
-                    height: "45px",
-                    display: "flex",
-                    alignItems: "center",
+                <BoxDrawer>
+                  <Button
+                    {...bindTrigger(popupState)}
+                    sx={{
+                      height: "65px",
+                    }}
+                    color="success"
+                  >
+                    <MenuIcon sx={{ fontSize: "32px" }} />
+                  </Button>
+                  <Menu {...bindMenu(popupState)}>
+                    <MenuItem onClick={popupState.close}>Profile</MenuItem>
+                    <MenuItem onClick={popupState.close}>My account</MenuItem>
+                    <MenuItem onClick={popupState.close}>Logout</MenuItem>
+                  </Menu>
+                </BoxDrawer>
 
-                    border: 0,
-                  }}
-                >
-                  <Icon sx={{ height: "100%" }}>
-                    <MenuIcon />
-                  </Icon>
-                </Button>
-                <Menu {...bindMenu(popupState)}>
-                  <MenuItem onClick={popupState.close}>Profile</MenuItem>
-                  <MenuItem onClick={popupState.close}>My account</MenuItem>
-                  <MenuItem onClick={popupState.close}>Logout</MenuItem>
-                </Menu>
+                <BoxLogoMobile>
+                  <img src={Logo} alt="logo" />
+                </BoxLogoMobile>
               </>
             )}
           </PopupState>
         </ThemeProvider>
       </MenuMobile>
       <MenuDesktop>
-        <LogoBox>PROFTEAM</LogoBox>
+        <LogoBox>
+          <img src={Logo} alt="imagem da logo" />
+        </LogoBox>
         <ul>
           {user ? (
             <>
