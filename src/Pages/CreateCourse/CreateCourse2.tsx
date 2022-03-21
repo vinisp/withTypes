@@ -79,7 +79,7 @@ const MainDetails = styled("ul")(({ theme }) => ({
 const ContainerRegisterNewModule = styled("div")(({ theme }) => ({
   padding: "60px 0",
   height: "auto",
-  background: "rgba(0,0,0, 0.3)",
+  background: "0",
   marginBottom: "15px",
   display: "flex",
   flexDirection: "column",
@@ -205,6 +205,10 @@ export function CreateCourse() {
   const openStyle = openControls ? "flex" : "none";
   const openWidthControls = openControls ? "20%" : "5%";
   const openWidthContent = openControls ? "75%" : "85%";
+  const changeSideDesktop = openControls ? "75%" : "0";
+  const changeSideLargeTablet = openControls ? "65%" : "0";
+  const changeSideTablet = openControls ? "55%" : "0";
+  const changeSideSmartphone = openControls ? "60%" : "0";
 
   const [allModules, setAllModules] = useState<Module[]>([]);
   const [todo, setTodo] = useState<ModuleElement[]>([]);
@@ -1191,27 +1195,54 @@ export function CreateCourse() {
             sx={{
               flex: `0 0 ${openWidthControls}`,
               transition: "all 250ms ease",
+              minHeight: 650,
+              background: "darkslategray",
             }}
           >
             <ContainerRegisterNewModule>
-              <Button
-                color="success"
-                variant="outlined"
-                onClick={() => {
-                  openControls === true
-                    ? setOpenControls(false)
-                    : setOpenControls(true);
+              <Box
+                sx={{
+                  background: "rgba(0,0,0,0.4)",
+                  width: "100%",
+                  heigth: "180px",
+                  display: "flex",
+                  transition: "all 550ms ease",
+                  padding: [
+                    `2px 0 2px ${changeSideSmartphone}`,
+                    `2px 0 2px ${changeSideTablet}`,
+                    `2px 0 2px ${changeSideLargeTablet}`,
+                    `2px 0 2px ${changeSideDesktop}`,
+                  ],
                 }}
               >
-                {openControls ? (
-                  <KeyboardDoubleArrowLeftIcon />
-                ) : (
-                  <KeyboardDoubleArrowRightIcon />
-                )}
-              </Button>
+                <Button
+                  color="success"
+                  variant="outlined"
+                  onClick={() => {
+                    openControls === true
+                      ? setOpenControls(false)
+                      : setOpenControls(true);
+                  }}
+                >
+                  {openControls ? (
+                    <KeyboardDoubleArrowLeftIcon />
+                  ) : (
+                    <KeyboardDoubleArrowRightIcon />
+                  )}
+                </Button>
+              </Box>
 
               {/* CourseInformations() */}
-              <Box sx={{ display: openStyle, flexDirection: "column", gap: 2 }}>
+              <Box
+                sx={{
+                  display: openStyle,
+                  flexDirection: "column",
+                  gap: 2,
+                  width: "100%",
+                  alignItems: "center",
+                  transition: "all 350ms ease",
+                }}
+              >
                 <ControlsContainer>
                   {allModules.length > 0 ? SelectModule() : false}
                   {allModules.length > 0 ? ManageModules() : false}
