@@ -23,7 +23,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-
+import SortIcon from "@mui/icons-material/Sort";
+import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
+import CreateIcon from "@mui/icons-material/Create";
+import SaveIcon from "@mui/icons-material/Save";
 import {
   DragDropContext,
   Draggable,
@@ -1019,7 +1022,7 @@ export function CreateCourse() {
           variant={"contained"}
           onClick={handleOpen}
         >
-          <span> Criar novo Módulo </span> <EditIcon />
+          <span> Criar novo Módulo </span> <CreateNewFolderIcon />
         </Button>
         <Modal
           open={open}
@@ -1256,9 +1259,9 @@ export function CreateCourse() {
                 }}
               >
                 <ControlsContainer>
-                  {allModules.length > 0 ? SelectModule() : false}
-                  {allModules.length > 0 ? ManageModules() : false}
                   {NewModule()}
+                  {allModules.length > 0 ? ManageModules() : false}
+                  {allModules.length > 0 ? SelectModule() : false}
                 </ControlsContainer>
                 {allModules.length > 0 ? CreateItemInModule() : false}
               </Box>
@@ -1272,41 +1275,71 @@ export function CreateCourse() {
                       <Button
                         fullWidth
                         sx={{
-                          borderBottom: "solid 2px white",
                           height: "60px",
                           display: "flex",
                           flexDirection: "column",
                         }}
-                        variant="contained"
                         color="success"
                       >
-                        <CreateNewFolderIcon />
+                        <CreateNewFolderIcon
+                          sx={{ color: "white", fontSize: "36px" }}
+                        />
                       </Button>
                     </Tooltip>
-                    <Button
-                      fullWidth
-                      sx={{ borderBottom: "solid 2px white", height: "60px" }}
-                      variant="contained"
-                      color="success"
-                    >
-                      1
-                    </Button>
-                    <Button
-                      fullWidth
-                      sx={{ borderBottom: "solid 2px white", height: "60px" }}
-                      variant="contained"
-                      color="success"
-                    >
-                      1
-                    </Button>
-                    <Button
-                      fullWidth
-                      sx={{ borderBottom: "solid 2px white", height: "60px" }}
-                      variant="contained"
-                      color="success"
-                    >
-                      1
-                    </Button>
+                    <Tooltip title="Organizar Módulos">
+                      <Button
+                        fullWidth
+                        sx={{
+                          height: "60px",
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                        color="success"
+                      >
+                        <AutoAwesomeMotionIcon
+                          sx={{ color: "white", fontSize: "36px" }}
+                        />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title="Criar um novo elemento">
+                      <Button
+                        fullWidth
+                        sx={{
+                          height: "60px",
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                        color="success"
+                      >
+                        <SortIcon sx={{ color: "white", fontSize: "36px" }} />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title="Selecionar Módulo">
+                      <Button
+                        fullWidth
+                        sx={{
+                          height: "60px",
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                        color="success"
+                      >
+                        <CreateIcon sx={{ color: "white", fontSize: "36px" }} />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title="Selecionar Módulo">
+                      <Button
+                        fullWidth
+                        sx={{
+                          height: "60px",
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                        color="success"
+                      >
+                        <SaveIcon sx={{ color: "white", fontSize: "36px" }} />
+                      </Button>
+                    </Tooltip>
                   </ButtonsWrapperIconsTools>
                 )}
               </Box>
