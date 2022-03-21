@@ -9,6 +9,7 @@ import {
   Box,
   Modal,
   CssBaseline,
+  Typography,
 } from "@mui/material/";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -18,6 +19,8 @@ import { Footer } from "../../Components/widgets/Footer";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 
 import {
   DragDropContext,
@@ -41,7 +44,7 @@ const style = {
 };
 
 const MainContainer = styled("div")(({ theme }) => ({
-  padding: "60px 0",
+  padding: "30px 0",
   background: "rgba(43,45,45, 1)",
   display: "flex",
   flexWrap: "wrap",
@@ -77,17 +80,15 @@ const ContainerRegisterNewModule = styled("div")(({ theme }) => ({
   padding: "60px 0",
   height: "auto",
   background: "rgba(0,0,0, 0.3)",
-  border: "solid 1px rgb(169,169,169)",
-  borderRight: 0,
   marginBottom: "15px",
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
+  alignItems: "flex-end",
   gap: 15,
   color: "white",
   transition: "height 350ms",
 
-  flex: "0 0 30%",
+  flex: "0 0 20%",
 }));
 
 const ShowAndOrganizeModules = styled("div")(({ theme }) => ({
@@ -96,18 +97,18 @@ const ShowAndOrganizeModules = styled("div")(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   gap: 35,
-  minHeight: 350,
+  minHeight: 300,
   color: "white",
   background: "rgba(211,211,211, 0.1)",
-  flex: "0 0 70%",
+  flex: "0 0 80%",
   width: "100%",
   borderLeft: "solid 2px green",
 }));
 
 const LayoutArea = styled("div")(({ theme }) => ({
-  padding: "30px",
+  padding: "20px 10px",
   width: "100%",
-  minHeight: 500,
+  minHeight: 600,
   background: "rgba(211,211,211, 0.3)",
   borderRadius: "4px",
   border: "solid 1px silver",
@@ -118,17 +119,18 @@ const ManageCard = styled("div")(({ theme }) => ({
   border: "solid 1px green",
   background: "rgba(0,0,0, 1)",
   borderRadius: "4px",
-  fontSize: "36px",
+  fontSize: "18px",
   color: "white",
-  padding: "",
+  padding: "0 12px",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  height: "120px",
+  height: "80px",
   span: {
-    flex: "0 0 70%",
+    flex: "0 0 50%",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    padding: "",
   },
 
   ".ButtonsWrapperEditModule": {
@@ -199,10 +201,13 @@ interface ModuleElement {
 }
 
 export function CreateCourse() {
-  const [todo, setTodo] = useState<ModuleElement[]>([]);
+  const [openControls, setOpenControls] = useState<boolean>(true);
+  const openStyle = openControls ? "flex" : "none";
+  const openWidthControls = openControls ? "20%" : "5%";
+  const openWidthContent = openControls ? "75%" : "85%";
 
   const [allModules, setAllModules] = useState<Module[]>([]);
-
+  const [todo, setTodo] = useState<ModuleElement[]>([]);
   const [courseName, setCourseName] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   /* const [sumary, setSumary] = useState(""); */
@@ -1026,7 +1031,13 @@ export function CreateCourse() {
     return (
       <>
         <div>
-          <h1>Qual módulo deseja editar ?</h1>
+          <Typography
+            variant="h6"
+            textAlign={"center"}
+            sx={{ marginBottom: "5px" }}
+          >
+            Qual módulo deseja editar ?
+          </Typography>
           <select onChange={(e) => setValueIDSelectModule(e.target.value)}>
             {allModules.length > 0
               ? allModules.map((e) => (
@@ -1048,7 +1059,7 @@ export function CreateCourse() {
               console.log(selectModule[0].moduleName);
             }}
           >
-            VER ITENS DO MÓDULO ESCOLHIDO ACIMA
+            VER ITENS DO MÓDULO
           </Button>
         </div>
       </>
@@ -1058,17 +1069,16 @@ export function CreateCourse() {
   function ManageModules() {
     return (
       <>
-        <Accordion sx={{ width: "100%" }}>
+        <Accordion sx={{ width: "100%", padding: "0" }}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
             id="panel1a-header"
             sx={{ width: "100%" }}
           >
-            Gerenciar módulos
+            <Typography> Gerenciar módulos </Typography>
           </AccordionSummary>
-          <AccordionDetails sx={{ height: "600px" }}>
-            <h2>Reorganize seus módulos</h2>
+          <AccordionDetails sx={{ minHeight: "300px", padding: "0 5px" }}>
             <DragDropContext onDragEnd={onDragEndModules}>
               <Droppable droppableId="allModules">
                 {(provided) => (
@@ -1127,7 +1137,7 @@ export function CreateCourse() {
     return (
       <>
         <ControlsContainer>
-          <h1>Crie um novo elemento</h1>
+          <Typography variant="h6">Crie um novo elemento</Typography>
 
           <select onChange={(e) => setValueState(e.target.value)}>
             <option>Escolha um Elemento </option>
@@ -1177,16 +1187,51 @@ export function CreateCourse() {
     <>
       <CssBaseline>
         <MainContainer>
-          <ContainerRegisterNewModule>
-            <ControlsContainer>
+          <Box
+            sx={{
+              flex: `0 0 ${openWidthControls}`,
+              transition: "all 250ms ease",
+            }}
+          >
+            <ContainerRegisterNewModule>
+              <Button
+                color="success"
+                variant="outlined"
+                onClick={() => {
+                  openControls === true
+                    ? setOpenControls(false)
+                    : setOpenControls(true);
+                }}
+              >
+                {openControls ? (
+                  <KeyboardDoubleArrowLeftIcon />
+                ) : (
+                  <KeyboardDoubleArrowRightIcon />
+                )}
+              </Button>
+
               {/* CourseInformations() */}
-              {allModules.length > 0 ? SelectModule() : false}
-              {NewModule()}
-              {allModules.length > 0 ? ManageModules() : false}
-            </ControlsContainer>
-            {allModules.length > 0 ? CreateItemInModule() : false}
-          </ContainerRegisterNewModule>
-          <DragDropContext onDragEnd={onDragEnd}>{ShowItems()}</DragDropContext>
+              <Box sx={{ display: openStyle, flexDirection: "column", gap: 2 }}>
+                <ControlsContainer>
+                  {allModules.length > 0 ? SelectModule() : false}
+                  {allModules.length > 0 ? ManageModules() : false}
+                  {NewModule()}
+                </ControlsContainer>
+                {allModules.length > 0 ? CreateItemInModule() : false}
+              </Box>
+              <Box></Box>
+            </ContainerRegisterNewModule>
+          </Box>
+          <Box
+            sx={{
+              flex: `0 0 ${openWidthContent}`,
+              transition: "all 450ms ease",
+            }}
+          >
+            <DragDropContext onDragEnd={onDragEnd}>
+              {ShowItems()}
+            </DragDropContext>
+          </Box>
         </MainContainer>
       </CssBaseline>
       <Footer />
