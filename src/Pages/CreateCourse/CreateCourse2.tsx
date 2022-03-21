@@ -6,6 +6,7 @@ import {
   TextField,
   Button,
   TextareaAutosize,
+  Tooltip,
   Box,
   Modal,
   CssBaseline,
@@ -21,6 +22,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 
 import {
   DragDropContext,
@@ -76,6 +78,16 @@ const MainDetails = styled("ul")(({ theme }) => ({
   width: "100%",
 }));
 
+const ButtonsWrapperIconsTools = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  background: "rgba(255,255,255,0.1)",
+  width: "100%",
+  padding: "5px",
+  gap: "5px",
+}));
+
 const ContainerRegisterNewModule = styled("div")(({ theme }) => ({
   padding: "60px 0",
   height: "auto",
@@ -115,8 +127,8 @@ const LayoutArea = styled("div")(({ theme }) => ({
 }));
 
 const ManageCard = styled("div")(({ theme }) => ({
-  borderBottom: 0,
   border: "solid 1px green",
+  borderBottom: 0,
   background: "rgba(0,0,0, 1)",
   borderRadius: "4px",
   fontSize: "18px",
@@ -1251,19 +1263,52 @@ export function CreateCourse() {
                 {allModules.length > 0 ? CreateItemInModule() : false}
               </Box>
 
-              <Box>
+              <Box sx={{ width: "100%" }}>
                 {openControls ? (
                   false
                 ) : (
-                  <div>
-                    <ul>
-                      <li>1</li>
-                      <li>2</li>
-                      <li>3</li>
-                      <li>4</li>
-                    </ul>
-                  </div>
-                )}{" "}
+                  <ButtonsWrapperIconsTools>
+                    <Tooltip title="Novo Módulo">
+                      <Button
+                        fullWidth
+                        sx={{
+                          borderBottom: "solid 2px white",
+                          height: "60px",
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                        variant="contained"
+                        color="success"
+                      >
+                        <CreateNewFolderIcon />
+                      </Button>
+                    </Tooltip>
+                    <Button
+                      fullWidth
+                      sx={{ borderBottom: "solid 2px white", height: "60px" }}
+                      variant="contained"
+                      color="success"
+                    >
+                      1
+                    </Button>
+                    <Button
+                      fullWidth
+                      sx={{ borderBottom: "solid 2px white", height: "60px" }}
+                      variant="contained"
+                      color="success"
+                    >
+                      1
+                    </Button>
+                    <Button
+                      fullWidth
+                      sx={{ borderBottom: "solid 2px white", height: "60px" }}
+                      variant="contained"
+                      color="success"
+                    >
+                      1
+                    </Button>
+                  </ButtonsWrapperIconsTools>
+                )}
               </Box>
             </ContainerRegisterNewModule>
           </Box>
