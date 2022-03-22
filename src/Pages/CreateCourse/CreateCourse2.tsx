@@ -218,7 +218,7 @@ interface ModuleElement {
 
 export function CreateCourse() {
   const [openControls, setOpenControls] = useState<boolean>(true);
-  // const openStyle = openControls ? "flex" : "none";
+  const openStyle = openControls ? "none" : "flex";
   const openWidthControls = openControls ? "20%" : "5%";
   const openWidthContent = openControls ? "75%" : "85%";
   const changeSideDesktop = openControls ? "75%" : "0";
@@ -1223,23 +1223,134 @@ export function CreateCourse() {
             </AccordionDetails>
           </Accordion>
         ) : (
-          <Tooltip title="Organizar Módulos">
+          false
+        )}
+      </>
+    );
+  }
+
+  function ManageModulesMobile() {
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    return (
+      <>
+        <div>
+          <Tooltip title="Gerenciar módulos">
             <Button
+              onClick={handleOpen}
               fullWidth
               sx={{
                 height: "60px",
-                display: "flex",
+                display: `${openStyle}`,
                 flexDirection: "column",
               }}
               color="success"
-              onClick={() => console.log("show accordion for mobile")}
             >
               <AutoAwesomeMotionIcon
                 sx={{ color: "white", fontSize: "36px" }}
               />
             </Button>
           </Tooltip>
-        )}
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Accordion sx={{ width: "100%", padding: "0" }}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                  sx={{ width: "100%" }}
+                >
+                  <Typography> Gerenciar módulos </Typography>
+                </AccordionSummary>
+                <AccordionDetails sx={{ minHeight: "300px", padding: "0 5px" }}>
+                  <DragDropContext onDragEnd={onDragEndModules}>
+                    <Droppable droppableId="allModules">
+                      {(provided) => (
+                        <div
+                          className="allModules"
+                          {...provided.droppableProps}
+                          ref={provided.innerRef}
+                        >
+                          {allModules.map(({ moduleId, moduleName }, index) => {
+                            return (
+                              <Draggable
+                                key={moduleId}
+                                draggableId={moduleId}
+                                index={index}
+                              >
+                                {(provided, snapshot) => (
+                                  <div
+                                    className="moduleElements"
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    style={getItemStyle(
+                                      snapshot.isDragging,
+                                      provided.draggableProps.style
+                                    )}
+                                  >
+                                    <ManageCard>
+                                      <span> {moduleName} </span>
+                                      <div className="ButtonsWrapperEditModule">
+                                        <Button
+                                          variant="outlined"
+                                          onClick={() => {
+                                            const selectModule = allModules
+                                              .filter(
+                                                (e) => e.moduleId === moduleId
+                                              )
+                                              .flat();
+
+                                            selectModule.flatMap((e) =>
+                                              e.moduleContent.flat()
+                                            ).length > 0
+                                              ? setTodo(
+                                                  selectModule.flatMap((e) =>
+                                                    e.moduleContent.flat()
+                                                  )
+                                                )
+                                              : DeleteAndUpdate();
+                                            setModuleName(
+                                              selectModule[0].moduleName
+                                            );
+                                            console.log(selectModule);
+                                          }}
+                                        >
+                                          Load
+                                        </Button>
+                                        {ShowEditModalModuleName(moduleId)}
+                                        <Button
+                                          variant="outlined"
+                                          color="warning"
+                                          onClick={() =>
+                                            handleRemoveModule(moduleId)
+                                          }
+                                        >
+                                          Deletar
+                                        </Button>
+                                      </div>
+                                    </ManageCard>
+                                  </div>
+                                )}
+                              </Draggable>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </Droppable>
+                  </DragDropContext>
+                </AccordionDetails>
+              </Accordion>
+            </Box>
+          </Modal>
+        </div>
       </>
     );
   }
@@ -1458,6 +1569,7 @@ export function CreateCourse() {
                 <ControlsContainer>
                   {NewModule()}
                   {allModules.length > 0 ? ManageModules() : false}
+                  {ManageModulesMobile()}
                   {allModules.length > 0 ? CreateItemInModule() : false}
                 </ControlsContainer>
               </Box>
