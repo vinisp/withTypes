@@ -23,7 +23,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-import SortIcon from "@mui/icons-material/Sort";
+//import SortIcon from "@mui/icons-material/Sort";
 import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
 import CreateIcon from "@mui/icons-material/Create";
 import SaveIcon from "@mui/icons-material/Save";
@@ -56,10 +56,9 @@ const MainContainer = styled("div")(({ theme }) => ({
 }));
 
 const ControlsContainer = styled("div")(({ theme }) => ({
-  background: "rgba(116,116,116,0.4)",
   display: "flex",
   flexDirection: "column",
-  padding: "30px",
+  padding: "5px",
   borderRadius: "4px",
   gap: "25px",
   alignItems: "center",
@@ -81,7 +80,7 @@ const MainDetails = styled("ul")(({ theme }) => ({
   width: "100%",
 }));
 
-const ButtonsWrapperIconsTools = styled("div")(({ theme }) => ({
+/* const ButtonsWrapperIconsTools = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -89,7 +88,7 @@ const ButtonsWrapperIconsTools = styled("div")(({ theme }) => ({
   width: "100%",
   padding: "5px",
   gap: "5px",
-}));
+})); */
 
 const ContainerRegisterNewModule = styled("div")(({ theme }) => ({
   padding: "60px 0",
@@ -140,7 +139,7 @@ const ManageCard = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  height: "80px",
+  minHeight: "100px",
   span: {
     flex: "0 0 50%",
     display: "flex",
@@ -150,10 +149,12 @@ const ManageCard = styled("div")(({ theme }) => ({
 
   ".ButtonsWrapperEditModule": {
     flex: "0 0 20%",
-    display: "",
+    display: "flex",
+    flexDirection: "column",
+    gap: "5px",
 
     button: {
-      height: "35px",
+      height: "20px",
     },
   },
 }));
@@ -217,7 +218,7 @@ interface ModuleElement {
 
 export function CreateCourse() {
   const [openControls, setOpenControls] = useState<boolean>(true);
-  const openStyle = openControls ? "flex" : "none";
+  // const openStyle = openControls ? "flex" : "none";
   const openWidthControls = openControls ? "20%" : "5%";
   const openWidthContent = openControls ? "75%" : "85%";
   const changeSideDesktop = openControls ? "75%" : "0";
@@ -489,6 +490,7 @@ export function CreateCourse() {
             >
               Salvar Alteração
             </Button>
+            <Button onClick={handleClose}>Cancelar</Button>
           </Box>
         </Modal>
       </>
@@ -1016,14 +1018,32 @@ export function CreateCourse() {
 
     return (
       <>
-        <Button
-          color="success"
-          sx={{ width: "70%" }}
-          variant={"contained"}
-          onClick={handleOpen}
-        >
-          <span> Criar novo Módulo </span> <CreateNewFolderIcon />
-        </Button>
+        {openControls ? (
+          <Button
+            color="success"
+            sx={{ width: "70%" }}
+            variant={"contained"}
+            onClick={handleOpen}
+          >
+            <span> Criar novo Módulo </span> <CreateNewFolderIcon />
+          </Button>
+        ) : (
+          <Tooltip title="Novo Módulo">
+            <Button
+              fullWidth
+              sx={{
+                height: "60px",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              color="success"
+              onClick={handleOpen}
+            >
+              <CreateNewFolderIcon sx={{ color: "white", fontSize: "36px" }} />
+            </Button>
+          </Tooltip>
+        )}
+
         <Modal
           open={open}
           onClose={handleClose}
@@ -1046,150 +1066,313 @@ export function CreateCourse() {
     );
   }
 
-  function SelectModule() {
+  /*  function SelectModule() {
     return (
       <>
         <div>
-          <Typography
-            variant="h6"
-            textAlign={"center"}
-            sx={{ marginBottom: "5px" }}
-          >
-            Qual módulo deseja editar ?
-          </Typography>
-          <select onChange={(e) => setValueIDSelectModule(e.target.value)}>
-            {allModules.length > 0
-              ? allModules.map((e) => (
-                  <option value={e.moduleId}> {e.moduleName}</option>
-                ))
-              : false}
-          </select>
-          <Button
-            variant="contained"
-            onClick={() => {
-              const selectModule = allModules
-                .filter((e) => e.moduleId === valueIDSelectModule)
-                .flat();
+          {openControls ? (
+            <Typography
+              variant="h6"
+              textAlign={"center"}
+              sx={{ marginBottom: "5px" }}
+            >
+              Qual módulo deseja editar ?
+            </Typography>
+          ) : (
+            <Tooltip title="Selecionar Módulo">
+              <Button
+                fullWidth
+                sx={{
+                  height: "60px",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+                color="success"
+                onClick={() => console.log("exibir módulos para edição")}
+              >
+                <SortIcon sx={{ color: "white", fontSize: "36px" }} />
+              </Button>
+            </Tooltip>
+          )}
+          {openControls ? (
+            <div>
+              <select onChange={(e) => setValueIDSelectModule(e.target.value)}>
+                {allModules.length > 0
+                  ? allModules.map((e) => (
+                      <option value={e.moduleId}> {e.moduleName}</option>
+                    ))
+                  : false}
+              </select>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  const selectModule = allModules
+                    .filter((e) => e.moduleId === valueIDSelectModule)
+                    .flat();
 
-              selectModule.flatMap((e) => e.moduleContent.flat()).length > 0
-                ? setTodo(selectModule.flatMap((e) => e.moduleContent.flat()))
-                : DeleteAndUpdate();
-              setModuleName(selectModule[0].moduleName);
-              console.log(selectModule[0].moduleName);
-            }}
-          >
-            VER ITENS DO MÓDULO
-          </Button>
+                  selectModule.flatMap((e) => e.moduleContent.flat()).length > 0
+                    ? setTodo(
+                        selectModule.flatMap((e) => e.moduleContent.flat())
+                      )
+                    : DeleteAndUpdate();
+                  setModuleName(selectModule[0].moduleName);
+                  console.log(selectModule[0].moduleName);
+                }}
+              >
+                VER ITENS DO MÓDULO
+              </Button>
+            </div>
+          ) : (
+            false
+          )}
         </div>
       </>
     );
-  }
+  } */
 
   function ManageModules() {
     return (
       <>
-        <Accordion sx={{ width: "100%", padding: "0" }}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-            sx={{ width: "100%" }}
-          >
-            <Typography> Gerenciar módulos </Typography>
-          </AccordionSummary>
-          <AccordionDetails sx={{ minHeight: "300px", padding: "0 5px" }}>
-            <DragDropContext onDragEnd={onDragEndModules}>
-              <Droppable droppableId="allModules">
-                {(provided) => (
-                  <div
-                    className="allModules"
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                  >
-                    {allModules.map(({ moduleId, moduleName }, index) => {
-                      return (
-                        <Draggable
-                          key={moduleId}
-                          draggableId={moduleId}
-                          index={index}
-                        >
-                          {(provided, snapshot) => (
-                            <div
-                              className="moduleElements"
-                              ref={provided.innerRef}
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              style={getItemStyle(
-                                snapshot.isDragging,
-                                provided.draggableProps.style
-                              )}
-                            >
-                              <ManageCard>
-                                <span> {moduleName} </span>
-                                <div className="ButtonsWrapperEditModule">
-                                  <Button
-                                    variant="outlined"
-                                    color="warning"
-                                    onClick={() => handleRemoveModule(moduleId)}
-                                  >
-                                    Deletar
-                                  </Button>
-                                  {ShowEditModalModuleName(moduleId)}
-                                </div>
-                              </ManageCard>
-                            </div>
-                          )}
-                        </Draggable>
-                      );
-                    })}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
-          </AccordionDetails>
-        </Accordion>
+        {openControls ? (
+          <Accordion sx={{ width: "100%", padding: "0" }}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+              sx={{ width: "100%" }}
+            >
+              <Typography> Gerenciar módulos </Typography>
+            </AccordionSummary>
+            <AccordionDetails sx={{ minHeight: "300px", padding: "0 5px" }}>
+              <DragDropContext onDragEnd={onDragEndModules}>
+                <Droppable droppableId="allModules">
+                  {(provided) => (
+                    <div
+                      className="allModules"
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                    >
+                      {allModules.map(({ moduleId, moduleName }, index) => {
+                        return (
+                          <Draggable
+                            key={moduleId}
+                            draggableId={moduleId}
+                            index={index}
+                          >
+                            {(provided, snapshot) => (
+                              <div
+                                className="moduleElements"
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                style={getItemStyle(
+                                  snapshot.isDragging,
+                                  provided.draggableProps.style
+                                )}
+                              >
+                                <ManageCard>
+                                  <span> {moduleName} </span>
+                                  <div className="ButtonsWrapperEditModule">
+                                    <Button
+                                      variant="outlined"
+                                      onClick={() => {
+                                        const selectModule = allModules
+                                          .filter(
+                                            (e) => e.moduleId === moduleId
+                                          )
+                                          .flat();
+
+                                        selectModule.flatMap((e) =>
+                                          e.moduleContent.flat()
+                                        ).length > 0
+                                          ? setTodo(
+                                              selectModule.flatMap((e) =>
+                                                e.moduleContent.flat()
+                                              )
+                                            )
+                                          : DeleteAndUpdate();
+                                        setModuleName(
+                                          selectModule[0].moduleName
+                                        );
+                                        console.log(selectModule);
+                                      }}
+                                    >
+                                      Load
+                                    </Button>
+                                    {ShowEditModalModuleName(moduleId)}
+                                    <Button
+                                      variant="outlined"
+                                      color="warning"
+                                      onClick={() =>
+                                        handleRemoveModule(moduleId)
+                                      }
+                                    >
+                                      Deletar
+                                    </Button>
+                                  </div>
+                                </ManageCard>
+                              </div>
+                            )}
+                          </Draggable>
+                        );
+                      })}
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
+            </AccordionDetails>
+          </Accordion>
+        ) : (
+          <Tooltip title="Organizar Módulos">
+            <Button
+              fullWidth
+              sx={{
+                height: "60px",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              color="success"
+              onClick={() => console.log("show accordion for mobile")}
+            >
+              <AutoAwesomeMotionIcon
+                sx={{ color: "white", fontSize: "36px" }}
+              />
+            </Button>
+          </Tooltip>
+        )}
       </>
     );
   }
 
+  /* const NewButtonsForMenu = () => {
+    return (
+      <>
+        <ButtonsWrapperIconsTools>
+          <Tooltip title="Novo Módulo">
+            <Button
+              fullWidth
+              sx={{
+                height: "60px",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              color="success"
+            >
+              <CreateNewFolderIcon sx={{ color: "white", fontSize: "36px" }} />
+            </Button>
+          </Tooltip>
+          <Tooltip title="Organizar Módulos">
+            <Button
+              fullWidth
+              sx={{
+                height: "60px",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              color="success"
+            >
+              <AutoAwesomeMotionIcon
+                sx={{ color: "white", fontSize: "36px" }}
+              />
+            </Button>
+          </Tooltip>
+          <Tooltip title="Criar um novo elemento">
+            <Button
+              fullWidth
+              sx={{
+                height: "60px",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              color="success"
+            >
+              <SortIcon sx={{ color: "white", fontSize: "36px" }} />
+            </Button>
+          </Tooltip>
+          <Tooltip title="Criar um Elemento">
+            <Button
+              fullWidth
+              sx={{
+                height: "60px",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              color="success"
+            >
+              <CreateIcon sx={{ color: "white", fontSize: "36px" }} />
+            </Button>
+          </Tooltip>
+          <Tooltip title="Salvar Módulo">
+            <Button
+              fullWidth
+              sx={{
+                height: "60px",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              color="success"
+            >
+              <SaveIcon sx={{ color: "white", fontSize: "36px" }} />
+            </Button>
+          </Tooltip>
+        </ButtonsWrapperIconsTools>
+      </>
+    );
+  }; */
+
   function CreateItemInModule() {
     return (
       <>
-        <ControlsContainer>
-          <Typography variant="h6">Crie um novo elemento</Typography>
+        {openControls ? (
+          <>
+            <Typography variant="h6">Crie um novo elemento</Typography>
+            <select onChange={(e) => setValueState(e.target.value)}>
+              <option>Escolha um Elemento </option>
+              <optgroup label="Elemento Sozinho">
+                <option value="title">Título</option>
+                <option value="subtitle">Subtítulo</option>
+                <option value="paragraph">Parágrafo</option>
+                <option value="image">Imagem</option>
+                <option value="video">Vídeo</option>
+              </optgroup>
+              <optgroup label="Elementos Agrupados">
+                <option value="titleAndSub">Título + Subtítulo</option>
+                <option value="titleAndSubAndParagraph">
+                  Título + Subtítulo + Parágrafo
+                </option>
 
-          <select onChange={(e) => setValueState(e.target.value)}>
-            <option>Escolha um Elemento </option>
-            <optgroup label="Elemento Sozinho">
-              <option value="title">Título</option>
-              <option value="subtitle">Subtítulo</option>
-              <option value="paragraph">Parágrafo</option>
-              <option value="image">Imagem</option>
-              <option value="video">Vídeo</option>
-            </optgroup>
-            <optgroup label="Elementos Agrupados">
-              <option value="titleAndSub">Título + Subtítulo</option>
-              <option value="titleAndSubAndParagraph">
-                Título + Subtítulo + Parágrafo
-              </option>
-
-              <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
-            </optgroup>
-          </select>
-
-          {valueState === "title" ? RenderTitleCreate() : false}
-          {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
-          {valueState === "paragraph" ? RenderParagraphCreate() : false}
-          {valueState === "subtitle" ? RenderSubtitleCreate() : false}
-          {valueState === "paragraphAndSub"
-            ? RenderSubtitleAndParagraph()
-            : false}
-          {valueState === "titleAndSubAndParagraph"
-            ? RenderTitleSubtitleAndParagraph()
-            : false}
-          {valueState === "image" ? RenderImageCreate() : false}
-          {valueState === "video" ? RenderVideoCreate() : false}
-
+                <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
+              </optgroup>
+            </select>{" "}
+            {valueState === "title" ? RenderTitleCreate() : false}
+            {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
+            {valueState === "paragraph" ? RenderParagraphCreate() : false}
+            {valueState === "subtitle" ? RenderSubtitleCreate() : false}
+            {valueState === "paragraphAndSub"
+              ? RenderSubtitleAndParagraph()
+              : false}
+            {valueState === "titleAndSubAndParagraph"
+              ? RenderTitleSubtitleAndParagraph()
+              : false}
+            {valueState === "image" ? RenderImageCreate() : false}
+            {valueState === "video" ? RenderVideoCreate() : false}{" "}
+          </>
+        ) : (
+          <Tooltip title="Criar um Elemento">
+            <Button
+              fullWidth
+              sx={{
+                height: "60px",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              color="success"
+            >
+              <CreateIcon sx={{ color: "white", fontSize: "36px" }} />
+            </Button>
+          </Tooltip>
+        )}
+        {openControls ? (
           <Button
             color="warning"
             variant="contained"
@@ -1197,7 +1380,21 @@ export function CreateCourse() {
           >
             Salvar Módulo
           </Button>
-        </ControlsContainer>
+        ) : (
+          <Tooltip title="Salvar Módulo">
+            <Button
+              fullWidth
+              sx={{
+                height: "60px",
+                display: "flex",
+                flexDirection: "column",
+              }}
+              color="success"
+            >
+              <SaveIcon sx={{ color: "white", fontSize: "36px" }} />
+            </Button>
+          </Tooltip>
+        )}
       </>
     );
   }
@@ -1250,7 +1447,7 @@ export function CreateCourse() {
               {/* CourseInformations() */}
               <Box
                 sx={{
-                  display: openStyle,
+                  //    display: openStyle,
                   flexDirection: "column",
                   gap: 2,
                   width: "100%",
@@ -1261,88 +1458,11 @@ export function CreateCourse() {
                 <ControlsContainer>
                   {NewModule()}
                   {allModules.length > 0 ? ManageModules() : false}
-                  {allModules.length > 0 ? SelectModule() : false}
+                  {allModules.length > 0 ? CreateItemInModule() : false}
                 </ControlsContainer>
-                {allModules.length > 0 ? CreateItemInModule() : false}
               </Box>
 
-              <Box sx={{ width: "100%" }}>
-                {openControls ? (
-                  false
-                ) : (
-                  <ButtonsWrapperIconsTools>
-                    <Tooltip title="Novo Módulo">
-                      <Button
-                        fullWidth
-                        sx={{
-                          height: "60px",
-                          display: "flex",
-                          flexDirection: "column",
-                        }}
-                        color="success"
-                      >
-                        <CreateNewFolderIcon
-                          sx={{ color: "white", fontSize: "36px" }}
-                        />
-                      </Button>
-                    </Tooltip>
-                    <Tooltip title="Organizar Módulos">
-                      <Button
-                        fullWidth
-                        sx={{
-                          height: "60px",
-                          display: "flex",
-                          flexDirection: "column",
-                        }}
-                        color="success"
-                      >
-                        <AutoAwesomeMotionIcon
-                          sx={{ color: "white", fontSize: "36px" }}
-                        />
-                      </Button>
-                    </Tooltip>
-                    <Tooltip title="Criar um novo elemento">
-                      <Button
-                        fullWidth
-                        sx={{
-                          height: "60px",
-                          display: "flex",
-                          flexDirection: "column",
-                        }}
-                        color="success"
-                      >
-                        <SortIcon sx={{ color: "white", fontSize: "36px" }} />
-                      </Button>
-                    </Tooltip>
-                    <Tooltip title="Selecionar Módulo">
-                      <Button
-                        fullWidth
-                        sx={{
-                          height: "60px",
-                          display: "flex",
-                          flexDirection: "column",
-                        }}
-                        color="success"
-                      >
-                        <CreateIcon sx={{ color: "white", fontSize: "36px" }} />
-                      </Button>
-                    </Tooltip>
-                    <Tooltip title="Selecionar Módulo">
-                      <Button
-                        fullWidth
-                        sx={{
-                          height: "60px",
-                          display: "flex",
-                          flexDirection: "column",
-                        }}
-                        color="success"
-                      >
-                        <SaveIcon sx={{ color: "white", fontSize: "36px" }} />
-                      </Button>
-                    </Tooltip>
-                  </ButtonsWrapperIconsTools>
-                )}
-              </Box>
+              <Box sx={{ width: "100%" }}>{openControls ? false : false}</Box>
             </ContainerRegisterNewModule>
           </Box>
           <Box
