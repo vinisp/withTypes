@@ -36,12 +36,21 @@ import {
 
 import "../styles/CreateCourse.css";
 
-const style = {
+/* const style = {
   position: "absolute" as "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+}; */
+
+const style = {
+  margin: "120px auto",
+  width: 350,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -218,7 +227,7 @@ interface ModuleElement {
 
 export function CreateCourse() {
   const [openControls, setOpenControls] = useState<boolean>(true);
-  const openStyle = openControls ? "none" : "flex";
+
   const openWidthControls = openControls ? "20%" : "5%";
   const openWidthContent = openControls ? "75%" : "85%";
   const changeSideDesktop = openControls ? "75%" : "0";
@@ -240,6 +249,8 @@ export function CreateCourse() {
 
   const [valueState, setValueState] = useState("");
   const [valueIDSelectModule, setValueIDSelectModule] = useState("0");
+
+  const openStyle = !openControls && allModules.length > 0 ? "flex" : "none";
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
@@ -1229,6 +1240,74 @@ export function CreateCourse() {
     );
   }
 
+  function CreateNewElementMobile() {
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    return (
+      <div>
+        <Tooltip title="Novo Elemento">
+          <Button
+            onClick={handleOpen}
+            fullWidth
+            sx={{
+              height: "60px",
+              display: `${openStyle}`,
+              flexDirection: "column",
+            }}
+            color="success"
+          >
+            <CreateIcon sx={{ color: "white", fontSize: "36px" }} />
+          </Button>
+        </Tooltip>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <>
+              <Typography variant="h6">Crie um novo elemento</Typography>
+              <select onChange={(e) => setValueState(e.target.value)}>
+                <option>Escolha um Elemento </option>
+                <optgroup label="Elemento Sozinho">
+                  <option value="title">Título</option>
+                  <option value="subtitle">Subtítulo</option>
+                  <option value="paragraph">Parágrafo</option>
+                  <option value="image">Imagem</option>
+                  <option value="video">Vídeo</option>
+                </optgroup>
+                <optgroup label="Elementos Agrupados">
+                  <option value="titleAndSub">Título + Subtítulo</option>
+                  <option value="titleAndSubAndParagraph">
+                    Título + Subtítulo + Parágrafo
+                  </option>
+
+                  <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
+                </optgroup>
+              </select>{" "}
+              {valueState === "title" ? RenderTitleCreate() : false}
+              {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
+              {valueState === "paragraph" ? RenderParagraphCreate() : false}
+              {valueState === "subtitle" ? RenderSubtitleCreate() : false}
+              {valueState === "paragraphAndSub"
+                ? RenderSubtitleAndParagraph()
+                : false}
+              {valueState === "titleAndSubAndParagraph"
+                ? RenderTitleSubtitleAndParagraph()
+                : false}
+              {valueState === "image" ? RenderImageCreate() : false}
+              {valueState === "video" ? RenderVideoCreate() : false}{" "}
+            </>
+            <Button onClick={handleClose}>Fechar</Button>
+          </Box>
+        </Modal>
+      </div>
+    );
+  }
+
   function ManageModulesMobile() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -1469,19 +1548,7 @@ export function CreateCourse() {
             {valueState === "video" ? RenderVideoCreate() : false}{" "}
           </>
         ) : (
-          <Tooltip title="Criar um Elemento">
-            <Button
-              fullWidth
-              sx={{
-                height: "60px",
-                display: "flex",
-                flexDirection: "column",
-              }}
-              color="success"
-            >
-              <CreateIcon sx={{ color: "white", fontSize: "36px" }} />
-            </Button>
-          </Tooltip>
+          false
         )}
         {openControls ? (
           <Button
@@ -1570,6 +1637,7 @@ export function CreateCourse() {
                   {NewModule()}
                   {allModules.length > 0 ? ManageModules() : false}
                   {ManageModulesMobile()}
+                  {CreateNewElementMobile()}
                   {allModules.length > 0 ? CreateItemInModule() : false}
                 </ControlsContainer>
               </Box>
