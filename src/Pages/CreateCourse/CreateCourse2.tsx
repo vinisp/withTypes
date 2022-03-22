@@ -1850,7 +1850,16 @@ export function CreateCourse() {
           onClick={() => SaveModule(valueIDSelectModule)}
         >
           <SaveIcon color="warning" sx={{ fontSize: "36px" }} />
-          {openControls ? " Salvar Módulo" : false}
+          {openControls ? (
+            <Typography
+              variant="body2"
+              sx={{ animation: "fade 1500ms ease both" }}
+            >
+              Salvar Módulo
+            </Typography>
+          ) : (
+            false
+          )}
         </Button>
       </>
     );
