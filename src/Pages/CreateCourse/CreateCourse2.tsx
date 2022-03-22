@@ -1032,11 +1032,36 @@ export function CreateCourse() {
         {openControls ? (
           <Button
             color="success"
-            sx={{ width: "70%" }}
-            variant={"contained"}
+            sx={{
+              width: "100%",
+              display: "flex",
+              gap: "15px",
+              transition: "all 550ms ease ",
+              borderRadius: "0",
+              "&:hover": {
+                borderBottom: "solid 1px white",
+              },
+            }}
+            variant={"text"}
             onClick={handleOpen}
           >
-            <span> Criar novo Módulo </span> <CreateNewFolderIcon />
+            <CreateNewFolderIcon
+              sx={{
+                fontSize: "36px",
+                color: "green",
+                animation: "changeColorToWhite 500ms ease both",
+              }}
+            />{" "}
+            <Typography
+              sx={{
+                animation: "fade 1500ms ease both",
+                opacity: "0",
+                color: "white",
+              }}
+              variant="body2"
+            >
+              Criar novo Módulo{" "}
+            </Typography>
           </Button>
         ) : (
           <Tooltip title="Novo Módulo">
@@ -1427,6 +1452,7 @@ export function CreateCourse() {
                   </DragDropContext>
                 </AccordionDetails>
               </Accordion>
+              <Button onClick={handleClose}>Fechar</Button>
             </Box>
           </Modal>
         </div>
