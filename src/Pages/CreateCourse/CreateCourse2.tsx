@@ -23,7 +23,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-//import SortIcon from "@mui/icons-material/Sort";
 import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
 import CreateIcon from "@mui/icons-material/Create";
 import SaveIcon from "@mui/icons-material/Save";
@@ -35,18 +34,6 @@ import {
 } from "react-beautiful-dnd";
 
 import "../styles/CreateCourse.css";
-
-/* const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-}; */
 
 const style = {
   margin: "120px auto",
@@ -89,16 +76,6 @@ const MainDetails = styled("ul")(({ theme }) => ({
   width: "100%",
 }));
 
-/* const ButtonsWrapperIconsTools = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  background: "rgba(255,255,255,0.1)",
-  width: "100%",
-  padding: "5px",
-  gap: "5px",
-})); */
-
 const ContainerRegisterNewModule = styled("div")(({ theme }) => ({
   padding: "60px 0",
   height: "auto",
@@ -140,7 +117,7 @@ const LayoutArea = styled("div")(({ theme }) => ({
 const ManageCard = styled("div")(({ theme }) => ({
   border: "solid 1px green",
   borderBottom: 0,
-  background: "rgba(0,0,0, 1)",
+  background: "rgba(0,0,0, 0.8)",
   borderRadius: "4px",
   fontSize: "18px",
   color: "white",
@@ -481,7 +458,7 @@ export function CreateCourse() {
     return (
       <>
         <Button variant="outlined" onClick={handleOpen}>
-          <span> Editar </span> <EditIcon />
+          <span> Editar </span>
         </Button>
         <Modal
           open={open}
@@ -1065,7 +1042,7 @@ export function CreateCourse() {
               }}
               variant="body2"
             >
-              Criar novo Módulo{" "}
+              Criar novo Módulo
             </Typography>
           </Button>
         ) : (
@@ -1091,184 +1068,54 @@ export function CreateCourse() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
+          <Box
+            sx={{
+              margin: "120px auto",
+              width: "550px",
+              height: 250,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+
+              justifyContent: "center",
+              background: "#f2f2f2",
+              borderBottom: "15px solid green",
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
             <TextField
               id="filled-basic"
-              style={{ padding: "15px", minHeight: "30px", width: "70%" }}
-              placeholder="seu texto..."
+              style={{
+                padding: "15px",
+                minHeight: "30px",
+                width: "350px",
+                marginBottom: "3px",
+              }}
+              placeholder="Nome do módulo"
               onChange={(e: any) => setNewModuleName(e.target.value)}
             />
-            <Button variant="outlined" onClick={() => CloseAndSave()}>
+            <Button
+              sx={{ width: "320px", marginBottom: "8px" }}
+              variant="outlined"
+              onClick={() => CloseAndSave()}
+              color="success"
+            >
               Criar novo módulo
+            </Button>
+            <Button
+              sx={{ width: "320px" }}
+              variant="outlined"
+              onClick={() => handleClose()}
+              color="success"
+            >
+              Fechar
             </Button>
           </Box>
         </Modal>
       </>
     );
   }
-
-  /*  function SelectModule() {
-    return (
-      <>
-        <div>
-          {openControls ? (
-            <Typography
-              variant="h6"
-              textAlign={"center"}
-              sx={{ marginBottom: "5px" }}
-            >
-              Qual módulo deseja editar ?
-            </Typography>
-          ) : (
-            <Tooltip title="Selecionar Módulo">
-              <Button
-                fullWidth
-                sx={{
-                  height: "60px",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-                color="success"
-                onClick={() => console.log("exibir módulos para edição")}
-              >
-                <SortIcon sx={{ color: "white", fontSize: "36px" }} />
-              </Button>
-            </Tooltip>
-          )}
-          {openControls ? (
-            <div>
-              <select onChange={(e) => setValueIDSelectModule(e.target.value)}>
-                {allModules.length > 0
-                  ? allModules.map((e) => (
-                      <option value={e.moduleId}> {e.moduleName}</option>
-                    ))
-                  : false}
-              </select>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  const selectModule = allModules
-                    .filter((e) => e.moduleId === valueIDSelectModule)
-                    .flat();
-
-                  selectModule.flatMap((e) => e.moduleContent.flat()).length > 0
-                    ? setTodo(
-                        selectModule.flatMap((e) => e.moduleContent.flat())
-                      )
-                    : DeleteAndUpdate();
-                  setModuleName(selectModule[0].moduleName);
-                  console.log(selectModule[0].moduleName);
-                }}
-              >
-                VER ITENS DO MÓDULO
-              </Button>
-            </div>
-          ) : (
-            false
-          )}
-        </div>
-      </>
-    );
-  } */
-
-  /* function ManageModules() {
-    return (
-      <>
-        {openControls ? (
-          <Accordion sx={{ width: "100%", padding: "0" }}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-              sx={{ width: "100%" }}
-            >
-              <Typography> Gerenciar módulos </Typography>
-            </AccordionSummary>
-            <AccordionDetails sx={{ minHeight: "300px", padding: "0 5px" }}>
-              <DragDropContext onDragEnd={onDragEndModules}>
-                <Droppable droppableId="allModules">
-                  {(provided) => (
-                    <div
-                      className="allModules"
-                      {...provided.droppableProps}
-                      ref={provided.innerRef}
-                    >
-                      {allModules.map(({ moduleId, moduleName }, index) => {
-                        return (
-                          <Draggable
-                            key={moduleId}
-                            draggableId={moduleId}
-                            index={index}
-                          >
-                            {(provided, snapshot) => (
-                              <div
-                                className="moduleElements"
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                style={getItemStyle(
-                                  snapshot.isDragging,
-                                  provided.draggableProps.style
-                                )}
-                              >
-                                <ManageCard>
-                                  <span> {moduleName} </span>
-                                  <div className="ButtonsWrapperEditModule">
-                                    <Button
-                                      variant="outlined"
-                                      onClick={() => {
-                                        const selectModule = allModules
-                                          .filter(
-                                            (e) => e.moduleId === moduleId
-                                          )
-                                          .flat();
-
-                                        selectModule.flatMap((e) =>
-                                          e.moduleContent.flat()
-                                        ).length > 0
-                                          ? setTodo(
-                                              selectModule.flatMap((e) =>
-                                                e.moduleContent.flat()
-                                              )
-                                            )
-                                          : DeleteAndUpdate();
-                                        setModuleName(
-                                          selectModule[0].moduleName
-                                        );
-                                        console.log(selectModule);
-                                      }}
-                                    >
-                                      Load
-                                    </Button>
-                                    {ShowEditModalModuleName(moduleId)}
-                                    <Button
-                                      variant="outlined"
-                                      color="warning"
-                                      onClick={() =>
-                                        handleRemoveModule(moduleId)
-                                      }
-                                    >
-                                      Deletar
-                                    </Button>
-                                  </div>
-                                </ManageCard>
-                              </div>
-                            )}
-                          </Draggable>
-                        );
-                      })}
-                    </div>
-                  )}
-                </Droppable>
-              </DragDropContext>
-            </AccordionDetails>
-          </Accordion>
-        ) : (
-          false
-        )}
-      </>
-    );
-  } */
 
   function CreateNewElementMobile() {
     const [open, setOpen] = useState(false);
@@ -1515,7 +1362,17 @@ export function CreateCourse() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
+          <Box
+            sx={{
+              margin: "120px auto",
+              width: 650,
+              minHeight: "150px",
+              background: "#f2f2f2",
+              borderBottom: "15px solid green",
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
             <Accordion sx={{ width: "100%", padding: "0" }}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -1525,7 +1382,9 @@ export function CreateCourse() {
               >
                 <Typography> Gerenciar módulos </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ minHeight: "300px", padding: "0 5px" }}>
+              <AccordionDetails
+                sx={{ minWidth: "450px", minHeight: "500px", padding: "0 5px" }}
+              >
                 <DragDropContext onDragEnd={onDragEndModules}>
                   <Droppable droppableId="allModules">
                     {(provided) => (
@@ -1604,155 +1463,18 @@ export function CreateCourse() {
                 </DragDropContext>
               </AccordionDetails>
             </Accordion>
-            <Button onClick={handleClose}>Fechar</Button>
+            <Button
+              variant="outlined"
+              sx={{ width: "585px", marginTop: "15px" }}
+              onClick={handleClose}
+            >
+              Fechar
+            </Button>
           </Box>
         </Modal>
       </>
     );
   }
-
-  /* const NewButtonsForMenu = () => {
-    return (
-      <>
-        <ButtonsWrapperIconsTools>
-          <Tooltip title="Novo Módulo">
-            <Button
-              fullWidth
-              sx={{
-                height: "60px",
-                display: "flex",
-                flexDirection: "column",
-              }}
-              color="success"
-            >
-              <CreateNewFolderIcon sx={{ color: "white", fontSize: "36px" }} />
-            </Button>
-          </Tooltip>
-          <Tooltip title="Organizar Módulos">
-            <Button
-              fullWidth
-              sx={{
-                height: "60px",
-                display: "flex",
-                flexDirection: "column",
-              }}
-              color="success"
-            >
-              <AutoAwesomeMotionIcon
-                sx={{ color: "white", fontSize: "36px" }}
-              />
-            </Button>
-          </Tooltip>
-          <Tooltip title="Criar um novo elemento">
-            <Button
-              fullWidth
-              sx={{
-                height: "60px",
-                display: "flex",
-                flexDirection: "column",
-              }}
-              color="success"
-            >
-              <SortIcon sx={{ color: "white", fontSize: "36px" }} />
-            </Button>
-          </Tooltip>
-          <Tooltip title="Criar um Elemento">
-            <Button
-              fullWidth
-              sx={{
-                height: "60px",
-                display: "flex",
-                flexDirection: "column",
-              }}
-              color="success"
-            >
-              <CreateIcon sx={{ color: "white", fontSize: "36px" }} />
-            </Button>
-          </Tooltip>
-          <Tooltip title="Salvar Módulo">
-            <Button
-              fullWidth
-              sx={{
-                height: "60px",
-                display: "flex",
-                flexDirection: "column",
-              }}
-              color="success"
-            >
-              <SaveIcon sx={{ color: "white", fontSize: "36px" }} />
-            </Button>
-          </Tooltip>
-        </ButtonsWrapperIconsTools>
-      </>
-    );
-  }; */
-
-  /* function CreateItemInModule() {
-    return (
-      <>
-        {openControls ? (
-          <>
-            <Typography variant="h6">Crie um novo elemento</Typography>
-            <select onChange={(e) => setValueState(e.target.value)}>
-              <option>Escolha um Elemento </option>
-              <optgroup label="Elemento Sozinho">
-                <option value="title">Título</option>
-                <option value="subtitle">Subtítulo</option>
-                <option value="paragraph">Parágrafo</option>
-                <option value="image">Imagem</option>
-                <option value="video">Vídeo</option>
-              </optgroup>
-              <optgroup label="Elementos Agrupados">
-                <option value="titleAndSub">Título + Subtítulo</option>
-                <option value="titleAndSubAndParagraph">
-                  Título + Subtítulo + Parágrafo
-                </option>
-
-                <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
-              </optgroup>
-            </select>{" "}
-            {valueState === "title" ? RenderTitleCreate() : false}
-            {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
-            {valueState === "paragraph" ? RenderParagraphCreate() : false}
-            {valueState === "subtitle" ? RenderSubtitleCreate() : false}
-            {valueState === "paragraphAndSub"
-              ? RenderSubtitleAndParagraph()
-              : false}
-            {valueState === "titleAndSubAndParagraph"
-              ? RenderTitleSubtitleAndParagraph()
-              : false}
-            {valueState === "image" ? RenderImageCreate() : false}
-            {valueState === "video" ? RenderVideoCreate() : false}{" "}
-          </>
-        ) : (
-          false
-        )}
-        {openControls ? (
-          <Button
-            color="warning"
-            variant="contained"
-            onClick={() => SaveModule(valueIDSelectModule)}
-          >
-            Salvar Módulo
-          </Button>
-        ) : (
-          <Tooltip title="Salvar Módulo">
-            <Button
-              fullWidth
-              sx={{
-                height: "60px",
-                display: "flex",
-                flexDirection: "column",
-              }}
-              color="warning"
-            >
-              <SaveIcon color="warning" sx={{ fontSize: "36px" }} />
-            </Button>
-          </Tooltip>
-        )}
-      </>
-    );
-  } */
 
   function CreateItemInModule() {
     const [open, setOpen] = useState(false);
@@ -1798,7 +1520,20 @@ export function CreateCourse() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
+          <Box
+            sx={{
+              margin: "120px auto",
+              width: 550,
+              background: "#f2f2f2",
+              borderBottom: "15px solid green",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "5px",
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
             <Typography variant="h6">Crie um novo elemento</Typography>
             <select onChange={(e) => setValueState(e.target.value)}>
               <option>Escolha um Elemento </option>
@@ -1817,7 +1552,7 @@ export function CreateCourse() {
 
                 <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
               </optgroup>
-            </select>{" "}
+            </select>
             {valueState === "title" ? RenderTitleCreate() : false}
             {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
             {valueState === "paragraph" ? RenderParagraphCreate() : false}
@@ -1830,37 +1565,47 @@ export function CreateCourse() {
               : false}
             {valueState === "image" ? RenderImageCreate() : false}
             {valueState === "video" ? RenderVideoCreate() : false}
+            <Button
+              color="success"
+              sx={{ width: "340px", marginTop: "25px" }}
+              variant="outlined"
+              onClick={() => handleClose()}
+            >
+              Fechar
+            </Button>
           </Box>
         </Modal>
-        <Button
-          color="warning"
-          variant="text"
-          sx={{
-            height: "60px",
-            // display: `${openStyle}`,
-            display: `${openStyle3}`,
-            gap: "15px",
-            transition: "all 550ms ease ",
-            borderRadius: "0",
-            justifyContent: `${justifyStyle}`,
-            "&:hover": {
-              borderBottom: "solid 1px white",
-            },
-          }}
-          onClick={() => SaveModule(valueIDSelectModule)}
-        >
-          <SaveIcon color="warning" sx={{ fontSize: "36px" }} />
-          {openControls ? (
-            <Typography
-              variant="body2"
-              sx={{ animation: "fade 1500ms ease both" }}
-            >
-              Salvar Módulo
-            </Typography>
-          ) : (
-            false
-          )}
-        </Button>
+        <Tooltip title="Savar Módulo">
+          <Button
+            color="warning"
+            variant="text"
+            sx={{
+              height: "60px",
+              // display: `${openStyle}`,
+              display: `${openStyle3}`,
+              gap: "15px",
+              transition: "all 550ms ease ",
+              borderRadius: "0",
+              justifyContent: `${justifyStyle}`,
+              "&:hover": {
+                borderBottom: "solid 1px white",
+              },
+            }}
+            onClick={() => SaveModule(valueIDSelectModule)}
+          >
+            <SaveIcon color="warning" sx={{ fontSize: "36px" }} />
+            {openControls ? (
+              <Typography
+                variant="body2"
+                sx={{ animation: "fade 1500ms ease both" }}
+              >
+                Salvar Módulo
+              </Typography>
+            ) : (
+              false
+            )}
+          </Button>
+        </Tooltip>
       </>
     );
   }
