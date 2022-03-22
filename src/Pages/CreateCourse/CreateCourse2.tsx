@@ -251,6 +251,7 @@ export function CreateCourse() {
   const [valueIDSelectModule, setValueIDSelectModule] = useState("0");
 
   const openStyle = !openControls && allModules.length > 0 ? "flex" : "none";
+  const openStyle2 = openControls ? "flex" : "none";
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
@@ -1051,7 +1052,7 @@ export function CreateCourse() {
                 color: "green",
                 animation: "changeColorToWhite 500ms ease both",
               }}
-            />{" "}
+            />
             <Typography
               sx={{
                 animation: "fade 1500ms ease both",
@@ -1166,7 +1167,7 @@ export function CreateCourse() {
     );
   } */
 
-  function ManageModules() {
+  /* function ManageModules() {
     return (
       <>
         {openControls ? (
@@ -1263,7 +1264,7 @@ export function CreateCourse() {
         )}
       </>
     );
-  }
+  } */
 
   function CreateNewElementMobile() {
     const [open, setOpen] = useState(false);
@@ -1456,6 +1457,156 @@ export function CreateCourse() {
             </Box>
           </Modal>
         </div>
+      </>
+    );
+  }
+
+  function ManageModules() {
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    return (
+      <>
+        <Tooltip title="Gerenciar módulos">
+          <Button
+            onClick={handleOpen}
+            fullWidth
+            sx={{
+              height: "60px",
+              // display: `${openStyle}`,
+              display: `${openStyle2}`,
+              gap: "15px",
+              transition: "all 550ms ease ",
+              borderRadius: "0",
+              "&:hover": {
+                borderBottom: "solid 1px white",
+              },
+            }}
+            color="success"
+          >
+            <AutoAwesomeMotionIcon
+              sx={{
+                animation: "changeColorToWhite 500ms ease both",
+                color: "green",
+                fontSize: "36px",
+              }}
+            />
+            {!openControls && allModules.length > 0 ? (
+              false
+            ) : (
+              <Typography
+                variant="body2"
+                sx={{
+                  animation: "fade 1500ms ease both",
+                  opacity: "0",
+                  color: "white",
+                }}
+              >
+                {" "}
+                Gerenciar Módulos{" "}
+              </Typography>
+            )}
+          </Button>
+        </Tooltip>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Accordion sx={{ width: "100%", padding: "0" }}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                sx={{ width: "100%" }}
+              >
+                <Typography> Gerenciar módulos </Typography>
+              </AccordionSummary>
+              <AccordionDetails sx={{ minHeight: "300px", padding: "0 5px" }}>
+                <DragDropContext onDragEnd={onDragEndModules}>
+                  <Droppable droppableId="allModules">
+                    {(provided) => (
+                      <div
+                        className="allModules"
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                      >
+                        {allModules.map(({ moduleId, moduleName }, index) => {
+                          return (
+                            <Draggable
+                              key={moduleId}
+                              draggableId={moduleId}
+                              index={index}
+                            >
+                              {(provided, snapshot) => (
+                                <div
+                                  className="moduleElements"
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  style={getItemStyle(
+                                    snapshot.isDragging,
+                                    provided.draggableProps.style
+                                  )}
+                                >
+                                  <ManageCard>
+                                    <span> {moduleName} </span>
+                                    <div className="ButtonsWrapperEditModule">
+                                      <Button
+                                        variant="outlined"
+                                        onClick={() => {
+                                          const selectModule = allModules
+                                            .filter(
+                                              (e) => e.moduleId === moduleId
+                                            )
+                                            .flat();
+
+                                          selectModule.flatMap((e) =>
+                                            e.moduleContent.flat()
+                                          ).length > 0
+                                            ? setTodo(
+                                                selectModule.flatMap((e) =>
+                                                  e.moduleContent.flat()
+                                                )
+                                              )
+                                            : DeleteAndUpdate();
+                                          setModuleName(
+                                            selectModule[0].moduleName
+                                          );
+                                          console.log(selectModule);
+                                        }}
+                                      >
+                                        Load
+                                      </Button>
+                                      {ShowEditModalModuleName(moduleId)}
+                                      <Button
+                                        variant="outlined"
+                                        color="warning"
+                                        onClick={() =>
+                                          handleRemoveModule(moduleId)
+                                        }
+                                      >
+                                        Deletar
+                                      </Button>
+                                    </div>
+                                  </ManageCard>
+                                </div>
+                              )}
+                            </Draggable>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </Droppable>
+                </DragDropContext>
+              </AccordionDetails>
+            </Accordion>
+            <Button onClick={handleClose}>Fechar</Button>
+          </Box>
+        </Modal>
       </>
     );
   }
@@ -1661,7 +1812,7 @@ export function CreateCourse() {
               >
                 <ControlsContainer>
                   {NewModule()}
-                  {allModules.length > 0 ? ManageModules() : false}
+                  {ManageModules()}
                   {ManageModulesMobile()}
                   {CreateNewElementMobile()}
                   {allModules.length > 0 ? CreateItemInModule() : false}
