@@ -1361,12 +1361,14 @@ export function CreateCourse() {
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
+          sx={{ overflow: "scroll" }}
         >
           <Box
             sx={{
               margin: "120px auto",
               width: 650,
               minHeight: "150px",
+
               background: "#f2f2f2",
               borderBottom: "15px solid green",
               boxShadow: 24,
@@ -1383,7 +1385,11 @@ export function CreateCourse() {
                 <Typography> Gerenciar módulos </Typography>
               </AccordionSummary>
               <AccordionDetails
-                sx={{ minWidth: "450px", minHeight: "500px", padding: "0 5px" }}
+                sx={{
+                  minWidth: "450px",
+                  minHeight: "500px",
+                  padding: "0 5px",
+                }}
               >
                 <DragDropContext onDragEnd={onDragEndModules}>
                   <Droppable droppableId="allModules">
