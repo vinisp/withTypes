@@ -51,6 +51,20 @@ const MainContainer = styled("div")(({ theme }) => ({
   flexWrap: "wrap",
 }));
 
+const StyledMainCourseInformation = styled("ul")(({ theme }) => ({
+  listStyle: "none",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "8px",
+  width: "100%",
+  justifyContent: "center",
+  color: "white",
+  li: {
+    p: { fontSize: "14px" },
+  },
+}));
+
 const ControlsContainer = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -68,16 +82,8 @@ const ControlsContainer = styled("div")(({ theme }) => ({
   width: "90%",
 }));
 
-const MainDetails = styled("ul")(({ theme }) => ({
-  listStyle: "none",
-  display: "flex",
-  flexDirection: "column",
-  gap: "15px",
-  width: "100%",
-}));
-
 const ContainerRegisterNewModule = styled("div")(({ theme }) => ({
-  padding: "60px 0",
+  padding: "30px 0 0 0",
   height: "auto",
   background: "0",
   marginBottom: "15px",
@@ -214,9 +220,10 @@ export function CreateCourse() {
 
   const [allModules, setAllModules] = useState<Module[]>([]);
   const [todo, setTodo] = useState<ModuleElement[]>([]);
-  const [courseName, setCourseName] = useState("");
-  const [courseDescription, setCourseDescription] = useState("");
-  /* const [sumary, setSumary] = useState(""); */
+
+  //Course Main Object
+
+  const [course, setCourse] = useState<any[]>([]);
 
   //Module states
   const [moduleName, setModuleName] = useState("");
@@ -254,6 +261,37 @@ export function CreateCourse() {
 
     setAllModules(items);
   };
+
+  function LoadCourse(
+    id: string,
+    name: string,
+    category: string,
+    level: string,
+    content?: any,
+    thumb?: string
+  ) {
+    /* 
+    interface Course {
+    id: string;
+    thumb?: string;
+    courseName: string;
+    category: string;
+    level: string;
+    content?: [Module];
+    }
+    */
+
+    const CourseData = {
+      id: id,
+      courseName: name,
+      category: category,
+      level: level,
+      content: content,
+    };
+    setCourse(course.splice(0, course.length));
+    setCourse(course.filter((e) => e));
+    return setCourse((course) => [...course, CourseData]);
+  }
 
   function genereteId() {
     const allIds = todo.map((e) => +e.id);
@@ -294,14 +332,6 @@ export function CreateCourse() {
       .map((e: any) => (e.moduleName = newValue));
     setAllModules(allModules.filter((e) => e));
   }
-
-  const editCourseName = () => {
-    setCourseName(courseName);
-  };
-
-  const editDescription = () => {
-    setCourseDescription(courseDescription);
-  };
 
   const addTitle = () => {
     setTodo((todo) => [
@@ -398,6 +428,148 @@ export function CreateCourse() {
     setSecModule("");
     setThirdModule("");
   };
+
+  function MainCourseInformations() {
+    const [courseName, setCourseName] = useState("");
+    const [courseLevel, setCourseLevel] = useState("");
+    const [courseCategory, setCourseCategory] = useState("");
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    return (
+      <>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100%",
+            gap: "8px",
+          }}
+        >
+          {course.length > 0 ? (
+            <Button
+              variant="text"
+              color="warning"
+              onClick={() => {
+                const id: string = "1";
+
+                setCourse((course) => [
+                  ...course,
+                  {
+                    id: id,
+                    name: courseName,
+                    level: courseLevel,
+                    category: courseCategory,
+                    content: allModules,
+                  },
+                ]);
+                setCourse(course.map((e) => (e.content = allModules)));
+                setCourse(course.filter((e) => e));
+              }}
+            >
+              <SaveIcon /> Salvar Curso
+            </Button>
+          ) : (
+            <Typography variant="h6" textAlign={"center"} color="white">
+              Clique no botão abaixo para inserir as informações básicas do
+              curso
+            </Typography>
+          )}
+          <Button
+            sx={{ width: "80%" }}
+            variant="contained"
+            onClick={handleOpen}
+          >
+            Editar dados do Curso
+          </Button>
+        </Box>
+        <StyledMainCourseInformation>
+          {course.length > 0 ? (
+            <>
+              <li>
+                <Typography> Nome do curso : {courseName} </Typography>
+              </li>
+              <li>
+                <Typography> Dificuldade : {courseLevel} </Typography>
+              </li>
+              <li>
+                <Typography> Categoria : {courseCategory} </Typography>
+              </li>
+            </>
+          ) : (
+            false
+          )}
+        </StyledMainCourseInformation>
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography variant="h5" textAlign={"center"} color={"white"}>
+              Informações principais do curso
+            </Typography>
+
+            <Typography color={"white"}>
+              {course.length > 0
+                ? course.map((e) => e.courseName)
+                : "DADOS PARA INICIAR O CURSO"}
+            </Typography>
+
+            <div>
+              <TextField
+                required
+                id="filled-basic"
+                label={"Nome do curso"}
+                variant="filled"
+                sx={{ background: "white", width: "70%" }}
+                onChange={(event) => setCourseName(event.target.value)}
+              />
+
+              <select onChange={(event) => setCourseLevel(event.target.value)}>
+                <option value="">Escolha sua opção</option>
+                <option value="beginner">Iniciante</option>
+                <option value="intermediate">Intermediário</option>
+                <option value="advanced">Avançado</option>
+              </select>
+              <select
+                onChange={(event) => setCourseCategory(event.target.value)}
+              >
+                <option value="">Escolha sua opção</option>
+                <option value="categoria 1">Categoria 1</option>
+                <option value="categoria 2">Categoria 2</option>
+                <option value="categoria 3">Categoria 3</option>
+              </select>
+            </div>
+
+            <Button
+              variant="contained"
+              onClick={() => {
+                LoadCourse(
+                  "1",
+                  courseName,
+                  courseCategory,
+                  courseLevel,
+                  allModules
+                );
+                handleClose();
+              }}
+            >
+              Salvar
+            </Button>
+            <Button variant="contained" onClick={() => handleClose()}>
+              Fechar
+            </Button>
+          </Box>
+        </Modal>
+      </>
+    );
+  }
 
   //Single Elements
 
@@ -537,86 +709,6 @@ export function CreateCourse() {
   }
 
   //Components
-
-  function CourseInformations() {
-    return (
-      <>
-        <MainDetails>
-          <li>
-            <div>
-              <Accordion sx={{ width: "100%" }}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                  sx={{ width: "100%" }}
-                >
-                  <span> Nome do curso: {courseName} </span>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <TextField
-                    id="filled-basic"
-                    label="Título"
-                    variant="filled"
-                    sx={{ background: "white", width: "100%" }}
-                    onChange={(event) => setCourseName(event.target.value)}
-                    value={courseName}
-                  />
-                  <Button
-                    variant="contained"
-                    sx={{ width: "100%" }}
-                    color="success"
-                    onClick={() => {
-                      editCourseName();
-                    }}
-                  >
-                    Salvar
-                  </Button>
-                </AccordionDetails>
-              </Accordion>
-            </div>
-          </li>
-          <li>
-            <div>
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <span> Descrição </span>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <TextField
-                    id="filled-basic"
-                    label="Descrição"
-                    variant="filled"
-                    sx={{ background: "white", width: "100%" }}
-                    onChange={(event) =>
-                      setCourseDescription(event.target.value)
-                    }
-                    value={courseDescription}
-                  />
-                  <Button
-                    variant="contained"
-                    sx={{ width: "100%" }}
-                    color="success"
-                    onClick={() => {
-                      editDescription();
-                    }}
-                  >
-                    Salvar
-                  </Button>
-                </AccordionDetails>
-              </Accordion>
-            </div>
-          </li>
-        </MainDetails>
-      </>
-    );
-  }
-
-  console.log(CourseInformations());
 
   function ShowItems() {
     return (
@@ -1633,6 +1725,7 @@ export function CreateCourse() {
             }}
           >
             <ContainerRegisterNewModule>
+              {MainCourseInformations()}
               <Box
                 sx={{
                   background: "rgba(0,0,0,0.4)",
