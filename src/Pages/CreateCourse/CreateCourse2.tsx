@@ -436,6 +436,7 @@ export function CreateCourse() {
 
   function MainCourseInformations() {
     const [courseName, setCourseName] = useState("");
+    const [coursePrice, setCoursePrice] = useState(0);
     const [courseLevel, setCourseLevel] = useState("");
     const [courseCategory, setCourseCategory] = useState("");
 
@@ -467,6 +468,7 @@ export function CreateCourse() {
                   {
                     id: id,
                     name: courseName,
+                    price: coursePrice.toFixed(2),
                     level: courseLevel,
                     category: courseCategory,
                     content: allModules,
@@ -497,6 +499,12 @@ export function CreateCourse() {
             <>
               <li>
                 <Typography> Nome do curso : {courseName} </Typography>
+              </li>
+              <li>
+                <Typography>
+                  Preço:
+                  {isNaN(coursePrice) ? false : coursePrice.toFixed(2)}
+                </Typography>
               </li>
               <li>
                 <Typography> Dificuldade : {courseLevel} </Typography>
@@ -550,6 +558,23 @@ export function CreateCourse() {
                 onChange={(event) => setCourseName(event.target.value)}
               />
 
+              <TextField
+                required
+                type="text"
+                inputProps={{
+                  inputMode: "numeric",
+                  // eslint-disable-next-line react/jsx-no-bind
+                  pattern: "[0-9]*",
+                }}
+                id="filled-basic"
+                label={"Preço do Curso"}
+                variant="filled"
+                sx={{ background: "white", width: "100%" }}
+                onChange={(event) => {
+                  setCoursePrice(+event.target.value);
+                }}
+              />
+
               <SelectInfo
                 onChange={(event) => setCourseLevel(event.target.value)}
               >
@@ -572,6 +597,9 @@ export function CreateCourse() {
               variant="contained"
               color="warning"
               onClick={() => {
+                if (isNaN(coursePrice)) {
+                  alert("Valor inválido");
+                }
                 LoadCourse(
                   "1",
                   courseName,
@@ -580,6 +608,7 @@ export function CreateCourse() {
                   allModules
                 );
                 handleClose();
+                console.log(coursePrice.toFixed(2));
               }}
             >
               Salvar
