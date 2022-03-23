@@ -44,6 +44,10 @@ const style = {
   p: 4,
 };
 
+const SelectInfo = styled("select")(({ theme }) => ({
+  width: "100%",
+}));
+
 const MainContainer = styled("div")(({ theme }) => ({
   padding: "80px 0",
   background: "rgba(43,45,45, 1)",
@@ -55,7 +59,8 @@ const StyledMainCourseInformation = styled("ul")(({ theme }) => ({
   listStyle: "none",
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
+  alignItems: "flex-start",
+  padding: "0 15px",
   gap: "8px",
   width: "100%",
   justifyContent: "center",
@@ -444,7 +449,8 @@ export function CreateCourse() {
           sx={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
+            alignItems: "flex-start",
+            padding: "0 15px",
             width: "100%",
             gap: "8px",
           }}
@@ -479,7 +485,7 @@ export function CreateCourse() {
             </Typography>
           )}
           <Button
-            sx={{ width: "80%" }}
+            sx={{ width: "100%" }}
             variant="contained"
             onClick={handleOpen}
           >
@@ -510,8 +516,21 @@ export function CreateCourse() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
-            <Typography variant="h5" textAlign={"center"} color={"white"}>
+          <Box
+            sx={{
+              margin: "120px auto",
+              width: 650,
+              minHeight: "150px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+              background: "#f2f2f2",
+              borderBottom: "15px solid green",
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
+            <Typography variant="h4" textAlign={"center"} color={"black"}>
               Informações principais do curso
             </Typography>
 
@@ -521,34 +540,37 @@ export function CreateCourse() {
                 : "DADOS PARA INICIAR O CURSO"}
             </Typography>
 
-            <div>
+            <>
               <TextField
                 required
                 id="filled-basic"
                 label={"Nome do curso"}
                 variant="filled"
-                sx={{ background: "white", width: "70%" }}
+                sx={{ background: "white", width: "100%" }}
                 onChange={(event) => setCourseName(event.target.value)}
               />
 
-              <select onChange={(event) => setCourseLevel(event.target.value)}>
+              <SelectInfo
+                onChange={(event) => setCourseLevel(event.target.value)}
+              >
                 <option value="">Escolha sua opção</option>
                 <option value="beginner">Iniciante</option>
                 <option value="intermediate">Intermediário</option>
                 <option value="advanced">Avançado</option>
-              </select>
-              <select
+              </SelectInfo>
+              <SelectInfo
                 onChange={(event) => setCourseCategory(event.target.value)}
               >
                 <option value="">Escolha sua opção</option>
                 <option value="categoria 1">Categoria 1</option>
                 <option value="categoria 2">Categoria 2</option>
                 <option value="categoria 3">Categoria 3</option>
-              </select>
-            </div>
+              </SelectInfo>
+            </>
 
             <Button
               variant="contained"
+              color="warning"
               onClick={() => {
                 LoadCourse(
                   "1",
