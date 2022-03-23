@@ -281,6 +281,9 @@ export function CreateCourse() {
   }
 
   function handleEditItem(id: string, element: any, newValue: string) {
+    if (newValue.length === 0) {
+      return alert("Não é possível atualizar! Insira o texto");
+    }
     todo.filter((e) => e.id === id).map((e: any) => (e[element] = newValue));
     setTodo(todo.filter((e) => e));
   }
@@ -1525,6 +1528,7 @@ export function CreateCourse() {
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
+          sx={{ overflow: "scroll" }}
         >
           <Box
             sx={{
