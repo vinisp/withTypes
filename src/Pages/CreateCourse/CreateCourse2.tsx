@@ -539,7 +539,7 @@ export function CreateCourse() {
             }}
           >
             <Typography variant="h4" textAlign={"center"} color={"black"}>
-              Informações principais do curso
+              Principais Informações do Curso
             </Typography>
 
             <Typography color={"white"}>
@@ -608,7 +608,6 @@ export function CreateCourse() {
                   allModules
                 );
                 handleClose();
-                console.log(coursePrice.toFixed(2));
               }}
             >
               Salvar
