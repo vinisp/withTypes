@@ -809,7 +809,7 @@ export function CreateCourse() {
         <ShowAndOrganizeModules>
           <div>
             <h1>Abaixo você pode ver e organizar os elementos do seu módulo</h1>
-            {console.log(myCourse.map((e: any) => e.id))}
+            <h2> {myCourse.map((e: any) => e.name)} </h2>
           </div>
 
           <div>
