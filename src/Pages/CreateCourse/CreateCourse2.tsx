@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { Redirect } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
 import ReactPlayer from "react-player";
@@ -227,6 +227,7 @@ interface ModuleElement {
 
 export function CreateCourse() {
   const [openControls, setOpenControls] = useState<boolean>(true);
+  const { idCourse } = useParams<any>();
 
   const openWidthControls = openControls ? "20%" : "5%";
   const openWidthContent = openControls ? "75%" : "85%";
@@ -516,7 +517,7 @@ export function CreateCourse() {
             variant="contained"
             onClick={handleOpen}
           >
-            Editar dados do Curso
+            Criar Novo Curso
           </Button>
         </Box>
         <StyledMainCourseInformation>
@@ -790,6 +791,7 @@ export function CreateCourse() {
         <ShowAndOrganizeModules>
           <div>
             <h1>Abaixo você pode ver e organizar os elementos do seu módulo</h1>
+            <h2>{idCourse}</h2>
           </div>
 
           <div>

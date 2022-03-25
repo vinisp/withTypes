@@ -3,6 +3,7 @@
 //Test Pages
 
 import { CreateCourse } from "./Pages/CreateCourse/CreateCourse2";
+import { IndexCourse } from "./Pages/CreateCourse/IndexCoursePage";
 
 //Default Pages
 
@@ -21,7 +22,7 @@ import { PageNotFound } from "./Pages/PageNotFound";
 import MemberAreaHome from "./Pages/MemberHome";
 import { RacePage } from "./Pages/RacePage";
 import { Profile } from "./Pages/Profile";
-import { MyCoursesPage } from "./Pages/MyCoursesPage";
+// import { MyCoursesPage } from "./Pages/MyCoursesPage";
 
 //Libs
 
@@ -75,8 +76,13 @@ function App() {
               <Route exact path="/memberhome" component={MemberAreaHome} />
               <Route exact path="/race/:idRace" component={RacePage} />
               <Route exact path="/profile" component={Profile} />
+              <Route exact path="/course" component={IndexCourse} />
 
-              <Route exact path="/mycourses" component={MyCoursesPage} />
+              <Route
+                exact
+                path="/editcourse/:idCourse"
+                component={CreateCourse}
+              />
               <Route exact path="/createcourse" component={CreateCourse} />
 
               <Route exact path="/checkout" component={CheckoutPage} />
