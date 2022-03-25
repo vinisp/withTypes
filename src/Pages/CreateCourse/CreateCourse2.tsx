@@ -6,6 +6,13 @@ import { styled } from "@mui/material/styles";
 import ReactPlayer from "react-player";
 
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+
+//Criar um novo Curso ou editar um curso existente ?
+//Criar
+//LER
+//Atualizar
+//Deletar
 
 import {
   TextField,
@@ -254,8 +261,10 @@ export function CreateCourse() {
     return <Redirect to="/login" />;
   }
 
-  /* const user_id = user?.id;
+  /* 
   const user_email = user?.email; */
+
+  const user_id = user?.id;
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
@@ -280,10 +289,12 @@ export function CreateCourse() {
   };
 
   function LoadCourse(
+    courseID: string,
     name: string,
     price: string,
     category: string,
     level: string,
+    createdBy: string,
     content?: any,
     thumb?: string
   ) {
@@ -299,10 +310,12 @@ export function CreateCourse() {
     */
 
     const CourseData = {
+      courseID: courseID,
       name: name,
       price: price,
       category: category,
       level: level,
+      createBy: createdBy,
     };
     setCourse(course.splice(0, course.length));
     setCourse(course.filter((e) => e));
@@ -610,7 +623,14 @@ export function CreateCourse() {
                 if (isNaN(price)) {
                   alert("Valor inválido");
                 }
-                LoadCourse(name, price.toFixed(2).toString(), category, level);
+                LoadCourse(
+                  uuidv4(),
+                  name,
+                  price.toFixed(2).toString(),
+                  category,
+                  level,
+                  user_id
+                );
                 handleClose();
               }}
             >
