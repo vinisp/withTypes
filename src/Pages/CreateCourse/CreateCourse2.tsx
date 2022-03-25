@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { Redirect, useParams } from "react-router-dom";
 
@@ -239,6 +239,8 @@ export function CreateCourse() {
   const [allModules, setAllModules] = useState<Module[]>([]);
   const [todo, setTodo] = useState<ModuleElement[]>([]);
 
+  const [myCourse, setMyCourse] = useState<any>([]);
+
   //Course Main Object
 
   const [course, setCourse] = useState<any[]>([]);
@@ -256,10 +258,26 @@ export function CreateCourse() {
   const openStyle3 = allModules.length > 0 ? "flex" : "none";
   const openStyle4 = openControls && allModules.length > 0 ? "flex" : "none";
 
+  useEffect(() => {
+    axiosTestGet();
+  }, []);
+
   const justifyStyle = openControls ? "flex-start" : "center";
   const { user } = useAuth();
   if (!user) {
     return <Redirect to="/login" />;
+  }
+
+  function axiosTestGet() {
+    axios
+      .get("http://localhost:3001/course/7958ffaa-c648-48f3-97f7-2ee4a12be6cc")
+      .then(function (response) {
+        const myData = response.data;
+        return setMyCourse(myData);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   /* 
@@ -791,7 +809,7 @@ export function CreateCourse() {
         <ShowAndOrganizeModules>
           <div>
             <h1>Abaixo você pode ver e organizar os elementos do seu módulo</h1>
-            <h2>{idCourse}</h2>
+            {console.log(myCourse.map((e: any) => e.id))}
           </div>
 
           <div>

@@ -72,12 +72,12 @@ export function IndexCourse() {
   let history = useHistory();
 
   function LoadCourse(
-    courseID: string,
+    course_id: string,
     name: string,
     price: string,
     category: string,
     level: string,
-    createdBy: string,
+    created_by: string,
     content?: any,
     thumb?: string
   ) {
@@ -93,12 +93,12 @@ export function IndexCourse() {
         */
 
     const CourseData = {
-      courseID: courseID,
+      course_id: course_id,
       name: name,
       price: price,
       category: category,
       level: level,
-      createBy: createdBy,
+      createBy: created_by,
     };
     setCourse(course.splice(0, course.length));
     setCourse(course.filter((e) => e));
@@ -148,20 +148,21 @@ export function IndexCourse() {
                 setCourse((course) => [
                   ...course,
                   {
-                    id: sameId,
+                    course_id: sameId,
                     name: name,
                     price: price.toFixed(2).toString(),
                     level: level,
                     category: category,
+                    create_by: user_id,
                   },
                 ]);
                 // setCourse(course.map((e) => (e.content = allModules)));
                 setCourse(course.filter((e) => e));
                 console.log(JSON.stringify({ ...course[0] }, null, 2));
 
-                axios
+                /* axios
                   .post("http://localhost:3001/course/save", { ...course[0] })
-                  .then((response) => response.data);
+                  .then((response) => response.data); */
               }}
             >
               <SaveIcon /> Salvar Curso
@@ -284,31 +285,28 @@ export function IndexCourse() {
                 if (isNaN(price)) {
                   alert("Valor inválido");
                 }
-                LoadCourse(
-                  sameId,
-                  name,
-                  price.toFixed(2).toString(),
-                  category,
-                  level,
-                  user_id
-                );
-                setCourse((course) => [
-                  ...course,
-                  {
-                    id: sameId,
-                    name: name,
-                    price: price.toFixed(2).toString(),
-                    level: level,
-                    category: category,
-                  },
-                ]);
+
                 // setCourse(course.map((e) => (e.content = allModules)));
-                setCourse(course.filter((e) => e));
-                console.log(JSON.stringify({ ...course[0] }, null, 2));
 
                 axios
-                  .post("http://localhost:3001/course/save", { ...course[0] })
+                  .post("http://localhost:3001/course/save", {
+                    course_id: sameId,
+                    name: name,
+                    price: price.toFixed(2).toString(),
+                    category: category,
+                    level: level,
+                    created_by: user_id,
+                  })
                   .then((response) => response.data);
+
+                console.log({
+                  course_id: sameId,
+                  name: name,
+                  price: price.toFixed(2).toString(),
+                  category: category,
+                  level: level,
+                  created_by: user_id,
+                });
 
                 history.push(`/editcourse/${sameId}`);
               }}
