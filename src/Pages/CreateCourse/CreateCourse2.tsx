@@ -254,8 +254,8 @@ export function CreateCourse() {
     return <Redirect to="/login" />;
   }
 
-  const user_id = user?.id;
-  const user_email = user?.email;
+  /* const user_id = user?.id;
+  const user_email = user?.email; */
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
