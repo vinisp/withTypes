@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
+import { Redirect } from "react-router-dom";
+
 import { styled } from "@mui/material/styles";
 import ReactPlayer from "react-player";
+
+import axios from "axios";
 
 import {
   TextField,
@@ -244,6 +249,13 @@ export function CreateCourse() {
   const openStyle4 = openControls && allModules.length > 0 ? "flex" : "none";
 
   const justifyStyle = openControls ? "flex-start" : "center";
+  const { user } = useAuth();
+  if (!user) {
+    return <Redirect to="/login" />;
+  }
+
+  const user_id = user?.id;
+  const user_email = user?.email;
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
@@ -268,8 +280,8 @@ export function CreateCourse() {
   };
 
   function LoadCourse(
-    id: string,
     name: string,
+    price: string,
     category: string,
     level: string,
     content?: any,
@@ -287,11 +299,10 @@ export function CreateCourse() {
     */
 
     const CourseData = {
-      id: id,
-      courseName: name,
+      name: name,
+      price: price,
       category: category,
       level: level,
-      content: content,
     };
     setCourse(course.splice(0, course.length));
     setCourse(course.filter((e) => e));
@@ -435,10 +446,10 @@ export function CreateCourse() {
   };
 
   function MainCourseInformations() {
-    const [courseName, setCourseName] = useState("");
-    const [coursePrice, setCoursePrice] = useState(0);
-    const [courseLevel, setCourseLevel] = useState("");
-    const [courseCategory, setCourseCategory] = useState("");
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState(0);
+    const [level, setCourseLevel] = useState("");
+    const [category, setCategory] = useState("");
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -460,22 +471,23 @@ export function CreateCourse() {
             <Button
               variant="text"
               color="warning"
-              onClick={() => {
-                const id: string = "1";
-
+              onClick={async () => {
                 setCourse((course) => [
                   ...course,
                   {
-                    id: id,
-                    name: courseName,
-                    price: coursePrice.toFixed(2),
-                    level: courseLevel,
-                    category: courseCategory,
-                    content: allModules,
+                    name: name,
+                    price: price.toFixed(2).toString(),
+                    level: level,
+                    category: category,
                   },
                 ]);
-                setCourse(course.map((e) => (e.content = allModules)));
+                // setCourse(course.map((e) => (e.content = allModules)));
                 setCourse(course.filter((e) => e));
+                console.log(JSON.stringify({ ...course[0] }, null, 2));
+
+                axios
+                  .post("http://localhost:3001/course/save", { ...course[0] })
+                  .then((response) => response.data);
               }}
             >
               <SaveIcon /> Salvar Curso
@@ -498,19 +510,19 @@ export function CreateCourse() {
           {course.length > 0 ? (
             <>
               <li>
-                <Typography> Nome do curso : {courseName} </Typography>
+                <Typography> Nome do curso : {name} </Typography>
               </li>
               <li>
                 <Typography>
                   Preço:
-                  {isNaN(coursePrice) ? false : coursePrice.toFixed(2)}
+                  {isNaN(price) ? false : price.toFixed(2)}
                 </Typography>
               </li>
               <li>
-                <Typography> Dificuldade : {courseLevel} </Typography>
+                <Typography> Dificuldade : {level} </Typography>
               </li>
               <li>
-                <Typography> Categoria : {courseCategory} </Typography>
+                <Typography> Categoria : {category} </Typography>
               </li>
             </>
           ) : (
@@ -544,7 +556,7 @@ export function CreateCourse() {
 
             <Typography color={"white"}>
               {course.length > 0
-                ? course.map((e) => e.courseName)
+                ? course.map((e) => e.name)
                 : "DADOS PARA INICIAR O CURSO"}
             </Typography>
 
@@ -555,7 +567,7 @@ export function CreateCourse() {
                 label={"Nome do curso"}
                 variant="filled"
                 sx={{ background: "white", width: "100%" }}
-                onChange={(event) => setCourseName(event.target.value)}
+                onChange={(event) => setName(event.target.value)}
               />
 
               <TextField
@@ -571,7 +583,7 @@ export function CreateCourse() {
                 variant="filled"
                 sx={{ background: "white", width: "100%" }}
                 onChange={(event) => {
-                  setCoursePrice(+event.target.value);
+                  setPrice(+event.target.value);
                 }}
               />
 
@@ -583,9 +595,7 @@ export function CreateCourse() {
                 <option value="intermediate">Intermediário</option>
                 <option value="advanced">Avançado</option>
               </SelectInfo>
-              <SelectInfo
-                onChange={(event) => setCourseCategory(event.target.value)}
-              >
+              <SelectInfo onChange={(event) => setCategory(event.target.value)}>
                 <option value="">Escolha sua opção</option>
                 <option value="categoria 1">Categoria 1</option>
                 <option value="categoria 2">Categoria 2</option>
@@ -597,16 +607,10 @@ export function CreateCourse() {
               variant="contained"
               color="warning"
               onClick={() => {
-                if (isNaN(coursePrice)) {
+                if (isNaN(price)) {
                   alert("Valor inválido");
                 }
-                LoadCourse(
-                  "1",
-                  courseName,
-                  courseCategory,
-                  courseLevel,
-                  allModules
-                );
+                LoadCourse(name, price.toFixed(2).toString(), category, level);
                 handleClose();
               }}
             >
@@ -1727,7 +1731,7 @@ export function CreateCourse() {
             </Button>
           </Box>
         </Modal>
-        <Tooltip title="Savar Módulo">
+        <Tooltip title="Salvar Módulo">
           <Button
             color="warning"
             variant="text"
