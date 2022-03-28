@@ -71,40 +71,6 @@ export function IndexCourse() {
   const [course, setCourse] = useState<any[]>([]);
   let history = useHistory();
 
-  function LoadCourse(
-    course_id: string,
-    name: string,
-    price: string,
-    category: string,
-    level: string,
-    created_by: string,
-    content?: any,
-    thumb?: string
-  ) {
-    /* 
-        interface Course {
-        id: string;
-        thumb?: string;
-        courseName: string;
-        category: string;
-        level: string;
-        content?: [Module];
-        }
-        */
-
-    const CourseData = {
-      course_id: course_id,
-      name: name,
-      price: price,
-      category: category,
-      level: level,
-      createBy: created_by,
-    };
-    setCourse(course.splice(0, course.length));
-    setCourse(course.filter((e) => e));
-    return setCourse((course) => [...course, CourseData]);
-  }
-
   function MainCourseInformations() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
