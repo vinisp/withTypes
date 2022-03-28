@@ -516,10 +516,6 @@ export function CreateCourse() {
                 // setCourse(course.map((e) => (e.content = allModules)));
                 setCourse(course.filter((e) => e));
                 console.log(JSON.stringify({ ...course[0] }, null, 2));
-
-                axios
-                  .post("http://localhost:3001/course/save", { ...course[0] })
-                  .then((response) => response.data);
               }}
             >
               <SaveIcon /> Salvar Curso
@@ -1164,11 +1160,60 @@ export function CreateCourse() {
     );
   }
 
-  function SaveModule(id: any) {
+  //DUAS FUNÇÕES = UMA PARA SALVAR OS DADOS DO MÓDULO E OUTRA PARA SALVAR OS ELEMENTOS DO MÓDULO
+
+  async function SaveModule(id: any) {
     const selectItem = allModules.filter((e) => e.moduleId === id);
     selectItem[0].moduleContent.splice(0, selectItem[0].moduleContent.length);
     selectItem[0].moduleContent.push(...todo);
+
+    axios
+      .post("http://localhost:3001/champter", {
+        course_id: idCourse,
+        champter_id: id,
+        name: selectItem[0].moduleName,
+      })
+      .then((response) => response.data);
   }
+
+  /* async function SaveModuleElements(id: any) {
+    const selectItem = allModules.filter((e) => e.moduleId === id);
+    selectItem[0].moduleContent.splice(0, selectItem[0].moduleContent.length);
+    selectItem[0].moduleContent.push(...todo);
+
+    const select = { ...selectItem };
+
+    const ElementsToPost = select[0].moduleContent.map(
+      (e: any, index: any) => ({
+        course_id: idCourse,
+        champter_id: id,
+        element_id: e.id,
+        element_type: Object.keys(e)
+          .filter((e) => e !== "id")
+          .toString(),
+        content:
+          e[
+            Object.keys(e)
+              .filter((e) => e !== "id")
+              .toString()
+          ],
+        order: index,
+      })
+    );
+
+    return ElementsToPost.map((e: any) =>
+      axios
+        .post("http://localhost:3001/course/champter/element", {
+          course_id: e.course_id,
+          champter_id: e.champter_id,
+          element_id: e.element_id,
+          element_type: e.element_type,
+          content: e.content,
+          order: e.order,
+        })
+        .then((response) => response.data)
+    );
+  } */
 
   function NewModule() {
     const [open, setOpen] = useState(false);
