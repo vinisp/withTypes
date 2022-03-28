@@ -260,7 +260,7 @@ export function CreateCourse() {
 
   useEffect(() => {
     axiosTestGet();
-  }, []);
+  });
 
   const justifyStyle = openControls ? "flex-start" : "center";
   const { user } = useAuth();
@@ -270,7 +270,7 @@ export function CreateCourse() {
 
   function axiosTestGet() {
     axios
-      .get("http://localhost:3001/course/7958ffaa-c648-48f3-97f7-2ee4a12be6cc")
+      .get(`http://localhost:3001/course/${idCourse}`)
       .then(function (response) {
         const myData = response.data;
         return setMyCourse(myData);
