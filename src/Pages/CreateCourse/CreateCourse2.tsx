@@ -193,7 +193,7 @@ const SubTitleElement = styled("h3")(({ theme }) => ({
 }));
 
 const ImgResized = styled("img")(({ theme }) => ({
-  width: "200px",
+  width: "250px",
 }));
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
@@ -892,7 +892,7 @@ export function CreateCourse() {
                                 )}
                                 {image ? (
                                   <>
-                                    <ImgResized src={image} alt="" />
+                                    <ImgResized src={image} alt="imagem" />
                                     <button
                                       onClick={() => handleRemoveItem(id)}
                                     >
@@ -1190,6 +1190,8 @@ export function CreateCourse() {
 
     const SendElements = RenderToDatabase.flat();
 
+    console.log(idCourse);
+
     try {
       await SendElements.map((e: any) =>
         axios
@@ -1207,7 +1209,7 @@ export function CreateCourse() {
       console.error(err);
     }
 
-    try {
+    /* try {
       await axios
         .post("https://deppback.herokuapp.com/champter", {
           course_id: idCourse,
@@ -1217,7 +1219,7 @@ export function CreateCourse() {
         .then((response) => response.data);
     } catch (err) {
       console.error(err);
-    }
+    } */
   }
 
   function NewModule() {

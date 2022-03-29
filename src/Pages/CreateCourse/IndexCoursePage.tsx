@@ -85,6 +85,13 @@ export function IndexCourse() {
   const [myCourses, setMyCourses] = useState<any[]>([]);
   let history = useHistory();
 
+  const { user } = useAuth();
+  if (!user) {
+    return <Redirect to="/login" />;
+  }
+
+  const user_id = user?.id;
+
   function MainCourseInformations() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
@@ -98,15 +105,8 @@ export function IndexCourse() {
     const generateCourseId = uuidv4();
     const sameId = generateCourseId;
 
-    const { user } = useAuth();
-    if (!user) {
-      return <Redirect to="/login" />;
-    }
-
     /* 
     const user_email = user?.email; */
-
-    const user_id = user?.id;
 
     return (
       <>
@@ -281,7 +281,61 @@ export function IndexCourse() {
                       >
                         Editar Curso
                       </Button>
-                      <Button variant="outlined" color="error">
+                      <Button
+                        variant="outlined"
+                        color="error"
+                        onClick={async () => {
+                          try {
+                            axios
+                              .delete(
+                                `http://localhost:3001/course/delete/${e.course_id}`
+                              )
+                              .then((response) =>
+                                console.log("deletado", response)
+                              )
+                              .catch((err) => console.error(err));
+                          } catch (err) {
+                            console.error(err);
+                          }
+                          try {
+                            axios
+                              .delete(
+                                `http://localhost:3001/champters/delete/${e.course_id}`
+                              )
+                              .then((response) =>
+                                console.log("deletado", response)
+                              )
+                              .catch((err) => console.error(err));
+                          } catch (err) {
+                            console.error(err);
+                          }
+                          try {
+                            axios
+                              .delete(
+                                `http://localhost:3001/elements/delete/${e.course_id}`
+                              )
+                              .then((response) =>
+                                console.log("deletado", response)
+                              )
+                              .catch((err) => console.error(err));
+                          } catch (err) {
+                            console.error(err);
+                          }
+
+                          try {
+                            const getCourses = await axios
+                              .get(
+                                `https://deppback.herokuapp.com/search/${user_id}`
+                              )
+                              .then((response) => {
+                                setMyCourses(response.data);
+                              });
+                            return getCourses;
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                      >
                         Deletar Curso
                       </Button>
                     </div>
