@@ -6,7 +6,6 @@ import { styled } from "@mui/material/styles";
 import ReactPlayer from "react-player";
 
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 
 //Criar um novo Curso ou editar um curso existente ?
 //Criar
@@ -56,30 +55,11 @@ const style = {
   p: 4,
 };
 
-const SelectInfo = styled("select")(({ theme }) => ({
-  width: "100%",
-}));
-
 const MainContainer = styled("div")(({ theme }) => ({
   padding: "80px 0",
   background: "rgba(43,45,45, 1)",
   display: "flex",
   flexWrap: "wrap",
-}));
-
-const StyledMainCourseInformation = styled("ul")(({ theme }) => ({
-  listStyle: "none",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-  padding: "0 15px",
-  gap: "8px",
-  width: "100%",
-  justifyContent: "center",
-  color: "white",
-  li: {
-    p: { fontSize: "14px" },
-  },
 }));
 
 const ControlsContainer = styled("div")(({ theme }) => ({
@@ -243,7 +223,7 @@ export function CreateCourse() {
 
   //Course Main Object
 
-  const [course, setCourse] = useState<any[]>([]);
+  // const [course, setCourse] = useState<any[]>([]);
 
   //Module states
   const [moduleName, setModuleName] = useState("");
@@ -285,6 +265,8 @@ export function CreateCourse() {
 
   const user_id = user?.id;
 
+  console.log(user_id);
+
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
     if (!destination) return;
@@ -307,7 +289,7 @@ export function CreateCourse() {
     setAllModules(items);
   };
 
-  function LoadCourse(
+  /*function LoadCourse(
     courseID: string,
     name: string,
     price: string,
@@ -326,7 +308,7 @@ export function CreateCourse() {
     level: string;
     content?: [Module];
     }
-    */
+    
 
     const CourseData = {
       courseID: courseID,
@@ -339,7 +321,7 @@ export function CreateCourse() {
     setCourse(course.splice(0, course.length));
     setCourse(course.filter((e) => e));
     return setCourse((course) => [...course, CourseData]);
-  }
+  } */
 
   function genereteId() {
     const allIds = todo.map((e) => +e.id);
@@ -477,7 +459,7 @@ export function CreateCourse() {
     setThirdModule("");
   };
 
-  function MainCourseInformations() {
+  /*  function MainCourseInformations() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
     const [level, setCourseLevel] = useState("");
@@ -658,7 +640,7 @@ export function CreateCourse() {
         </Modal>
       </>
     );
-  }
+  } */
 
   //Single Elements
 
@@ -1195,7 +1177,7 @@ export function CreateCourse() {
     try {
       await SendElements.map((e: any) =>
         axios
-          .post("https://deppback.herokuapp.com/course/champter/element", {
+          .post("http://localhost:3001/course/champter/element", {
             course_id: e.course_id,
             champter_id: e.champter_id,
             element_id: e.element_id,
@@ -1211,7 +1193,7 @@ export function CreateCourse() {
 
     try {
       await axios
-        .post("https://deppback.herokuapp.com/champter", {
+        .post("http://localhost:3001/champter", {
           course_id: idCourse,
           champter_id: id,
           name: selectItem[0].moduleName,
@@ -1871,7 +1853,6 @@ export function CreateCourse() {
             }}
           >
             <ContainerRegisterNewModule>
-              {MainCourseInformations()}
               <Box
                 sx={{
                   background: "rgba(0,0,0,0.4)",
