@@ -273,7 +273,14 @@ export function IndexCourse() {
                     <div>Dificuldade: {e.level}</div>
                     <div>Categoria: {e.category} </div>
                     <div>
-                      <Button variant="outlined">Editar Curso</Button>
+                      <Button
+                        variant="outlined"
+                        onClick={() =>
+                          history.push(`/editcourse/${e.course_id}`)
+                        }
+                      >
+                        Editar Curso
+                      </Button>
                       <Button variant="outlined" color="error">
                         Deletar Curso
                       </Button>
