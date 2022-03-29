@@ -1209,7 +1209,7 @@ export function CreateCourse() {
       console.error(err);
     }
 
-    /* try {
+    try {
       await axios
         .post("https://deppback.herokuapp.com/champter", {
           course_id: idCourse,
@@ -1219,7 +1219,7 @@ export function CreateCourse() {
         .then((response) => response.data);
     } catch (err) {
       console.error(err);
-    } */
+    }
   }
 
   function NewModule() {
