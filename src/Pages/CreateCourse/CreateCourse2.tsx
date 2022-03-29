@@ -1167,53 +1167,58 @@ export function CreateCourse() {
     selectItem[0].moduleContent.splice(0, selectItem[0].moduleContent.length);
     selectItem[0].moduleContent.push(...todo);
 
-    axios
-      .post("http://localhost:3001/champter", {
-        course_id: idCourse,
-        champter_id: id,
-        name: selectItem[0].moduleName,
-      })
-      .then((response) => response.data);
-  }
-
-  /* async function SaveModuleElements(id: any) {
-    const selectItem = allModules.filter((e) => e.moduleId === id);
-    selectItem[0].moduleContent.splice(0, selectItem[0].moduleContent.length);
-    selectItem[0].moduleContent.push(...todo);
-
     const select = { ...selectItem };
 
-    const ElementsToPost = select[0].moduleContent.map(
-      (e: any, index: any) => ({
+    const elementsToSave = select[0].moduleContent.map((e: any) => ({
+      element_type: Object.keys(e).filter((e) => e !== "id"),
+      element_id: e.id,
+      content: Object.keys(e)
+        .filter((e) => e !== "id")
+        .map((el) => e[el]),
+    }));
+
+    const RenderToDatabase = elementsToSave.map((e: any, indexRoot: any) =>
+      e.element_type.map((el: any, index: any) => ({
         course_id: idCourse,
         champter_id: id,
-        element_id: e.id,
-        element_type: Object.keys(e)
-          .filter((e) => e !== "id")
-          .toString(),
-        content:
-          e[
-            Object.keys(e)
-              .filter((e) => e !== "id")
-              .toString()
-          ],
-        order: index,
-      })
+        element_type: el,
+        element_id: e.element_id,
+        content: e.content[index],
+        order: indexRoot,
+      }))
     );
 
-    return ElementsToPost.map((e: any) =>
-      axios
-        .post("http://localhost:3001/course/champter/element", {
-          course_id: e.course_id,
-          champter_id: e.champter_id,
-          element_id: e.element_id,
-          element_type: e.element_type,
-          content: e.content,
-          order: e.order,
+    const SendElements = RenderToDatabase.flat();
+
+    try {
+      await SendElements.map((e: any) =>
+        axios
+          .post("http://localhost:3001/course/champter/element", {
+            course_id: e.course_id,
+            champter_id: e.champter_id,
+            element_id: e.element_id,
+            element_type: e.element_type,
+            content: e.content,
+            order: e.order,
+          })
+          .then((response) => response.data)
+      );
+    } catch (err) {
+      console.error(err);
+    }
+
+    try {
+      await axios
+        .post("http://localhost:3001/champter", {
+          course_id: idCourse,
+          champter_id: id,
+          name: selectItem[0].moduleName,
         })
-        .then((response) => response.data)
-    );
-  } */
+        .then((response) => response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   function NewModule() {
     const [open, setOpen] = useState(false);
