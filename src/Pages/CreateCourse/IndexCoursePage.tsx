@@ -143,7 +143,7 @@ export function IndexCourse() {
               }
             }}
           >
-            Meus Cursos Desenvolvidos
+            Meus Cursos Desenvolvidoss
           </Button>
           <Button sx={{ width: "100%" }} variant="contained">
             Meus Cursos Comprados
@@ -288,7 +288,7 @@ export function IndexCourse() {
                           try {
                             axios
                               .delete(
-                                `http://localhost:3001/course/delete/${e.course_id}`
+                                `https://deppback.herokuapp.com/course/delete/${e.course_id}`
                               )
                               .then((response) =>
                                 console.log("deletado", response)
@@ -300,7 +300,7 @@ export function IndexCourse() {
                           try {
                             axios
                               .delete(
-                                `http://localhost:3001/champters/delete/${e.course_id}`
+                                `https://deppback.herokuapp.com/champters/delete/${e.course_id}`
                               )
                               .then((response) =>
                                 console.log("deletado", response)
@@ -312,7 +312,7 @@ export function IndexCourse() {
                           try {
                             axios
                               .delete(
-                                `http://localhost:3001/elements/delete/${e.course_id}`
+                                `https://deppback.herokuapp.com/elements/delete/${e.course_id}`
                               )
                               .then((response) =>
                                 console.log("deletado", response)

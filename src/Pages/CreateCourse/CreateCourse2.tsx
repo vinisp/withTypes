@@ -263,9 +263,9 @@ export function CreateCourse() {
   /* 
   const user_email = user?.email; */
 
-  const user_id = user?.id;
+  // const user_id = user?.id;
 
-  console.log(user_id);
+  // console.log(user_id);
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
@@ -1172,7 +1172,7 @@ export function CreateCourse() {
 
     const SendElements = RenderToDatabase.flat();
 
-    console.log(idCourse);
+    console.log(SendElements);
 
     try {
       await SendElements.map((e: any) =>
@@ -1372,34 +1372,18 @@ export function CreateCourse() {
               <Typography variant="h6">Crie um novo elemento</Typography>
               <select onChange={(e) => setValueState(e.target.value)}>
                 <option>Escolha um Elemento </option>
-                <optgroup label="Elemento Sozinho">
-                  <option value="title">Título</option>
-                  <option value="subtitle">Subtítulo</option>
-                  <option value="paragraph">Parágrafo</option>
-                  <option value="image">Imagem</option>
-                  <option value="video">Vídeo</option>
-                </optgroup>
-                <optgroup label="Elementos Agrupados">
-                  <option value="titleAndSub">Título + Subtítulo</option>
-                  <option value="titleAndSubAndParagraph">
-                    Título + Subtítulo + Parágrafo
-                  </option>
 
-                  <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
-                </optgroup>
-              </select>{" "}
+                <option value="title">Título</option>
+                <option value="subtitle">Subtítulo</option>
+                <option value="paragraph">Parágrafo</option>
+                <option value="image">Imagem</option>
+                <option value="video">Vídeo</option>
+              </select>
               {valueState === "title" ? RenderTitleCreate() : false}
-              {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
               {valueState === "paragraph" ? RenderParagraphCreate() : false}
               {valueState === "subtitle" ? RenderSubtitleCreate() : false}
-              {valueState === "paragraphAndSub"
-                ? RenderSubtitleAndParagraph()
-                : false}
-              {valueState === "titleAndSubAndParagraph"
-                ? RenderTitleSubtitleAndParagraph()
-                : false}
               {valueState === "image" ? RenderImageCreate() : false}
-              {valueState === "video" ? RenderVideoCreate() : false}{" "}
+              {valueState === "video" ? RenderVideoCreate() : false}
             </>
             <Button onClick={handleClose}>Fechar</Button>
           </Box>
@@ -1767,32 +1751,18 @@ export function CreateCourse() {
             <Typography variant="h6">Crie um novo elemento</Typography>
             <select onChange={(e) => setValueState(e.target.value)}>
               <option>Escolha um Elemento </option>
-              <optgroup label="Elemento Sozinho">
-                <option value="title">Título</option>
-                <option value="subtitle">Subtítulo</option>
-                <option value="paragraph">Parágrafo</option>
-                <option value="image">Imagem</option>
-                <option value="video">Vídeo</option>
-              </optgroup>
-              <optgroup label="Elementos Agrupados">
-                <option value="titleAndSub">Título + Subtítulo</option>
-                <option value="titleAndSubAndParagraph">
-                  Título + Subtítulo + Parágrafo
-                </option>
 
-                <option value="paragraphAndSub">Subtítulo + Parágrafo</option>
-              </optgroup>
+              <option value="title">Título</option>
+              <option value="subtitle">Subtítulo</option>
+              <option value="paragraph">Parágrafo</option>
+              <option value="image">Imagem</option>
+              <option value="video">Vídeo</option>
             </select>
             {valueState === "title" ? RenderTitleCreate() : false}
-            {valueState === "titleAndSub" ? RenderTitleAndSubCreate() : false}
+
             {valueState === "paragraph" ? RenderParagraphCreate() : false}
             {valueState === "subtitle" ? RenderSubtitleCreate() : false}
-            {valueState === "paragraphAndSub"
-              ? RenderSubtitleAndParagraph()
-              : false}
-            {valueState === "titleAndSubAndParagraph"
-              ? RenderTitleSubtitleAndParagraph()
-              : false}
+
             {valueState === "image" ? RenderImageCreate() : false}
             {valueState === "video" ? RenderVideoCreate() : false}
             <Button
