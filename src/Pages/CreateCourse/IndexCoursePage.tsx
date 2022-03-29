@@ -8,7 +8,35 @@ import { useHistory } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
 import { TextField, Button, Box, Modal, Typography } from "@mui/material/";
-import SaveIcon from "@mui/icons-material/Save";
+
+const CourseCard = styled("div")(({ theme }) => ({
+  backgroundColor: "#f2f2f2",
+  border: "solid 1px silver",
+  display: "flex",
+  flexDirection: "column",
+  gap: "5px",
+
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const CourseCardBox = styled("div")(({ theme }) => ({
+  backgroundColor: "#f2f2f2",
+  padding: "15px",
+  border: "solid 1px green",
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "15px",
+
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
 
 const MainBox = styled("div")(({ theme }) => ({
   paddingTop: "120px",
@@ -23,7 +51,7 @@ const MainBox = styled("div")(({ theme }) => ({
     height: "auto",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "500px",
+    height: "auto",
   },
 }));
 
@@ -53,22 +81,8 @@ const SelectInfo = styled("select")(({ theme }) => ({
   width: "100%",
 }));
 
-const StyledMainCourseInformation = styled("ul")(({ theme }) => ({
-  listStyle: "none",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
-  padding: "0 15px",
-  gap: "8px",
-  width: "100%",
-  justifyContent: "center",
-  color: "white",
-  li: {
-    p: { fontSize: "14px" },
-  },
-}));
 export function IndexCourse() {
-  const [course, setCourse] = useState<any[]>([]);
+  const [myCourses, setMyCourses] = useState<any[]>([]);
   let history = useHistory();
 
   function MainCourseInformations() {
@@ -106,39 +120,6 @@ export function IndexCourse() {
             gap: "8px",
           }}
         >
-          {course.length > 0 ? (
-            <Button
-              variant="text"
-              color="warning"
-              onClick={async () => {
-                setCourse((course) => [
-                  ...course,
-                  {
-                    course_id: sameId,
-                    name: name,
-                    price: price.toFixed(2).toString(),
-                    level: level,
-                    category: category,
-                    create_by: user_id,
-                  },
-                ]);
-                // setCourse(course.map((e) => (e.content = allModules)));
-                setCourse(course.filter((e) => e));
-                console.log(JSON.stringify({ ...course[0] }, null, 2));
-
-                /* axios
-                  .post("http://localhost:3001/course/save", { ...course[0] })
-                  .then((response) => response.data); */
-              }}
-            >
-              <SaveIcon /> Salvar Curso
-            </Button>
-          ) : (
-            <Typography variant="h6" textAlign={"center"} color="white">
-              Clique no botão abaixo para inserir as informações básicas do
-              curso
-            </Typography>
-          )}
           <Button
             sx={{ width: "100%" }}
             variant="contained"
@@ -146,30 +127,32 @@ export function IndexCourse() {
           >
             Criar Novo Curso
           </Button>
+          <Button
+            sx={{ width: "100%" }}
+            variant="contained"
+            onClick={async () => {
+              try {
+                const getCourses = await axios
+                  .get(`http://localhost:3001/search/${user_id}`)
+                  .then((response) => {
+                    console.log(response.data);
+                    setMyCourses(response.data);
+                  });
+                return getCourses;
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+          >
+            Meus Cursos Desenvolvidos
+          </Button>
+          <Button sx={{ width: "100%" }} variant="contained">
+            Meus Cursos Comprados
+          </Button>
+          <Button sx={{ width: "100%" }} variant="contained">
+            Meus Cursos Promovidos
+          </Button>
         </Box>
-        <StyledMainCourseInformation>
-          {course.length > 0 ? (
-            <>
-              <li>
-                <Typography> Nome do curso : {name} </Typography>
-              </li>
-              <li>
-                <Typography>
-                  Preço:
-                  {isNaN(price) ? false : price.toFixed(2)}
-                </Typography>
-              </li>
-              <li>
-                <Typography> Dificuldade : {level} </Typography>
-              </li>
-              <li>
-                <Typography> Categoria : {category} </Typography>
-              </li>
-            </>
-          ) : (
-            false
-          )}
-        </StyledMainCourseInformation>
 
         <Modal
           open={open}
@@ -193,12 +176,6 @@ export function IndexCourse() {
           >
             <Typography variant="h4" textAlign={"center"} color={"black"}>
               Principais Informações do Curso
-            </Typography>
-
-            <Typography color={"white"}>
-              {course.length > 0
-                ? course.map((e) => e.name)
-                : "DADOS PARA INICIAR O CURSO"}
             </Typography>
 
             <>
@@ -252,8 +229,6 @@ export function IndexCourse() {
                   alert("Valor inválido");
                 }
 
-                // setCourse(course.map((e) => (e.content = allModules)));
-
                 axios
                   .post("http://localhost:3001/course/save", {
                     course_id: sameId,
@@ -264,15 +239,6 @@ export function IndexCourse() {
                     created_by: user_id,
                   })
                   .then((response) => response.data);
-
-                console.log({
-                  course_id: sameId,
-                  name: name,
-                  price: price.toFixed(2).toString(),
-                  category: category,
-                  level: level,
-                  created_by: user_id,
-                });
 
                 history.push(`/editcourse/${sameId}`);
               }}
@@ -295,10 +261,32 @@ export function IndexCourse() {
           <h1>The Index Page Course</h1>
         </TitleBox>
         <SideBar>
-          <h2>Menu Lateral </h2>
           <ul>{MainCourseInformations()}</ul>
         </SideBar>
-        <div>Data RENDEREZIADA DE ACORDO COM A OPÇÃO</div>
+        <div>
+          {myCourses.length > 0 ? (
+            <CourseCardBox>
+              {myCourses.map((e) => (
+                <>
+                  <CourseCard>
+                    <div>Nome do Curso: {e.name} </div>
+                    <div>Preço: {e.price} </div>
+                    <div>Dificuldade: {e.level}</div>
+                    <div>Categoria: {e.category} </div>
+                    <div>
+                      <Button variant="outlined">Editar Curso</Button>
+                      <Button variant="outlined" color="error">
+                        Deletar Curso
+                      </Button>
+                    </div>
+                  </CourseCard>
+                </>
+              ))}
+            </CourseCardBox>
+          ) : (
+            false
+          )}
+        </div>
       </MainBox>
     </>
   );
