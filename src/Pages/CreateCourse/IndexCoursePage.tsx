@@ -133,9 +133,8 @@ export function IndexCourse() {
             onClick={async () => {
               try {
                 const getCourses = await axios
-                  .get(`http://localhost:3001/search/${user_id}`)
+                  .get(`https://deppback.herokuapp.com/search/${user_id}`)
                   .then((response) => {
-                    console.log(response.data);
                     setMyCourses(response.data);
                   });
                 return getCourses;
@@ -230,7 +229,7 @@ export function IndexCourse() {
                 }
 
                 axios
-                  .post("http://localhost:3001/course/save", {
+                  .post("https://deppback.herokuapp.com/course/save", {
                     course_id: sameId,
                     name: name,
                     price: price.toFixed(2).toString(),

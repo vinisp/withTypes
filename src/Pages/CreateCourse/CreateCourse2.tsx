@@ -270,7 +270,7 @@ export function CreateCourse() {
 
   function axiosTestGet() {
     axios
-      .get(`http://localhost:3001/course/${idCourse}`)
+      .get(`https://deppback.herokuapp.com/course/${idCourse}`)
       .then(function (response) {
         const myData = response.data;
         return setMyCourse(myData);
@@ -1193,7 +1193,7 @@ export function CreateCourse() {
     try {
       await SendElements.map((e: any) =>
         axios
-          .post("http://localhost:3001/course/champter/element", {
+          .post("https://deppback.herokuapp.com/course/champter/element", {
             course_id: e.course_id,
             champter_id: e.champter_id,
             element_id: e.element_id,
@@ -1209,7 +1209,7 @@ export function CreateCourse() {
 
     try {
       await axios
-        .post("http://localhost:3001/champter", {
+        .post("https://deppback.herokuapp.com/champter", {
           course_id: idCourse,
           champter_id: id,
           name: selectItem[0].moduleName,
