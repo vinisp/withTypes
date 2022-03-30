@@ -6,6 +6,7 @@ import { styled } from "@mui/material/styles";
 import ReactPlayer from "react-player";
 
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 //Criar um novo Curso ou editar um curso existente ?
 //Criar
@@ -45,6 +46,8 @@ import {
 } from "react-beautiful-dnd";
 
 import "../styles/CreateCourse.css";
+
+const APIURL = "https://deppback.herokuapp.com/";
 
 const style = {
   margin: "120px auto",
@@ -219,7 +222,7 @@ export function CreateCourse() {
   const [allModules, setAllModules] = useState<Module[]>([]);
   const [todo, setTodo] = useState<ModuleElement[]>([]);
 
-  const [myCourse, setMyCourse] = useState<any>([]);
+  //const [myCourse, setMyCourse] = useState<any>([]);
 
   //Course Main Object
 
@@ -228,8 +231,8 @@ export function CreateCourse() {
   //Module states
   const [moduleName, setModuleName] = useState("");
   const [module, setModules] = useState("");
-  const [secModule, setSecModule] = useState("");
-  const [thirdModule, setThirdModule] = useState("");
+  //const [secModule, setSecModule] = useState("");
+  //const [thirdModule, setThirdModule] = useState("");
 
   const [valueState, setValueState] = useState("");
   const [valueIDSelectModule, setValueIDSelectModule] = useState("0");
@@ -238,9 +241,45 @@ export function CreateCourse() {
   const openStyle3 = allModules.length > 0 ? "flex" : "none";
   const openStyle4 = openControls && allModules.length > 0 ? "flex" : "none";
 
-  useEffect(() => {
-    axiosTestGet();
-  });
+  function GetModules() {
+    const [modulesFromDB, setModulesFromDB] = useState<any>([]);
+    useEffect(() => {
+      axios
+        .get(`${APIURL}${idCourse}/champters`)
+        .then(function (response) {
+          const champtersFromDB = response.data;
+          const formatToFrontEnd = champtersFromDB.map((e: any) => ({
+            moduleName: e.name,
+            moduleId: e.champter_id,
+            content: [],
+          }));
+          setAllModules(formatToFrontEnd);
+          return setModulesFromDB(formatToFrontEnd);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }, []);
+    return console.log(modulesFromDB);
+  }
+
+  GetModules();
+
+  function GetElementsFromModule(champterID: any) {
+    axios
+      .get(`${APIURL}elements/${idCourse}/${champterID}/get`)
+      .then(function (response) {
+        const ElementsFromDB = response.data;
+        const formatToFrontEnd = ElementsFromDB.map((e: any) => ({
+          id: e.element_id,
+          [e.element_type]: e.content,
+        }));
+        return setTodo(formatToFrontEnd);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }
 
   const justifyStyle = openControls ? "flex-start" : "center";
   const { user } = useAuth();
@@ -248,17 +287,15 @@ export function CreateCourse() {
     return <Redirect to="/login" />;
   }
 
-  function axiosTestGet() {
-    axios
-      .get(`https://deppback.herokuapp.com/course/${idCourse}`)
-      .then(function (response) {
-        const myData = response.data;
-        return setMyCourse(myData);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+  /* axios
+    .get(`http://localhost:3001/${idCourse}/champters`)
+    .then(function (response) {
+      const champtersFromDB = response.data;
+      return setModulesFromDB(champtersFromDB);
+    })
+    .catch(function (error) {
+      console.error(error);
+    }); */
 
   /* 
   const user_email = user?.email; */
@@ -309,7 +346,6 @@ export function CreateCourse() {
     content?: [Module];
     }
     
-
     const CourseData = {
       courseID: courseID,
       name: name,
@@ -324,23 +360,25 @@ export function CreateCourse() {
   } */
 
   function genereteId() {
-    const allIds = todo.map((e) => +e.id);
-    const newID = allIds.length > 0 ? Math.max(...allIds) + 1 : 1;
-    return newID.toString();
+    const newID = uuidv4();
+    return newID;
   }
 
   function genereteId2() {
-    const allIds = allModules.map((e) => +e.moduleId);
-    const newID = allIds.length > 0 ? Math.max(...allIds) + 1 : 1;
+    const newID = uuidv4();
     return newID.toString();
   }
 
-  function DeleteAndUpdate() {
+  /* function DeleteAndUpdate() {
     todo.splice(0, todo.length);
     setTodo(todo.filter((e) => e));
-  }
+  } */
 
   function handleRemoveItem(id: string) {
+    axios
+      .delete(`${APIURL}course/champter/element/delete/${id}`)
+      .then((response) => console.log("deletado", response))
+      .catch((err) => console.error(err));
     setTodo(todo.filter((e) => e.id !== id));
   }
 
@@ -418,7 +456,7 @@ export function CreateCourse() {
     setModules(" ");
   };
 
-  const addTitleAndSubTitle = () => {
+  /*  const addTitleAndSubTitle = () => {
     setTodo((todo) => [
       ...todo,
       {
@@ -431,7 +469,7 @@ export function CreateCourse() {
     setSecModule("");
   };
 
-  const addSubtitleAndParagraph = () => {
+   const addSubtitleAndParagraph = () => {
     setTodo((todo) => [
       ...todo,
       {
@@ -459,16 +497,14 @@ export function CreateCourse() {
     setThirdModule("");
   };
 
-  /*  function MainCourseInformations() {
+   function MainCourseInformations() {
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
     const [level, setCourseLevel] = useState("");
     const [category, setCategory] = useState("");
-
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
     return (
       <>
         <Box
@@ -539,7 +575,6 @@ export function CreateCourse() {
             false
           )}
         </StyledMainCourseInformation>
-
         <Modal
           open={open}
           onClose={handleClose}
@@ -563,13 +598,11 @@ export function CreateCourse() {
             <Typography variant="h4" textAlign={"center"} color={"black"}>
               Principais Informações do Curso
             </Typography>
-
             <Typography color={"white"}>
               {course.length > 0
                 ? course.map((e) => e.name)
                 : "DADOS PARA INICIAR O CURSO"}
             </Typography>
-
             <>
               <TextField
                 required
@@ -579,7 +612,6 @@ export function CreateCourse() {
                 sx={{ background: "white", width: "100%" }}
                 onChange={(event) => setName(event.target.value)}
               />
-
               <TextField
                 required
                 type="text"
@@ -596,7 +628,6 @@ export function CreateCourse() {
                   setPrice(+event.target.value);
                 }}
               />
-
               <SelectInfo
                 onChange={(event) => setCourseLevel(event.target.value)}
               >
@@ -612,7 +643,6 @@ export function CreateCourse() {
                 <option value="categoria 3">Categoria 3</option>
               </SelectInfo>
             </>
-
             <Button
               variant="contained"
               color="warning"
@@ -644,7 +674,7 @@ export function CreateCourse() {
 
   //Single Elements
 
-  function ShowEditModal(id: string, element: string) {
+  function ShowEditModal(id: string, element: string, index: number) {
     const [open, setOpen] = useState(false);
     const [editValue, setEditValue] = useState("");
     const handleOpen = () => setOpen(true);
@@ -652,6 +682,14 @@ export function CreateCourse() {
 
     function CloseAndSave(newValue: string) {
       handleEditItem(id, element, newValue);
+      axios
+        .post(`${APIURL}course/champter/element/update`, {
+          element_id: id,
+          order: index,
+          content: newValue,
+        })
+        .then((response) => response.data);
+      console.log(id, element, newValue, index);
       handleClose();
     }
 
@@ -704,7 +742,7 @@ export function CreateCourse() {
     return (
       <>
         <Button variant="outlined" onClick={handleOpen}>
-          <span> Editar </span>
+          <span> Renomear </span>
         </Button>
         <Modal
           open={open}
@@ -735,7 +773,7 @@ export function CreateCourse() {
     );
   }
 
-  function ShowEditParagraph(id: string, element: string) {
+  function ShowEditParagraph(id: string, element: string, index: number) {
     const [open, setOpen] = useState(false);
     const [editValue, setEditValue] = useState("");
     const handleOpen = () => setOpen(true);
@@ -743,6 +781,13 @@ export function CreateCourse() {
 
     function CloseAndSave(newValue: string) {
       handleEditItem(id, element, newValue);
+      axios
+        .post(`${APIURL}course/champter/element/update`, {
+          element_id: id,
+          order: index,
+          content: newValue,
+        })
+        .then((response) => response.data);
       handleClose();
     }
 
@@ -771,7 +816,7 @@ export function CreateCourse() {
               color="success"
               onClick={() => CloseAndSave(editValue)}
             >
-              Salvar Parágrafo
+              Salvar Parágrafos
             </Button>
           </Box>
         </Modal>
@@ -787,7 +832,6 @@ export function CreateCourse() {
         <ShowAndOrganizeModules>
           <div>
             <h1>Abaixo você pode ver e organizar os elementos do seu módulo</h1>
-            <h2> {myCourse.map((e: any) => e.name)} </h2>
           </div>
 
           <div>
@@ -835,7 +879,7 @@ export function CreateCourse() {
                                       EXCLUIR <DeleteOutlineIcon />
                                     </button>
 
-                                    {ShowEditModal(id, "title")}
+                                    {ShowEditModal(id, "title", index)}
                                   </div>
                                 ) : (
                                   false
@@ -851,7 +895,7 @@ export function CreateCourse() {
                                     >
                                       EXCLUIR <DeleteOutlineIcon />
                                     </button>
-                                    {ShowEditModal(id, "subTitle")}
+                                    {ShowEditModal(id, "subTitle", index)}
                                   </div>
                                 ) : (
                                   false
@@ -865,9 +909,9 @@ export function CreateCourse() {
                                       className="deleteElementButton red"
                                       onClick={() => handleRemoveItem(id)}
                                     >
-                                      EXCLUIR <DeleteOutlineIcon />
+                                      EXCLUIRs <DeleteOutlineIcon />
                                     </button>
-                                    {ShowEditParagraph(id, "paragraph")}
+                                    {ShowEditParagraph(id, "paragraph", index)}
                                   </div>
                                 ) : (
                                   false
@@ -906,7 +950,9 @@ export function CreateCourse() {
                       }
                     )
                   ) : (
-                    <NoItemsCard> "Sem items adicionados" </NoItemsCard>
+                    <NoItemsCard>
+                      "Sem items adicionados!!!" Consulta no banco de dados
+                    </NoItemsCard>
                   )}
                 </LayoutArea>
               </div>
@@ -934,6 +980,7 @@ export function CreateCourse() {
           color="success"
           onClick={() => {
             addTitle();
+            console.log(todo);
           }}
         >
           Salvar Título
@@ -1039,7 +1086,7 @@ export function CreateCourse() {
 
   //Double Elements
 
-  function RenderTitleAndSubCreate() {
+  /* function RenderTitleAndSubCreate() {
     return (
       <>
         <TextField
@@ -1140,12 +1187,15 @@ export function CreateCourse() {
         </Button>
       </>
     );
-  }
+  } */
 
   //DUAS FUNÇÕES = UMA PARA SALVAR OS DADOS DO MÓDULO E OUTRA PARA SALVAR OS ELEMENTOS DO MÓDULO
 
   async function SaveModule(id: any) {
+    console.log(allModules.filter((e) => e.moduleId === id));
+
     const selectItem = allModules.filter((e) => e.moduleId === id);
+
     selectItem[0].moduleContent.splice(0, selectItem[0].moduleContent.length);
     selectItem[0].moduleContent.push(...todo);
 
@@ -1172,28 +1222,17 @@ export function CreateCourse() {
 
     const SendElements = RenderToDatabase.flat();
 
-    console.log(SendElements);
-
     try {
-      await SendElements.map((e: any) =>
-        axios
-          .post("http://localhost:3001/course/champter/element", {
-            course_id: e.course_id,
-            champter_id: e.champter_id,
-            element_id: e.element_id,
-            element_type: e.element_type,
-            content: e.content,
-            order: e.order,
-          })
-          .then((response) => response.data)
-      );
+      await axios
+        .post(`${APIURL}course/champter/element`, SendElements)
+        .then((response) => response.data);
     } catch (err) {
       console.error(err);
     }
 
     try {
       await axios
-        .post("http://localhost:3001/champter", {
+        .post(`${APIURL}champter`, {
           course_id: idCourse,
           champter_id: id,
           name: selectItem[0].moduleName,
@@ -1211,24 +1250,21 @@ export function CreateCourse() {
     const handleClose = () => setOpen(false);
 
     function CloseAndSave() {
+      const myID = genereteId2();
+
       setModuleName(newModuleName);
       setAllModules((allModules) => [
         ...allModules,
         {
-          moduleId: genereteId2(),
+          moduleId: myID,
           moduleName: newModuleName,
-          moduleContent: todo,
+          moduleContent: [],
         },
       ]);
-
-      const lastID =
-        allModules.length === 0
-          ? "1"
-          : Math.max(...allModules.map((e: any) => +e.moduleId)) + 1;
-      setValueIDSelectModule(lastID.toString());
+      console.log(myID);
+      setValueIDSelectModule(myID);
       todo.splice(0, todo.length);
       setTodo(todo.filter((e) => e));
-      handleClose();
     }
 
     return (
@@ -1462,7 +1498,7 @@ export function CreateCourse() {
                                       <Button
                                         variant="outlined"
                                         onClick={() => {
-                                          const selectModule = allModules
+                                          /* const selectModule = allModules
                                             .filter(
                                               (e) => e.moduleId === moduleId
                                             )
@@ -1480,7 +1516,8 @@ export function CreateCourse() {
                                           setModuleName(
                                             selectModule[0].moduleName
                                           );
-                                          console.log(selectModule);
+                                          console.log(selectModule); */
+                                          GetElementsFromModule(moduleId);
                                         }}
                                       >
                                         Load
@@ -1630,7 +1667,7 @@ export function CreateCourse() {
                                       <Button
                                         variant="outlined"
                                         onClick={() => {
-                                          const selectModule = allModules
+                                          /* const selectModule = allModules
                                             .filter(
                                               (e) => e.moduleId === moduleId
                                             )
@@ -1648,7 +1685,9 @@ export function CreateCourse() {
                                           setModuleName(
                                             selectModule[0].moduleName
                                           );
-                                          console.log(selectModule);
+                                          console.log(selectModule); */
+                                          console.log(moduleId);
+                                          GetElementsFromModule(moduleId);
                                         }}
                                       >
                                         Load

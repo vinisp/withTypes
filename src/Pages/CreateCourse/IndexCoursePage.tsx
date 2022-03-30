@@ -9,6 +9,8 @@ import { useHistory } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { TextField, Button, Box, Modal, Typography } from "@mui/material/";
 
+const APIURL = "https://deppback.herokuapp.com/";
+
 const CourseCard = styled("div")(({ theme }) => ({
   backgroundColor: "#f2f2f2",
   border: "solid 1px silver",
@@ -133,7 +135,7 @@ export function IndexCourse() {
             onClick={async () => {
               try {
                 const getCourses = await axios
-                  .get(`https://deppback.herokuapp.com/search/${user_id}`)
+                  .get(`${APIURL}search/${user_id}`)
                   .then((response) => {
                     setMyCourses(response.data);
                   });
@@ -229,7 +231,7 @@ export function IndexCourse() {
                 }
 
                 axios
-                  .post("https://deppback.herokuapp.com/course/save", {
+                  .post(`${APIURL}course/save`, {
                     course_id: sameId,
                     name: name,
                     price: price.toFixed(2).toString(),
@@ -287,9 +289,7 @@ export function IndexCourse() {
                         onClick={async () => {
                           try {
                             axios
-                              .delete(
-                                `https://deppback.herokuapp.com/course/delete/${e.course_id}`
-                              )
+                              .delete(`${APIURL}course/delete/${e.course_id}`)
                               .then((response) =>
                                 console.log("deletado", response)
                               )
@@ -300,7 +300,7 @@ export function IndexCourse() {
                           try {
                             axios
                               .delete(
-                                `https://deppback.herokuapp.com/champters/delete/${e.course_id}`
+                                `${APIURL}champters/delete/${e.course_id}`
                               )
                               .then((response) =>
                                 console.log("deletado", response)
@@ -311,9 +311,7 @@ export function IndexCourse() {
                           }
                           try {
                             axios
-                              .delete(
-                                `https://deppback.herokuapp.com/elements/delete/${e.course_id}`
-                              )
+                              .delete(`${APIURL}elements/delete/${e.course_id}`)
                               .then((response) =>
                                 console.log("deletado", response)
                               )
@@ -324,9 +322,7 @@ export function IndexCourse() {
 
                           try {
                             const getCourses = await axios
-                              .get(
-                                `https://deppback.herokuapp.com/search/${user_id}`
-                              )
+                              .get(`${APIURL}search/${user_id}`)
                               .then((response) => {
                                 setMyCourses(response.data);
                               });
