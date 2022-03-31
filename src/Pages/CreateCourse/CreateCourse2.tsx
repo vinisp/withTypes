@@ -47,7 +47,7 @@ import {
 
 import "../styles/CreateCourse.css";
 
-const APIURL = "https://deppback.herokuapp.com/";
+const APIURL = "http://localhost:3001/";
 
 const style = {
   margin: "120px auto",
@@ -383,6 +383,14 @@ export function CreateCourse() {
   }
 
   function handleRemoveModule(id: string) {
+    axios
+      .delete(`${APIURL}elements/${id}/delete`)
+      .then((response) => console.log("deletado", response))
+      .catch((err) => console.error(err));
+    axios
+      .delete(`${APIURL}champters/${id}/delete`)
+      .then((response) => console.log("deletado", response))
+      .catch((err) => console.error(err));
     setAllModules(allModules.filter((e) => e.moduleId !== id));
   }
 
@@ -736,6 +744,10 @@ export function CreateCourse() {
 
     function CloseAndSave(newValue: string) {
       handleEditModuleName(id, newValue);
+      axios.post(`${APIURL}champters/rename`, {
+        champter_id: id,
+        name: newValue,
+      });
       handleClose();
     }
 
@@ -909,7 +921,7 @@ export function CreateCourse() {
                                       className="deleteElementButton red"
                                       onClick={() => handleRemoveItem(id)}
                                     >
-                                      EXCLUIRs <DeleteOutlineIcon />
+                                      EXCLUIR <DeleteOutlineIcon />
                                     </button>
                                     {ShowEditParagraph(id, "paragraph", index)}
                                   </div>
@@ -950,9 +962,7 @@ export function CreateCourse() {
                       }
                     )
                   ) : (
-                    <NoItemsCard>
-                      "Sem items adicionados!!!" Consulta no banco de dados
-                    </NoItemsCard>
+                    <NoItemsCard>Sem items adicionados!!!</NoItemsCard>
                   )}
                 </LayoutArea>
               </div>

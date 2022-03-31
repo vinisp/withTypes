@@ -98,16 +98,15 @@ function Login() {
         loginPassword
       );
       if (user) {
-        return <Redirect to="/memberhome" />;
+        return <Redirect to="/course" />;
       }
-      console.log(user);
     } catch (error) {
       console.log(error);
     }
   };
 
   if (user) {
-    return <Redirect to="/memberhome" />;
+    return <Redirect to="/course" />;
   }
 
   return (

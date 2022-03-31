@@ -60,7 +60,11 @@ const MainBox = styled("div")(({ theme }) => ({
 const TitleBox = styled("div")(({ theme }) => ({
   background: "#f2f2f2",
   flex: "0 0 100%",
-
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "5px",
+  marginBottom: "15px",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
@@ -145,7 +149,7 @@ export function IndexCourse() {
               }
             }}
           >
-            Meus Cursos Desenvolvidoss
+            Meus Cursos Desenvolvidos
           </Button>
           <Button sx={{ width: "100%" }} variant="contained">
             Meus Cursos Comprados
@@ -259,7 +263,13 @@ export function IndexCourse() {
     <>
       <MainBox>
         <TitleBox>
-          <h1>The Index Page Course</h1>
+          <h1>Página do usuário</h1>
+          <h2>Objetivo da página :</h2>
+          <span>
+            Vamos desenvolver um dashboard para agrupar as informações sobre os
+            cursos desenvolvidos e promovidos, avaliações dos clientes,
+            quantidade de vendas e etc...
+          </span>
         </TitleBox>
         <SideBar>
           <ul>{MainCourseInformations()}</ul>

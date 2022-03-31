@@ -229,7 +229,7 @@ function Nav() {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/memberhome">Corridas</Link>
+                <Link to="/course">Central</Link>
               </li>
               <li>
                 <Link to="/store">Loja</Link>
