@@ -47,7 +47,7 @@ import {
 
 import "../styles/CreateCourse.css";
 
-const APIURL = "http://localhost:3001/";
+const APIURL = "https://deppback.herokuapp.com/";
 
 const style = {
   margin: "120px auto",
