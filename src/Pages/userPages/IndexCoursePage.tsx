@@ -8,6 +8,8 @@ import { useHistory } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
 import { TextField, Button, Box, Modal, Typography } from "@mui/material/";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+
 import { Footer } from "../../Components/widgets/Footer";
 
 const APIURL = "https://deppback.herokuapp.com/";
@@ -108,7 +110,7 @@ const BoxAllInfo = styled("div")(({ theme }) => ({
   boxShadow: boxShadowConfig,
   borderRadius: "8px",
   flex: "0 0 55%",
-  height: "auto",
+  minHeight: "200px",
 
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -160,6 +162,90 @@ const LineDetailsBox = styled("div")(({ theme }) => ({
 const SelectInfo = styled("select")(({ theme }) => ({
   width: "100%",
 }));
+
+// DaTA GRID
+
+const columns: GridColDef[] = [
+  { field: "id", headerName: "ID", width: 90 },
+  {
+    field: "courseName",
+    headerName: "Nome do curso",
+    width: 150,
+    editable: true,
+  },
+  {
+    field: "category",
+    headerName: "Categoria",
+    width: 150,
+    editable: true,
+  },
+  {
+    field: "price",
+    headerName: "Preço",
+    width: 110,
+    editable: true,
+  },
+  {
+    field: "totalSell",
+    headerName: "Total de vendas",
+    width: 120,
+    editable: true,
+  },
+];
+
+const rows = [
+  {
+    id: 1,
+    category: "Categoria 1",
+    courseName: "Curso 1",
+    price: 35.59,
+    totalSell: 45,
+  },
+  {
+    id: 2,
+    category: "Lannister",
+    courseName: "Cersei",
+    price: 42,
+    totalSell: 45,
+  },
+  {
+    id: 3,
+    category: "Lannister",
+    courseName: "Jaime",
+    price: 45,
+    totalSell: 45,
+  },
+  { id: 4, category: "Stark", courseName: "Arya", price: 16, totalSell: 45 },
+  {
+    id: 5,
+    category: "Targaryen",
+    courseName: "Daenerys",
+    price: 78,
+    totalSell: 45,
+  },
+  {
+    id: 6,
+    category: "Melisandre",
+    courseName: "Odds",
+    price: 150,
+    totalSell: 45,
+  },
+  {
+    id: 7,
+    category: "Clifford",
+    courseName: "Ferrara",
+    price: 44,
+    totalSell: 45,
+  },
+  {
+    id: 8,
+    category: "Frances",
+    courseName: "Rossini",
+    price: 36,
+    totalSell: 45,
+  },
+  { id: 9, category: "Roxie", courseName: "Harvey", price: 65, totalSell: 45 },
+];
 
 export function IndexCourse() {
   const [myCourses, setMyCourses] = useState<any[]>([]);
@@ -338,11 +424,14 @@ export function IndexCourse() {
       <MainBox>
         <MainInfoBox>
           <BoxAllInfo>
-            <LineDetailsBox>
-              <span>Nome da Categoria</span>
-              <span>% de vendas</span>
-              <span>Valor em $$$</span>
-            </LineDetailsBox>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              pageSize={5}
+              rowsPerPageOptions={[5]}
+              checkboxSelection
+              disableSelectionOnClick
+            />
           </BoxAllInfo>
           <BalanceInfo>Depositos recentes</BalanceInfo>
           <BottomSections>
