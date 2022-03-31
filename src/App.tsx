@@ -2,8 +2,8 @@
 
 //Test Pages
 
-import { CreateCourse } from "./Pages/CreateCourse/CreateCourse2";
-import { IndexCourse } from "./Pages/CreateCourse/IndexCoursePage";
+import { CreateCourse } from "./Pages/userPages/CreateCourse";
+import { IndexCourse } from "./Pages/userPages/IndexCoursePage";
 
 //Default Pages
 

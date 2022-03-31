@@ -8,8 +8,20 @@ import { useHistory } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
 import { TextField, Button, Box, Modal, Typography } from "@mui/material/";
+import { Footer } from "../../Components/widgets/Footer";
 
 const APIURL = "https://deppback.herokuapp.com/";
+
+/* const NomeDoElemento = styled("div")(({ theme }) => ({
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+})); */
+
+const boxShadowConfig =
+  "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)";
 
 const CourseCard = styled("div")(({ theme }) => ({
   backgroundColor: "#f2f2f2",
@@ -57,14 +69,17 @@ const MainBox = styled("div")(({ theme }) => ({
   },
 }));
 
-const TitleBox = styled("div")(({ theme }) => ({
+const MainInfoBox = styled("div")(({ theme }) => ({
   background: "#f2f2f2",
-  flex: "0 0 100%",
+  flex: "0 0 80%",
   display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  gap: "5px",
+  flexWrap: "wrap",
+  order: "2",
+  gap: "15px",
+  padding: "15px",
+  justifyContent: "center",
   marginBottom: "15px",
+
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
@@ -73,9 +88,68 @@ const TitleBox = styled("div")(({ theme }) => ({
 }));
 
 const SideBar = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  padding: 0,
+  alignItems: "flex-start",
   background: "#f2f2f2",
-  flex: "0 0 30%",
+  flex: "0 0 15%",
+  height: "600px",
 
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const BoxAllInfo = styled("div")(({ theme }) => ({
+  border: "0",
+  boxShadow: boxShadowConfig,
+  borderRadius: "8px",
+  flex: "0 0 55%",
+  height: "auto",
+
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const BalanceInfo = styled("div")(({ theme }) => ({
+  border: "0",
+  boxShadow: boxShadowConfig,
+  borderRadius: "8px",
+  flex: "0 0 25%",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const BottomSections = styled("div")(({ theme }) => ({
+  border: "0",
+  boxShadow: boxShadowConfig,
+  borderRadius: "8px",
+  flex: "0 0 80%",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const LineDetailsBox = styled("div")(({ theme }) => ({
+  borderBottom: "solid 1px silver",
+  display: "flex",
+  justifyContent: "space-around",
+
+  span: {
+    fontSize: "20px",
+    fontWeight: "500",
+  },
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
@@ -121,7 +195,7 @@ export function IndexCourse() {
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
-            padding: "0 15px",
+            padding: "0 0",
             width: "100%",
             gap: "8px",
           }}
@@ -262,15 +336,35 @@ export function IndexCourse() {
   return (
     <>
       <MainBox>
-        <TitleBox>
-          <h1>Página do usuário</h1>
-          <h2>Objetivo da página :</h2>
-          <span>
-            Vamos desenvolver um dashboard para agrupar as informações sobre os
-            cursos desenvolvidos e promovidos, avaliações dos clientes,
-            quantidade de vendas e etc...
-          </span>
-        </TitleBox>
+        <MainInfoBox>
+          <BoxAllInfo>
+            <LineDetailsBox>
+              <span>Nome da Categoria</span>
+              <span>% de vendas</span>
+              <span>Valor em $$$</span>
+            </LineDetailsBox>
+          </BoxAllInfo>
+          <BalanceInfo>Depositos recentes</BalanceInfo>
+          <BottomSections>
+            <LineDetailsBox>
+              <span>Meus Cursos Desenvolvidos</span>
+              <span>% de vendas</span>
+              <span>Valor em $$$</span>
+            </LineDetailsBox>
+            <LineDetailsBox>
+              <span>Meus Cursos Promovidos</span>
+              <span>% de vendas</span>
+              <span>Valor em $$$</span>
+            </LineDetailsBox>
+          </BottomSections>
+          <BottomSections>
+            <LineDetailsBox>
+              <span>Meus Cursos Comprados</span>
+              <span>Categoria</span>
+              <span>Acessar</span>
+            </LineDetailsBox>
+          </BottomSections>
+        </MainInfoBox>
         <SideBar>
           <ul>{MainCourseInformations()}</ul>
         </SideBar>
@@ -354,6 +448,7 @@ export function IndexCourse() {
           )}
         </div>
       </MainBox>
+      <Footer />
     </>
   );
 }
