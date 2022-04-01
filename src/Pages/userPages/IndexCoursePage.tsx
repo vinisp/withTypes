@@ -104,11 +104,13 @@ const MainInfoBox = styled("div")(({ theme }) => ({
 }));
 
 const BoxAllInfo = styled("div")(({ theme }) => ({
-  boxShadow: boxShadowConfig,
+  // boxShadow: boxShadowConfig,
+  backgroundColor: "#212423",
   borderRadius: "8px",
   flex: "0 0 60%",
   minHeight: "350px",
-  padding: "35px 0",
+  paddingBottom: "35px",
+  paddingTop: "15px",
 
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -148,7 +150,7 @@ const BottomSections = styled("div")(({ theme }) => ({
 }));
 
 const LineDetailsBoxHead = styled("div")(({ theme }) => ({
-  borderBottom: "solid 1px rgba(255,255,255,0.3)",
+  borderBottom: "solid 4px rgba(255,255,255,0.3)",
   display: "flex",
   justifyContent: "space-around",
   span: {
@@ -184,7 +186,7 @@ const LineDetailsBoxBody = styled("div")(({ theme }) => ({
     fontWeight: "500",
     width: "160px",
     textAlign: "center",
-    borderBottom: "solid 2px rgba(255,255,255,0.4)",
+    borderBottom: "solid 1px rgba(255,255,255,0.4)",
   },
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -267,7 +269,9 @@ export function IndexCourse() {
     padding: "15px 0px 0 0",
     alignItems: "flex-start",
     background: "#0e0e0e",
-    borderRight: "solid 1px white",
+    borderRight: "solid 3px rgba(111,111,116, 0.5)",
+    borderBottom: "solid 4px rgba(111,111,116, 0.4)",
+    borderRadius: "0 0 12px",
 
     flex: `0 0 15%`,
     transition: "all 500ms ease",
@@ -447,7 +451,13 @@ export function IndexCourse() {
             </Typography>
           </PhotoAndNameWrapper>
 
-          <Typography sx={{ fontWeight: 600, marginLeft: "5px" }}>
+          <Typography
+            sx={{
+              fontWeight: 600,
+              marginLeft: "5px",
+              color: "silver",
+            }}
+          >
             Menu
           </Typography>
 
@@ -479,7 +489,12 @@ export function IndexCourse() {
           </Button>
 
           <Typography
-            sx={{ marginTop: "15px", marginLeft: "5px", fontWeight: 600 }}
+            sx={{
+              marginTop: "15px",
+              marginLeft: "5px",
+              fontWeight: 600,
+              color: "silver",
+            }}
           >
             Favoritos
           </Typography>
@@ -621,7 +636,6 @@ export function IndexCourse() {
                 backgroundColor: "#212423",
                 color: "#FFF",
                 borderBottom: "solid 1px white",
-                paddingTop: "5px",
               }}
               variant="h6"
             >
@@ -702,6 +716,63 @@ export function IndexCourse() {
               <span>Categoria</span>
               <span>Acessar</span>
             </LineDetailsBoxHead>
+            <LineDetailsBoxBody>
+              <span>Curso 1</span>
+              <span>Categoria 3 </span>
+              <span>
+                <button
+                  style={{
+                    border: "0",
+                    width: "100%",
+
+                    fontSize: "16px",
+                    cursor: "pointer",
+                    backgroundColor: "transparent",
+                    color: "white",
+                  }}
+                >
+                  clique aqui
+                </button>
+              </span>
+            </LineDetailsBoxBody>
+            <LineDetailsBoxBody>
+              <span>Curso 1</span>
+              <span>Categoria 3 </span>
+              <span>
+                <button
+                  style={{
+                    border: "0",
+                    width: "100%",
+
+                    fontSize: "16px",
+                    cursor: "pointer",
+                    backgroundColor: "transparent",
+                    color: "white",
+                  }}
+                >
+                  clique aqui
+                </button>
+              </span>
+            </LineDetailsBoxBody>
+            <LineDetailsBoxBody>
+              <span>Curso 1</span>
+              <span>Categoria 3 </span>
+              <span>
+                <button
+                  style={{
+                    border: "0",
+                    width: "100%",
+
+                    fontSize: "16px",
+                    cursor: "pointer",
+                    backgroundColor: "transparent",
+                    color: "white",
+                  }}
+                >
+                  clique aqui
+                </button>
+              </span>
+            </LineDetailsBoxBody>
             <LineDetailsBoxBody>
               <span>Curso 1</span>
               <span>Categoria 3 </span>
