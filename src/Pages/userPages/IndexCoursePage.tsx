@@ -8,6 +8,11 @@ import { useHistory } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
 import { TextField, Button, Box, Modal, Typography } from "@mui/material/";
+import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
+import ChatIcon from "@mui/icons-material/Chat";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import PersonIcon from "@mui/icons-material/Person";
+import FactCheckIcon from "@mui/icons-material/FactCheck";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 
 import { Footer } from "../../Components/widgets/Footer";
@@ -25,11 +30,25 @@ const APIURL = "https://deppback.herokuapp.com/";
 const boxShadowConfig =
   "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)";
 
+const sideBarItemStyle = {
+  display: "flex",
+  justifyContent: "flex-start",
+  padding: "5px 3px",
+  gap: "25px",
+  width: "100%",
+  color: "#97C930",
+  fontWeight: 600,
+  border: "solid 3px transparent",
+  transition: "all 500ms ease",
+  "&:hover": {
+    borderLeft: "solid 3px green",
+  },
+};
+
 const MainBox = styled("div")(({ theme }) => ({
   paddingTop: "80px",
   background: "#f2f2f2",
   display: "flex",
-  flexWrap: "wrap",
 
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -52,24 +71,6 @@ const MainInfoBox = styled("div")(({ theme }) => ({
   padding: "15px 0",
   justifyContent: "center",
   marginBottom: "15px",
-
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
-
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
-}));
-
-const SideBar = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  padding: "15px 35px",
-  alignItems: "flex-start",
-  background: "#f2f2f2",
-  borderRight: "solid 1px green",
-
-  flex: "0 0 20%",
-  height: "750px",
 
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -161,6 +162,16 @@ const PhotoAndNameWrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
+const SideBarDesktop = styled("div")(({ theme }) => ({
+  background: "blue",
+
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
 const SelectInfo = styled("select")(({ theme }) => ({
   width: "100%",
 }));
@@ -169,7 +180,46 @@ const SelectInfo = styled("select")(({ theme }) => ({
 
 export function IndexCourse() {
   const [myCourses, setMyCourses] = useState<any[]>([]);
+  const [openControls, setOpenControls] = useState<boolean>(true);
   let history = useHistory();
+  //const sideBarSize = openControls === true ? "5%" : "100%";
+
+  /* const SideBarDesktop = styled("div")(({ theme }) => ({
+    background: "yellow",
+    width: `50%`,
+    padding: `0 0 0 0`,
+    transition: "all 350ms ease",
+
+    [theme.breakpoints.down("sm")]: {},
+    [theme.breakpoints.up("sm")]: {},
+
+    [theme.breakpoints.up("md")]: {},
+    [theme.breakpoints.up("lg")]: {},
+  })); */
+
+  console.log(SideBarDesktop, setOpenControls);
+
+  const SideBar = styled("div")(({ theme }) => ({
+    display: "flex",
+    flexDirection: "column",
+    padding: "15px 0px 0 0",
+    alignItems: "flex-start",
+    background: "#0e0e0e",
+    borderRight: "solid 1px white",
+
+    flex: `0 0 15%`,
+    transition: "all 500ms ease",
+
+    height: "750px",
+
+    color: "white",
+
+    [theme.breakpoints.down("sm")]: {},
+    [theme.breakpoints.up("sm")]: {},
+
+    [theme.breakpoints.up("md")]: {},
+    [theme.breakpoints.up("lg")]: {},
+  }));
 
   const { user } = useAuth();
   if (!user) {
@@ -318,21 +368,49 @@ export function IndexCourse() {
     return (
       <>
         <SideBar>
+          {/* <Button
+            onClick={() => {
+              openControls === true
+                ? setOpenControls(false)
+                : setOpenControls(true);
+              console.log(openControls);
+            }}
+          >
+            {openControls === true ? "aberto" : "fechado"}
+          </Button> */}
           <PhotoAndNameWrapper>
             <PhotoUser>Foto</PhotoUser>
             <Typography variant="caption" sx={{ fontWeight: 600 }}>
               {user?.email}
             </Typography>
           </PhotoAndNameWrapper>
+
           <Button
-            sx={{ width: "100%" }}
-            variant="contained"
+            sx={sideBarItemStyle}
+            variant="text"
+            color="success"
             onClick={handleOpen}
           >
-            Criar Novo Curso
+            <CreateNewFolderIcon sx={{ color: "white" }} />
+            {openControls === true ? "Criar Novo Curso" : false}
           </Button>
-          <Typography>Dados do Perfil</Typography>
-          <div>Lista de interresses</div>
+          <Button sx={sideBarItemStyle} variant="text" color="success">
+            <PersonIcon sx={{ color: "white" }} />
+            {openControls === true ? "Editar Perfil" : false}
+          </Button>
+          <Button sx={sideBarItemStyle} variant="text" color="success">
+            <FactCheckIcon sx={{ color: "white" }} />
+            {openControls === true ? "Lista de interresses" : false}
+          </Button>
+
+          <Button sx={sideBarItemStyle} variant="text" color="success">
+            <ChatIcon sx={{ color: "white" }} />{" "}
+            {openControls === true ? "Mensagens" : false}
+          </Button>
+          <Button sx={sideBarItemStyle} variant="text">
+            <AssessmentIcon sx={{ color: "white" }} />{" "}
+            {openControls === true ? "Estatísticas" : false}
+          </Button>
         </SideBar>
         <Modal
           open={open}
