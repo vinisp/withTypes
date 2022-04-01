@@ -31,13 +31,15 @@ const APIURL = "https://deppback.herokuapp.com/";
 const boxShadowConfig =
   "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)";
 
+const mainColor = "#97C930";
+
 const sideBarItemStyle = {
   display: "flex",
   justifyContent: "flex-start",
   padding: "5px 10px",
   gap: "25px",
   width: "100%",
-  color: "#97C930",
+  color: "white",
   fontWeight: 600,
   border: "solid 3px transparent",
   transition: "all 500ms ease",
@@ -49,13 +51,14 @@ const sideBarItemStyle = {
 const favButtonStyle = {
   width: "100%",
   padding: "5px 10px",
-  color: "#97C930",
+  color: "white",
   borderLeft: "solid 3px transparent",
   transition: "all 500ms ease",
   display: "flex",
   justifyContent: "flex-start",
   gap: "15px",
   svg: {
+    color: `${mainColor}`,
     fontSize: "13px",
   },
 
@@ -69,7 +72,7 @@ const favButtonStyle = {
 
 const MainBox = styled("div")(({ theme }) => ({
   paddingTop: "80px",
-  background: "#f2f2f2",
+  backgroundColor: "#030303",
   display: "flex",
 
   [theme.breakpoints.down("sm")]: {},
@@ -84,7 +87,6 @@ const MainBox = styled("div")(({ theme }) => ({
 }));
 
 const MainInfoBox = styled("div")(({ theme }) => ({
-  background: "#f2f2f2",
   flex: "0 0 80%",
   display: "flex",
   flexWrap: "wrap",
@@ -119,7 +121,10 @@ const BalanceInfo = styled("div")(({ theme }) => ({
   border: "0",
   boxShadow: boxShadowConfig,
   borderRadius: "8px",
+  padding: "25px 30px",
   flex: "0 0 25%",
+  color: "white",
+  backgroundColor: "#212423",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
@@ -132,7 +137,9 @@ const BottomSections = styled("div")(({ theme }) => ({
   boxShadow: boxShadowConfig,
   borderRadius: "8px",
   flex: "0 0 86%",
+  padding: "25px 0",
   height: "auto",
+  backgroundColor: "#212423",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
@@ -141,11 +148,11 @@ const BottomSections = styled("div")(({ theme }) => ({
 }));
 
 const LineDetailsBoxHead = styled("div")(({ theme }) => ({
-  borderBottom: "solid 1px silver",
+  borderBottom: "solid 1px rgba(255,255,255,0.3)",
   display: "flex",
   justifyContent: "space-around",
   span: {
-    color: "#4b4e4f",
+    color: "white",
     flex: "0 0 30%",
     fontSize: "18px",
     fontWeight: "500",
@@ -170,14 +177,14 @@ const LineDetailsBoxBody = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "space-around",
   span: {
-    color: "#333536",
+    color: "white",
     flex: "0 0 30%",
     padding: "5px 0",
     fontSize: "16px",
     fontWeight: "500",
     width: "160px",
     textAlign: "center",
-    borderBottom: "solid 2px silver",
+    borderBottom: "solid 2px rgba(255,255,255,0.4)",
   },
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -321,7 +328,7 @@ export function IndexCourse() {
       renderCell: (params: GridRenderCellParams<any>) => (
         <Button
           variant="text"
-          color="primary"
+          color="success"
           size="small"
           onClick={() => {
             history.push(`/editcourse/${params.row.id}`);
@@ -337,7 +344,7 @@ export function IndexCourse() {
       renderCell: (params: GridRenderCellParams<any>) => (
         <Button
           variant="text"
-          color="error"
+          color="warning"
           onClick={async () => {
             try {
               axios
@@ -450,24 +457,24 @@ export function IndexCourse() {
             color="success"
             onClick={handleOpen}
           >
-            <CreateNewFolderIcon sx={{ color: "white" }} />
+            <CreateNewFolderIcon sx={{ color: `${mainColor}` }} />
             {openControls === true ? "Criar Novo Curso" : false}
           </Button>
           <Button sx={sideBarItemStyle} variant="text" color="success">
-            <PersonIcon sx={{ color: "white" }} />
+            <PersonIcon sx={{ color: `${mainColor}` }} />
             {openControls === true ? "Editar Perfil" : false}
           </Button>
           <Button sx={sideBarItemStyle} variant="text" color="success">
-            <FactCheckIcon sx={{ color: "white" }} />
+            <FactCheckIcon sx={{ color: `${mainColor}` }} />
             {openControls === true ? "Lista de interresses" : false}
           </Button>
 
           <Button sx={sideBarItemStyle} variant="text" color="success">
-            <ChatIcon sx={{ color: "white" }} />{" "}
+            <ChatIcon sx={{ color: `${mainColor}` }} />{" "}
             {openControls === true ? "Mensagens" : false}
           </Button>
           <Button sx={sideBarItemStyle} variant="text">
-            <AssessmentIcon sx={{ color: "white" }} />{" "}
+            <AssessmentIcon sx={{ color: `${mainColor}` }} />{" "}
             {openControls === true ? "Estatísticas" : false}
           </Button>
 
@@ -611,6 +618,10 @@ export function IndexCourse() {
               sx={{
                 flex: "0 0 5%",
                 textAlign: "center",
+                backgroundColor: "#212423",
+                color: "#FFF",
+                borderBottom: "solid 1px white",
+                paddingTop: "5px",
               }}
               variant="h6"
             >
@@ -623,24 +634,34 @@ export function IndexCourse() {
               rowsPerPageOptions={[5]}
               checkboxSelection
               disableSelectionOnClick
+              sx={{
+                backgroundColor: "#212423",
+                border: 0,
+                color: "white",
+                p: {
+                  color: "white",
+                },
+              }}
             />
           </BoxAllInfo>
           <BalanceInfo>
-            <Typography variant="h5" color="green">
+            <Typography variant="h5" color="white">
               Depósitos
             </Typography>
             <Typography
               variant="h6"
-              sx={{ fontWeight: "600", fontSize: "36px" }}
+              sx={{
+                fontWeight: "600",
+                fontSize: "36px",
+                color: `${mainColor}`,
+              }}
             >
               R$ 560,95
             </Typography>
             <Typography color="rgb(115,115,116)">
               Atualizado em 31/03/2022
             </Typography>
-            <Typography sx={{ position: "absolute", top: "90%" }}>
-              Ver detalhes
-            </Typography>
+            <Typography sx={{}}>Ver detalhes</Typography>
           </BalanceInfo>
 
           <BottomSections>
@@ -689,9 +710,11 @@ export function IndexCourse() {
                   style={{
                     border: "0",
                     width: "100%",
-                    padding: "5px 0",
+
                     fontSize: "16px",
                     cursor: "pointer",
+                    backgroundColor: "transparent",
+                    color: "white",
                   }}
                 >
                   clique aqui
