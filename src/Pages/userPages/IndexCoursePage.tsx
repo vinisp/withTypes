@@ -140,14 +140,44 @@ const BottomSections = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
-const LineDetailsBox = styled("div")(({ theme }) => ({
+const LineDetailsBoxHead = styled("div")(({ theme }) => ({
   borderBottom: "solid 1px silver",
   display: "flex",
   justifyContent: "space-around",
-
   span: {
-    fontSize: "20px",
+    color: "#4b4e4f",
+    flex: "0 0 30%",
+    fontSize: "18px",
     fontWeight: "500",
+  },
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const LineWrapper = styled("div")(({ theme }) => ({
+  marginBottom: "25px",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const LineDetailsBoxBody = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-around",
+  span: {
+    color: "#333536",
+    flex: "0 0 30%",
+    padding: "5px 0",
+    fontSize: "16px",
+    fontWeight: "500",
+    width: "160px",
+    textAlign: "center",
+    borderBottom: "solid 2px silver",
   },
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -614,32 +644,60 @@ export function IndexCourse() {
           </BalanceInfo>
 
           <BottomSections>
-            <LineDetailsBox>
-              <span>Meus Cursos Desenvolvidos</span>
-              <span>% de vendas</span>
-              <span>Valor em $$$</span>
-            </LineDetailsBox>
-            <span>Informar Quantidade</span>
-            <span>Porcentagem de vendas</span>
-            <span>Valor</span>
-            <LineDetailsBox>
+            <LineWrapper>
+              <LineDetailsBoxHead>
+                <span>Meus Cursos Desenvolvidos</span>
+                <span>% de vendas</span>
+                <span>Valor em $$$</span>
+              </LineDetailsBoxHead>
+              <LineDetailsBoxBody>
+                <span>25</span>
+                <span>
+                  47<span style={{ fontSize: "14px" }}>%</span>
+                </span>
+                <span>
+                  R$ 7500,<span style={{ fontSize: "14px" }}>00</span>
+                </span>
+              </LineDetailsBoxBody>
+            </LineWrapper>
+            <LineDetailsBoxHead>
               <span>Meus Cursos Promovidos</span>
               <span>% de vendas</span>
               <span>Valor em $$$</span>
-            </LineDetailsBox>
-            <span>Informar Quantidade</span>
-            <span>Porcentagem de vendas</span>
-            <span>Valor</span>
+            </LineDetailsBoxHead>
+            <LineDetailsBoxBody>
+              <span>65</span>
+              <span>
+                53<span style={{ fontSize: "14px" }}>%</span>
+              </span>
+              <span>
+                R$ 2000,<span style={{ fontSize: "14px" }}>00</span>
+              </span>
+            </LineDetailsBoxBody>
           </BottomSections>
           <BottomSections>
-            <LineDetailsBox>
+            <LineDetailsBoxHead>
               <span>Meus Cursos Comprados</span>
               <span>Categoria</span>
               <span>Acessar</span>
-            </LineDetailsBox>
-            <span>Nome</span>
-            <span>Categoria </span>
-            <span>Acesso</span>
+            </LineDetailsBoxHead>
+            <LineDetailsBoxBody>
+              <span>Curso 1</span>
+              <span>Categoria 3 </span>
+              <span>
+                <button
+                  style={{
+                    border: "0",
+                    width: "100%",
+                    padding: "5px 0",
+                    fontSize: "16px",
+                    cursor: "pointer",
+                  }}
+                >
+                  clique aqui
+                </button>
+              </span>
+            </LineDetailsBoxBody>
           </BottomSections>
         </MainInfoBox>
 
