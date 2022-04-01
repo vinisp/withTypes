@@ -13,6 +13,7 @@ import ChatIcon from "@mui/icons-material/Chat";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import PersonIcon from "@mui/icons-material/Person";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
+import CircleIcon from "@mui/icons-material/Circle";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 
 import { Footer } from "../../Components/widgets/Footer";
@@ -33,7 +34,7 @@ const boxShadowConfig =
 const sideBarItemStyle = {
   display: "flex",
   justifyContent: "flex-start",
-  padding: "5px 3px",
+  padding: "5px 10px",
   gap: "25px",
   width: "100%",
   color: "#97C930",
@@ -42,6 +43,27 @@ const sideBarItemStyle = {
   transition: "all 500ms ease",
   "&:hover": {
     borderLeft: "solid 3px green",
+  },
+};
+
+const favButtonStyle = {
+  width: "100%",
+  padding: "5px 10px",
+  color: "#97C930",
+  borderLeft: "solid 3px transparent",
+  transition: "all 500ms ease",
+  display: "flex",
+  justifyContent: "flex-start",
+  gap: "15px",
+  svg: {
+    fontSize: "13px",
+  },
+
+  "&:hover": {
+    borderLeft: "solid 3px lime",
+    svg: {
+      color: "red",
+    },
   },
 };
 
@@ -135,7 +157,8 @@ const LineDetailsBox = styled("div")(({ theme }) => ({
 }));
 
 const PhotoUser = styled("div")(({ theme }) => ({
-  border: "solid 1px black",
+  border: "solid 1px white",
+
   height: "120px",
   width: "120px",
   borderRadius: "50%",
@@ -151,10 +174,12 @@ const PhotoUser = styled("div")(({ theme }) => ({
 
 const PhotoAndNameWrapper = styled("div")(({ theme }) => ({
   flex: "0 0 25%",
+  padding: "5px 15px",
+  gap: "15px",
   width: "100%",
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
+  alignItems: "flex-start",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
@@ -367,7 +392,7 @@ export function IndexCourse() {
 
     return (
       <>
-        <SideBar>
+        <SideBar className="sidebar">
           {/* <Button
             onClick={() => {
               openControls === true
@@ -384,6 +409,10 @@ export function IndexCourse() {
               {user?.email}
             </Typography>
           </PhotoAndNameWrapper>
+
+          <Typography sx={{ fontWeight: 600, marginLeft: "5px" }}>
+            Menu
+          </Typography>
 
           <Button
             sx={sideBarItemStyle}
@@ -410,6 +439,37 @@ export function IndexCourse() {
           <Button sx={sideBarItemStyle} variant="text">
             <AssessmentIcon sx={{ color: "white" }} />{" "}
             {openControls === true ? "Estatísticas" : false}
+          </Button>
+
+          <Typography
+            sx={{ marginTop: "15px", marginLeft: "5px", fontWeight: 600 }}
+          >
+            Favoritos
+          </Typography>
+
+          <Button sx={favButtonStyle}>
+            <CircleIcon />
+            Item I
+          </Button>
+          <Button sx={favButtonStyle}>
+            <CircleIcon />
+            Item II
+          </Button>
+          <Button sx={favButtonStyle}>
+            <CircleIcon />
+            Item III
+          </Button>
+          <Button sx={favButtonStyle}>
+            <CircleIcon />
+            Item IV
+          </Button>
+          <Button sx={favButtonStyle}>
+            <CircleIcon />
+            Item V
+          </Button>
+          <Button sx={favButtonStyle}>
+            <CircleIcon />
+            Item VI
           </Button>
         </SideBar>
         <Modal
