@@ -21,36 +21,6 @@ const MainBox = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
-const SideBarContent = styled("div")(({ theme }) => ({
-  backgroundColor: "#030",
-  display: "flex",
-  flexDirection: "column",
-  color: "white",
-  width: "20%",
-  height: "870px",
-  border: "solid 1px yellow",
-
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
-}));
-
-const CourseContent = styled("div")(({ theme }) => ({
-  backgroundColor: "#030303",
-  display: "flex",
-  flexDirection: "column",
-  color: "white",
-  width: "70%",
-  height: "870px",
-  border: "solid 1px white",
-
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
-}));
-
 const ListModules = styled("ul")(({ theme }) => ({
   listStyle: "none",
   display: "flex",
@@ -68,8 +38,8 @@ const ReadBox = styled("ul")(({ theme }) => ({
   color: "black",
   display: "flex",
   flexDirection: "column",
-  height: "80%",
-  width: "30%",
+  height: "85%",
+  width: "100%",
   gap: "5px",
 
   [theme.breakpoints.down("sm")]: {},
@@ -116,12 +86,55 @@ function ControlledAccordions() {
 
 export function CoursePage() {
   const { idCourse } = useParams<any>();
+  const [openControls, setOpenControls] = useState<boolean>(true);
+
+  const sideBarSize = openControls ? "20%" : "5%";
+  const contentCourseSize = openControls ? "70%" : "85%";
+
+  const SideBarContent = styled("div")(({ theme }) => ({
+    backgroundColor: "#030",
+    display: "flex",
+    flexDirection: "column",
+    color: "white",
+    width: `${sideBarSize}`,
+    height: "870px",
+    border: "solid 1px yellow",
+    transition: "all 2s ease",
+
+    [theme.breakpoints.down("sm")]: {},
+    [theme.breakpoints.up("sm")]: {},
+    [theme.breakpoints.up("md")]: {},
+    [theme.breakpoints.up("lg")]: {},
+  }));
+
+  const CourseContent = styled("div")(({ theme }) => ({
+    backgroundColor: "#030303",
+    display: "flex",
+    flexDirection: "column",
+    color: "white",
+    width: `${contentCourseSize}`,
+    height: "870px",
+    border: "solid 1px white",
+
+    [theme.breakpoints.down("sm")]: {},
+    [theme.breakpoints.up("sm")]: {},
+    [theme.breakpoints.up("md")]: {},
+    [theme.breakpoints.up("lg")]: {},
+  }));
+
   return (
     <>
       <MainBox>
         <SideBarContent>
           <h1>Course Page</h1>
           <h3>{idCourse}</h3>
+          <button
+            onClick={() => {
+              openControls ? setOpenControls(false) : setOpenControls(true);
+            }}
+          >
+            {openControls ? "Aberto" : "Fechado"}
+          </button>
           {ControlledAccordions()}
         </SideBarContent>
         <CourseContent>
