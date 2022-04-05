@@ -98,6 +98,7 @@ const MainBox = styled("div")(({ theme }) => ({
   paddingTop: "80px",
   backgroundColor: "#030303",
   display: "flex",
+
   color: "white",
   gap: "45px",
 
@@ -162,11 +163,12 @@ export function CoursePage() {
     borderRight: "solid 3px rgba(111,111,116, 0.5)",
     borderBottom: "solid 4px rgba(111,111,116, 0.4)",
     borderRadius: "0 0 12px",
+    position: "fixed",
 
     width: `15%`,
     transition: "all 500ms ease",
 
-    height: "865px",
+    height: "600px",
 
     color: "white",
 
@@ -182,7 +184,8 @@ export function CoursePage() {
     flexDirection: "column",
     color: "white",
     width: `70%`,
-    height: "auto",
+    marginLeft: "320px",
+    minHeight: "650px",
     paddingBottom: "60px",
     marginBottom: "35px",
     border: "solid 1px white",
@@ -213,6 +216,14 @@ export function CoursePage() {
 
   GetModules();
 
+  /* function ListenContent(champterId: any) {
+    useEffect(() => {
+      elementsInOrder.length > 0 ? console.log("sim") : console.log("não");
+      setElementsInOrder(elementsInOrder.filter((e) => e));
+    }, []);
+    return console.log(elementsInOrder.length);
+  } */
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -226,22 +237,32 @@ export function CoursePage() {
                     sx={sideBarItemStyle}
                     variant="text"
                     color="success"
-                    onClick={() => {
-                      axios
-                        .get(
-                          `${APIURL}elements/${idCourse}/${e.champter_id}/get`
-                        )
-                        .then((response) => {
-                          setElements(response.data);
-                        })
-                        .then(() => {
-                          const SortArray = elements.sort(
-                            (a, b) => a.order - b.order
-                          );
-                          setElementsInOrder(SortArray);
-                        });
-
-                      setElements(elementsInOrder.filter((e) => e));
+                    onClick={async () => {
+                      try {
+                        const getData = await axios
+                          .get(
+                            `${APIURL}elements/${idCourse}/${e.champter_id}/get`
+                          )
+                          .then((response) => {
+                            setElements(response.data);
+                          })
+                          .then(() => {
+                            const SortArray = elements.sort(
+                              (a, b) => a.order - b.order
+                            );
+                            setElementsInOrder(SortArray);
+                          });
+                        return getData;
+                      } catch (err) {
+                        console.error(err);
+                      }
+                      try {
+                        elements.length > 0
+                          ? console.log("sim")
+                          : console.log("Não");
+                      } catch (err) {
+                        console.error(err);
+                      }
                     }}
                   >
                     <h2>{e.name}</h2>
@@ -254,7 +275,7 @@ export function CoursePage() {
             <ReadBox>
               {elementsInOrder.map((e: any) => (
                 <>
-                  <div>
+                  <div key={e.order}>
                     {e.element_type === "title" ? (
                       <>
                         <Typography variant="h1">{e.content}</Typography>

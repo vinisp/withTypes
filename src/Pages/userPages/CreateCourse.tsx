@@ -4,6 +4,7 @@ import { Redirect, useParams, useHistory } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
 import ReactPlayer from "react-player";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
@@ -1987,6 +1988,40 @@ export function CreateCourse() {
                 }}
               >
                 <ControlsContainer>
+                  <Button
+                    color="success"
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      gap: "15px",
+                      transition: "all 550ms ease ",
+                      justifyContent: "flex-start",
+                      borderRadius: "0",
+                      "&:hover": {
+                        borderBottom: "solid 1px white",
+                      },
+                    }}
+                    variant={"text"}
+                    onClick={() => history.push(`/viewcourse/${idCourse}`)}
+                  >
+                    <VisibilityIcon
+                      sx={{
+                        fontSize: "36px",
+                        color: "green",
+                        animation: "changeColorToWhite 500ms ease both",
+                      }}
+                    />
+                    <Typography
+                      sx={{
+                        animation: "fade 1500ms ease both",
+                        opacity: "0",
+                        color: "white",
+                      }}
+                      variant="body2"
+                    >
+                      Ver curso
+                    </Typography>
+                  </Button>
                   {NewModule()}
                   {ManageModules()}
                   {ManageModulesMobile()}
@@ -2004,9 +2039,6 @@ export function CreateCourse() {
               transition: "all 450ms ease",
             }}
           >
-            <Button onClick={() => history.push(`/viewcourse/${idCourse}`)}>
-              Ver Curso
-            </Button>
             <DragDropContext onDragEnd={onDragEnd}>
               {ShowItems()}
             </DragDropContext>
