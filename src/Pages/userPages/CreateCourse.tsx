@@ -1290,7 +1290,7 @@ export function CreateCourse() {
 
     console.log(elementToUpdateInDatabase);
 
-    axios.post(`http://localhost:3001/elements/updateorder`, {
+    axios.post(`${APIURL}elements/updateorder`, {
       ...elementToUpdateInDatabase,
     });
   }
