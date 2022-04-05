@@ -145,7 +145,7 @@ export function CoursePage() {
   const { idCourse } = useParams<any>();
   // const [openControls, setOpenControls] = useState<boolean>(true);
   const [modules, setModules] = useState<any[]>([]);
-  const [elements, setElements] = useState<any[]>([]);
+
   const [elementsInOrder, setElementsInOrder] = useState<any[]>([]);
 
   //const contentCourseSize = openControls ? "70%" : "85%";
@@ -237,32 +237,18 @@ export function CoursePage() {
                     sx={sideBarItemStyle}
                     variant="text"
                     color="success"
-                    onClick={async () => {
-                      try {
-                        const getData = await axios
-                          .get(
-                            `${APIURL}elements/${idCourse}/${e.champter_id}/get`
-                          )
-                          .then((response) => {
-                            setElements(response.data);
-                          })
-                          .then(() => {
-                            const SortArray = elements.sort(
-                              (a, b) => a.order - b.order
-                            );
-                            setElementsInOrder(SortArray);
-                          });
-                        return getData;
-                      } catch (err) {
-                        console.error(err);
-                      }
-                      try {
-                        elements.length > 0
-                          ? console.log("sim")
-                          : console.log("Não");
-                      } catch (err) {
-                        console.error(err);
-                      }
+                    onClick={() => {
+                      axios
+                        .get(
+                          `${APIURL}elements/${idCourse}/${e.champter_id}/get`
+                        )
+                        .then((response) => {
+                          const dataFromDB = response.data;
+                          const formatToFrontEnd = dataFromDB.sort(
+                            (a: any, b: any) => a.order - b.order
+                          );
+                          return setElementsInOrder(formatToFrontEnd);
+                        });
                     }}
                   >
                     <h2>{e.name}</h2>
