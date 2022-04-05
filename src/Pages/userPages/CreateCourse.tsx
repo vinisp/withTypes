@@ -131,12 +131,19 @@ const MainContainer = styled("div")(({ theme }) => ({
   background: "rgba(43,45,45, 1)",
   display: "flex",
   overflowX: "hidden",
+  [theme.breakpoints.down("sm")]: {
+    flexDirection: "column",
+  },
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
 }));
 
 const ControlsContainer = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  padding: "5px",
+  padding: "0",
   borderRadius: "4px",
   gap: "25px",
   alignItems: "center",
@@ -148,7 +155,16 @@ const ControlsContainer = styled("div")(({ theme }) => ({
     width: "100%",
   },
 
-  width: "90%",
+  width: "100%",
+
+  [theme.breakpoints.down("sm")]: {
+    heigth: "60px",
+    gap: "5px",
+  },
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
 }));
 
 const ContainerRegisterNewModule = styled("div")(({ theme }) => ({
@@ -163,7 +179,30 @@ const ContainerRegisterNewModule = styled("div")(({ theme }) => ({
   color: "white",
   transition: "height 350ms",
 
-  flex: "0 0 20%",
+  [theme.breakpoints.down("sm")]: {
+    ".hideOnMobile": {
+      display: "none",
+    },
+  },
+  [theme.breakpoints.up("sm")]: {
+    ".hideOnMobile": {
+      display: "none",
+    },
+  },
+
+  [theme.breakpoints.up("md")]: {
+    ".hideOnMobile": {
+      display: "flex",
+    },
+  },
+  [theme.breakpoints.up("lg")]: {
+    ".hideOnMobile": {
+      display: "flex",
+    },
+  },
+
+  // flex: "0 0 20%",
+  //width: "15%",
 }));
 
 const ShowAndOrganizeModules = styled("div")(({ theme }) => ({
@@ -174,9 +213,11 @@ const ShowAndOrganizeModules = styled("div")(({ theme }) => ({
   gap: 35,
   minHeight: 300,
   color: "white",
-  background: "rgba(211,211,211, 0.1)",
+  background: "rgba(0,0,0, 0.1)",
   width: "100%",
-  borderLeft: "solid 2px green",
+  border: "1px solid rgba(211,211,211,0.3)",
+  borderTop: 0,
+  borderRadius: " 0 0 4px 4px",
 }));
 
 const LayoutArea = styled("div")(({ theme }) => ({
@@ -281,9 +322,9 @@ export function CreateCourse() {
   const { idCourse } = useParams<any>();
   let history = useHistory();
   const openControlsButtonResponsive = openControls ? "flex-start" : "center";
-  const openWidthControls = openControls ? "20%" : "5%";
+  const openWidthControls = openControls ? "15%" : "5%";
   const openWidthContent = openControls ? "75%" : "95%";
-  const changeSideDesktop = openControls ? "75%" : "0";
+  const changeSideDesktop = openControls ? "69%" : "0";
   const changeSideLargeTablet = openControls ? "65%" : "0";
   const changeSideTablet = openControls ? "55%" : "0";
   const changeSideSmartphone = openControls ? "60%" : "0";
@@ -981,7 +1022,7 @@ export function CreateCourse() {
       <>
         <ShowAndOrganizeModules>
           <div>
-            <Typography variant="h6">
+            <Typography variant="h6" textAlign="center">
               Abaixo você pode ver e organizar os elementos do seu módulo
             </Typography>
           </div>
@@ -1426,6 +1467,7 @@ export function CreateCourse() {
               }}
             />
             <Typography
+              className="hideOnMobile"
               sx={{
                 animation: "fade 1500ms ease both",
                 opacity: "0",
@@ -1726,6 +1768,7 @@ export function CreateCourse() {
               false
             ) : (
               <Typography
+                className="hideOnMobile"
                 variant="body2"
                 sx={{
                   animation: "fade 1500ms ease both",
@@ -1907,6 +1950,7 @@ export function CreateCourse() {
           >
             <CreateIcon sx={{ color: "white", fontSize: "36px" }} />{" "}
             <Typography
+              className="hideOnMobile"
               variant="body2"
               sx={{
                 animation: "fade 1500ms ease both",
@@ -1987,6 +2031,7 @@ export function CreateCourse() {
             <SaveIcon color="warning" sx={{ fontSize: "36px" }} />
             {openControls ? (
               <Typography
+                className="hideOnMobile"
                 variant="body2"
                 sx={{ animation: "fade 1500ms ease both" }}
               >
@@ -2008,14 +2053,19 @@ export function CreateCourse() {
           <MainContainer>
             <Box
               sx={{
-                flex: `0 0 ${openWidthControls}`,
+                width: `['5%','15%','25%',${openWidthControls}]`,
                 transition: "all 250ms ease",
-                minHeight: 650,
+                height: [360, 480, 500, 620],
                 background: "rgba(38,48,24)",
+                position: "fixed",
+                borderRight: "solid 1px green",
+                borderBottom: "solid 1px green",
+                borderRadius: "0 0 4px 0",
               }}
             >
               <ContainerRegisterNewModule>
                 <Box
+                  className="hideOnMobile"
                   sx={{
                     background: "rgba(0,0,0,0.4)",
                     width: "100%",
@@ -2083,6 +2133,7 @@ export function CreateCourse() {
                         }}
                       />
                       <Typography
+                        className="hideOnMobile"
                         sx={{
                           animation: "fade 1500ms ease both",
                           opacity: "0",
@@ -2106,8 +2157,9 @@ export function CreateCourse() {
             </Box>
             <Box
               sx={{
-                flex: `0 0 ${openWidthContent}`,
+                width: ["80%", "80%", "70%", "70%"],
                 transition: "all 450ms ease",
+                marginLeft: ["85px", "115px", "250px", "350px"],
               }}
             >
               <DragDropContext onDragEnd={onDragEnd}>
