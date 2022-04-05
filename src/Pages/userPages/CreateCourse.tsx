@@ -2,19 +2,12 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 
-import { styled } from "@mui/material/styles";
+import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import ReactPlayer from "react-player";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-
-//Criar um novo Curso ou editar um curso existente ?
-//Criar
-//LER
-//Atualizar
-//Deletar
-
 import {
   TextField,
   Button,
@@ -59,11 +52,85 @@ const style = {
   p: 4,
 };
 
+const theme = createTheme({
+  typography: {
+    fontFamily: "Open Sans, sans-serif",
+    body2: {
+      "@media (max-width:600px)": {
+        fontSize: 10,
+      },
+      "@media (min-width:600px)": {
+        fontSize: 10,
+      },
+      "@media (min-width:900px)": {
+        fontSize: 12,
+      },
+      "@media (min-width:1200px)": {
+        fontSize: 12,
+      },
+      "@media (min-width:1536px)": {
+        fontSize: 14,
+      },
+    },
+    subtitle1: {
+      /* border: "solid 2px white", */
+
+      "@media (max-width:600px)": {
+        padding: "0 2px",
+        fontSize: 14,
+      },
+      "@media (min-width:600px)": {
+        padding: "0 5px",
+        fontSize: 16,
+      },
+      "@media (min-width:900px)": {
+        padding: "0 10px",
+        fontSize: 16,
+      },
+      "@media (min-width:1200px)": {
+        padding: "0 35px",
+        fontSize: 18,
+      },
+      "@media (min-width:1536px)": {
+        padding: "0 105px",
+        fontSize: 18,
+      },
+    },
+    h1: {
+      fontWeight: 600,
+
+      "@media (max-width:600px)": {
+        fontSize: 32,
+      },
+      "@media (min-width:600px)": {
+        fontSize: 36,
+      },
+      "@media (min-width:900px)": {
+        fontSize: 32,
+      },
+      "@media (min-width:1200px)": {
+        fontSize: 48,
+      },
+      "@media (min-width:1536px)": {
+        fontSize: 64,
+      },
+    },
+    h4: {
+      fontSize: 42,
+    },
+
+    h5: {
+      fontSize: 18,
+      marginBottom: 12,
+    },
+  },
+});
+
 const MainContainer = styled("div")(({ theme }) => ({
   padding: "80px 0",
   background: "rgba(43,45,45, 1)",
   display: "flex",
-  flexWrap: "wrap",
+  overflowX: "hidden",
 }));
 
 const ControlsContainer = styled("div")(({ theme }) => ({
@@ -73,6 +140,7 @@ const ControlsContainer = styled("div")(({ theme }) => ({
   borderRadius: "4px",
   gap: "25px",
   alignItems: "center",
+
   button: {
     width: "100%",
   },
@@ -107,7 +175,6 @@ const ShowAndOrganizeModules = styled("div")(({ theme }) => ({
   minHeight: 300,
   color: "white",
   background: "rgba(211,211,211, 0.1)",
-  flex: "0 0 80%",
   width: "100%",
   borderLeft: "solid 2px green",
 }));
@@ -213,13 +280,14 @@ export function CreateCourse() {
   const [openControls, setOpenControls] = useState<boolean>(true);
   const { idCourse } = useParams<any>();
   let history = useHistory();
-
+  const openControlsButtonResponsive = openControls ? "flex-start" : "center";
   const openWidthControls = openControls ? "20%" : "5%";
-  const openWidthContent = openControls ? "75%" : "85%";
+  const openWidthContent = openControls ? "75%" : "95%";
   const changeSideDesktop = openControls ? "75%" : "0";
   const changeSideLargeTablet = openControls ? "65%" : "0";
   const changeSideTablet = openControls ? "55%" : "0";
   const changeSideSmartphone = openControls ? "60%" : "0";
+  const changeGapWithoutText = openControls ? "15px" : "0";
 
   const [allModules, setAllModules] = useState<Module[]>([]);
   const [todo, setTodo] = useState<ModuleElement[]>([]);
@@ -913,7 +981,9 @@ export function CreateCourse() {
       <>
         <ShowAndOrganizeModules>
           <div>
-            <h1>Abaixo você pode ver e organizar os elementos do seu módulo</h1>
+            <Typography variant="h6">
+              Abaixo você pode ver e organizar os elementos do seu módulo
+            </Typography>
           </div>
 
           <div>
@@ -1934,116 +2004,118 @@ export function CreateCourse() {
   return (
     <>
       <CssBaseline>
-        <MainContainer>
-          <Box
-            sx={{
-              flex: `0 0 ${openWidthControls}`,
-              transition: "all 250ms ease",
-              minHeight: 650,
-              background: "rgba(38,48,24)",
-            }}
-          >
-            <ContainerRegisterNewModule>
-              <Box
-                sx={{
-                  background: "rgba(0,0,0,0.4)",
-                  width: "100%",
-                  heigth: "180px",
-                  display: "flex",
-                  transition: "all 550ms ease",
-                  padding: [
-                    `2px 0 2px ${changeSideSmartphone}`,
-                    `2px 0 2px ${changeSideTablet}`,
-                    `2px 0 2px ${changeSideLargeTablet}`,
-                    `2px 0 2px ${changeSideDesktop}`,
-                  ],
-                }}
-              >
-                <Button
-                  color="success"
-                  variant="outlined"
-                  onClick={() => {
-                    openControls === true
-                      ? setOpenControls(false)
-                      : setOpenControls(true);
+        <ThemeProvider theme={theme}>
+          <MainContainer>
+            <Box
+              sx={{
+                flex: `0 0 ${openWidthControls}`,
+                transition: "all 250ms ease",
+                minHeight: 650,
+                background: "rgba(38,48,24)",
+              }}
+            >
+              <ContainerRegisterNewModule>
+                <Box
+                  sx={{
+                    background: "rgba(0,0,0,0.4)",
+                    width: "100%",
+                    heigth: "180px",
+                    display: "flex",
+                    transition: "all 550ms ease",
+                    padding: [
+                      `2px 0 2px ${changeSideSmartphone}`,
+                      `2px 0 2px ${changeSideTablet}`,
+                      `2px 0 2px ${changeSideLargeTablet}`,
+                      `2px 0 2px ${changeSideDesktop}`,
+                    ],
                   }}
                 >
-                  {openControls ? (
-                    <KeyboardDoubleArrowLeftIcon />
-                  ) : (
-                    <KeyboardDoubleArrowRightIcon />
-                  )}
-                </Button>
-              </Box>
-
-              {/* CourseInformations() */}
-              <Box
-                sx={{
-                  //    display: openStyle,
-                  flexDirection: "column",
-                  gap: 2,
-                  width: "100%",
-                  alignItems: "center",
-                  transition: "all 350ms ease",
-                }}
-              >
-                <ControlsContainer>
                   <Button
                     color="success"
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      gap: "15px",
-                      transition: "all 550ms ease ",
-                      justifyContent: "flex-start",
-                      borderRadius: "0",
-                      "&:hover": {
-                        borderBottom: "solid 1px white",
-                      },
+                    variant="outlined"
+                    onClick={() => {
+                      openControls === true
+                        ? setOpenControls(false)
+                        : setOpenControls(true);
                     }}
-                    variant={"text"}
-                    onClick={() => history.push(`/viewcourse/${idCourse}`)}
                   >
-                    <VisibilityIcon
-                      sx={{
-                        fontSize: "36px",
-                        color: "green",
-                        animation: "changeColorToWhite 500ms ease both",
-                      }}
-                    />
-                    <Typography
-                      sx={{
-                        animation: "fade 1500ms ease both",
-                        opacity: "0",
-                        color: "white",
-                      }}
-                      variant="body2"
-                    >
-                      Ver curso
-                    </Typography>
+                    {openControls ? (
+                      <KeyboardDoubleArrowLeftIcon />
+                    ) : (
+                      <KeyboardDoubleArrowRightIcon />
+                    )}
                   </Button>
-                  {NewModule()}
-                  {ManageModules()}
-                  {ManageModulesMobile()}
-                  {CreateNewElementMobile()}
-                  {CreateItemInModule()}
-                </ControlsContainer>
-              </Box>
+                </Box>
 
-              <Box sx={{ width: "100%" }}>{openControls ? false : false}</Box>
-            </ContainerRegisterNewModule>
-          </Box>
-          <Box
-            sx={{
-              flex: `0 0 ${openWidthContent}`,
-              transition: "all 450ms ease",
-            }}
-          >
-            <DragDropContext onDragEnd={onDragEnd}>
-              {ShowItems()}
-            </DragDropContext>
-          </Box>
-        </MainContainer>
+                {/* CourseInformations() */}
+                <Box
+                  sx={{
+                    //    display: openStyle,
+                    flexDirection: "column",
+                    gap: 2,
+                    width: "100%",
+                    alignItems: "center",
+                    transition: "all 350ms ease",
+                  }}
+                >
+                  <ControlsContainer>
+                    <Button
+                      color="success"
+                      sx={{
+                        width: "100%",
+                        display: "flex",
+                        gap: `${changeGapWithoutText}`,
+                        transition: "all 350ms ease ",
+                        justifyContent: `${openControlsButtonResponsive}`,
+                        borderRadius: "0",
+                        "&:hover": {
+                          borderBottom: "solid 1px white",
+                        },
+                      }}
+                      variant={"text"}
+                      onClick={() => history.push(`/viewcourse/${idCourse}`)}
+                    >
+                      <VisibilityIcon
+                        sx={{
+                          fontSize: "36px",
+                          color: "green",
+                          animation: "changeColorToWhite 500ms ease both",
+                        }}
+                      />
+                      <Typography
+                        sx={{
+                          animation: "fade 1500ms ease both",
+                          opacity: "0",
+                          color: "white",
+                        }}
+                        variant="body2"
+                      >
+                        {openControls ? "Ver curso" : false}
+                      </Typography>
+                    </Button>
+                    {NewModule()}
+                    {ManageModules()}
+                    {ManageModulesMobile()}
+                    {CreateNewElementMobile()}
+                    {CreateItemInModule()}
+                  </ControlsContainer>
+                </Box>
+
+                <Box sx={{ width: "100%" }}>{openControls ? false : false}</Box>
+              </ContainerRegisterNewModule>
+            </Box>
+            <Box
+              sx={{
+                flex: `0 0 ${openWidthContent}`,
+                transition: "all 450ms ease",
+              }}
+            >
+              <DragDropContext onDragEnd={onDragEnd}>
+                {ShowItems()}
+              </DragDropContext>
+            </Box>
+          </MainContainer>
+        </ThemeProvider>
       </CssBaseline>
       <Footer />
     </>
