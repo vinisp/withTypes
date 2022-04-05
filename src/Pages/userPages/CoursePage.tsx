@@ -129,7 +129,7 @@ const ReadBox = styled("ul")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  padding: "35px 15px",
+  padding: "35px 105px",
   flex: "0 0 90%",
   width: "100%",
   gap: "5px",
