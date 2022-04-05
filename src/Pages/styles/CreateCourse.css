@@ -127,6 +127,15 @@ option {
   background: rgba(25, 118, 210, 0.1);
 }
 
+.changeSizeSideBar{
+  animation: changeSizeSideBar 350ms ease both ;
+
+}
+
+.changeSizeSideBarReverse{
+  animation: changeSizeSideBarReverse 350ms ease both;
+}
+
 @keyframes fade {
   0% {
     opacity: 0;
@@ -142,5 +151,24 @@ option {
   }
   100% {
     color: white;
+  }
+}
+
+
+@keyframes changeSizeSideBar {
+  0%{
+    width: 20%;
+  }
+  100%{
+    width: 5%;
+  }
+}
+
+@keyframes changeSizeSideBarReverse {
+  0%{
+    width: 5%;
+  }
+  100%{
+    width: 20%;
   }
 }

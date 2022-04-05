@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { Redirect, useParams } from "react-router-dom";
+import { Redirect, useParams, useHistory } from "react-router-dom";
 
 import { styled } from "@mui/material/styles";
 import ReactPlayer from "react-player";
@@ -196,7 +196,7 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
 interface Module {
   moduleName: string;
   moduleId: string;
-  moduleContent?: any;
+  content?: any;
 }
 
 interface ModuleElement {
@@ -211,6 +211,7 @@ interface ModuleElement {
 export function CreateCourse() {
   const [openControls, setOpenControls] = useState<boolean>(true);
   const { idCourse } = useParams<any>();
+  let history = useHistory();
 
   const openWidthControls = openControls ? "20%" : "5%";
   const openWidthContent = openControls ? "75%" : "85%";
@@ -254,13 +255,13 @@ export function CreateCourse() {
             content: [],
           }));
           setAllModules(formatToFrontEnd);
-          return setModulesFromDB(formatToFrontEnd);
+          setModulesFromDB(formatToFrontEnd);
+          return modulesFromDB;
         })
         .catch(function (error) {
           console.error(error);
         });
-    }, []);
-    return console.log(modulesFromDB);
+    }, [modulesFromDB]);
   }
 
   GetModules();
@@ -273,8 +274,14 @@ export function CreateCourse() {
         const formatToFrontEnd = ElementsFromDB.map((e: any) => ({
           id: e.element_id,
           [e.element_type]: e.content,
+          order: e.order,
         }));
-        return setTodo(formatToFrontEnd);
+        console.log(formatToFrontEnd);
+        const formatOrder = formatToFrontEnd.sort(
+          (a: any, b: any) => a.order - b.order
+        );
+
+        return setTodo(formatOrder);
       })
       .catch(function (error) {
         console.error(error);
@@ -325,6 +332,10 @@ export function CreateCourse() {
 
     setAllModules(items);
   };
+
+  /* function LoadCourse() {
+    useEffect(() => {});
+  } */
 
   /*function LoadCourse(
     courseID: string,
@@ -398,7 +409,10 @@ export function CreateCourse() {
     if (newValue.length === 0) {
       return alert("Não é possível atualizar! Insira o texto");
     }
-    todo.filter((e) => e.id === id).map((e: any) => (e[element] = newValue));
+    console.log(
+      todo.filter((e) => e.id === id).map((e: any) => (e[element] = newValue)),
+      todo
+    );
     setTodo(todo.filter((e) => e));
   }
 
@@ -410,28 +424,50 @@ export function CreateCourse() {
   }
 
   const addTitle = () => {
+    const titleID = genereteId();
+    const order = todo.length;
     setTodo((todo) => [
       ...todo,
       {
-        id: genereteId(),
+        id: titleID,
         title: module,
       },
     ]);
     setModules("");
+    axios.post(`http://localhost:3001/course/champter/element`, {
+      course_id: idCourse,
+      content: module,
+      element_type: "title",
+      element_id: titleID,
+      champter_id: valueIDSelectModule,
+      order: order,
+    });
   };
 
   const addImage = () => {
+    const imageID = genereteId();
+    const order = todo.length;
     setTodo((todo) => [
       ...todo,
       {
-        id: genereteId(),
+        id: imageID,
         image: module,
       },
     ]);
     setModules("");
+    axios.post(`http://localhost:3001/course/champter/element`, {
+      course_id: idCourse,
+      content: module,
+      element_type: "image",
+      element_id: imageID,
+      champter_id: valueIDSelectModule,
+      order: order,
+    });
   };
 
   const addSubtitle = () => {
+    const subTitleID = genereteId();
+    const order = todo.length;
     setTodo((todo) => [
       ...todo,
       {
@@ -440,9 +476,20 @@ export function CreateCourse() {
       },
     ]);
     setModules("");
+    axios.post(`http://localhost:3001/course/champter/element`, {
+      course_id: idCourse,
+      content: module,
+      element_type: "subTitle",
+      element_id: subTitleID,
+      champter_id: valueIDSelectModule,
+      order: order,
+    });
   };
 
   const addParagraph = () => {
+    const paragraphID = genereteId();
+    const order = todo.length;
+
     setTodo((todo) => [
       ...todo,
       {
@@ -451,9 +498,19 @@ export function CreateCourse() {
       },
     ]);
     setModules(" ");
+    axios.post(`http://localhost:3001/course/champter/element`, {
+      course_id: idCourse,
+      content: module,
+      element_type: "paragraph",
+      element_id: paragraphID,
+      champter_id: valueIDSelectModule,
+      order: order,
+    });
   };
 
   const addVideo = () => {
+    const videoID = genereteId();
+    const order = todo.length;
     setTodo((todo) => [
       ...todo,
       {
@@ -462,6 +519,14 @@ export function CreateCourse() {
       },
     ]);
     setModules(" ");
+    axios.post(`http://localhost:3001/course/champter/element`, {
+      course_id: idCourse,
+      content: module,
+      element_type: "video",
+      element_id: videoID,
+      champter_id: valueIDSelectModule,
+      order: order,
+    });
   };
 
   /*  const addTitleAndSubTitle = () => {
@@ -700,6 +765,10 @@ export function CreateCourse() {
       console.log(id, element, newValue, index);
       handleClose();
     }
+
+    /* function CloseAndSave(newValue: any) {
+      console.log(newValue);
+    } */
 
     const nomeDoCampo: string = `new ${element}`;
 
@@ -990,7 +1059,6 @@ export function CreateCourse() {
           color="success"
           onClick={() => {
             addTitle();
-            console.log(todo);
           }}
         >
           Salvar Título
@@ -1202,55 +1270,29 @@ export function CreateCourse() {
   //DUAS FUNÇÕES = UMA PARA SALVAR OS DADOS DO MÓDULO E OUTRA PARA SALVAR OS ELEMENTOS DO MÓDULO
 
   async function SaveModule(id: any) {
-    console.log(allModules.filter((e) => e.moduleId === id));
+    allModules.map((e) => e.moduleId).toString();
 
-    const selectItem = allModules.filter((e) => e.moduleId === id);
-
-    selectItem[0].moduleContent.splice(0, selectItem[0].moduleContent.length);
-    selectItem[0].moduleContent.push(...todo);
-
-    const select = { ...selectItem };
-
-    const elementsToSave = select[0].moduleContent.map((e: any) => ({
-      element_type: Object.keys(e).filter((e) => e !== "id"),
+    const elementToUpdateInDatabase = todo.map((e: any, index) => ({
+      course_id: idCourse,
+      champter_id: id,
+      element_type: Object.keys(e)
+        .filter((e) => e !== "id" && e !== "order")
+        .toString(),
+      order: index,
       element_id: e.id,
-      content: Object.keys(e)
-        .filter((e) => e !== "id")
-        .map((el) => e[el]),
+      content:
+        e[
+          Object.keys(e)
+            .filter((e) => e !== "id" && e !== "order")
+            .toString()
+        ],
     }));
 
-    const RenderToDatabase = elementsToSave.map((e: any, indexRoot: any) =>
-      e.element_type.map((el: any, index: any) => ({
-        course_id: idCourse,
-        champter_id: id,
-        element_type: el,
-        element_id: e.element_id,
-        content: e.content[index],
-        order: indexRoot,
-      }))
-    );
+    console.log(elementToUpdateInDatabase);
 
-    const SendElements = RenderToDatabase.flat();
-
-    try {
-      await axios
-        .post(`${APIURL}course/champter/element`, SendElements)
-        .then((response) => response.data);
-    } catch (err) {
-      console.error(err);
-    }
-
-    try {
-      await axios
-        .post(`${APIURL}champter`, {
-          course_id: idCourse,
-          champter_id: id,
-          name: selectItem[0].moduleName,
-        })
-        .then((response) => response.data);
-    } catch (err) {
-      console.error(err);
-    }
+    axios.post(`http://localhost:3001/elements/updateorder`, {
+      ...elementToUpdateInDatabase,
+    });
   }
 
   function NewModule() {
@@ -1271,10 +1313,19 @@ export function CreateCourse() {
           moduleContent: [],
         },
       ]);
-      console.log(myID);
+
+      axios.post(`${APIURL}champter`, {
+        course_id: idCourse,
+        champter_id: myID,
+        name: newModuleName,
+      });
+
       setValueIDSelectModule(myID);
+      console.log(valueIDSelectModule);
       todo.splice(0, todo.length);
       setTodo(todo.filter((e) => e));
+
+      handleClose();
     }
 
     return (
@@ -1508,13 +1559,19 @@ export function CreateCourse() {
                                       <Button
                                         variant="outlined"
                                         onClick={() => {
-                                          /* const selectModule = allModules
+                                          const selectModule = allModules
                                             .filter(
                                               (e) => e.moduleId === moduleId
                                             )
                                             .flat();
 
-                                          selectModule.flatMap((e) =>
+                                          console.log("Chegamos aqui");
+
+                                          setModuleName(
+                                            selectModule[0].moduleName
+                                          );
+
+                                          /* selectModule.flatMap((e) =>
                                             e.moduleContent.flat()
                                           ).length > 0
                                             ? setTodo(
@@ -1525,12 +1582,12 @@ export function CreateCourse() {
                                             : DeleteAndUpdate();
                                           setModuleName(
                                             selectModule[0].moduleName
-                                          );
-                                          console.log(selectModule); */
+                                          ); */
+                                          console.log(selectModule);
                                           GetElementsFromModule(moduleId);
                                         }}
                                       >
-                                        Load
+                                        Loadsss
                                       </Button>
                                       {ShowEditModalModuleName(moduleId)}
                                       <Button
@@ -1677,13 +1734,28 @@ export function CreateCourse() {
                                       <Button
                                         variant="outlined"
                                         onClick={() => {
-                                          /* const selectModule = allModules
-                                            .filter(
+                                          const selectModule =
+                                            allModules.filter(
                                               (e) => e.moduleId === moduleId
-                                            )
-                                            .flat();
+                                            );
 
-                                          selectModule.flatMap((e) =>
+                                          console.log(
+                                            selectModule
+                                              .flatMap((e) => e.moduleId)
+                                              .toString() === moduleId
+                                          );
+
+                                          console.log(selectModule);
+
+                                          setModuleName(
+                                            selectModule[0].moduleName
+                                          );
+
+                                          setValueIDSelectModule(
+                                            selectModule[0].moduleId
+                                          );
+
+                                          /* selectModule.flatMap((e) =>
                                             e.moduleContent.flat()
                                           ).length > 0
                                             ? setTodo(
@@ -1691,12 +1763,11 @@ export function CreateCourse() {
                                                   e.moduleContent.flat()
                                                 )
                                               )
-                                            : DeleteAndUpdate();
+                                            : console.log("errrr");
                                           setModuleName(
                                             selectModule[0].moduleName
-                                          );
-                                          console.log(selectModule); */
-                                          console.log(moduleId);
+                                          ); */
+
                                           GetElementsFromModule(moduleId);
                                         }}
                                       >
@@ -1933,6 +2004,9 @@ export function CreateCourse() {
               transition: "all 450ms ease",
             }}
           >
+            <Button onClick={() => history.push(`/viewcourse/${idCourse}`)}>
+              Ver Curso
+            </Button>
             <DragDropContext onDragEnd={onDragEnd}>
               {ShowItems()}
             </DragDropContext>
