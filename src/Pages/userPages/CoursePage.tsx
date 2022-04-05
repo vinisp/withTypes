@@ -16,7 +16,7 @@ const sideBarItemStyle = {
   display: "flex",
   justifyContent: "flex-start",
   padding: "5px 10px",
-  gap: "25px",
+  gap: "24px",
   width: "100%",
   color: "white",
   fontSize: "8px",
