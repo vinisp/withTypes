@@ -434,7 +434,7 @@ export function CreateCourse() {
       },
     ]);
     setModules("");
-    axios.post(`http://localhost:3001/course/champter/element`, {
+    axios.post(`${APIURL}course/champter/element`, {
       course_id: idCourse,
       content: module,
       element_type: "title",
@@ -455,7 +455,7 @@ export function CreateCourse() {
       },
     ]);
     setModules("");
-    axios.post(`http://localhost:3001/course/champter/element`, {
+    axios.post(`${APIURL}course/champter/element`, {
       course_id: idCourse,
       content: module,
       element_type: "image",
@@ -476,7 +476,7 @@ export function CreateCourse() {
       },
     ]);
     setModules("");
-    axios.post(`http://localhost:3001/course/champter/element`, {
+    axios.post(`${APIURL}course/champter/element`, {
       course_id: idCourse,
       content: module,
       element_type: "subTitle",
@@ -493,12 +493,12 @@ export function CreateCourse() {
     setTodo((todo) => [
       ...todo,
       {
-        id: genereteId(),
+        id: paragraphID,
         paragraph: module,
       },
     ]);
     setModules(" ");
-    axios.post(`http://localhost:3001/course/champter/element`, {
+    axios.post(`${APIURL}course/champter/element`, {
       course_id: idCourse,
       content: module,
       element_type: "paragraph",
@@ -519,7 +519,7 @@ export function CreateCourse() {
       },
     ]);
     setModules(" ");
-    axios.post(`http://localhost:3001/course/champter/element`, {
+    axios.post(`${APIURL}course/champter/element`, {
       course_id: idCourse,
       content: module,
       element_type: "video",

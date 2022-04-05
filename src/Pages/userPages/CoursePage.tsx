@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
-
+import ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import { Typography, Button } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Footer } from "../../Components/widgets/Footer";
 
 import axios from "axios";
 
@@ -81,7 +84,7 @@ const theme = createTheme({
       fontSize: 22,
     },
     h4: {
-      fontSize: 42,
+      fontSize: 18,
     },
 
     h5: {
@@ -105,7 +108,7 @@ const MainBox = styled("div")(({ theme }) => ({
 }));
 
 const Controls = styled("div")(({ theme }) => ({
-  backgroundColor: "red",
+  backgroundColor: "#0e0e0e0e",
   flex: "0 0 10%",
   display: "flex",
   justifyContent: "center",
@@ -179,7 +182,9 @@ export function CoursePage() {
     flexDirection: "column",
     color: "white",
     width: `70%`,
-    height: "870px",
+    height: "auto",
+    paddingBottom: "60px",
+    marginBottom: "35px",
     border: "solid 1px white",
 
     [theme.breakpoints.down("sm")]: {},
@@ -271,15 +276,43 @@ export function CoursePage() {
                     ) : (
                       false
                     )}
+                    {e.element_type === "video" ? (
+                      <>
+                        <ReactPlayer
+                          controls
+                          url={`https://vimeo.com/${e.content}`}
+                        />
+                      </>
+                    ) : (
+                      false
+                    )}
+
+                    {e.element_type === "image" ? (
+                      <>
+                        <img
+                          style={{ width: "350px" }}
+                          src={e.content}
+                          alt="imagem"
+                        />
+                      </>
+                    ) : (
+                      false
+                    )}
                   </div>
                 </>
               ))}
             </ReadBox>
             <Controls>
-              <div>Anterior</div> <div>Próximo</div>
+              <Button color="success">
+                <ArrowBackIcon />
+              </Button>
+              <Button color="success">
+                <ArrowForwardIcon />
+              </Button>
             </Controls>
           </CourseContent>
         </MainBox>
+        <Footer />
       </ThemeProvider>
     </>
   );
