@@ -323,7 +323,7 @@ export function CreateCourse() {
   let history = useHistory();
   const openControlsButtonResponsive = openControls ? "flex-start" : "center";
   const openWidthControls = openControls ? "15%" : "5%";
-  const openWidthContent = openControls ? "75%" : "95%";
+  // const openWidthContent = openControls ? "75%" : "95%";
   const changeSideDesktop = openControls ? "69%" : "0";
   const changeSideLargeTablet = openControls ? "65%" : "0";
   const changeSideTablet = openControls ? "55%" : "0";
