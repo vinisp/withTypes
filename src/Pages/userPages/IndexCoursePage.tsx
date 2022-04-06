@@ -281,7 +281,7 @@ const SelectInfo = styled("select")(({ theme }) => ({
 
 export function IndexCourse() {
   const [myCourses, setMyCourses] = useState<any[]>([]);
-  const [openControls, setOpenControls] = useState<boolean>(true);
+  //const [openControls, setOpenControls] = useState<boolean>(true);
   let history = useHistory();
   //const sideBarSize = openControls === true ? "5%" : "100%";
 
@@ -298,7 +298,7 @@ export function IndexCourse() {
     [theme.breakpoints.up("lg")]: {},
   })); */
 
-  console.log(SideBarDesktop, setOpenControls);
+  console.log(SideBarDesktop);
 
   const SideBar = styled("div")(({ theme }) => ({
     display: "flex",
