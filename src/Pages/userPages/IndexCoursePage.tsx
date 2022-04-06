@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
-import { styled } from "@mui/material/styles";
+import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import { TextField, Button, Box, Modal, Typography } from "@mui/material/";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -34,6 +34,77 @@ const APIURL = "https://deppback.herokuapp.com/";
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {},
 })); */
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "Open Sans, sans-serif",
+    subtitle1: {
+      /* border: "solid 2px white", */
+
+      "@media (max-width:600px)": {
+        padding: "0 2px",
+        fontSize: 14,
+      },
+      "@media (min-width:600px)": {
+        padding: "0 5px",
+        fontSize: 16,
+      },
+      "@media (min-width:900px)": {
+        padding: "0 10px",
+        fontSize: 16,
+      },
+      "@media (min-width:1200px)": {
+        padding: "0 35px",
+        fontSize: 18,
+      },
+      "@media (min-width:1536px)": {
+        padding: "0 105px",
+        fontSize: 18,
+      },
+    },
+    h1: {
+      fontWeight: 600,
+
+      "@media (max-width:600px)": {
+        fontSize: 32,
+      },
+      "@media (min-width:600px)": {
+        fontSize: 32,
+      },
+      "@media (min-width:900px)": {
+        fontSize: 32,
+      },
+      "@media (min-width:1200px)": {
+        fontSize: 32,
+      },
+      "@media (min-width:1536px)": {
+        fontSize: 32,
+      },
+    },
+
+    h3: {
+      fontSize: 22,
+    },
+    h4: {
+      fontSize: 18,
+    },
+
+    h5: {
+      fontSize: 18,
+      marginBottom: 12,
+    },
+    h6: {
+      color: "white",
+      fontSize: 16,
+      "@media (max-width:600px)": {
+        fontSize: 12,
+      },
+      "@media (min-width:600px)": {
+        fontSize: 16,
+      },
+    },
+  },
+});
 
 const boxShadowConfig =
   "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)";
@@ -99,12 +170,14 @@ const MainInfoBox = styled("div")(({ theme }) => ({
   flexWrap: "wrap",
   order: "2",
   gap: "15px",
-  border: "solid 2px red",
+
   width: "100%",
 
   marginBottom: "15px",
 
   [theme.breakpoints.down("sm")]: {
+    marginTop: "25px",
+    marginLeft: "-35px",
     padding: "15px 0px",
   },
   [theme.breakpoints.up("sm")]: {
@@ -130,7 +203,7 @@ const BoxAllInfo = styled("div")(({ theme }) => ({
   paddingTop: "15px",
 
   [theme.breakpoints.down("sm")]: {
-    flex: "0 0 95%",
+    flex: "0 0 90%",
   },
   [theme.breakpoints.up("sm")]: {
     flex: "0 0 90%",
@@ -182,10 +255,12 @@ const BottomSections = styled("div")(({ theme }) => ({
   padding: "25px 0",
   height: "auto",
   backgroundColor: "#212423",
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    flex: "0 0 20%",
+    width: "90%",
+  },
   [theme.breakpoints.up("sm")]: {
-    flex: "0 0 95%",
-    fontSize: "15px",
+    flex: "0 0 80%",
   },
 
   [theme.breakpoints.up("md")]: {
@@ -200,11 +275,15 @@ const LineDetailsBoxHead = styled("div")(({ theme }) => ({
   borderBottom: "solid 4px rgba(255,255,255,0.3)",
   display: "flex",
   justifyContent: "space-around",
-  span: {
+  h6: {
     color: "white",
     flex: "0 0 30%",
-    fontSize: "18px",
     fontWeight: "500",
+    textAlign: "center",
+
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -225,17 +304,20 @@ const LineWrapper = styled("div")(({ theme }) => ({
 const LineDetailsBoxBody = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "space-around",
-  span: {
+  p: {
     color: "white",
     flex: "0 0 30%",
-    padding: "5px 0",
-    fontSize: "16px",
+    padding: "2px 0",
     fontWeight: "500",
     width: "160px",
     textAlign: "center",
     borderBottom: "solid 1px rgba(255,255,255,0.4)",
   },
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    p: {
+      fontSize: "14px",
+    },
+  },
   [theme.breakpoints.up("sm")]: {},
 
   [theme.breakpoints.up("md")]: {},
@@ -737,178 +819,181 @@ export function IndexCourse() {
 
   return (
     <>
-      <MainBox>
-        <MainInfoBox>
-          <BoxAllInfo>
-            <Typography
-              sx={{
-                flex: "0 0 5%",
-                textAlign: "center",
-                backgroundColor: "#212423",
-                color: "#FFF",
-                borderBottom: "solid 1px white",
-              }}
-              variant="h6"
-            >
-              Lista de Cursos
-            </Typography>
-            <DataGrid
-              rows={rows}
-              columns={columns}
-              pageSize={5}
-              rowsPerPageOptions={[5]}
-              checkboxSelection
-              disableSelectionOnClick
-              sx={{
-                backgroundColor: "#212423",
-                border: 0,
-                color: "white",
-                p: {
+      <ThemeProvider theme={theme}>
+        <MainBox>
+          <MainInfoBox>
+            <BoxAllInfo>
+              <Typography
+                sx={{
+                  flex: "0 0 5%",
+                  textAlign: "center",
+                  backgroundColor: "#212423",
+                  color: "#FFF",
+                  borderBottom: "solid 1px white",
+                }}
+                variant="h5"
+              >
+                Lista de Cursos
+              </Typography>
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+                checkboxSelection
+                disableSelectionOnClick
+                sx={{
+                  backgroundColor: "#212423",
+                  border: 0,
                   color: "white",
-                },
-              }}
-            />
-          </BoxAllInfo>
-          <BalanceInfo>
-            <Typography variant="h5" color="white">
-              Depósitos
-            </Typography>
-            <Typography
-              variant="h6"
-              sx={{
-                fontWeight: "600",
-                fontSize: "36px",
-                color: `${mainColor}`,
-              }}
-            >
-              R$ 560,95
-            </Typography>
-            <Typography color="rgb(115,115,116)">
-              Atualizado em 31/03/2022
-            </Typography>
-            <Typography sx={{}}>Ver detalhes</Typography>
-          </BalanceInfo>
+                  p: {
+                    color: "white",
+                  },
+                }}
+              />
+            </BoxAllInfo>
+            <BalanceInfo>
+              <Typography variant="h5" color="white">
+                Depósitos
+              </Typography>
+              <Typography
+                sx={{
+                  fontWeight: "600",
+                  fontSize: "36px",
+                  color: `${mainColor}`,
+                }}
+              >
+                R$ 560,95
+              </Typography>
+              <Typography color="rgb(115,115,116)">
+                Atualizado em 31/03/2022
+              </Typography>
+              <Typography sx={{}}>Ver detalhes</Typography>
+            </BalanceInfo>
 
-          <BottomSections>
-            <LineWrapper>
+            <BottomSections>
+              <LineWrapper>
+                <LineDetailsBoxHead>
+                  <Typography variant="h6">
+                    Meus Cursos Desenvolvidos
+                  </Typography>
+                  <Typography variant="h6">% de vendas</Typography>
+                  <Typography variant="h6">Valor em $$$</Typography>
+                </LineDetailsBoxHead>
+                <LineDetailsBoxBody>
+                  <Typography variant="body1">25</Typography>
+                  <Typography>
+                    47<span style={{ fontSize: "14px" }}>%</span>
+                  </Typography>
+                  <Typography>
+                    R$ 7500,<span style={{ fontSize: "14px" }}>00</span>
+                  </Typography>
+                </LineDetailsBoxBody>
+              </LineWrapper>
               <LineDetailsBoxHead>
-                <span>Meus Cursos Desenvolvidos</span>
-                <span>% de vendas</span>
-                <span>Valor em $$$</span>
+                <Typography variant="h6">Meus Cursos Promovidos</Typography>
+                <Typography variant="h6">% de vendas</Typography>
+                <Typography variant="h6">Valor em $$$</Typography>
               </LineDetailsBoxHead>
               <LineDetailsBoxBody>
-                <span>25</span>
-                <span>
-                  47<span style={{ fontSize: "14px" }}>%</span>
-                </span>
-                <span>
-                  R$ 7500,<span style={{ fontSize: "14px" }}>00</span>
-                </span>
+                <Typography>65</Typography>
+                <Typography>
+                  53<span style={{ fontSize: "14px" }}>%</span>
+                </Typography>
+                <Typography>
+                  R$ 2000,<span style={{ fontSize: "14px" }}>00</span>
+                </Typography>
               </LineDetailsBoxBody>
-            </LineWrapper>
-            <LineDetailsBoxHead>
-              <span>Meus Cursos Promovidos</span>
-              <span>% de vendas</span>
-              <span>Valor em $$$</span>
-            </LineDetailsBoxHead>
-            <LineDetailsBoxBody>
-              <span>65</span>
-              <span>
-                53<span style={{ fontSize: "14px" }}>%</span>
-              </span>
-              <span>
-                R$ 2000,<span style={{ fontSize: "14px" }}>00</span>
-              </span>
-            </LineDetailsBoxBody>
-          </BottomSections>
-          <BottomSections>
-            <LineDetailsBoxHead>
-              <span>Meus Cursos Comprados</span>
-              <span>Categoria</span>
-              <span>Acessar</span>
-            </LineDetailsBoxHead>
-            <LineDetailsBoxBody>
-              <span>Curso 1</span>
-              <span>Categoria 3 </span>
-              <span>
-                <button
-                  style={{
-                    border: "0",
-                    width: "100%",
+            </BottomSections>
+            <BottomSections>
+              <LineDetailsBoxHead>
+                <Typography variant="h6">Meus Cursos Comprados</Typography>
+                <Typography variant="h6">Categoria</Typography>
+                <Typography variant="h6">Acessar</Typography>
+              </LineDetailsBoxHead>
+              <LineDetailsBoxBody>
+                <Typography>Curso 1</Typography>
+                <Typography>Categoria 3 </Typography>
+                <Typography>
+                  <button
+                    style={{
+                      border: "0",
+                      width: "100%",
 
-                    fontSize: "16px",
-                    cursor: "pointer",
-                    backgroundColor: "transparent",
-                    color: "white",
-                  }}
-                >
-                  clique aqui
-                </button>
-              </span>
-            </LineDetailsBoxBody>
-            <LineDetailsBoxBody>
-              <span>Curso 1</span>
-              <span>Categoria 3 </span>
-              <span>
-                <button
-                  style={{
-                    border: "0",
-                    width: "100%",
+                      fontSize: "16px",
+                      cursor: "pointer",
+                      backgroundColor: "transparent",
+                      color: "white",
+                    }}
+                  >
+                    clique aqui
+                  </button>
+                </Typography>
+              </LineDetailsBoxBody>
+              <LineDetailsBoxBody>
+                <Typography>Curso 1</Typography>
+                <Typography>Categoria 3 </Typography>
+                <Typography>
+                  <button
+                    style={{
+                      border: "0",
+                      width: "100%",
 
-                    fontSize: "16px",
-                    cursor: "pointer",
-                    backgroundColor: "transparent",
-                    color: "white",
-                  }}
-                >
-                  clique aqui
-                </button>
-              </span>
-            </LineDetailsBoxBody>
-            <LineDetailsBoxBody>
-              <span>Curso 1</span>
-              <span>Categoria 3 </span>
-              <span>
-                <button
-                  style={{
-                    border: "0",
-                    width: "100%",
+                      fontSize: "16px",
+                      cursor: "pointer",
+                      backgroundColor: "transparent",
+                      color: "white",
+                    }}
+                  >
+                    clique aqui
+                  </button>
+                </Typography>
+              </LineDetailsBoxBody>
+              <LineDetailsBoxBody>
+                <Typography>Curso 1</Typography>
+                <Typography>Categoria 3 </Typography>
+                <Typography>
+                  <button
+                    style={{
+                      border: "0",
+                      width: "100%",
 
-                    fontSize: "16px",
-                    cursor: "pointer",
-                    backgroundColor: "transparent",
-                    color: "white",
-                  }}
-                >
-                  clique aqui
-                </button>
-              </span>
-            </LineDetailsBoxBody>
-            <LineDetailsBoxBody>
-              <span>Curso 1</span>
-              <span>Categoria 3 </span>
-              <span>
-                <button
-                  style={{
-                    border: "0",
-                    width: "100%",
+                      fontSize: "16px",
+                      cursor: "pointer",
+                      backgroundColor: "transparent",
+                      color: "white",
+                    }}
+                  >
+                    clique aqui
+                  </button>
+                </Typography>
+              </LineDetailsBoxBody>
+              <LineDetailsBoxBody>
+                <Typography>Curso 1</Typography>
+                <Typography>Categoria 3 </Typography>
+                <Typography>
+                  <button
+                    style={{
+                      border: "0",
+                      width: "100%",
 
-                    fontSize: "16px",
-                    cursor: "pointer",
-                    backgroundColor: "transparent",
-                    color: "white",
-                  }}
-                >
-                  clique aqui
-                </button>
-              </span>
-            </LineDetailsBoxBody>
-          </BottomSections>
-        </MainInfoBox>
+                      fontSize: "16px",
+                      cursor: "pointer",
+                      backgroundColor: "transparent",
+                      color: "white",
+                    }}
+                  >
+                    clique aqui
+                  </button>
+                </Typography>
+              </LineDetailsBoxBody>
+            </BottomSections>
+          </MainInfoBox>
 
-        {/* MainCourseInformations() */}
-        {SwipeableTemporaryDrawer()}
-      </MainBox>
+          {/* MainCourseInformations() */}
+          {SwipeableTemporaryDrawer()}
+        </MainBox>
+      </ThemeProvider>
 
       <Footer />
     </>
