@@ -316,7 +316,12 @@ export function IndexCourse() {
 
     color: "white",
 
-    [theme.breakpoints.down("sm")]: {},
+    [theme.breakpoints.down("sm")]: {
+      width: "10%",
+      ".hideOnMobile": {
+        display: "none",
+      },
+    },
     [theme.breakpoints.up("sm")]: {},
 
     [theme.breakpoints.up("md")]: {},
@@ -483,8 +488,12 @@ export function IndexCourse() {
             {openControls === true ? "aberto" : "fechado"}
           </Button> */}
           <PhotoAndNameWrapper>
-            <PhotoUser>Foto</PhotoUser>
-            <Typography variant="caption" sx={{ fontWeight: 600 }}>
+            <PhotoUser className="hideOnMobile">Foto</PhotoUser>
+            <Typography
+              className="hideOnMobile"
+              variant="caption"
+              sx={{ fontWeight: 600 }}
+            >
               {user?.email}
             </Typography>
           </PhotoAndNameWrapper>
@@ -513,7 +522,7 @@ export function IndexCourse() {
           <Button sx={sideBarItemStyle} variant="text" color="success">
             <PersonIcon sx={{ color: `${mainColor}` }} />
             <Typography className="hideOnMobile" fontSize={"10px"}>
-              Editar Perfil{" "}
+              Editar Perfil
             </Typography>
           </Button>
           <Button sx={sideBarItemStyle} variant="text" color="success">
@@ -526,15 +535,13 @@ export function IndexCourse() {
           <Button sx={sideBarItemStyle} variant="text" color="success">
             <ChatIcon sx={{ color: `${mainColor}` }} />{" "}
             <Typography className="hideOnMobile" fontSize={"10px"}>
-              {" "}
               Mensagens
             </Typography>
           </Button>
           <Button sx={sideBarItemStyle} variant="text">
             <AssessmentIcon sx={{ color: `${mainColor}` }} />
             <Typography className="hideOnMobile" fontSize={"10px"}>
-              {" "}
-              Estatísticas{" "}
+              Estatísticas
             </Typography>
           </Button>
 
