@@ -101,6 +101,7 @@ const MainBox = styled("div")(({ theme }) => ({
 
   color: "white",
   gap: "45px",
+  overflowX: "hidden",
 
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -130,15 +131,24 @@ const ReadBox = styled("ul")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  padding: "35px 105px",
+
   flex: "0 0 90%",
   width: "100%",
   gap: "5px",
+  overflowX: "hidden",
 
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.down("sm")]: {
+    padding: "35px 40px",
+  },
+  [theme.breakpoints.up("sm")]: {
+    padding: "35px 45px",
+  },
+  [theme.breakpoints.up("md")]: {
+    padding: "35px 50px",
+  },
+  [theme.breakpoints.up("lg")]: {
+    padding: "35px 105px",
+  },
 }));
 
 export function CoursePage() {
@@ -165,35 +175,50 @@ export function CoursePage() {
     borderRadius: "0 0 12px",
     position: "fixed",
 
-    width: `15%`,
     transition: "all 500ms ease",
-
-    height: "600px",
 
     color: "white",
 
-    [theme.breakpoints.down("sm")]: {},
-    [theme.breakpoints.up("sm")]: {},
-    [theme.breakpoints.up("md")]: {},
-    [theme.breakpoints.up("lg")]: {},
+    [theme.breakpoints.down("sm")]: {
+      height: "300px",
+      width: `15%`,
+    },
+    [theme.breakpoints.up("sm")]: {
+      height: "380px",
+      width: `15%`,
+    },
+    [theme.breakpoints.up("md")]: {
+      height: "520px",
+      width: `10%`,
+    },
+    [theme.breakpoints.up("lg")]: {
+      height: "600px",
+      width: `15%`,
+    },
   }));
 
   const CourseContent = styled("div")(({ theme }) => ({
     backgroundColor: "#030303",
     display: "flex",
     flexDirection: "column",
-    color: "white",
-    width: `70%`,
-    marginLeft: "320px",
+
+    width: `90%`,
     minHeight: "650px",
     paddingBottom: "60px",
     marginBottom: "35px",
-    border: "solid 1px white",
 
-    [theme.breakpoints.down("sm")]: {},
-    [theme.breakpoints.up("sm")]: {},
-    [theme.breakpoints.up("md")]: {},
-    [theme.breakpoints.up("lg")]: {},
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "80px",
+    },
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: "100px",
+    },
+    [theme.breakpoints.up("md")]: {
+      marginLeft: "180px",
+    },
+    [theme.breakpoints.up("lg")]: {
+      marginLeft: "320px",
+    },
   }));
 
   function GetCourse() {
@@ -286,6 +311,7 @@ export function CoursePage() {
                     {e.element_type === "video" ? (
                       <>
                         <ReactPlayer
+                          width="100%"
                           controls
                           url={`https://vimeo.com/${e.content}`}
                         />
