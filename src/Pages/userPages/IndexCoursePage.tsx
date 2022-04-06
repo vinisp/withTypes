@@ -310,7 +310,6 @@ export function IndexCourse() {
     borderBottom: "solid 4px rgba(111,111,116, 0.4)",
     borderRadius: "0 0 12px",
 
-    flex: `0 0 15%`,
     transition: "all 500ms ease",
 
     height: "750px",
@@ -321,7 +320,9 @@ export function IndexCourse() {
     [theme.breakpoints.up("sm")]: {},
 
     [theme.breakpoints.up("md")]: {},
-    [theme.breakpoints.up("lg")]: {},
+    [theme.breakpoints.up("lg")]: {
+      width: "12%",
+    },
   }));
 
   const { user } = useAuth();
@@ -505,24 +506,36 @@ export function IndexCourse() {
             onClick={handleOpen}
           >
             <CreateNewFolderIcon sx={{ color: `${mainColor}` }} />
-            {openControls === true ? "Criar Novo Curso" : false}
+            <Typography className="hideOnMobile" fontSize={"10px"}>
+              Criar Novo Curso
+            </Typography>
           </Button>
           <Button sx={sideBarItemStyle} variant="text" color="success">
             <PersonIcon sx={{ color: `${mainColor}` }} />
-            {openControls === true ? "Editar Perfil" : false}
+            <Typography className="hideOnMobile" fontSize={"10px"}>
+              Editar Perfil{" "}
+            </Typography>
           </Button>
           <Button sx={sideBarItemStyle} variant="text" color="success">
             <FactCheckIcon sx={{ color: `${mainColor}` }} />
-            {openControls === true ? "Lista de interresses" : false}
+            <Typography className="hideOnMobile" fontSize={"10px"}>
+              Lista de interresses
+            </Typography>
           </Button>
 
           <Button sx={sideBarItemStyle} variant="text" color="success">
             <ChatIcon sx={{ color: `${mainColor}` }} />{" "}
-            {openControls === true ? "Mensagens" : false}
+            <Typography className="hideOnMobile" fontSize={"10px"}>
+              {" "}
+              Mensagens
+            </Typography>
           </Button>
           <Button sx={sideBarItemStyle} variant="text">
-            <AssessmentIcon sx={{ color: `${mainColor}` }} />{" "}
-            {openControls === true ? "Estatísticas" : false}
+            <AssessmentIcon sx={{ color: `${mainColor}` }} />
+            <Typography className="hideOnMobile" fontSize={"10px"}>
+              {" "}
+              Estatísticas{" "}
+            </Typography>
           </Button>
 
           <Typography
