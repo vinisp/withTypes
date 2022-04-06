@@ -74,6 +74,7 @@ const MainBox = styled("div")(({ theme }) => ({
   paddingTop: "80px",
   backgroundColor: "#030303",
   display: "flex",
+  overflowX: "hidden",
 
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -87,20 +88,27 @@ const MainBox = styled("div")(({ theme }) => ({
 }));
 
 const MainInfoBox = styled("div")(({ theme }) => ({
-  flex: "0 0 80%",
   display: "flex",
   flexWrap: "wrap",
   order: "2",
   gap: "15px",
-  padding: "15px 0",
+
   justifyContent: "center",
   marginBottom: "15px",
 
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    padding: "15px 5px",
+  },
+  [theme.breakpoints.up("sm")]: {
+    padding: "15px 5px",
+  },
 
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("md")]: {
+    padding: "15px 5px",
+  },
+  [theme.breakpoints.up("lg")]: {
+    padding: "15px 0",
+  },
 }));
 
 const BoxAllInfo = styled("div")(({ theme }) => ({
@@ -112,11 +120,19 @@ const BoxAllInfo = styled("div")(({ theme }) => ({
   paddingBottom: "35px",
   paddingTop: "15px",
 
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    flex: "0 0 95%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    flex: "0 0 90%",
+  },
 
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("md")]: {
+    flex: "0 0 95%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    flex: "0 0 60%",
+  },
 }));
 
 const BalanceInfo = styled("div")(({ theme }) => ({
@@ -127,11 +143,26 @@ const BalanceInfo = styled("div")(({ theme }) => ({
   flex: "0 0 25%",
   color: "white",
   backgroundColor: "#212423",
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    flex: "0 0 50%",
+    order: "-1",
+  },
+  [theme.breakpoints.up("sm")]: {
+    flex: "0 0 50%",
+    order: "-1",
+  },
 
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    flex: "0 0 50%",
+    order: "-1",
+  },
+  [theme.breakpoints.up("lg")]: {
+    flex: "0 0 25%",
+    order: "0",
+  },
 }));
 
 const BottomSections = styled("div")(({ theme }) => ({
@@ -143,10 +174,16 @@ const BottomSections = styled("div")(({ theme }) => ({
   height: "auto",
   backgroundColor: "#212423",
   [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.up("sm")]: {
+    flex: "0 0 95%",
+  },
 
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("md")]: {
+    flex: "0 0 95%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    flex: "0 0 86%",
+  },
 }));
 
 const LineDetailsBoxHead = styled("div")(({ theme }) => ({
