@@ -627,7 +627,7 @@ export function IndexCourse() {
             <Box
               sx={{
                 margin: "120px auto",
-                width: 650,
+                width: [320, 650, 650, 650],
                 minHeight: "150px",
                 display: "flex",
                 flexDirection: "column",
