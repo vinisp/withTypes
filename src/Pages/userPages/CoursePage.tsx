@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
@@ -6,10 +6,21 @@ import { Typography, Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Footer } from "../../Components/widgets/Footer";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import MenuBookSharpIcon from "@mui/icons-material/MenuBookSharp";
 
 import axios from "axios";
 
 import "../styles/CreateCourse.css";
+
+type Anchor = "top" | "left" | "bottom" | "right";
 
 const APIURL = "https://deppback.herokuapp.com/";
 
@@ -29,7 +40,7 @@ const sideBarItemStyle = {
   transition: "all 500ms ease",
   "&:hover": {
     color: `${mainColor}`,
-    border: `solid 1px ${mainColor}`,
+    borderLeft: `solid 1px ${mainColor}`,
   },
 };
 
@@ -138,7 +149,7 @@ const ReadBox = styled("ul")(({ theme }) => ({
   flex: "0 0 95%",
   width: "100%",
   gap: "5px",
-  overflowX: "hidden",
+  overflowY: "hidden",
 
   [theme.breakpoints.down("sm")]: {
     padding: "35px 40px",
@@ -183,20 +194,20 @@ export function CoursePage() {
     color: "white",
 
     [theme.breakpoints.down("sm")]: {
-      height: "300px",
-      width: `15%`,
-    },
-    [theme.breakpoints.up("sm")]: {
-      height: "380px",
-      width: `15%`,
-    },
-    [theme.breakpoints.up("md")]: {
-      height: "520px",
+      height: "70px",
       width: `10%`,
     },
+    [theme.breakpoints.up("sm")]: {
+      height: "70px",
+      width: `10%`,
+    },
+    [theme.breakpoints.up("md")]: {
+      height: "70px",
+      width: `5%`,
+    },
     [theme.breakpoints.up("lg")]: {
-      height: "600px",
-      width: `15%`,
+      height: "70px",
+      width: `5%`,
     },
   }));
 
@@ -205,22 +216,25 @@ export function CoursePage() {
     display: "flex",
     flexDirection: "column",
 
-    width: `90%`,
     minHeight: "650px",
     paddingBottom: "60px",
     marginBottom: "35px",
 
     [theme.breakpoints.down("sm")]: {
-      marginLeft: "80px",
+      marginLeft: "10px",
+      width: `100%`,
     },
     [theme.breakpoints.up("sm")]: {
-      marginLeft: "100px",
+      marginLeft: "80px",
+      width: `90%`,
     },
     [theme.breakpoints.up("md")]: {
-      marginLeft: "180px",
+      marginLeft: "90px",
+      width: `100%`,
     },
     [theme.breakpoints.up("lg")]: {
-      marginLeft: "320px",
+      marginLeft: "100px",
+      width: `90%`,
     },
   }));
 
@@ -262,6 +276,90 @@ export function CoursePage() {
 
   GetModules();
 
+  function TemporaryDrawer(element: any) {
+    const [state, setState] = useState({
+      top: false,
+      left: false,
+      bottom: false,
+      right: false,
+    });
+
+    const toggleDrawer =
+      (anchor: Anchor, open: boolean) =>
+      (event: React.KeyboardEvent | React.MouseEvent) => {
+        if (
+          event.type === "keydown" &&
+          ((event as React.KeyboardEvent).key === "Tab" ||
+            (event as React.KeyboardEvent).key === "Shift")
+        ) {
+          return;
+        }
+
+        setState({ ...state, [anchor]: open });
+      };
+
+    const list = (anchor: Anchor) => (
+      <Box
+        sx={{
+          width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
+          marginTop: "80px",
+        }}
+        role="presentation"
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
+      >
+        <List>
+          <ListItem>
+            <ListItemIcon>Escolha o Capítulo </ListItemIcon>
+            <ListItemText />
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button>
+            <ListItemIcon>
+              {element.map((e: any) => (
+                <Button
+                  onClick={() => {
+                    axios
+                      .get(`${APIURL}elements/${idCourse}/${e.champter_id}/get`)
+                      .then((response) => {
+                        const dataFromDB = response.data;
+                        const formatToFrontEnd = dataFromDB.sort(
+                          (a: any, b: any) => a.order - b.order
+                        );
+                        return setElementsInOrder(formatToFrontEnd);
+                      });
+                  }}
+                >
+                  {e.name}
+                </Button>
+              ))}
+            </ListItemIcon>
+            <ListItemText />
+          </ListItem>
+        </List>
+      </Box>
+    );
+
+    return (
+      <div>
+        <Fragment key={"anchor"}>
+          <Button onClick={toggleDrawer("left", true)} sx={sideBarItemStyle}>
+            <MenuBookSharpIcon />
+          </Button>
+          <Drawer
+            anchor={"left"}
+            open={state["left"]}
+            onClose={toggleDrawer("left", false)}
+          >
+            {list("left")}
+          </Drawer>
+        </Fragment>
+      </div>
+    );
+  }
+
   /* function ListenContent(champterId: any) {
     useEffect(() => {
       elementsInOrder.length > 0 ? console.log("sim") : console.log("não");
@@ -274,35 +372,7 @@ export function CoursePage() {
     <>
       <ThemeProvider theme={theme}>
         <MainBox>
-          <SideBarContent>
-            <Typography>Selecione o capítulo</Typography>
-            <ul>
-              {modules.map((e) => (
-                <li key={e.champter_id}>
-                  <Button
-                    sx={sideBarItemStyle}
-                    variant="text"
-                    color="success"
-                    onClick={() => {
-                      axios
-                        .get(
-                          `${APIURL}elements/${idCourse}/${e.champter_id}/get`
-                        )
-                        .then((response) => {
-                          const dataFromDB = response.data;
-                          const formatToFrontEnd = dataFromDB.sort(
-                            (a: any, b: any) => a.order - b.order
-                          );
-                          return setElementsInOrder(formatToFrontEnd);
-                        });
-                    }}
-                  >
-                    <h2>{e.name}</h2>
-                  </Button>
-                </li>
-              ))}
-            </ul>
-          </SideBarContent>
+          <SideBarContent>{TemporaryDrawer(modules)}</SideBarContent>
           <CourseContent>
             <ReadBox>
               {elementsInOrder.map((e: any) => (
