@@ -111,13 +111,16 @@ const MainBox = styled("div")(({ theme }) => ({
 
 const Controls = styled("div")(({ theme }) => ({
   backgroundColor: "#0e0e0e0e",
-  flex: "0 0 10%",
+  flex: "0 0 5%",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   justifySelf: "flex-end",
   gap: "20px",
   color: "white",
+  borderBottom: "solid 1px silver",
+  borderLeft: "solid 1px silver",
+  borderRadius: "0 4px",
 
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -132,7 +135,7 @@ const ReadBox = styled("ul")(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
 
-  flex: "0 0 90%",
+  flex: "0 0 95%",
   width: "100%",
   gap: "5px",
   overflowX: "hidden",
@@ -218,6 +221,24 @@ export function CoursePage() {
     },
     [theme.breakpoints.up("lg")]: {
       marginLeft: "320px",
+    },
+  }));
+
+  const VideoWrapper = styled("div")(({ theme }) => ({
+    backgroundColor: "transparent",
+    display: "flex",
+
+    [theme.breakpoints.down("sm")]: {
+      width: `360px`,
+    },
+    [theme.breakpoints.up("sm")]: {
+      width: `420px`,
+    },
+    [theme.breakpoints.up("md")]: {
+      width: `600px`,
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: `600px`,
     },
   }));
 
@@ -310,11 +331,13 @@ export function CoursePage() {
                     )}
                     {e.element_type === "video" ? (
                       <>
-                        <ReactPlayer
-                          width="100%"
-                          controls
-                          url={`https://vimeo.com/${e.content}`}
-                        />
+                        <VideoWrapper>
+                          <ReactPlayer
+                            width="100%"
+                            controls
+                            url={`https://vimeo.com/${e.content}`}
+                          />
+                        </VideoWrapper>
                       </>
                     ) : (
                       false
