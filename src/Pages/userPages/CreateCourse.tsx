@@ -260,6 +260,7 @@ const ManageCard = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   minHeight: "100px",
+  width: "250px",
   span: {
     flex: "0 0 50%",
     display: "flex",
@@ -309,7 +310,6 @@ const ImgResized = styled("img")(({ theme }) => ({
 }));
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
-  width: "auto",
   background: isDragging ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,1)",
   color: isDragging ? "white" : "black",
   borderBottom: isDragging
@@ -1543,7 +1543,24 @@ export function CreateCourse() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
+          <Box
+            sx={{
+              margin: "100px auto",
+              width: 350,
+              bgcolor: "background.paper",
+              border: "2px solid #000",
+              boxShadow: 24,
+              height: "auto",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "3px",
+              p: 4,
+              select: {
+                width: "90%",
+              },
+            }}
+          >
             <>
               <Typography variant="h6">Crie um novo elemento</Typography>
               <select onChange={(e) => setValueState(e.target.value)}>
@@ -1595,7 +1612,16 @@ export function CreateCourse() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
+          <Box
+            sx={{
+              margin: "120px auto",
+              width: 350,
+              backgroundColor: "red",
+              border: "2px solid #000",
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
             <Accordion sx={{ width: "100%", padding: "0" }}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -1756,8 +1782,8 @@ export function CreateCourse() {
         >
           <Box
             sx={{
-              margin: "120px auto",
-              width: 650,
+              margin: "100px auto",
+              width: [320, 400, 500, 650],
               minHeight: "150px",
 
               background: "#f2f2f2",
@@ -1835,19 +1861,6 @@ export function CreateCourse() {
                                             selectModule[0].moduleId
                                           );
 
-                                          /* selectModule.flatMap((e) =>
-                                            e.moduleContent.flat()
-                                          ).length > 0
-                                            ? setTodo(
-                                                selectModule.flatMap((e) =>
-                                                  e.moduleContent.flat()
-                                                )
-                                              )
-                                            : console.log("errrr");
-                                          setModuleName(
-                                            selectModule[0].moduleName
-                                          ); */
-
                                           GetElementsFromModule(moduleId);
                                         }}
                                       >
@@ -1878,7 +1891,10 @@ export function CreateCourse() {
             </Accordion>
             <Button
               variant="outlined"
-              sx={{ width: "585px", marginTop: "15px" }}
+              sx={{
+                width: ["100px", "150px", "500px", "585px"],
+                marginTop: "15px",
+              }}
               onClick={handleClose}
             >
               Fechar
