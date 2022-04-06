@@ -172,3 +172,21 @@ option {
     width: 20%;
   }
 }
+
+
+@media only screen and (max-width: 720px){
+  .elementSoloStyle{
+    padding: 40px 0px 10px 0px;
+  }
+
+ 
+  .deleteElementButton{
+    top: 15px;
+    right: 15px;
+  }
+
+  .editButton{
+    right: 40%;
+    top: 15px;
+  }
+}

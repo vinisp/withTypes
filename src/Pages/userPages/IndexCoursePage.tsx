@@ -177,7 +177,7 @@ const MainInfoBox = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.down("sm")]: {
     marginTop: "25px",
-    marginLeft: "-35px",
+    marginLeft: "-45px",
     padding: "15px 0px",
   },
   [theme.breakpoints.up("sm")]: {
@@ -226,7 +226,7 @@ const BalanceInfo = styled("div")(({ theme }) => ({
   color: "white",
   backgroundColor: "#212423",
   [theme.breakpoints.down("sm")]: {
-    flex: "0 0 60%",
+    flex: "0 0 90%",
     order: "-1",
   },
   [theme.breakpoints.up("sm")]: {

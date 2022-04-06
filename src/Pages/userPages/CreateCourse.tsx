@@ -126,6 +126,25 @@ const theme = createTheme({
   },
 });
 
+const VideoWrapper = styled("div")(({ theme }) => ({
+  backgroundColor: "transparent",
+  display: "flex",
+  justifyContent: "center",
+
+  [theme.breakpoints.down("sm")]: {
+    width: `320px`,
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: `420px`,
+  },
+  [theme.breakpoints.up("md")]: {
+    width: `600px`,
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: `600px`,
+  },
+}));
+
 const MainContainer = styled("div")(({ theme }) => ({
   padding: "80px 0",
   background: "rgba(43,45,45, 1)",
@@ -285,6 +304,7 @@ const SubTitleElement = styled("h3")(({ theme }) => ({
 }));
 
 const ImgResized = styled("img")(({ theme }) => ({
+  paddingTop: "45px",
   width: "250px",
 }));
 
@@ -404,23 +424,6 @@ export function CreateCourse() {
     return <Redirect to="/login" />;
   }
 
-  /* axios
-    .get(`http://localhost:3001/${idCourse}/champters`)
-    .then(function (response) {
-      const champtersFromDB = response.data;
-      return setModulesFromDB(champtersFromDB);
-    })
-    .catch(function (error) {
-      console.error(error);
-    }); */
-
-  /* 
-  const user_email = user?.email; */
-
-  // const user_id = user?.id;
-
-  // console.log(user_id);
-
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
     if (!destination) return;
@@ -442,43 +445,6 @@ export function CreateCourse() {
 
     setAllModules(items);
   };
-
-  /* function LoadCourse() {
-    useEffect(() => {});
-  } */
-
-  /*function LoadCourse(
-    courseID: string,
-    name: string,
-    price: string,
-    category: string,
-    level: string,
-    createdBy: string,
-    content?: any,
-    thumb?: string
-  ) {
-    /* 
-    interface Course {
-    id: string;
-    thumb?: string;
-    courseName: string;
-    category: string;
-    level: string;
-    content?: [Module];
-    }
-    
-    const CourseData = {
-      courseID: courseID,
-      name: name,
-      price: price,
-      category: category,
-      level: level,
-      createBy: createdBy,
-    };
-    setCourse(course.splice(0, course.length));
-    setCourse(course.filter((e) => e));
-    return setCourse((course) => [...course, CourseData]);
-  } */
 
   function genereteId() {
     const newID = uuidv4();
@@ -876,10 +842,6 @@ export function CreateCourse() {
       handleClose();
     }
 
-    /* function CloseAndSave(newValue: any) {
-      console.log(newValue);
-    } */
-
     const nomeDoCampo: string = `new ${element}`;
 
     return (
@@ -1113,9 +1075,10 @@ export function CreateCourse() {
                                   <>
                                     <ImgResized src={image} alt="imagem" />
                                     <button
+                                      className="deleteElementButton red"
                                       onClick={() => handleRemoveItem(id)}
                                     >
-                                      X
+                                      EXCLUIR <DeleteOutlineIcon />
                                     </button>
                                   </>
                                 ) : (
@@ -1123,14 +1086,17 @@ export function CreateCourse() {
                                 )}
                                 {video ? (
                                   <>
-                                    <ReactPlayer
-                                      controls
-                                      url={`https://vimeo.com/${video}`}
-                                    />
+                                    <VideoWrapper>
+                                      <ReactPlayer
+                                        controls
+                                        url={`https://vimeo.com/${video}`}
+                                      />
+                                    </VideoWrapper>
                                     <button
+                                      className="deleteElementButton red"
                                       onClick={() => handleRemoveItem(id)}
                                     >
-                                      X
+                                      EXCLUIR <DeleteOutlineIcon />
                                     </button>
                                   </>
                                 ) : (
