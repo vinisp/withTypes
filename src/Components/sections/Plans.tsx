@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 const MainBox = styled("div")(({ theme }) => ({
-  background: "#1e1e1e",
+  width: "100%",
 
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -25,6 +25,8 @@ function PlanosSection() {
             flexWrap: "wrap",
             width: "100%",
             justifyContent: "center",
+            alignItems: "center",
+            flexDirection: ["column", "column", "row", "row"],
           }}
         >
           <Plan
