@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-//import ReactPlayer from "react-player";
+import ReactPlayer from "react-player";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
 import axios from "axios";
@@ -1087,11 +1087,10 @@ export function CreateCourse() {
                                 {video ? (
                                   <>
                                     <VideoWrapper>
-                                      {/* <ReactPlayer
+                                      <ReactPlayer
                                         controls
                                         url={`https://vimeo.com/${video}`}
-                                /> */}
-                                      <h1>{video}</h1>
+                                      />
                                     </VideoWrapper>
                                     <button
                                       className="deleteElementButton red"
