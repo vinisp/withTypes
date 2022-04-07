@@ -26,6 +26,7 @@ const MainContainerHome = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: "15px",
+  overflowX: "hidden",
 
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},

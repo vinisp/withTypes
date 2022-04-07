@@ -7,12 +7,14 @@ const FeatureBox = styled("div")(({ theme }) => ({
   width: "100%",
   justifyContent: "center",
   marginTop: "80px",
-  padding: "0 250px",
+
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
   [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("lg")]: {
+    padding: "0 250px",
+  },
 }));
 
 function ResultSection() {
