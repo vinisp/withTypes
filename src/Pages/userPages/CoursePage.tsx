@@ -238,7 +238,7 @@ export function CoursePage() {
     },
   }));
 
-  const VideoWrapper = styled("div")(({ theme }) => ({
+  /*  const VideoWrapper = styled("div")(({ theme }) => ({
     backgroundColor: "transparent",
     display: "flex",
 
@@ -254,7 +254,7 @@ export function CoursePage() {
     [theme.breakpoints.up("lg")]: {
       width: `600px`,
     },
-  }));
+  })); */
 
   function GetCourse() {
     useEffect(() => {
