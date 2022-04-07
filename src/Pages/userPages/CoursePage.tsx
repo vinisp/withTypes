@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from "react";
-import ReactPlayer from "react-player";
+import ReactPlayer from "react-player/lazy";
 import { useParams } from "react-router-dom";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import { Typography, Button } from "@mui/material";
