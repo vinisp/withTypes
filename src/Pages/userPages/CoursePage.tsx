@@ -256,6 +256,8 @@ export function CoursePage() {
     },
   })); */
 
+  //vamos ver se vai
+
   function GetCourse() {
     useEffect(() => {
       axios
