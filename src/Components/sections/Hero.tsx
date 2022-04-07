@@ -59,24 +59,34 @@ const theme = createTheme({
 
 const HeroContainer = styled("div")(({ theme }) => ({
   padding: 0,
-  marginTop: 65,
   display: "flex",
-  alignItems: "center",
   justifyContent: "center",
   width: "100%",
-  color: "white",
 
   [theme.breakpoints.down("sm")]: {
+    marginTop: "150px",
+    alignItems: "center",
+    flexDirection: "column",
     height: "420px",
   },
   [theme.breakpoints.up("sm")]: {
+    marginTop: "300px",
+    alignItems: "center",
+    flexDirection: "column",
     height: "450px",
   },
 
   [theme.breakpoints.up("md")]: {
+    marginTop: "150px",
+    flexDirection: "column",
+    alignItems: "center",
     height: "600px",
   },
   [theme.breakpoints.up("lg")]: {
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    marginTop: "120px",
     height: "600px",
   },
 }));
@@ -87,31 +97,39 @@ const BoxTitle = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.down("sm")]: {
     width: "100%",
+    alignItems: "center",
   },
   [theme.breakpoints.up("sm")]: {
-    padding: "0",
-    width: "90%",
+    marginBottom: "120px",
+    alignItems: "center",
+    width: "100%",
   },
 
   [theme.breakpoints.up("md")]: {
-    width: "80%",
+    marginBottom: "0",
+    alignItems: "center",
+    width: "100%",
   },
   [theme.breakpoints.up("lg")]: {
-    padding: "0px 0px 0px 160px",
+    marginLeft: "60px",
+    padding: "0",
     height: "auto",
     flex: "0 0 30%",
     gap: "20px",
+    marginBottom: "0",
+    alignItems: "flex-start",
   },
 }));
 
 const BoxImg = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "flex-start",
+
   width: "50%",
   flex: "0 0 50%",
-  paddingTop: "45px",
 
   [theme.breakpoints.down("sm")]: {
+    order: "-1",
     paddingTop: "0",
     justifyContent: "center",
     height: "auto",
@@ -121,24 +139,28 @@ const BoxImg = styled("div")(({ theme }) => ({
     },
   },
   [theme.breakpoints.up("sm")]: {
+    order: "-1",
     paddingTop: "0",
     justifyContent: "center",
-    height: "auto",
-    img: {
-      width: "40px",
-      padding: 0,
-    },
-  },
-
-  [theme.breakpoints.up("md")]: {
     height: "auto",
     img: {
       width: "550px",
       padding: 0,
     },
   },
-  [theme.breakpoints.up("lg")]: {
+
+  [theme.breakpoints.up("md")]: {
     height: "auto",
+    order: "-1",
+    img: {
+      width: "550px",
+      padding: 0,
+    },
+  },
+  [theme.breakpoints.up("lg")]: {
+    order: "0",
+    height: "auto",
+    flex: "0 0 40%",
     img: {
       width: "550px",
       padding: 0,
@@ -158,8 +180,15 @@ function Hero() {
               </Typography>
             </div>
             <div>
-              <Typography variant="h1" textAlign={"left"} color={"#97C930"}>
-                APOSTAS RENTÁVEIS GALGOS FUTEBOL
+              <Typography
+                variant="h1"
+                color={"#97C930"}
+                sx={{
+                  textAlign: ["center", "center", "center", "left"],
+                  marginBottom: [2, 2, 2, 0],
+                }}
+              >
+                APOSTAS RENTÁVEIS <br /> GALGOS <br /> FUTEBOL
               </Typography>
             </div>
             <motion.div whileHover={{ scale: 1 }} whileTap={{ scale: 0.9 }}>
@@ -170,7 +199,7 @@ function Hero() {
                   color="success"
                   sx={{ width: "300px" }}
                 >
-                  Saiba mais
+                  Visite nossa loja
                 </Button>
               </Link>
             </motion.div>
