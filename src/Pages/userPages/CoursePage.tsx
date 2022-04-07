@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from "react";
-import ReactPlayer from "react-player/lazy";
+//import ReactPlayer from "react-player/lazy";
 import { useParams } from "react-router-dom";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import { Typography, Button } from "@mui/material";
@@ -402,11 +402,14 @@ export function CoursePage() {
                       false
                     )}
                     {e.element_type === "video" ? (
-                      <ReactPlayer
+                      <>
+                        {/* <ReactPlayer
                         width="100%"
                         controls
                         url={`https://vimeo.com/${e.content}`}
-                      />
+                    /> */}
+                        <h1>{e.content}</h1>
+                      </>
                     ) : (
                       false
                     )}
