@@ -798,7 +798,7 @@ export function IndexCourse() {
     return (
       <div>
         {(["left"] as const).map((anchor) => (
-          <Fragment key={"left"}>
+          <>
             <Button onClick={toggleDrawer("left", true)}>
               <FormatAlignCenterSharpIcon sx={{ color: "green" }} />
             </Button>
@@ -811,7 +811,7 @@ export function IndexCourse() {
             >
               {list(anchor)}
             </SwipeableDrawer>
-          </Fragment>
+          </>
         ))}
       </div>
     );
