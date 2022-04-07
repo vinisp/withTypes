@@ -25,6 +25,7 @@ import { CartContext } from "../Components/widgets/NewCartApp/CartContext";
 const MainContainerHome = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+  alignItems: "center",
   gap: "15px",
   overflowX: "hidden",
 
