@@ -402,13 +402,11 @@ export function CoursePage() {
                       false
                     )}
                     {e.element_type === "video" ? (
-                      <>
-                        <ReactPlayer
-                          width="100%"
-                          controls
-                          url={`https://vimeo.com/${e.content}`}
-                        />
-                      </>
+                      <ReactPlayer
+                        width="100%"
+                        controls
+                        url={`https://vimeo.com/${e.content}`}
+                      />
                     ) : (
                       false
                     )}
