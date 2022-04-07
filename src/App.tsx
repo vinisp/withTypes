@@ -3,7 +3,7 @@
 //Test Pages
 
 import { CreateCourse } from "./Pages/userPages/CreateCourse";
-//import { IndexCourse } from "./Pages/userPages/IndexCoursePage";
+import { IndexCourse } from "./Pages/userPages/IndexCoursePage";
 import { CoursePage } from "./Pages/userPages/CoursePage";
 
 //Default Pages
@@ -77,7 +77,7 @@ function App() {
               <Route exact path="/memberhome" component={MemberAreaHome} />
               <Route exact path="/race/:idRace" component={RacePage} />
               <Route exact path="/profile" component={Profile} />
-              {/* <Route exact path="/course" component={IndexCourse} /> */}
+              <Route exact path="/course" component={IndexCourse} />
               <Route
                 exact
                 path="/viewcourse/:idCourse"
