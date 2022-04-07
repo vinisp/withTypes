@@ -1,16 +1,11 @@
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
+
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import { useAuth } from "../../hooks/useAuth";
 import { signOut } from "firebase/auth";
 import { auth } from "../../services/firebase";
 
 import { CartNav } from "./NewCartApp/NewCartApp";
-
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
-import MenuIcon from "@mui/icons-material/Menu";
 
 import Logo from "../../Components/sections/assets/logo.png";
 
@@ -109,20 +104,6 @@ const StyledButton = styled("button")(({ theme }) => ({
   cursor: "pointer",
 }));
 
-const BoxLogoMobile = styled("button")(({ theme }) => ({
-  border: "0",
-  background: 0,
-  flex: "0 0 50%",
-  display: "flex",
-}));
-
-const BoxDrawer = styled("button")(({ theme }) => ({
-  border: "0",
-  background: 0,
-  flex: "0 0 50%",
-  display: "flex",
-}));
-
 const MenuDesktop = styled("nav")(({ theme }) => ({
   background: "#0e0e0e",
   boxShadow: "0 2px 10px 2px rgba(0, 0, 0, 0.2)",
@@ -189,34 +170,7 @@ function Nav() {
   return (
     <>
       <MenuMobile>
-        <ThemeProvider theme={theme}>
-          <PopupState variant="popover" popupId="demo-popup-menu">
-            {(popupState) => (
-              <>
-                <BoxDrawer>
-                  <Button
-                    {...bindTrigger(popupState)}
-                    sx={{
-                      height: "65px",
-                    }}
-                    color="success"
-                  >
-                    <MenuIcon sx={{ fontSize: "32px" }} />
-                  </Button>
-                  <Menu {...bindMenu(popupState)}>
-                    <MenuItem onClick={popupState.close}>Profile</MenuItem>
-                    <MenuItem onClick={popupState.close}>My account</MenuItem>
-                    <MenuItem onClick={popupState.close}>Logout</MenuItem>
-                  </Menu>
-                </BoxDrawer>
-
-                <BoxLogoMobile>
-                  <img src={Logo} alt="logo" />
-                </BoxLogoMobile>
-              </>
-            )}
-          </PopupState>
-        </ThemeProvider>
+        <ThemeProvider theme={theme}>Usar um drawer</ThemeProvider>
       </MenuMobile>
       <MenuDesktop>
         <LogoBox>
