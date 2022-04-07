@@ -48,7 +48,7 @@ function PlanosSection() {
             price="R$ 399,00"
             featurePri="Primeiro Recurso"
             featureSec="Segundo Recurso"
-            featureTh="Terceiro Recurso"
+            featureTh="Terceiro Recursos"
           />
         </Box>
       </MainBox>
