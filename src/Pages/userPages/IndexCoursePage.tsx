@@ -2,13 +2,12 @@ import { useState, useEffect, Fragment } from "react";
 import { useAuth } from "../../hooks/useAuth";
 
 import axios from "axios";
-// import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
-import { Button, Typography } from "@mui/material/";
-/* 
+//import { Button, Typography } from "@mui/material/";
 
 import { TextField, Button, Box, Modal, Typography } from "@mui/material/";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
@@ -23,7 +22,7 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer"; */
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 
 import { Footer } from "../../Components/widgets/Footer";
@@ -114,7 +113,7 @@ const boxShadowConfig =
 
 const mainColor = "#97C930";
 
-/* const sideBarItemStyle = {
+const sideBarItemStyle = {
   display: "flex",
   justifyContent: "flex-start",
   padding: "5px 10px",
@@ -127,9 +126,9 @@ const mainColor = "#97C930";
   "&:hover": {
     borderLeft: "solid 3px green",
   },
-}; */
+};
 
-/* const favButtonStyle = {
+const favButtonStyle = {
   width: "100%",
   padding: "5px 10px",
   color: "black",
@@ -149,7 +148,7 @@ const mainColor = "#97C930";
       color: "red",
     },
   },
-}; */
+};
 
 const MainBox = styled("div")(({ theme }) => ({
   paddingTop: "80px",
@@ -327,7 +326,7 @@ const LineDetailsBoxBody = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
-/* const PhotoUser = styled("div")(({ theme }) => ({
+const PhotoUser = styled("div")(({ theme }) => ({
   border: "solid 1px white",
 
   height: "120px",
@@ -341,9 +340,9 @@ const LineDetailsBoxBody = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {},
-})); */
+}));
 
-/* const PhotoAndNameWrapper = styled("div")(({ theme }) => ({
+const PhotoAndNameWrapper = styled("div")(({ theme }) => ({
   flex: "0 0 25%",
   padding: "5px 15px",
   gap: "15px",
@@ -356,7 +355,7 @@ const LineDetailsBoxBody = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {},
-})); */
+}));
 
 const SideBarDesktop = styled("div")(({ theme }) => ({
   background: "blue",
@@ -368,11 +367,11 @@ const SideBarDesktop = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
-/* const SelectInfo = styled("select")(({ theme }) => ({
+const SelectInfo = styled("select")(({ theme }) => ({
   width: "100%",
-})); */
+}));
 
-//type Anchor = "top" | "left" | "bottom" | "right";
+type Anchor = "top" | "left" | "bottom" | "right";
 
 // DaTA GRID
 
@@ -383,7 +382,7 @@ export function IndexCourse() {
 
   console.log(SideBarDesktop);
 
-  /* const SideBar = styled("div")(({ theme }) => ({
+  /*  const SideBar = styled("div")(({ theme }) => ({
     display: "flex",
     flexDirection: "column",
     padding: "15px 0px 0 0",
@@ -541,7 +540,7 @@ export function IndexCourse() {
     price: e.price,
   }));
 
-  /* function SwipeableTemporaryDrawer() {
+  function SwipeableTemporaryDrawer() {
     const [state, setState] = useState({
       top: false,
       left: false,
@@ -818,7 +817,7 @@ export function IndexCourse() {
         ))}
       </div>
     );
-  } */
+  }
 
   return (
     <>
@@ -996,6 +995,7 @@ export function IndexCourse() {
           {/* MainCourseInformations() */}
           {/* SwipeableTemporaryDrawer() */}
         </MainBox>
+        {SwipeableTemporaryDrawer()}
       </ThemeProvider>
 
       <Footer />
