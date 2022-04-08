@@ -378,52 +378,50 @@ export function CoursePage() {
           <CourseContent>
             <ReadBox>
               {elementsInOrder.map((e: any) => (
-                <>
-                  <div key={e.order}>
-                    {e.element_type === "title" ? (
-                      <>
-                        <Typography variant="h1">{e.content}</Typography>
-                      </>
-                    ) : (
-                      false
-                    )}
-                    {e.element_type === "paragraph" ? (
-                      <>
-                        <Typography variant="body1">{e.content}</Typography>
-                      </>
-                    ) : (
-                      false
-                    )}
-                    {e.element_type === "subTitle" ? (
-                      <>
-                        <Typography variant="h3">{e.content}</Typography>
-                      </>
-                    ) : (
-                      false
-                    )}
-                    {e.element_type === "video" ? (
-                      <ReactPlayer
-                        width="100%"
-                        controls
-                        url={`https://vimeo.com/${e.content}`}
-                      />
-                    ) : (
-                      false
-                    )}
+                <div key={e.order}>
+                  {e.element_type === "title" ? (
+                    <>
+                      <Typography variant="h1">{e.content}</Typography>
+                    </>
+                  ) : (
+                    false
+                  )}
+                  {e.element_type === "paragraph" ? (
+                    <>
+                      <Typography variant="body1">{e.content}</Typography>
+                    </>
+                  ) : (
+                    false
+                  )}
+                  {e.element_type === "subTitle" ? (
+                    <>
+                      <Typography variant="h3">{e.content}</Typography>
+                    </>
+                  ) : (
+                    false
+                  )}
+                  {e.element_type === "video" ? (
+                    <ReactPlayer
+                      width="100%"
+                      controls
+                      url={`https://vimeo.com/${e.content}`}
+                    />
+                  ) : (
+                    false
+                  )}
 
-                    {e.element_type === "image" ? (
-                      <>
-                        <img
-                          style={{ width: "350px" }}
-                          src={e.content}
-                          alt="imagem"
-                        />
-                      </>
-                    ) : (
-                      false
-                    )}
-                  </div>
-                </>
+                  {e.element_type === "image" ? (
+                    <>
+                      <img
+                        style={{ width: "350px" }}
+                        src={e.content}
+                        alt="imagem"
+                      />
+                    </>
+                  ) : (
+                    false
+                  )}
+                </div>
               ))}
             </ReadBox>
             <Controls>
