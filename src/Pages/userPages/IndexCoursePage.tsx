@@ -1249,7 +1249,7 @@ export function IndexCourse() {
           {/* SwipeableTemporaryDrawer() */}
           <div>
             {(["left"] as const).map((anchor) => (
-              <>
+              <Fragment key={anchor}>
                 <Button onClick={toggleDrawer("left", true)}>
                   <FormatAlignCenterSharpIcon sx={{ color: "green" }} />
                 </Button>
@@ -1262,7 +1262,7 @@ export function IndexCourse() {
                 >
                   {list(anchor)}
                 </SwipeableDrawer>
-              </>
+              </Fragment>
             ))}
           </div>
         </MainBox>
