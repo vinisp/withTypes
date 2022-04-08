@@ -67,11 +67,7 @@ export function IndexCourse() {
   );
 
   return (
-    <Box
-      sx={{
-        padding: "150px 0",
-      }}
-    >
+    <div>
       {(["left", "right", "top", "bottom"] as const).map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
@@ -85,6 +81,6 @@ export function IndexCourse() {
           </SwipeableDrawer>
         </React.Fragment>
       ))}
-    </Box>
+    </div>
   );
 }
