@@ -6,7 +6,7 @@ import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 // import Plyr from "plyr-react";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import Vimeo from "@u-wave/react-vimeo";
+// import Vimeo from "@u-wave/react-vimeo";
 
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
@@ -1116,7 +1116,7 @@ export function CreateCourse() {
                                 {video ? (
                                   <>
                                     <Box>
-                                      <Vimeo video={`${video}`} />
+                                      <h1>{video}</h1>
 
                                       <button
                                         className="deleteElementButton red"
