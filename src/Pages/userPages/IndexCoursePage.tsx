@@ -61,6 +61,37 @@ const favButtonStyle = {
   },
 };
 
+const PhotoAndNameWrapper = styled("div")(({ theme }) => ({
+  flex: "0 0 25%",
+  padding: "5px 15px",
+  gap: "15px",
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const PhotoUser = styled("div")(({ theme }) => ({
+  border: "solid 1px silver",
+
+  height: "120px",
+  width: "120px",
+  borderRadius: "50%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
 }>(({ theme, open }) => ({
@@ -475,6 +506,24 @@ export function IndexCourse() {
               )}
             </IconButton>
           </DrawerHeader>
+          <Divider />
+          <List>
+            <ListItem button>
+              <ListItemIcon>
+                <PhotoAndNameWrapper>
+                  <PhotoUser className="hideOnMobile">Foto</PhotoUser>
+                  <Typography
+                    className="hideOnMobile"
+                    variant="caption"
+                    sx={{ fontWeight: 600 }}
+                  >
+                    {user?.email}
+                  </Typography>
+                </PhotoAndNameWrapper>
+              </ListItemIcon>
+              <ListItemText />
+            </ListItem>
+          </List>
           <Divider />
           <List>
             <ListItem button>
