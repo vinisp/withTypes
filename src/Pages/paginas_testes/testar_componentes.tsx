@@ -17,6 +17,7 @@ export function TestarComponentes() {
         <Plyr
           source={{
             type: "video",
+
             sources: [
               {
                 src: "268402641",

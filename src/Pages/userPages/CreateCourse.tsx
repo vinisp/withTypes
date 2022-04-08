@@ -4,6 +4,7 @@ import { Redirect, useParams, useHistory } from "react-router-dom";
 
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 // import Plyr from "plyr-react";
+import "plyr-react/dist/plyr.css";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 // import Vimeo from "@u-wave/react-vimeo";
@@ -319,7 +320,6 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
     ? "2px solid yellow"
     : "3px solid rgba(34,119,34,0.7)",
   borderRadius: `4px`,
-
   padding: "5px 7px",
 
   ...draggableStyle,
@@ -1115,9 +1115,12 @@ export function CreateCourse() {
                                 )}
                                 {video ? (
                                   <>
+                                    <Box
+                                      sx={{ height: "120px", width: "660px" }}
+                                    >
+                                      Video adicionado <h1>{video}</h1>
+                                    </Box>
                                     <Box>
-                                      <h1>{video}</h1>
-
                                       <button
                                         className="deleteElementButton red"
                                         onClick={() => handleRemoveItem(id)}
