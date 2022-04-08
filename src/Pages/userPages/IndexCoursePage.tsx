@@ -343,6 +343,7 @@ export function IndexCourse() {
   const theme = useTheme();
   const [myCourses, setMyCourses] = useState<any[]>([]);
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [level, setCourseLevel] = useState("");
@@ -351,9 +352,9 @@ export function IndexCourse() {
   let history = useHistory();
 
   const handleOpen = () => {
-    setOpen(true);
+    setOpenModal(true);
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => setOpenModal(false);
 
   const generateCourseId = uuidv4();
   const sameId = generateCourseId;
@@ -655,102 +656,7 @@ export function IndexCourse() {
             </ListItem>
           </List>
         </Drawer>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box
-            sx={{
-              margin: "120px auto",
-              width: [320, 650, 650, 650],
-              minHeight: "150px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "8px",
-              background: "#f2f2f2",
-              borderBottom: "15px solid green",
-              boxShadow: 24,
-              p: 4,
-            }}
-          >
-            <Typography variant="h4" textAlign={"center"} color={"black"}>
-              Principais Informações do Curso
-            </Typography>
 
-            <>
-              <TextField
-                required
-                id="filled-basic"
-                label={"Nome do curso"}
-                variant="filled"
-                sx={{ background: "white", width: "100%" }}
-                onChange={(event) => setName(event.target.value)}
-              />
-
-              <TextField
-                required
-                type="text"
-                inputProps={{
-                  inputMode: "numeric",
-
-                  pattern: "[0-9]*",
-                }}
-                id="filled-basic"
-                label={"Preço do Curso"}
-                variant="filled"
-                sx={{ background: "white", width: "100%" }}
-                onChange={(event) => {
-                  setPrice(+event.target.value);
-                }}
-              />
-
-              <SelectInfo
-                onChange={(event) => setCourseLevel(event.target.value)}
-              >
-                <option value="">Escolha sua opção</option>
-                <option value="beginner">Iniciante</option>
-                <option value="intermediate">Intermediário</option>
-                <option value="advanced">Avançado</option>
-              </SelectInfo>
-              <SelectInfo onChange={(event) => setCategory(event.target.value)}>
-                <option value="">Escolha sua opção</option>
-                <option value="categoria 1">Categoria 1</option>
-                <option value="categoria 2">Categoria 2</option>
-                <option value="categoria 3">Categoria 3</option>
-              </SelectInfo>
-            </>
-
-            <Button
-              variant="contained"
-              color="warning"
-              onClick={async () => {
-                if (isNaN(price)) {
-                  alert("Valor inválido");
-                }
-
-                axios
-                  .post(`${APIURL}course/save`, {
-                    course_id: sameId,
-                    name: name,
-                    price: price.toFixed(2).toString(),
-                    category: category,
-                    level: level,
-                    created_by: user_id,
-                  })
-                  .then((response) => response.data);
-
-                history.push(`/editcourse/${sameId}`);
-              }}
-            >
-              Salvar
-            </Button>
-            <Button variant="contained" onClick={() => handleClose()}>
-              Fechar
-            </Button>
-          </Box>
-        </Modal>
         <Main open={open}>
           <ThemeProvider theme={theme}>
             <DrawerHeader />
@@ -931,6 +837,102 @@ export function IndexCourse() {
         </Main>
       </Box>
       <Footer />
+      <Modal
+        open={openModal}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            margin: "120px auto",
+            width: [320, 650, 650, 650],
+            minHeight: "150px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px",
+            background: "#f2f2f2",
+            borderBottom: "15px solid green",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography variant="h4" textAlign={"center"} color={"black"}>
+            Principais Informações do Curso
+          </Typography>
+
+          <>
+            <TextField
+              required
+              id="filled-basic"
+              label={"Nome do curso"}
+              variant="filled"
+              sx={{ background: "white", width: "100%" }}
+              onChange={(event) => setName(event.target.value)}
+            />
+
+            <TextField
+              required
+              type="text"
+              inputProps={{
+                inputMode: "numeric",
+
+                pattern: "[0-9]*",
+              }}
+              id="filled-basic"
+              label={"Preço do Curso"}
+              variant="filled"
+              sx={{ background: "white", width: "100%" }}
+              onChange={(event) => {
+                setPrice(+event.target.value);
+              }}
+            />
+
+            <SelectInfo
+              onChange={(event) => setCourseLevel(event.target.value)}
+            >
+              <option value="">Escolha sua opção</option>
+              <option value="beginner">Iniciante</option>
+              <option value="intermediate">Intermediário</option>
+              <option value="advanced">Avançado</option>
+            </SelectInfo>
+            <SelectInfo onChange={(event) => setCategory(event.target.value)}>
+              <option value="">Escolha sua opção</option>
+              <option value="categoria 1">Categoria 1</option>
+              <option value="categoria 2">Categoria 2</option>
+              <option value="categoria 3">Categoria 3</option>
+            </SelectInfo>
+          </>
+
+          <Button
+            variant="contained"
+            color="warning"
+            onClick={async () => {
+              if (isNaN(price)) {
+                alert("Valor inválido");
+              }
+
+              axios
+                .post(`${APIURL}course/save`, {
+                  course_id: sameId,
+                  name: name,
+                  price: price.toFixed(2).toString(),
+                  category: category,
+                  level: level,
+                  created_by: user_id,
+                })
+                .then((response) => response.data);
+
+              history.push(`/editcourse/${sameId}`);
+            }}
+          >
+            Salvar
+          </Button>
+          <Button variant="contained" onClick={() => handleClose()}>
+            Fechar
+          </Button>
+        </Box>
+      </Modal>
     </>
   );
 }
