@@ -3,8 +3,10 @@ import { useAuth } from "../../hooks/useAuth";
 import { Redirect, useParams, useHistory } from "react-router-dom";
 
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-//import ReactPlayer from "react-player";
+// import Plyr from "plyr-react";
+
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import Vimeo from "@u-wave/react-vimeo";
 
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
@@ -126,7 +128,7 @@ const theme = createTheme({
   },
 });
 
-const VideoWrapper = styled("div")(({ theme }) => ({
+/* const VideoWrapper = styled("div")(({ theme }) => ({
   backgroundColor: "transparent",
   display: "flex",
   justifyContent: "center",
@@ -142,8 +144,9 @@ const VideoWrapper = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     width: `600px`,
+    heigth: "500px",
   },
-}));
+})); */
 
 const MainContainer = styled("div")(({ theme }) => ({
   padding: "80px 0",
@@ -977,6 +980,32 @@ export function CreateCourse() {
     );
   }
 
+  /* function MyPlayer(video: string) {
+    return (
+      <>
+        <Box
+          sx={{
+            backgroundColor: "#F2f2f2",
+            paddingTop: "80px",
+            width: "350px",
+          }}
+        >
+          <Plyr
+            source={{
+              type: "video",
+              sources: [
+                {
+                  src: `${video}`,
+                  provider: "vimeo",
+                },
+              ],
+            }}
+          />
+        </Box>
+      </>
+    );
+  } */
+
   //Components
 
   function ShowItems() {
@@ -1086,18 +1115,16 @@ export function CreateCourse() {
                                 )}
                                 {video ? (
                                   <>
-                                    <VideoWrapper>
-                                      {/* <ReactPlayer
-                                        controls
-                                        url={`https://vimeo.com/${video}`}
-                                      /> */}
-                                    </VideoWrapper>
-                                    <button
-                                      className="deleteElementButton red"
-                                      onClick={() => handleRemoveItem(id)}
-                                    >
-                                      EXCLUIR <DeleteOutlineIcon />
-                                    </button>
+                                    <Box>
+                                      <Vimeo video={`${video}`} />
+
+                                      <button
+                                        className="deleteElementButton red"
+                                        onClick={() => handleRemoveItem(id)}
+                                      >
+                                        EXCLUIR <DeleteOutlineIcon />
+                                      </button>
+                                    </Box>
                                   </>
                                 ) : (
                                   false

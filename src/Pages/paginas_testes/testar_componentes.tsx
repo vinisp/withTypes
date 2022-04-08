@@ -2,6 +2,7 @@
 
 import { Box } from "@mui/material";
 import Plyr from "plyr-react";
+import "plyr-react/dist/plyr.css";
 
 export function TestarComponentes() {
   return (
@@ -10,9 +11,9 @@ export function TestarComponentes() {
         sx={{
           backgroundColor: "#F2f2f2",
           paddingTop: "80px",
+          width: "350px",
         }}
       >
-        <h1>Página para teste de componentes</h1>
         <Plyr
           source={{
             type: "video",
