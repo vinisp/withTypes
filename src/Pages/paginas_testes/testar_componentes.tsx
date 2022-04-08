@@ -2,6 +2,16 @@
 
 import { Box } from "@mui/material";
 
+import ReactPlayer from "react-player/youtube";
+
+type MyProps = {
+  children: JSX.Element;
+};
+
+function Player(props: MyProps) {
+  return <div>{props.children} </div>;
+}
+
 export function TestarComponentes() {
   return (
     <>
@@ -12,6 +22,10 @@ export function TestarComponentes() {
         }}
       >
         <h1>Página para teste de componentes</h1>
+
+        <Player>
+          <ReactPlayer url="https://www.youtube.com/watch?v=ysz5S6PUM-U" />
+        </Player>
       </Box>
     </>
   );
