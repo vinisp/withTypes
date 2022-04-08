@@ -19,7 +19,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+
+import CircleIcon from "@mui/icons-material/Circle";
+
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -36,6 +38,28 @@ const boxShadowConfig =
   "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)";
 
 const mainColor = "#97C930";
+
+const favButtonStyle = {
+  width: "100%",
+  padding: "5px 10px",
+  color: "black",
+  borderLeft: "solid 3px transparent",
+  transition: "all 500ms ease",
+  display: "flex",
+  justifyContent: "flex-start",
+  gap: "15px",
+  svg: {
+    color: `${mainColor}`,
+    fontSize: "13px",
+  },
+
+  "&:hover": {
+    borderLeft: "solid 3px lime",
+    svg: {
+      color: "red",
+    },
+  },
+};
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
@@ -453,25 +477,65 @@ export function IndexCourse() {
           </DrawerHeader>
           <Divider />
           <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+            <ListItem button>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText />
+            </ListItem>
           </List>
           <Divider />
+          <Typography
+            sx={{
+              marginTop: "15px",
+              marginLeft: "5px",
+              fontWeight: 600,
+              color: "silver",
+            }}
+          >
+            Favoritos
+          </Typography>
           <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+            <ListItem button sx={{ padding: 0 }}>
+              <ListItemIcon sx={{ width: "100%" }}>
+                <Button sx={favButtonStyle}>
+                  <CircleIcon />
+                  Item I
+                </Button>
+              </ListItemIcon>
+            </ListItem>
+            <ListItem button sx={{ padding: 0 }}>
+              <ListItemIcon sx={{ width: "100%" }}>
+                <Button sx={favButtonStyle}>
+                  <CircleIcon />
+                  Item I
+                </Button>
+              </ListItemIcon>
+            </ListItem>
+            <ListItem button sx={{ padding: 0 }}>
+              <ListItemIcon sx={{ width: "100%" }}>
+                <Button sx={favButtonStyle}>
+                  <CircleIcon />
+                  Item I
+                </Button>
+              </ListItemIcon>
+            </ListItem>
+            <ListItem button sx={{ padding: 0 }}>
+              <ListItemIcon sx={{ width: "100%" }}>
+                <Button sx={favButtonStyle}>
+                  <CircleIcon />
+                  Item I
+                </Button>
+              </ListItemIcon>
+            </ListItem>
+            <ListItem button sx={{ padding: 0 }}>
+              <ListItemIcon sx={{ width: "100%" }}>
+                <Button sx={favButtonStyle}>
+                  <CircleIcon />
+                  Item I
+                </Button>
+              </ListItemIcon>
+            </ListItem>
           </List>
         </Drawer>
         <Main open={open}>
