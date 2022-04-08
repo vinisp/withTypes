@@ -404,17 +404,19 @@ export function CoursePage() {
                     false
                   )}
                   {e.element_type === "video" ? (
-                    <Plyr
-                      source={{
-                        type: "video",
-                        sources: [
-                          {
-                            src: `${e.content}`,
-                            provider: "vimeo",
-                          },
-                        ],
-                      }}
-                    />
+                    <Box sx={{ width: "580px", heigth: "520px" }}>
+                      <Plyr
+                        source={{
+                          type: "video",
+                          sources: [
+                            {
+                              src: `${e.content}`,
+                              provider: "vimeo",
+                            },
+                          ],
+                        }}
+                      />
+                    </Box>
                   ) : (
                     false
                   )}
