@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { Footer } from "../../Components/widgets/Footer";
 import { styled, useTheme, ThemeProvider } from "@mui/material/styles";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-
+import { v4 as uuidv4 } from "uuid";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
@@ -11,6 +11,8 @@ import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 
 import Divider from "@mui/material/Divider";
+import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
+import { TextField, Modal } from "@mui/material/";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -91,6 +93,25 @@ const PhotoUser = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {},
 }));
+
+const SelectInfo = styled("select")(({ theme }) => ({
+  width: "100%",
+}));
+
+const sideBarItemStyle = {
+  display: "flex",
+  justifyContent: "flex-start",
+  padding: "5px 10px",
+  gap: "25px",
+  width: "100%",
+  color: "black",
+  fontWeight: 600,
+  border: "solid 3px transparent",
+  transition: "all 500ms ease",
+  "&:hover": {
+    borderLeft: "solid 3px green",
+  },
+};
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
@@ -321,7 +342,20 @@ export function IndexCourse() {
   const theme = useTheme();
   const [myCourses, setMyCourses] = useState<any[]>([]);
   const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [level, setCourseLevel] = useState("");
+  const [category, setCategory] = useState("");
+
   let history = useHistory();
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
+
+  const generateCourseId = uuidv4();
+  const sameId = generateCourseId;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -525,6 +559,130 @@ export function IndexCourse() {
             </ListItem>
           </List>
           <Divider />
+
+          <List>
+            <ListItem button>
+              <ListItemIcon>
+                <Button
+                  sx={sideBarItemStyle}
+                  variant="text"
+                  color="success"
+                  onClick={() => {
+                    handleOpen();
+                  }}
+                >
+                  <CreateNewFolderIcon sx={{ color: `${mainColor}` }} />
+                  <Typography className="hideOnMobile" fontSize={"10px"}>
+                    Criar Novo Curso
+                  </Typography>
+                </Button>
+                <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box
+                    sx={{
+                      margin: "120px auto",
+                      width: [320, 650, 650, 650],
+                      minHeight: "150px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "8px",
+                      background: "#f2f2f2",
+                      borderBottom: "15px solid green",
+                      boxShadow: 24,
+                      p: 4,
+                    }}
+                  >
+                    <Typography
+                      variant="h4"
+                      textAlign={"center"}
+                      color={"black"}
+                    >
+                      Principais Informações do Curso
+                    </Typography>
+
+                    <>
+                      <TextField
+                        required
+                        id="filled-basic"
+                        label={"Nome do curso"}
+                        variant="filled"
+                        sx={{ background: "white", width: "100%" }}
+                        onChange={(event) => setName(event.target.value)}
+                      />
+
+                      <TextField
+                        required
+                        type="text"
+                        inputProps={{
+                          inputMode: "numeric",
+
+                          pattern: "[0-9]*",
+                        }}
+                        id="filled-basic"
+                        label={"Preço do Curso"}
+                        variant="filled"
+                        sx={{ background: "white", width: "100%" }}
+                        onChange={(event) => {
+                          setPrice(+event.target.value);
+                        }}
+                      />
+
+                      <SelectInfo
+                        onChange={(event) => setCourseLevel(event.target.value)}
+                      >
+                        <option value="">Escolha sua opção</option>
+                        <option value="beginner">Iniciante</option>
+                        <option value="intermediate">Intermediário</option>
+                        <option value="advanced">Avançado</option>
+                      </SelectInfo>
+                      <SelectInfo
+                        onChange={(event) => setCategory(event.target.value)}
+                      >
+                        <option value="">Escolha sua opção</option>
+                        <option value="categoria 1">Categoria 1</option>
+                        <option value="categoria 2">Categoria 2</option>
+                        <option value="categoria 3">Categoria 3</option>
+                      </SelectInfo>
+                    </>
+
+                    <Button
+                      variant="contained"
+                      color="warning"
+                      onClick={async () => {
+                        if (isNaN(price)) {
+                          alert("Valor inválido");
+                        }
+
+                        axios
+                          .post(`${APIURL}course/save`, {
+                            course_id: sameId,
+                            name: name,
+                            price: price.toFixed(2).toString(),
+                            category: category,
+                            level: level,
+                            created_by: user_id,
+                          })
+                          .then((response) => response.data);
+
+                        history.push(`/editcourse/${sameId}`);
+                      }}
+                    >
+                      Salvar
+                    </Button>
+                    <Button variant="contained" onClick={() => handleClose()}>
+                      Fechar
+                    </Button>
+                  </Box>
+                </Modal>
+              </ListItemIcon>
+              <ListItemText />
+            </ListItem>
+          </List>
+
           <List>
             <ListItem button>
               <ListItemIcon>
