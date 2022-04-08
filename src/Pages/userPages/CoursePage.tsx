@@ -1,5 +1,5 @@
 import { useState, useEffect, Fragment } from "react";
-import ReactPlayer from "react-player/lazy";
+//import ReactPlayer from "react-player/lazy";
 import { useParams } from "react-router-dom";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import { Typography, Button } from "@mui/material";
@@ -15,6 +15,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuBookSharpIcon from "@mui/icons-material/MenuBookSharp";
+
+import Plyr from "plyr-react";
+import "plyr-react/dist/plyr.css";
 
 import axios from "axios";
 
@@ -401,10 +404,16 @@ export function CoursePage() {
                     false
                   )}
                   {e.element_type === "video" ? (
-                    <ReactPlayer
-                      width="100%"
-                      controls
-                      url={`https://vimeo.com/${e.content}`}
+                    <Plyr
+                      source={{
+                        type: "video",
+                        sources: [
+                          {
+                            src: `${e.content}`,
+                            provider: "vimeo",
+                          },
+                        ],
+                      }}
                     />
                   ) : (
                     false
