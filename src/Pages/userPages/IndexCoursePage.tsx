@@ -408,7 +408,11 @@ export function IndexCourse() {
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar position="fixed" open={open} sx={{ padding: "80px 0px 0 0" }}>
+        <AppBar
+          position="fixed"
+          open={open}
+          sx={{ padding: "80px 0px 0 0", backgroundColor: "green" }}
+        >
           <Toolbar sx={{}}>
             <IconButton
               color="inherit"
