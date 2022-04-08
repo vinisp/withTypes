@@ -797,6 +797,8 @@ export function IndexCourse() {
       </>
     );
 
+    console.log(list);
+
     return (
       <div>
         {(["left"] as const).map((anchor) => (
@@ -811,7 +813,8 @@ export function IndexCourse() {
               onClose={toggleDrawer("left", false)}
               onOpen={toggleDrawer("left", true)}
             >
-              {list(anchor)}
+              {/* list(anchor) */}
+              Elementos
             </SwipeableDrawer>
           </>
         ))}
