@@ -502,9 +502,12 @@ export function IndexCourse() {
         <AppBar
           position="fixed"
           open={open}
-          sx={{ padding: "80px 0px 0 0", backgroundColor: "green" }}
+          sx={{
+            padding: "80px 0px 0 0",
+            backgroundColor: "green",
+          }}
         >
-          <Toolbar sx={{}}>
+          <Toolbar sx={{ minHeight: "40px" }}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
