@@ -377,8 +377,261 @@ type Anchor = "top" | "left" | "bottom" | "right";
 
 export function IndexCourse() {
   const [myCourses, setMyCourses] = useState<any[]>([]);
+  const [state, setState] = useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [level, setCourseLevel] = useState("");
+  const [category, setCategory] = useState("");
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
+
+  const generateCourseId = uuidv4();
+  const sameId = generateCourseId;
 
   let history = useHistory();
+
+  const toggleDrawer =
+    (anchor: Anchor, open: boolean) =>
+    (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event &&
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+
+      setState({ ...state, [anchor]: open });
+    };
+
+  const list = (anchor: Anchor) => (
+    <>
+      <Box
+        sx={{
+          width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
+          marginTop: "80px",
+        }}
+        role="presentation"
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
+      >
+        <List>
+          <ListItem button>
+            <ListItemIcon>
+              <PhotoAndNameWrapper>
+                <PhotoUser className="hideOnMobile">Foto</PhotoUser>
+                <Typography
+                  className="hideOnMobile"
+                  variant="caption"
+                  sx={{ fontWeight: 600 }}
+                >
+                  {user?.email}
+                </Typography>
+              </PhotoAndNameWrapper>
+            </ListItemIcon>
+            <ListItemText />
+          </ListItem>
+        </List>
+        <Divider />
+      </Box>
+      <Box sx={{ padding: 0, margin: 0 }}>
+        <Button
+          sx={sideBarItemStyle}
+          variant="text"
+          color="success"
+          onClick={() => {
+            handleOpen();
+          }}
+        >
+          <CreateNewFolderIcon sx={{ color: `${mainColor}` }} />
+          <Typography className="hideOnMobile" fontSize={"10px"}>
+            Criar Novo Curso
+          </Typography>
+        </Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box
+            sx={{
+              margin: "120px auto",
+              width: [320, 650, 650, 650],
+              minHeight: "150px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+              background: "#f2f2f2",
+              borderBottom: "15px solid green",
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
+            <Typography variant="h4" textAlign={"center"} color={"black"}>
+              Principais Informações do Curso
+            </Typography>
+
+            <>
+              <TextField
+                required
+                id="filled-basic"
+                label={"Nome do curso"}
+                variant="filled"
+                sx={{ background: "white", width: "100%" }}
+                onChange={(event) => setName(event.target.value)}
+              />
+
+              <TextField
+                required
+                type="text"
+                inputProps={{
+                  inputMode: "numeric",
+
+                  pattern: "[0-9]*",
+                }}
+                id="filled-basic"
+                label={"Preço do Curso"}
+                variant="filled"
+                sx={{ background: "white", width: "100%" }}
+                onChange={(event) => {
+                  setPrice(+event.target.value);
+                }}
+              />
+
+              <SelectInfo
+                onChange={(event) => setCourseLevel(event.target.value)}
+              >
+                <option value="">Escolha sua opção</option>
+                <option value="beginner">Iniciante</option>
+                <option value="intermediate">Intermediário</option>
+                <option value="advanced">Avançado</option>
+              </SelectInfo>
+              <SelectInfo onChange={(event) => setCategory(event.target.value)}>
+                <option value="">Escolha sua opção</option>
+                <option value="categoria 1">Categoria 1</option>
+                <option value="categoria 2">Categoria 2</option>
+                <option value="categoria 3">Categoria 3</option>
+              </SelectInfo>
+            </>
+
+            <Button
+              variant="contained"
+              color="warning"
+              onClick={async () => {
+                if (isNaN(price)) {
+                  alert("Valor inválido");
+                }
+
+                axios
+                  .post(`${APIURL}course/save`, {
+                    course_id: sameId,
+                    name: name,
+                    price: price.toFixed(2).toString(),
+                    category: category,
+                    level: level,
+                    created_by: user_id,
+                  })
+                  .then((response) => response.data);
+
+                history.push(`/editcourse/${sameId}`);
+              }}
+            >
+              Salvar
+            </Button>
+            <Button variant="contained" onClick={() => handleClose()}>
+              Fechar
+            </Button>
+          </Box>
+        </Modal>
+      </Box>
+
+      <Box
+        sx={{
+          width: anchor === "top" || anchor === "bottom" ? "auto" : 250,
+          marginTop: "-10px",
+        }}
+        role="presentation"
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}
+      >
+        <List>
+          <Button sx={sideBarItemStyle} variant="text" color="success">
+            <PersonIcon sx={{ color: `${mainColor}` }} />
+            <Typography className="hideOnMobile" fontSize={"10px"}>
+              Editar Perfil
+            </Typography>
+          </Button>
+          <Button sx={sideBarItemStyle} variant="text" color="success">
+            <FactCheckIcon sx={{ color: `${mainColor}` }} />
+            <Typography className="hideOnMobile" fontSize={"10px"}>
+              Lista de interresses
+            </Typography>
+          </Button>
+          <Button sx={sideBarItemStyle} variant="text" color="success">
+            <ChatIcon sx={{ color: `${mainColor}` }} />{" "}
+            <Typography className="hideOnMobile" fontSize={"10px"}>
+              Mensagens
+            </Typography>
+          </Button>
+          <Button sx={sideBarItemStyle} variant="text">
+            <AssessmentIcon sx={{ color: `${mainColor}` }} />
+            <Typography className="hideOnMobile" fontSize={"10px"}>
+              Estatísticas
+            </Typography>
+          </Button>
+          <Divider />
+          <Typography
+            sx={{
+              marginTop: "15px",
+              marginLeft: "5px",
+              fontWeight: 600,
+              color: "silver",
+            }}
+          >
+            Favoritos
+          </Typography>
+
+          <Button sx={favButtonStyle}>
+            <CircleIcon />
+            Item I
+          </Button>
+          <Button sx={favButtonStyle}>
+            <CircleIcon />
+            Item II
+          </Button>
+          <Button sx={favButtonStyle}>
+            <CircleIcon />
+            Item III
+          </Button>
+          <Button sx={favButtonStyle}>
+            <CircleIcon />
+            Item IV
+          </Button>
+          <Button sx={favButtonStyle}>
+            <CircleIcon />
+            Item V
+          </Button>
+          <Button sx={favButtonStyle}>
+            <CircleIcon />
+            Item VI
+          </Button>
+
+          <ListItemText />
+        </List>
+      </Box>
+    </>
+  );
 
   console.log(SideBarDesktop);
 
@@ -539,7 +792,7 @@ export function IndexCourse() {
     totalSell: 85,
     price: e.price,
   }));
-
+  /*
   function SwipeableTemporaryDrawer() {
     const [state, setState] = useState({
       top: false,
@@ -797,8 +1050,6 @@ export function IndexCourse() {
       </>
     );
 
-    console.log(list);
-
     return (
       <div>
         {(["left"] as const).map((anchor) => (
@@ -813,15 +1064,14 @@ export function IndexCourse() {
               onClose={toggleDrawer("left", false)}
               onOpen={toggleDrawer("left", true)}
             >
-              {/* list(anchor) */}
-              Elementos
+              {list(anchor)}
             </SwipeableDrawer>
           </>
         ))}
       </div>
     );
   }
-
+*/
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -997,8 +1247,25 @@ export function IndexCourse() {
 
           {/* MainCourseInformations() */}
           {/* SwipeableTemporaryDrawer() */}
+          <div>
+            {(["left"] as const).map((anchor) => (
+              <>
+                <Button onClick={toggleDrawer("left", true)}>
+                  <FormatAlignCenterSharpIcon sx={{ color: "green" }} />
+                </Button>
+                <SwipeableDrawer
+                  BackdropProps={{ invisible: true }}
+                  anchor={"left"}
+                  open={state["left"]}
+                  onClose={toggleDrawer("left", false)}
+                  onOpen={toggleDrawer("left", true)}
+                >
+                  {list(anchor)}
+                </SwipeableDrawer>
+              </>
+            ))}
+          </div>
         </MainBox>
-        {SwipeableTemporaryDrawer()}
       </ThemeProvider>
 
       <Footer />
