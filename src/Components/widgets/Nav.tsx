@@ -1,13 +1,15 @@
+import * as React from "react";
 import { Link } from "react-router-dom";
-
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import { useAuth } from "../../hooks/useAuth";
 import { signOut } from "firebase/auth";
 import { auth } from "../../services/firebase";
-
 import { CartNav } from "./NewCartApp/NewCartApp";
-
 import Logo from "../../Components/sections/assets/logo.png";
+import Button from "@mui/material/Button";
+import MenuIcon from "@mui/icons-material/Menu";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 const theme = createTheme({
   typography: {
@@ -68,6 +70,7 @@ const MenuMobile = styled("div")(({ theme }) => ({
   width: "100%",
   zIndex: "9999",
   display: "flex",
+  justifyContent: "flex-start",
   padding: theme.spacing(1),
   [theme.breakpoints.down("sm")]: {
     display: "flex",
@@ -92,6 +95,22 @@ const LogoBox = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   flex: "0 0 30%",
+  [theme.breakpoints.down("sm")]: {
+    display: "",
+    justifySelf: "center",
+    border: "solid 2px white",
+    flex: "0 0 80%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    display: "",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    display: "",
+  },
+  [theme.breakpoints.up("lg")]: {
+    display: "",
+  },
 }));
 
 const StyledButton = styled("button")(({ theme }) => ({
@@ -111,7 +130,7 @@ const MenuDesktop = styled("nav")(({ theme }) => ({
   position: "fixed",
   width: "100%",
   padding: "5px 0",
-  zIndex: "9999",
+  zIndex: "2",
   display: "flex",
   ul: {
     margin: "0 35px",
@@ -138,10 +157,10 @@ const MenuDesktop = styled("nav")(({ theme }) => ({
     },
   },
   [theme.breakpoints.down("sm")]: {
-    display: "None",
+    display: "none",
   },
   [theme.breakpoints.up("sm")]: {
-    display: "None",
+    display: "none",
   },
 
   [theme.breakpoints.up("md")]: {
@@ -154,6 +173,53 @@ const MenuDesktop = styled("nav")(({ theme }) => ({
     alignItems: "center",
   },
 }));
+
+function PositionedMenu() {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <div>
+      <Button
+        id="demo-positioned-button"
+        aria-controls={open ? "demo-positioned-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+      >
+        <MenuIcon />
+      </Button>
+      <Menu
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        sx={{
+          zIndex: "9999",
+        }}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu>
+    </div>
+  );
+}
 
 function Nav() {
   const { user } = useAuth();
@@ -170,7 +236,12 @@ function Nav() {
   return (
     <>
       <MenuMobile>
-        <ThemeProvider theme={theme}>Usar um drawer</ThemeProvider>
+        <ThemeProvider theme={theme}>
+          {PositionedMenu()}
+          <LogoBox>
+            <img src={Logo} alt="imagem da logo" />
+          </LogoBox>
+        </ThemeProvider>
       </MenuMobile>
       <MenuDesktop>
         <LogoBox>
