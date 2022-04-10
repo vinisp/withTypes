@@ -247,7 +247,7 @@ function Nav() {
                   </MenuItem>
                 </li>
                 <li>
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem>
                     <CartNav />
                   </MenuItem>
                 </li>
