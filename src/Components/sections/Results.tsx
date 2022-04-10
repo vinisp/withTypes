@@ -4,15 +4,19 @@ import { styled } from "@mui/material/styles";
 const FeatureBox = styled("div")(({ theme }) => ({
   display: "flex",
   flexWrap: "wrap",
-  width: "100%",
+
   justifyContent: "center",
   marginTop: "80px",
-  padding: "0 250px",
+  height: "auto",
+
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
   [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("lg")]: {
+    padding: "0 0px",
+    width: "70%",
+  },
 }));
 
 function ResultSection() {
