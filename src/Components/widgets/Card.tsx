@@ -7,7 +7,7 @@ const CardSizes = styled("div")(({ theme }) => ({
   color: "white",
   padding: theme.spacing(2),
   [theme.breakpoints.down("sm")]: {
-    height: "200px",
+    height: "auto",
     width: "95%",
   },
   [theme.breakpoints.up("sm")]: {
@@ -20,7 +20,7 @@ const CardSizes = styled("div")(({ theme }) => ({
     width: "30%",
   },
   [theme.breakpoints.up("lg")]: {
-    height: "250px",
+    minheight: "320px",
     flex: "0 0 30%",
   },
 }));
