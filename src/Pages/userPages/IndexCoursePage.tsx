@@ -159,10 +159,10 @@ const MainInfoBox = styled("div")(({ theme }) => ({
   width: "100%",
 
   marginBottom: "15px",
+  justifyContent: "center",
 
   [theme.breakpoints.down("sm")]: {
     marginTop: "25px",
-    marginLeft: "-45px",
     padding: "15px 0px",
   },
   [theme.breakpoints.up("sm")]: {
@@ -245,7 +245,7 @@ const BottomSections = styled("div")(({ theme }) => ({
     width: "90%",
   },
   [theme.breakpoints.up("sm")]: {
-    flex: "0 0 80%",
+    flex: "0 0 90%",
   },
 
   [theme.breakpoints.up("md")]: {
@@ -517,9 +517,6 @@ export function IndexCourse() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div">
-              Users
-            </Typography>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -566,7 +563,7 @@ export function IndexCourse() {
           <Divider />
 
           <List>
-            <ListItem button>
+            <ListItem button sx={{ padding: 0 }}>
               <ListItemIcon>
                 <Button
                   sx={sideBarItemStyle}
@@ -584,7 +581,7 @@ export function IndexCourse() {
               </ListItemIcon>
               <ListItemText />
             </ListItem>
-            <ListItem button>
+            <ListItem button sx={{ padding: 0 }}>
               <ListItemIcon>
                 <Button sx={sideBarItemStyle} variant="text" color="success">
                   <PersonIcon sx={{ color: `${mainColor}` }} />
