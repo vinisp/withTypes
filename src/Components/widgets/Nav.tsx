@@ -68,7 +68,7 @@ const MenuMobile = styled("div")(({ theme }) => ({
   color: "white",
   position: "fixed",
   width: "100%",
-  zIndex: "9999",
+  zIndex: "1300",
   display: "flex",
   justifyContent: "flex-start",
   padding: theme.spacing(1),
@@ -96,9 +96,6 @@ const LogoBox = styled("div")(({ theme }) => ({
   justifyContent: "center",
   flex: "0 0 30%",
   [theme.breakpoints.down("sm")]: {
-    display: "",
-    justifySelf: "center",
-    border: "solid 2px white",
     flex: "0 0 80%",
   },
   [theme.breakpoints.up("sm")]: {
@@ -130,7 +127,7 @@ const MenuDesktop = styled("nav")(({ theme }) => ({
   position: "fixed",
   width: "100%",
   padding: "5px 0",
-  zIndex: "2",
+  zIndex: "1200",
   display: "flex",
   ul: {
     margin: "0 35px",
@@ -204,8 +201,14 @@ function Nav() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
+          sx={{
+            height: "100%",
+            display: "flex",
+            justifyContent: "flex-start",
+            padding: "0",
+          }}
         >
-          <MenuIcon />
+          <MenuIcon sx={{ color: "green" }} />
         </Button>
         <Menu
           id="demo-positioned-menu"
@@ -225,7 +228,7 @@ function Nav() {
             zIndex: "9999",
           }}
         >
-          <ul>
+          <ul style={{ margin: "0", width: "200px" }}>
             {user ? (
               <>
                 <li>
