@@ -1,6 +1,6 @@
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 
-import { useAuth } from "../hooks/useAuth";
+// import { useAuth } from "../hooks/useAuth";
 
 import { styled } from "@mui/material/styles";
 
@@ -15,8 +15,12 @@ const MainContainerProfile = styled("div")(({ theme }) => ({
   gap: "10px",
   overflowX: "hidden",
 
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    flexWrap: "wrap",
+  },
+  [theme.breakpoints.up("sm")]: {
+    flexWrap: "wrap",
+  },
 
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {},
@@ -30,15 +34,26 @@ const ASideProfile = styled("div")(({ theme }) => ({
   alignItems: "center",
   gap: "20px",
   overflowX: "hidden",
-  width: "15%",
-  height: "600px",
+
   paddingTop: "25px",
 
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    heigth: "150px",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "100%",
+    heigth: "150px",
+  },
 
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("md")]: {
+    width: "15%",
+    height: "600px",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "15%",
+    height: "600px",
+  },
 }));
 
 const PhotoWrapper = styled("div")(({ theme }) => ({
@@ -66,15 +81,24 @@ const AllCoursesDiv = styled("div")(({ theme }) => ({
   alignItems: "center",
   gap: "20px",
   overflowX: "hidden",
-  width: "80%",
-  minHeight: "600px",
 
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    minHeight: "600px",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "100%",
+    minHeight: "600px",
+  },
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    minHeight: "600px",
+    width: "80%",
+  },
   [theme.breakpoints.up("lg")]: {
     padding: "35px 15px",
+    minHeight: "600px",
+    width: "80%",
   },
 }));
 
@@ -92,10 +116,10 @@ const HeaderCourseDiv = styled("div")(({ theme }) => ({
 }));
 
 export function Profile() {
-  const { user } = useAuth();
+  /* const { user } = useAuth();
   if (!user) {
     return <Redirect to="/login" />;
-  }
+  } */
   return (
     <>
       <MainContainerProfile>
@@ -125,11 +149,16 @@ export function Profile() {
           </HeaderCourseDiv>
           <div>
             <h3>Mais vendidos</h3>
+            <div>CourseCard</div>
           </div>
           <div>
             <h3> Recentes </h3>
+            <div>Course Card</div>
           </div>
-          <div>Reviews</div>
+          <div>
+            <h3>Reviews</h3>
+            <div>Course Card</div>
+          </div>
         </AllCoursesDiv>
       </MainContainerProfile>
       <Footer />
