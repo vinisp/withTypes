@@ -1,7 +1,3 @@
-// import { Redirect } from "react-router-dom";
-
-// import { useAuth } from "../hooks/useAuth";
-
 import { styled } from "@mui/material/styles";
 
 import { Footer } from "../Components/widgets/Footer";
@@ -11,9 +7,10 @@ const MainContainerProfile = styled("div")(({ theme }) => ({
   paddingTop: "120px",
   paddingBottom: "80px",
   display: "flex",
-  alignItems: "center",
+  alignItems: "flex-start",
   gap: "10px",
   overflowX: "hidden",
+  height: "auto",
 
   [theme.breakpoints.down("sm")]: {
     flexWrap: "wrap",
@@ -74,39 +71,144 @@ const PhotoWrapper = styled("div")(({ theme }) => ({
 }));
 
 const AllCoursesDiv = styled("div")(({ theme }) => ({
-  backgroundColor: "#f2f2f2f2",
   display: "flex",
-  flexDirection: "column",
-  border: "solid 2px red",
+  flexWrap: "wrap",
   alignItems: "center",
   gap: "20px",
   overflowX: "hidden",
+  backgroundColor: "silver",
+  borderRadius: "8px",
+  height: "auto",
 
   [theme.breakpoints.down("sm")]: {
     width: "100%",
-    minHeight: "600px",
   },
   [theme.breakpoints.up("sm")]: {
     width: "100%",
-    minHeight: "600px",
   },
 
   [theme.breakpoints.up("md")]: {
-    minHeight: "600px",
     width: "80%",
   },
   [theme.breakpoints.up("lg")]: {
     padding: "35px 15px",
-    minHeight: "600px",
+
     width: "80%",
   },
 }));
 
-const HeaderCourseDiv = styled("div")(({ theme }) => ({
-  backgroundColor: "#f2f2f2f2",
+const SectionWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  border: "solid 2px red",
+  width: "100%",
+  gap: "10px",
+  backgroundColor: "rgba(255,255,255,0.3)",
+  borderRadius: "8px",
+  height: "auto",
+
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const Card = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "10px",
+  padding: "5px",
+  backgroundColor: "rgba(0,0,0,0.4)",
+  border: "solid 1px silver",
+  height: "450px",
+  borderRadius: "8px",
+
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    width: "20%",
+  },
+}));
+
+const CardImg = styled("div")(({ theme }) => ({
+  backgroundColor: "lightcoral",
+  border: "solid 1px green",
+  borderRadius: "8px",
+  flex: "0 0 40%",
+  color: "black",
+  fontSize: "42px",
+  fontWeight: 600,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    width: "100%",
+  },
+}));
+
+const CardText = styled("div")(({ theme }) => ({
+  backgroundColor: "lightgreen",
+  border: "solid 2px green",
+  borderRadius: "8px",
+  flex: "0 0 35%",
+  color: "black",
+  fontSize: "42px",
+  fontWeight: 600,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    width: "100%",
+  },
+}));
+
+const CardReview = styled("div")(({ theme }) => ({
+  backgroundColor: "lightgreen",
+  border: "solid 2px green",
+  borderRadius: "8px",
+  flex: "0 0 20%",
+  color: "black",
+  fontSize: "42px",
+  fontWeight: 600,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    width: "100%",
+  },
+}));
+
+const HeaderCourseDiv = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const CardWrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "space-evenly",
+  width: "100%",
+  gap: "15px",
 
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -116,26 +218,9 @@ const HeaderCourseDiv = styled("div")(({ theme }) => ({
 }));
 
 export function Profile() {
-  /* const { user } = useAuth();
-  if (!user) {
-    return <Redirect to="/login" />;
-  } */
   return (
     <>
       <MainContainerProfile>
-        {/* <div>
-          <h1>Resumo</h1>
-          <div>Profile Page </div>
-          <div>
-            Menu Lateral com as informações - Avatar - Nome - Principais
-            interesses - Cursos Criados - Cursos Comprados - Cursos Promovidos{" "}
-          </div>
-
-          <div>
-            Pensar em uma área de trabalho, está pode conter informações sobre
-            os tipster, eventos em andamento e próximos eventos
-          </div>
-        </div> */}
         <ASideProfile>
           <PhotoWrapper>User Photo</PhotoWrapper>
           <div>Email</div>
@@ -147,18 +232,51 @@ export function Profile() {
           <HeaderCourseDiv>
             Container para exibir todos os cursos criados
           </HeaderCourseDiv>
-          <div>
+
+          <SectionWrapper>
             <h3>Mais vendidos</h3>
-            <div>CourseCard</div>
-          </div>
-          <div>
+            <CardWrapper>
+              <Card>
+                <CardImg>Imagem</CardImg>
+                <CardText>Resumo </CardText>
+                <CardReview>Avaliação</CardReview>
+              </Card>
+              <Card>
+                <CardImg>Imagem</CardImg>
+                <CardText>Resumo </CardText>
+                <CardReview>Avaliação</CardReview>
+              </Card>
+              <Card>
+                <CardImg>Imagem</CardImg>
+                <CardText>Resumo </CardText>
+                <CardReview>Avaliação</CardReview>
+              </Card>
+              <Card>
+                <CardImg>Imagem</CardImg>
+                <CardText>Resumo </CardText>
+                <CardReview>Avaliação</CardReview>
+              </Card>
+              <Card>
+                <CardImg>Imagem</CardImg>
+                <CardText>Resumo </CardText>
+                <CardReview>Avaliação</CardReview>
+              </Card>
+              <Card>
+                <CardImg>Imagem</CardImg>
+                <CardText>Resumo </CardText>
+                <CardReview>Avaliação</CardReview>
+              </Card>
+            </CardWrapper>
+          </SectionWrapper>
+
+          <SectionWrapper>
             <h3> Recentes </h3>
             <div>Course Card</div>
-          </div>
-          <div>
+          </SectionWrapper>
+          <SectionWrapper>
             <h3>Reviews</h3>
             <div>Course Card</div>
-          </div>
+          </SectionWrapper>
         </AllCoursesDiv>
       </MainContainerProfile>
       <Footer />
