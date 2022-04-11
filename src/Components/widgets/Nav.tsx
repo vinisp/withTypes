@@ -246,11 +246,7 @@ function Nav() {
                     <Link to="/store">Loja</Link>
                   </MenuItem>
                 </li>
-                <li>
-                  <MenuItem>
-                    <CartNav />
-                  </MenuItem>
-                </li>
+
                 <li>
                   <MenuItem onClick={handleClose}>
                     <Link to="/profile">Perfil</Link>
@@ -295,6 +291,10 @@ function Nav() {
           <LogoBox>
             <img src={Logo} alt="imagem da logo" />
           </LogoBox>
+
+          <MenuItem>
+            <CartNav />
+          </MenuItem>
         </ThemeProvider>
       </MenuMobile>
       <MenuDesktop>
