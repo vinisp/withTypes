@@ -62,7 +62,8 @@ const ASideProfile = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     width: "15%",
-    height: "650px",
+    height: "auto",
+    paddingBottom: "25px",
   },
 }));
 
