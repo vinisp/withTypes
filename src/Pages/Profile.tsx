@@ -29,10 +29,11 @@ const MainContainerProfile = styled("div")(({ theme }) => ({
 }));
 
 const ASideProfile = styled("div")(({ theme }) => ({
-  backgroundColor: "#f2f2f2f2",
+  backgroundColor: "#0c0c0c",
+  color: "#FFF",
   display: "flex",
   flexDirection: "column",
-  border: "solid 2px red",
+  borderRadius: "0 8px 8px 0",
   alignItems: "center",
   gap: "20px",
   overflowX: "hidden",
@@ -54,7 +55,7 @@ const ASideProfile = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     width: "15%",
-    height: "600px",
+    height: "650px",
   },
 }));
 
@@ -380,6 +381,16 @@ const UserAvatar = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
+const Divisor = styled("div")(({ theme }) => ({
+  borderBottom: "solid 0.2px white",
+  width: "100%",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
 export function Profile() {
   return (
     <>
@@ -387,8 +398,12 @@ export function Profile() {
         <ASideProfile>
           <PhotoWrapper>User Photo</PhotoWrapper>
           <div>Email</div>
-          <div>Números de cursos de vendidos</div>
+          <Divisor />
+
+          <div>937 Cursos Vendidos</div>
+          <Divisor />
           <div>Resume</div>
+          <Divisor />
           <div>Redes Sociais</div>
         </ASideProfile>
         <AllCoursesDiv>
