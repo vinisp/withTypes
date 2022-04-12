@@ -5,6 +5,13 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
+import PersonIcon from "@mui/icons-material/Person";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import TelegramIcon from "@mui/icons-material/Telegram";
+
 import { Footer } from "../Components/widgets/Footer";
 
 const MainContainerProfile = styled("div")(({ theme }) => ({
@@ -60,12 +67,11 @@ const ASideProfile = styled("div")(({ theme }) => ({
 }));
 
 const PhotoWrapper = styled("div")(({ theme }) => ({
-  backgroundColor: "#f2f2f2f2",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  border: "solid 2px red",
+  border: "solid 2px white",
   borderRadius: "50%",
   height: "120px",
   width: "120px",
@@ -325,9 +331,7 @@ const ReviewField = styled("div")(({ theme }) => ({
   color: "white",
   height: "120px",
   width: "100%",
-  /*display: "flex",
- flexDirection: "column",
-  alignItems: "center", */
+
   transition: "all 350ms ease",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -382,8 +386,28 @@ const UserAvatar = styled("div")(({ theme }) => ({
 }));
 
 const Divisor = styled("div")(({ theme }) => ({
-  borderBottom: "solid 0.2px white",
+  borderBottom: "solid 1px rgba(177,255,70,0.4)",
   width: "100%",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const IconsWrapper = styled("div")(({ theme }) => ({
+  paddingTop: "8px",
+  width: "100%",
+  display: "flex",
+  gap: "8px",
+  justifyContent: "center",
+
+  svg: {
+    "&:hover": {
+      color: "rgb(177,255,55)",
+      cursor: "pointer",
+    },
+  },
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
@@ -396,15 +420,55 @@ export function Profile() {
     <>
       <MainContainerProfile>
         <ASideProfile>
-          <PhotoWrapper>User Photo</PhotoWrapper>
-          <div>Email</div>
+          <PhotoWrapper>
+            <PersonIcon sx={{ fontSize: "72px" }} />
+          </PhotoWrapper>
+          <div>
+            <Typography fontWeight={600} sx={{ color: "silver" }}>
+              {" "}
+              Nome do Usuário{" "}
+            </Typography>
+          </div>
           <Divisor />
 
-          <div>937 Cursos Vendidos</div>
+          <div>
+            <Typography
+              variant="body2"
+              textAlign={"center"}
+              fontWeight={900}
+              sx={{ fontSize: "38px", color: "rgb(199,234,70)" }}
+            >
+              937
+            </Typography>
+            <Typography fontWeight={600} sx={{ color: "silver" }}>
+              Cursos Vendidos
+            </Typography>
+          </div>
           <Divisor />
-          <div>Resume</div>
+          <div>
+            <Typography textAlign={"center"} sx={{ padding: "0 20px " }}>
+              Texto com resumo sobre o Tipster, Sessão para apresentação, pode
+              contar sobre exp e etc... Limite 255
+            </Typography>
+          </div>
           <Divisor />
-          <div>Redes Sociais</div>
+          <div>
+            <Typography
+              variant="h6"
+              textAlign={"center"}
+              fontWeight={900}
+              sx={{ borderBottom: "solid 1px rgba(199,234,70,0.5)" }}
+            >
+              Redes Sociais
+            </Typography>
+            <IconsWrapper>
+              <FacebookIcon />
+              <InstagramIcon />
+              <TwitterIcon />
+              <TelegramIcon />
+              <WhatsAppIcon />
+            </IconsWrapper>
+          </div>
         </ASideProfile>
         <AllCoursesDiv>
           <SectionWrapper>
@@ -621,7 +685,9 @@ export function Profile() {
               </MiniCardWrapper>
               <UserCard>
                 <PersonalInfoReview>
-                  <UserAvatar>Avatar</UserAvatar>
+                  <UserAvatar>
+                    <PersonIcon sx={{ fontSize: "36px" }} />
+                  </UserAvatar>
                   <Typography sx={{ color: "white" }}>User Name</Typography>
                 </PersonalInfoReview>
                 <ReviewField>
@@ -634,7 +700,10 @@ export function Profile() {
                   </Stars>
                   <CommentBox>Texto com os comentários </CommentBox>
                   <LikeWrapper>
-                    <ThumbUpOutlinedIcon /> <Typography>15 Likes</Typography>
+                    <ThumbUpOutlinedIcon
+                      sx={{ color: "green", cursor: "pointer" }}
+                    />
+                    <Typography>15 Likes</Typography>
                   </LikeWrapper>
                 </ReviewField>
               </UserCard>
@@ -659,7 +728,9 @@ export function Profile() {
               </MiniCardWrapper>
               <UserCard>
                 <PersonalInfoReview>
-                  <UserAvatar>Avatar</UserAvatar>
+                  <UserAvatar>
+                    <PersonIcon sx={{ fontSize: "36px" }} />
+                  </UserAvatar>
                   <Typography sx={{ color: "white" }}>User Name</Typography>
                 </PersonalInfoReview>
                 <ReviewField>
@@ -672,7 +743,10 @@ export function Profile() {
                   </Stars>
                   <CommentBox>Texto com os comentários </CommentBox>
                   <LikeWrapper>
-                    <ThumbUpOutlinedIcon /> <Typography>15 Likes</Typography>
+                    <ThumbUpOutlinedIcon
+                      sx={{ color: "green", cursor: "pointer" }}
+                    />
+                    <Typography>15 Likes</Typography>
                   </LikeWrapper>
                 </ReviewField>
               </UserCard>
