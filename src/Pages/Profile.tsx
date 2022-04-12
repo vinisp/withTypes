@@ -4,6 +4,7 @@ import { Typography, Button } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
+import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import { Footer } from "../Components/widgets/Footer";
 
 const MainContainerProfile = styled("div")(({ theme }) => ({
@@ -80,7 +81,6 @@ const AllCoursesDiv = styled("div")(({ theme }) => ({
   alignItems: "center",
   gap: "20px",
   overflowX: "hidden",
-  backgroundColor: "silver",
   borderRadius: "8px",
   height: "auto",
 
@@ -95,7 +95,7 @@ const AllCoursesDiv = styled("div")(({ theme }) => ({
     width: "80%",
   },
   [theme.breakpoints.up("lg")]: {
-    padding: "35px 15px",
+    padding: "0px 15px",
 
     width: "80%",
   },
@@ -173,7 +173,6 @@ const CardImg = styled("div")(({ theme }) => ({
 
 const CardText = styled("div")(({ theme }) => ({
   backgroundColor: "#f2f2f2",
-
   borderRadius: "8px",
   flex: "0 0 40%",
   color: "black",
@@ -242,11 +241,14 @@ const MiniCardWrapper = styled("div")(({ theme }) => ({
 }));
 
 const ReviewWrapper = styled("div")(({ theme }) => ({
+  width: "100%",
+  marginBottom: "20px",
+
   display: "flex",
   flexWrap: "wrap",
-  justifyContent: "space-evenly",
-  width: "100%",
   gap: "15px",
+  justifyContent: "center",
+
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
@@ -270,12 +272,84 @@ const CardWrapper = styled("div")(({ theme }) => ({
 
 const UserCard = styled("div")(({ theme }) => ({
   display: "flex",
+  flexDirection: "column",
+  gap: "10px",
+  padding: "5px 10px",
+  border: "solid 1px rgba(199,234,70,0.3)",
+  height: "320px",
+  width: "80%",
+  borderRadius: "8px",
+  transition: "all 350ms ease",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const PersonalInfoReview = styled("div")(({ theme }) => ({
+  display: "flex",
   gap: "10px",
   padding: "5px 5px",
   backgroundColor: "transparent",
-  height: "100px",
+  height: "75px",
   width: "60%",
   borderRadius: "8px",
+  transition: "all 350ms ease",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const Stars = styled("div")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  gap: "10px",
+  padding: "5px 5px",
+  width: "100%",
+  borderRadius: "8px",
+  transition: "all 350ms ease",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const ReviewField = styled("div")(({ theme }) => ({
+  padding: "5px 5px",
+  borderTop: "solid 1px rgba(199,234,70,0.3)",
+  color: "white",
+  height: "120px",
+  width: "100%",
+  transition: "all 350ms ease",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const CommentBox = styled("div")(({ theme }) => ({
+  padding: "5px 5px",
+  color: "white",
+  height: "120px",
+  width: "100%",
+  transition: "all 350ms ease",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const LikeWrapper = styled("div")(({ theme }) => ({
+  marginTop: "30px",
+  display: "flex",
+  gap: "8px",
+  color: "white",
   transition: "all 350ms ease",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -528,11 +602,62 @@ export function Profile() {
                 </CardReview>
               </MiniCardWrapper>
               <UserCard>
-                <UserAvatar>Avatar</UserAvatar>
-                <Typography sx={{ color: "white" }}>User Name</Typography>
+                <PersonalInfoReview>
+                  <UserAvatar>Avatar</UserAvatar>
+                  <Typography sx={{ color: "white" }}>User Name</Typography>
+                </PersonalInfoReview>
+                <ReviewField>
+                  <Stars>
+                    <StarIcon />
+                    <StarIcon />
+                    <StarIcon />
+                    <StarHalfIcon />
+                    <StarBorderIcon />
+                  </Stars>
+                  <CommentBox>Texto com os comentários </CommentBox>
+                  <LikeWrapper>
+                    <ThumbUpOutlinedIcon /> <Typography>15 Likes</Typography>
+                  </LikeWrapper>
+                </ReviewField>
               </UserCard>
-              <div>Review Card</div>
-              <div>Card Elements - Like</div>
+            </ReviewWrapper>
+
+            <ReviewWrapper>
+              <MiniCardWrapper>
+                <CardImg>
+                  <img
+                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
+                    alt=""
+                  />
+                </CardImg>
+                <CardText>Resumo </CardText>
+                <CardReview>
+                  <StarIcon />
+                  <StarIcon />
+                  <StarIcon />
+                  <StarHalfIcon />
+                  <StarBorderIcon />
+                </CardReview>
+              </MiniCardWrapper>
+              <UserCard>
+                <PersonalInfoReview>
+                  <UserAvatar>Avatar</UserAvatar>
+                  <Typography sx={{ color: "white" }}>User Name</Typography>
+                </PersonalInfoReview>
+                <ReviewField>
+                  <Stars>
+                    <StarIcon />
+                    <StarIcon />
+                    <StarIcon />
+                    <StarHalfIcon />
+                    <StarBorderIcon />
+                  </Stars>
+                  <CommentBox>Texto com os comentários </CommentBox>
+                  <LikeWrapper>
+                    <ThumbUpOutlinedIcon /> <Typography>15 Likes</Typography>
+                  </LikeWrapper>
+                </ReviewField>
+              </UserCard>
             </ReviewWrapper>
           </SectionWrapper>
         </AllCoursesDiv>
