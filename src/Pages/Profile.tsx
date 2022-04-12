@@ -306,10 +306,10 @@ const PersonalInfoReview = styled("div")(({ theme }) => ({
 const Stars = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
+  borderBottom: "solid 1px rgba(199,234,70,0.3)",
   gap: "10px",
   padding: "5px 5px",
-  width: "100%",
-  borderRadius: "8px",
+  width: "180px",
   transition: "all 350ms ease",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -324,6 +324,9 @@ const ReviewField = styled("div")(({ theme }) => ({
   color: "white",
   height: "120px",
   width: "100%",
+  /*display: "flex",
+ flexDirection: "column",
+  alignItems: "center", */
   transition: "all 350ms ease",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -333,7 +336,7 @@ const ReviewField = styled("div")(({ theme }) => ({
 }));
 
 const CommentBox = styled("div")(({ theme }) => ({
-  padding: "5px 5px",
+  padding: "15px 5px",
   color: "white",
   height: "120px",
   width: "100%",
