@@ -177,7 +177,7 @@ const CardText = styled("div")(({ theme }) => ({
   borderRadius: "8px",
   flex: "0 0 40%",
   color: "black",
-  fontSize: "42px",
+  fontSize: "16px",
   fontWeight: 600,
   display: "flex",
   justifyContent: "center",
@@ -270,15 +270,32 @@ const CardWrapper = styled("div")(({ theme }) => ({
 
 const UserCard = styled("div")(({ theme }) => ({
   display: "flex",
-  flexDirection: "column",
   gap: "10px",
   padding: "5px 5px",
   backgroundColor: "transparent",
-  border: "solid 2px rgba(199,234,70,0.3)",
   height: "100px",
   width: "60%",
   borderRadius: "8px",
   transition: "all 350ms ease",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const UserAvatar = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: "10px",
+  backgroundColor: "transparent",
+  border: "solid 2px #FFF",
+  height: "60px",
+  width: "60px",
+  borderRadius: "50%",
+  transition: "all 350ms ease",
+  color: "white",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
@@ -510,7 +527,10 @@ export function Profile() {
                   <StarBorderIcon />
                 </CardReview>
               </MiniCardWrapper>
-              <UserCard></UserCard>
+              <UserCard>
+                <UserAvatar>Avatar</UserAvatar>
+                <Typography sx={{ color: "white" }}>User Name</Typography>
+              </UserCard>
               <div>Review Card</div>
               <div>Card Elements - Like</div>
             </ReviewWrapper>
