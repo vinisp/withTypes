@@ -12,7 +12,11 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import TelegramIcon from "@mui/icons-material/Telegram";
 
+import AliceCarousel from "react-alice-carousel";
+
 import { Footer } from "../Components/widgets/Footer";
+
+import "react-alice-carousel/lib/alice-carousel.css";
 
 const MainContainerProfile = styled("div")(({ theme }) => ({
   backgroundColor: "#f2f2f2f2",
@@ -313,6 +317,44 @@ const Card = styled("div")(({ theme }) => ({
   },
 }));
 
+const CardSlider = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "10px",
+  padding: "5px 5px",
+  backgroundColor: "transparent",
+  border: "solid 2px rgba(199,234,70,0.3)",
+  height: "500px",
+  borderRadius: "8px",
+  cursor: "pointer",
+  transition: "all 350ms ease",
+
+  "&:hover": {
+    border: "solid 2px rgba(199,234,70,0.8)",
+    svg: {
+      color: "rgb(193,234,70)",
+    },
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    margin: "0 auto",
+    width: "60%",
+    height: "450px",
+  },
+  [theme.breakpoints.up("sm")]: {
+    margin: "0 auto",
+    width: "40%",
+    height: "450px",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    width: "35%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "100%",
+  },
+}));
+
 const CardImg = styled("div")(({ theme }) => ({
   borderRadius: "8px",
   flex: "0 0 36%",
@@ -474,8 +516,12 @@ const CardWrapper = styled("div")(({ theme }) => ({
   width: "100%",
   gap: "15px",
 
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    display: "none",
+  },
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
 
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {},
@@ -512,14 +558,22 @@ const PersonalInfoReview = styled("div")(({ theme }) => ({
   padding: "5px 5px",
   backgroundColor: "transparent",
   height: "75px",
-  width: "60%",
+
   borderRadius: "8px",
   transition: "all 350ms ease",
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "100%",
+  },
 
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("md")]: {
+    width: "60%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "60%",
+  },
 }));
 
 const Stars = styled("div")(({ theme }) => ({
@@ -627,7 +681,105 @@ const IconsWrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
+const SliderWrapper = styled("div")(({ theme }) => ({
+  paddingTop: "8px",
+  width: "20%",
+
+  svg: {
+    "&:hover": {
+      color: "rgb(177,255,55)",
+      cursor: "pointer",
+    },
+  },
+  [theme.breakpoints.down("sm")]: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    display: "flex",
+    width: "90%",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    display: "none",
+  },
+  [theme.breakpoints.up("lg")]: {
+    display: "none",
+  },
+}));
+
 export function Profile() {
+  const handleDragStart = (e: any) => e.preventDefault();
+
+  const items = [
+    <CardSlider onDragStart={handleDragStart}>
+      <CardImg>
+        <img
+          src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
+          alt=""
+        />
+      </CardImg>
+      <CardText>Resumo </CardText>
+      <CardReview>
+        <StarIcon />
+        <StarIcon />
+        <StarIcon />
+        <StarHalfIcon />
+        <StarBorderIcon />
+      </CardReview>
+      <Button variant="contained" color="success">
+        Compre
+      </Button>
+    </CardSlider>,
+    <CardSlider onDragStart={handleDragStart}>
+      <CardImg>
+        <img
+          src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
+          alt=""
+        />
+      </CardImg>
+      <CardText>Resumo </CardText>
+      <CardReview>
+        <StarIcon />
+        <StarIcon />
+        <StarIcon />
+        <StarHalfIcon />
+        <StarBorderIcon />
+      </CardReview>
+      <Button variant="contained" color="success">
+        Compre
+      </Button>
+    </CardSlider>,
+    <CardSlider onDragStart={handleDragStart}>
+      <CardImg>
+        <img
+          src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
+          alt=""
+        />
+      </CardImg>
+      <CardText>Resumo </CardText>
+      <CardReview>
+        <StarIcon />
+        <StarIcon />
+        <StarIcon />
+        <StarHalfIcon />
+        <StarBorderIcon />
+      </CardReview>
+      <Button variant="contained" color="success">
+        Compre
+      </Button>
+    </CardSlider>,
+  ];
+
+  const Gallery = () => {
+    return (
+      <SliderWrapper>
+        <AliceCarousel autoPlay mouseTracking items={items} />{" "}
+      </SliderWrapper>
+    );
+  };
+
   return (
     <>
       <MainContainerProfile>
@@ -773,6 +925,8 @@ export function Profile() {
                 </Button>
               </Card>
             </CardWrapper>
+
+            {Gallery()}
           </SectionWrapper>
 
           <SectionWrapper>
@@ -865,6 +1019,7 @@ export function Profile() {
                 </Button>
               </Card>
             </CardWrapper>
+            {Gallery()}
           </SectionWrapper>
           <SectionWrapper>
             <Typography
