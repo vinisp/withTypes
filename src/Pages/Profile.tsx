@@ -240,6 +240,7 @@ const AllCoursesDiv = styled("div")(({ theme }) => ({
   display: "flex",
   flexWrap: "wrap",
   alignItems: "center",
+  justifyContent: "center",
   gap: "20px",
   overflowX: "hidden",
   borderRadius: "8px",
