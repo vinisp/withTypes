@@ -423,10 +423,28 @@ const MiniCardWrapper = styled("div")(({ theme }) => ({
     },
   },
 
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    svg: {
+      fontSize: "18px",
+    },
+    width: "30%",
+    height: "250px",
+  },
+  [theme.breakpoints.up("sm")]: {
+    svg: {
+      fontSize: "18px",
+    },
+    width: "20%",
+    height: "250px",
+  },
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    svg: {
+      fontSize: "18px",
+    },
+    width: "15%",
+    height: "250px",
+  },
   [theme.breakpoints.up("lg")]: {
     width: "10%",
     height: "250px",
@@ -470,14 +488,22 @@ const UserCard = styled("div")(({ theme }) => ({
   padding: "5px 10px",
   border: "solid 1px rgba(199,234,70,0.3)",
   height: "320px",
-  width: "80%",
+
   borderRadius: "8px",
   transition: "all 350ms ease",
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    width: "60%",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "70%",
+  },
 
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("md")]: {
+    width: "80%",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "80%",
+  },
 }));
 
 const PersonalInfoReview = styled("div")(({ theme }) => ({
