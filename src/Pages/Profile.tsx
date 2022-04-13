@@ -39,31 +39,172 @@ const ASideProfile = styled("div")(({ theme }) => ({
   backgroundColor: "#0c0c0c",
   color: "#FFF",
   display: "flex",
-  flexDirection: "column",
+
   borderRadius: "0 8px 8px 0",
   alignItems: "center",
-  gap: "20px",
+
   overflowX: "hidden",
 
   paddingTop: "25px",
 
   [theme.breakpoints.down("sm")]: {
     width: "100%",
-    heigth: "150px",
+    height: "420px",
+    flexDirection: "column",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+    gap: "0",
+    margin: "8px 16px",
+    borderRadius: "8px",
   },
   [theme.breakpoints.up("sm")]: {
     width: "100%",
-    heigth: "150px",
+    height: "380px",
+    flexDirection: "column",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+    gap: "0",
+    margin: "8px 16px",
+    borderRadius: "8px",
   },
 
   [theme.breakpoints.up("md")]: {
-    width: "15%",
-    height: "600px",
+    width: "100%",
+    height: "370px",
+    flexDirection: "column",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+    gap: "0",
+    margin: "8px 16px",
+    borderRadius: "8px",
   },
   [theme.breakpoints.up("lg")]: {
     width: "15%",
     height: "auto",
+    flexDirection: "column",
     paddingBottom: "25px",
+    gap: "20px",
+  },
+}));
+
+const PhotoAndName = styled("div")(({ theme }) => ({
+  paddingBottom: "8px",
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    flex: "0 0 30%",
+    display: "flex",
+    flexDirection: "column",
+    gap: "2px",
+    alignItems: "center",
+    borderBottom: "solid 1px green",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "100%",
+    flex: "0 0 30%",
+    display: "flex",
+    flexDirection: "column",
+    gap: "2px",
+    alignItems: "center",
+    borderBottom: "solid 1px green",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    width: "100%",
+    flex: "0 0 30%",
+    display: "flex",
+    flexDirection: "column",
+    gap: "2px",
+    alignItems: "center",
+    borderBottom: "solid 1px green",
+  },
+  [theme.breakpoints.up("lg")]: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+}));
+
+const BottomSectionsAside = styled("div")(({ theme }) => ({
+  [theme.breakpoints.down("sm")]: {
+    flex: "0 0 50%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    borderBottom: "solid 1px green",
+  },
+  [theme.breakpoints.up("sm")]: {
+    flex: "0 0 50%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    borderBottom: "solid 1px green",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    flex: "0 0 50%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    borderBottom: "solid 1px green",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "5px",
+    borderBottom: "0",
+  },
+}));
+
+const SectionAside = styled("div")(({ theme }) => ({
+  paddingBottom: "8px",
+  [theme.breakpoints.down("sm")]: {
+    heigth: "100%",
+    borderBottom: "solid 1px green",
+    flex: "0 0 30%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+
+    "&:nth-child(3)": {
+      borderBottom: "0",
+    },
+  },
+  [theme.breakpoints.up("sm")]: {
+    heigth: "100%",
+    borderRight: "solid 1px green",
+    flex: "0 0 30%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+
+    "&:nth-child(3)": {
+      borderRight: "0",
+    },
+  },
+
+  [theme.breakpoints.up("md")]: {
+    heigth: "100%",
+    borderRight: "solid 1px green",
+    flex: "0 0 30%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+
+    "&:nth-child(3)": {
+      borderRight: "0",
+    },
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    borderBottom: "solid 1px green",
+    alignItems: "center",
   },
 }));
 
@@ -170,12 +311,34 @@ const CardImg = styled("div")(({ theme }) => ({
     borderRadius: "8px",
   },
 
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    img: {
+      width: "100%",
+      heigth: "150px",
+      borderRadius: "8px",
+    },
+  },
+  [theme.breakpoints.up("sm")]: {
+    img: {
+      width: "100%",
+      heigth: "150px",
+      borderRadius: "8px",
+    },
+  },
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    img: {
+      width: "50%",
+      heigth: "150px",
+      borderRadius: "8px",
+    },
+  },
   [theme.breakpoints.up("lg")]: {
-    width: "100%",
+    img: {
+      width: "100%",
+      heigth: "150px",
+      borderRadius: "8px",
+    },
   },
 }));
 
@@ -386,7 +549,7 @@ const UserAvatar = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
-const Divisor = styled("div")(({ theme }) => ({
+/* const Divisor = styled("div")(({ theme }) => ({
   borderBottom: "solid 1px rgba(177,255,70,0.4)",
   width: "100%",
   [theme.breakpoints.down("sm")]: {},
@@ -394,7 +557,7 @@ const Divisor = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {},
-}));
+})); */
 
 const IconsWrapper = styled("div")(({ theme }) => ({
   paddingTop: "8px",
@@ -421,55 +584,55 @@ export function Profile() {
     <>
       <MainContainerProfile>
         <ASideProfile>
-          <PhotoWrapper>
-            <PersonIcon sx={{ fontSize: "72px" }} />
-          </PhotoWrapper>
-          <div>
-            <Typography fontWeight={600} sx={{ color: "silver" }}>
-              {" "}
-              Nome do Usuário{" "}
-            </Typography>
-          </div>
-          <Divisor />
+          <PhotoAndName>
+            <PhotoWrapper>
+              <PersonIcon sx={{ fontSize: "72px" }} />
+            </PhotoWrapper>
 
-          <div>
-            <Typography
-              variant="body2"
-              textAlign={"center"}
-              fontWeight={900}
-              sx={{ fontSize: "38px", color: "rgb(199,234,70)" }}
-            >
-              937
-            </Typography>
             <Typography fontWeight={600} sx={{ color: "silver" }}>
-              Cursos Vendidos
+              Nome do Usuário
             </Typography>
-          </div>
-          <Divisor />
-          <div>
-            <Typography textAlign={"center"} sx={{ padding: "0 20px " }}>
-              Texto com resumo sobre o Tipster, Sessão para apresentação, pode
-              contar sobre exp e etc... Limite 255
-            </Typography>
-          </div>
-          <Divisor />
-          <div>
-            <Typography
-              variant="h6"
-              textAlign={"center"}
-              fontWeight={900}
-              sx={{ borderBottom: "solid 1px rgba(199,234,70,0.5)" }}
-            >
-              Redes Sociais
-            </Typography>
-            <IconsWrapper>
-              <FacebookIcon />
-              <InstagramIcon />
-              <TwitterIcon />
-              <TelegramIcon />
-              <WhatsAppIcon />
-            </IconsWrapper>
-          </div>
+          </PhotoAndName>
+          <BottomSectionsAside>
+            <SectionAside>
+              <Typography
+                variant="body2"
+                textAlign={"center"}
+                fontWeight={900}
+                sx={{ fontSize: "38px", color: "rgb(199,234,70)" }}
+              >
+                937
+              </Typography>
+              <Typography fontWeight={600} sx={{ color: "silver" }}>
+                Cursos Vendidos
+              </Typography>
+            </SectionAside>
+
+            <SectionAside>
+              <Typography textAlign={"center"} sx={{ padding: "0 20px " }}>
+                Texto com resumo sobre o Tipster, Sessão para apresentação, pode
+                contar sobre exp e etc... Limite 255
+              </Typography>
+            </SectionAside>
+
+            <SectionAside>
+              <Typography
+                variant="h6"
+                textAlign={"center"}
+                fontWeight={900}
+                sx={{ borderBottom: "solid 1px rgba(199,234,70,0.5)" }}
+              >
+                Redes Sociais
+              </Typography>
+              <IconsWrapper>
+                <FacebookIcon />
+                <InstagramIcon />
+                <TwitterIcon />
+                <TelegramIcon />
+                <WhatsAppIcon />
+              </IconsWrapper>
+            </SectionAside>
+          </BottomSectionsAside>
         </ASideProfile>
         <AllCoursesDiv>
           <SectionWrapper>
