@@ -248,6 +248,9 @@ const AllCoursesDiv = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.down("sm")]: {
     width: "100%",
+    h4: {
+      fontSize: "20px",
+    },
   },
   [theme.breakpoints.up("sm")]: {
     width: "100%",
@@ -341,12 +344,12 @@ const CardSlider = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.down("sm")]: {
     margin: "0 auto",
-    width: "60%",
-    height: "450px",
+    width: "100%",
+    height: "350px",
   },
   [theme.breakpoints.up("sm")]: {
     margin: "0 auto",
-    width: "40%",
+    width: "100%",
     height: "450px",
   },
 
