@@ -275,6 +275,7 @@ const SectionWrapper = styled("div")(({ theme }) => ({
   padding: "16px 32px",
 
   [theme.breakpoints.down("sm")]: {
+    width: "94%",
     margin: "0 15px",
   },
   [theme.breakpoints.up("sm")]: {},
@@ -701,7 +702,7 @@ const SliderWrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     display: "flex",
     justifyContent: "center",
-    width: "100%",
+    width: "90%",
   },
   [theme.breakpoints.up("sm")]: {
     display: "flex",
