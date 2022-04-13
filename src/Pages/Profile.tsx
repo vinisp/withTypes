@@ -61,7 +61,7 @@ const ASideProfile = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.down("sm")]: {
     width: "100%",
-    height: "430px",
+    height: "470px",
     flexDirection: "column",
     flexWrap: "wrap",
     alignItems: "flex-start",
