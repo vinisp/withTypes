@@ -31,7 +31,14 @@ const MainContainerProfile = styled("div")(({ theme }) => ({
     flexWrap: "wrap",
   },
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    paddingTop: "120px",
+    paddingBottom: "80px",
+  },
   [theme.breakpoints.up("lg")]: {},
 }));
 
@@ -241,11 +248,13 @@ const AllCoursesDiv = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.up("md")]: {
-    width: "80%",
+    width: "100%",
+    margin: "0 10px",
+
+    padding: 0,
   },
   [theme.breakpoints.up("lg")]: {
     padding: "0px 15px",
-
     width: "80%",
   },
 }));
@@ -260,7 +269,9 @@ const SectionWrapper = styled("div")(({ theme }) => ({
   height: "auto",
   padding: "16px 32px",
 
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    margin: "0 15px",
+  },
   [theme.breakpoints.up("sm")]: {},
 
   [theme.breakpoints.up("md")]: {},
@@ -286,10 +297,17 @@ const Card = styled("div")(({ theme }) => ({
     },
   },
 
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    width: "70%",
+    height: "450px",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "40%",
+  },
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    width: "35%",
+  },
   [theme.breakpoints.up("lg")]: {
     width: "20%",
   },
@@ -298,42 +316,42 @@ const Card = styled("div")(({ theme }) => ({
 const CardImg = styled("div")(({ theme }) => ({
   borderRadius: "8px",
   flex: "0 0 36%",
-  color: "black",
-  fontSize: "42px",
-  fontWeight: 600,
   display: "flex",
   justifyContent: "center",
   alignItems: "flex-start",
 
   img: {
-    width: "100%",
+    width: "90%",
     heigth: "150px",
     borderRadius: "8px",
   },
 
   [theme.breakpoints.down("sm")]: {
+    flex: "0 0 10%",
     img: {
       width: "100%",
-      heigth: "150px",
       borderRadius: "8px",
     },
   },
   [theme.breakpoints.up("sm")]: {
+    flex: "0 0 20%",
     img: {
-      width: "100%",
+      width: "90%",
       heigth: "150px",
       borderRadius: "8px",
     },
   },
 
   [theme.breakpoints.up("md")]: {
+    flex: "0 0 36%",
     img: {
-      width: "50%",
+      width: "90%",
       heigth: "150px",
       borderRadius: "8px",
     },
   },
   [theme.breakpoints.up("lg")]: {
+    flex: "0 0 36%",
     img: {
       width: "100%",
       heigth: "150px",
@@ -352,7 +370,9 @@ const CardText = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    flex: "0 0 35%",
+  },
   [theme.breakpoints.up("sm")]: {},
 
   [theme.breakpoints.up("md")]: {},
@@ -373,7 +393,9 @@ const CardReview = styled("div")(({ theme }) => ({
   justifyContent: "center",
   alignItems: "center",
 
-  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    flex: "0 0 5%",
+  },
   [theme.breakpoints.up("sm")]: {},
 
   [theme.breakpoints.up("md")]: {},
