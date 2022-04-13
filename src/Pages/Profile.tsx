@@ -17,6 +17,7 @@ import AliceCarousel from "react-alice-carousel";
 import { Footer } from "../Components/widgets/Footer";
 
 import "react-alice-carousel/lib/alice-carousel.css";
+import "./styles/Slider.css";
 
 const MainContainerProfile = styled("div")(({ theme }) => ({
   backgroundColor: "#f2f2f2f2",
