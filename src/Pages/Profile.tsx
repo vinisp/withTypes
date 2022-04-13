@@ -510,12 +510,6 @@ const ReviewWrapper = styled("div")(({ theme }) => ({
 }));
 
 const CardWrapper = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "space-evenly",
-  width: "100%",
-  gap: "15px",
-
   [theme.breakpoints.down("sm")]: {
     display: "none",
   },
@@ -523,8 +517,20 @@ const CardWrapper = styled("div")(({ theme }) => ({
     display: "none",
   },
 
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    width: "100%",
+    gap: "15px",
+  },
+  [theme.breakpoints.up("lg")]: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    width: "100%",
+    gap: "15px",
+  },
 }));
 
 const UserCard = styled("div")(({ theme }) => ({
@@ -775,7 +781,13 @@ export function Profile() {
   const Gallery = () => {
     return (
       <SliderWrapper>
-        <AliceCarousel autoPlay mouseTracking items={items} />{" "}
+        <AliceCarousel
+          autoPlay
+          mouseTracking
+          infinite
+          autoPlayInterval={1500}
+          items={items}
+        />
       </SliderWrapper>
     );
   };
