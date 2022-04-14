@@ -345,12 +345,12 @@ const CardSlider = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     margin: "0 auto",
     width: "100%",
-    height: "550px",
+    height: "470px",
   },
   [theme.breakpoints.up("sm")]: {
     margin: "0 auto",
-    width: "100%",
-    height: "450px",
+    width: "60%",
+    height: "650px",
   },
 
   [theme.breakpoints.up("md")]: {
