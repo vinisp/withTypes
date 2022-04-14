@@ -443,6 +443,35 @@ const CardReview = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.down("sm")]: {
     flex: "0 0 5%",
+    svg: {
+      fontSize: "18px",
+    },
+  },
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    width: "100%",
+  },
+}));
+
+const MiniCardReview = styled("div")(({ theme }) => ({
+  backgroundColor: "transparent",
+  border: "solid 1px rgba(193,234,70,0.6)",
+  borderRadius: "8px",
+  flex: "0 0 10%",
+  color: "rgba(193,234,70,0.4)",
+  fontSize: "42px",
+  fontWeight: 600,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  [theme.breakpoints.down("sm")]: {
+    flex: "0 0 5%",
+    svg: {
+      fontSize: "12px",
+    },
   },
   [theme.breakpoints.up("sm")]: {},
 
@@ -472,11 +501,8 @@ const MiniCardWrapper = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.down("sm")]: {
-    svg: {
-      fontSize: "18px",
-    },
     width: "30%",
-    height: "250px",
+    height: "200px",
   },
   [theme.breakpoints.up("sm")]: {
     svg: {
@@ -590,17 +616,35 @@ const PersonalInfoReview = styled("div")(({ theme }) => ({
 
 const Stars = styled("div")(({ theme }) => ({
   display: "flex",
-  justifyContent: "center",
   borderBottom: "solid 1px rgba(199,234,70,0.3)",
   gap: "10px",
   padding: "5px 5px",
-  width: "180px",
-  transition: "all 350ms ease",
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
 
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  transition: "all 350ms ease",
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    gap: "5px",
+    justifyContent: "flex-start",
+    svg: {
+      fontSize: "13.33px",
+    },
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "100%",
+    gap: "5px",
+    justifyContent: "flex-start",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    width: "180px",
+    gap: "10px",
+    justifyContent: "center",
+  },
+  [theme.breakpoints.up("lg")]: {
+    width: "180px",
+    gap: "10px",
+    justifyContent: "center",
+  },
 }));
 
 const ReviewField = styled("div")(({ theme }) => ({
@@ -1060,13 +1104,13 @@ export function Profile() {
                   />
                 </CardImg>
                 <CardText>Resumo </CardText>
-                <CardReview>
+                <MiniCardReview>
                   <StarIcon />
                   <StarIcon />
                   <StarIcon />
                   <StarHalfIcon />
                   <StarBorderIcon />
-                </CardReview>
+                </MiniCardReview>
               </MiniCardWrapper>
               <UserCard>
                 <PersonalInfoReview>
@@ -1103,13 +1147,13 @@ export function Profile() {
                   />
                 </CardImg>
                 <CardText>Resumo </CardText>
-                <CardReview>
+                <MiniCardReview>
                   <StarIcon />
                   <StarIcon />
                   <StarIcon />
                   <StarHalfIcon />
                   <StarBorderIcon />
-                </CardReview>
+                </MiniCardReview>
               </MiniCardWrapper>
               <UserCard>
                 <PersonalInfoReview>
