@@ -67,16 +67,48 @@ const MenuMobile = styled("div")(({ theme }) => ({
   boxShadow: "0 2px 10px 2px rgba(0, 0, 0, 0.2)",
   color: "white",
   position: "fixed",
-  width: "100%",
+
   zIndex: "1300",
-  display: "flex",
-  justifyContent: "flex-start",
-  padding: theme.spacing(1),
+
   [theme.breakpoints.down("sm")]: {
+    width: "100%",
     display: "flex",
+    justifyContent: "space-between",
+    div: {
+      flex: "0 0 30%",
+      display: "flex",
+      alignItems: "center",
+
+      "&:nth-child(3)": {
+        justifyContent: "flex-end",
+        paddingRight: "10px",
+      },
+
+      "&:nth-child(1)": {
+        justifyContent: "flex-start",
+        paddingLeft: "10px",
+      },
+    },
   },
   [theme.breakpoints.up("sm")]: {
+    width: "100%",
     display: "flex",
+    justifyContent: "space-between",
+    div: {
+      flex: "0 0 30%",
+      display: "flex",
+      alignItems: "center",
+
+      "&:nth-child(3)": {
+        justifyContent: "flex-end",
+        paddingRight: "10px",
+      },
+
+      "&:nth-child(1)": {
+        justifyContent: "flex-start",
+        paddingLeft: "10px",
+      },
+    },
   },
 
   [theme.breakpoints.up("md")]: {
@@ -94,19 +126,17 @@ const LogoBox = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  flex: "0 0 30%",
-  [theme.breakpoints.down("sm")]: {
-    flex: "0 0 80%",
-  },
+
+  [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {
     display: "",
   },
 
   [theme.breakpoints.up("md")]: {
-    display: "",
+    flex: "0 0 30%",
   },
   [theme.breakpoints.up("lg")]: {
-    display: "",
+    flex: "0 0 30%",
   },
 }));
 
@@ -261,19 +291,29 @@ function Nav() {
             ) : (
               <>
                 <li>
-                  <Link to="/">Home</Link>
+                  <MenuItem onClick={handleClose}>
+                    <Link to="/">Home</Link>
+                  </MenuItem>
                 </li>
                 <li>
-                  <Link to="/store">Loja</Link>
+                  <MenuItem onClick={handleClose}>
+                    <Link to="/store">Loja</Link>
+                  </MenuItem>
                 </li>
                 <li>
-                  <CartNav />
+                  <MenuItem onClick={handleClose}>
+                    <CartNav />
+                  </MenuItem>
                 </li>
                 <li>
-                  <Link to="login">Login</Link>
+                  <MenuItem onClick={handleClose}>
+                    <Link to="login">Login</Link>
+                  </MenuItem>
                 </li>
                 <li>
-                  <Link to="/register">Cadastrar</Link>
+                  <MenuItem onClick={handleClose}>
+                    <Link to="/register">Cadastrar</Link>
+                  </MenuItem>
                 </li>
               </>
             )}
@@ -286,16 +326,11 @@ function Nav() {
   return (
     <>
       <MenuMobile>
-        <ThemeProvider theme={theme}>
-          {PositionedMenu()}
-          <LogoBox>
-            <img src={Logo} alt="imagem da logo" />
-          </LogoBox>
-
-          <MenuItem>
-            <CartNav />
-          </MenuItem>
-        </ThemeProvider>
+        {PositionedMenu()}
+        <LogoBox>
+          <img src={Logo} alt="imagem da logo" />
+        </LogoBox>
+        <CartNav />
       </MenuMobile>
       <MenuDesktop>
         <LogoBox>
