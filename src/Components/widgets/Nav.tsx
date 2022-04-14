@@ -326,11 +326,13 @@ function Nav() {
   return (
     <>
       <MenuMobile>
-        {PositionedMenu()}
-        <LogoBox>
-          <img src={Logo} alt="imagem da logo" />
-        </LogoBox>
-        <CartNav />
+        <ThemeProvider theme={theme}>
+          {PositionedMenu()}
+          <LogoBox>
+            <img src={Logo} alt="imagem da logo" />
+          </LogoBox>
+          <CartNav />
+        </ThemeProvider>
       </MenuMobile>
       <MenuDesktop>
         <LogoBox>
