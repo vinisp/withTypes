@@ -9,6 +9,7 @@ import { TestarComponentes } from "./Pages/paginas_testes/testar_componentes";
 import { CreateCourse } from "./Pages/userPages/CreateCourse";
 import { IndexCourse } from "./Pages/userPages/IndexCoursePage";
 import { CoursePage } from "./Pages/userPages/CoursePage";
+import { EditProfilePage } from "./Pages/userPages/EditProfilePage";
 
 //Default Pages
 
@@ -82,6 +83,7 @@ function App() {
               <Route exact path="/memberhome" component={MemberAreaHome} />
               <Route exact path="/race/:idRace" component={RacePage} />
               <Route exact path="/profile" component={Profile} />
+              <Route exact path="/profile/edit" component={EditProfilePage} />
               <Route exact path="/course" component={IndexCourse} />
               <Route
                 exact
