@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, TextareaAutosize, Button } from "@mui/material";
 import { Footer } from "../../Components/widgets/Footer";
 
 import { styled } from "@mui/material/styles";
@@ -20,6 +20,23 @@ const FormWrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
+const FieldBox = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "4px",
+
+  label: {
+    color: "darkgreen",
+    fontWeight: "600",
+  },
+
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
 export function EditProfilePage() {
   const [userName, setUserName] = useState<string>("");
   const [resume, setResume] = useState<string>("");
@@ -33,62 +50,104 @@ export function EditProfilePage() {
     <>
       <FormWrapper>
         <h1>Minha página de edição do perfil</h1>
-        <TextField
-          id="outlined-name"
-          label="Nome do usuário"
-          value={userName}
-          onChange={(event) => {
-            setUserName(event.target.value);
-          }}
-        />
-        <TextField
-          id="outlined-name"
-          label="Resumo"
-          value={resume}
-          onChange={(event) => {
-            setResume(event.target.value);
-          }}
-        />
-        <TextField
-          id="outlined-name"
-          label="Link do Facebook"
-          value={facebookLink}
-          onChange={(event) => {
-            setFacebookLink(event.target.value);
-          }}
-        />
-        <TextField
-          id="outlined-name"
-          label="Link do Instagram"
-          value={instagramLink}
-          onChange={(event) => {
-            setInstagramLink(event.target.value);
-          }}
-        />
-        <TextField
-          id="outlined-name"
-          label="Link do Twitter"
-          value={twitterLink}
-          onChange={(event) => {
-            setTwitterLink(event.target.value);
-          }}
-        />
-        <TextField
-          id="outlined-name"
-          label="Telegram"
-          value={telegram}
-          onChange={(event) => {
-            setTelegram(event.target.value);
-          }}
-        />
-        <TextField
-          id="outlined-name"
-          label="Whatsapp"
-          value={whatsapp}
-          onChange={(event) => {
-            setWhatsapp(event.target.value);
-          }}
-        />
+        <FieldBox>
+          <label>Nome do usuário</label>
+          <TextField
+            id="outlined-name"
+            value={userName}
+            onChange={(event) => {
+              setUserName(event.target.value);
+            }}
+            required
+          />
+        </FieldBox>
+
+        <FieldBox>
+          <label>Resumo</label>
+          <TextareaAutosize
+            id="outlined-name"
+            minRows={10}
+            value={resume}
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              minWidth: "100%",
+              padding: "20px",
+            }}
+            onChange={(event) => {
+              resume.length <= 255
+                ? setResume(event.target.value)
+                : resume.length > 255
+                ? resume.split("", 255 - resume.length)
+                : console.log(false);
+              setResume(event.target.value);
+            }}
+          />
+          <p
+            style={{
+              color: `${resume.length > 255 ? "red" : "black"}`,
+              textAlign: "right",
+            }}
+          >
+            Número de caracteres: {resume.length}
+            {resume.length > 255 ? " (número maxímo de caracteres 255)" : false}
+          </p>
+        </FieldBox>
+
+        <FieldBox>
+          <label>Link do Facebook</label>
+          <TextField
+            id="outlined-name"
+            value={facebookLink}
+            onChange={(event) => {
+              setFacebookLink(event.target.value);
+            }}
+          />
+        </FieldBox>
+
+        <FieldBox>
+          <label>Link do Instagram</label>
+          <TextField
+            id="outlined-name"
+            value={instagramLink}
+            onChange={(event) => {
+              setInstagramLink(event.target.value);
+            }}
+          />
+        </FieldBox>
+
+        <FieldBox>
+          <label>Link do Twitter</label>
+          <TextField
+            id="outlined-name"
+            value={twitterLink}
+            onChange={(event) => {
+              setTwitterLink(event.target.value);
+            }}
+          />
+        </FieldBox>
+
+        <FieldBox>
+          <label>Número do Telegram</label>
+          <TextField
+            id="outlined-name"
+            value={telegram}
+            onChange={(event) => {
+              setTelegram(event.target.value);
+            }}
+          />
+        </FieldBox>
+
+        <FieldBox>
+          <label>Número do Whatsapp</label>
+          <TextField
+            id="outlined-name"
+            value={whatsapp}
+            onChange={(event) => {
+              setWhatsapp(event.target.value);
+            }}
+          />
+        </FieldBox>
         <Button
           onClick={() => {
             console.log({
