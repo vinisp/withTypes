@@ -4,6 +4,8 @@ import { Footer } from "../../Components/widgets/Footer";
 
 import { styled } from "@mui/material/styles";
 
+import { Link } from "react-router-dom";
+
 const FormWrapper = styled("div")(({ theme }) => ({
   padding: "160px 40px",
   background: "rgba(255,255,255, 1)",
@@ -149,6 +151,8 @@ export function EditProfilePage() {
           />
         </FieldBox>
         <Button
+          variant="contained"
+          color="success"
           onClick={() => {
             console.log({
               user_name: userName,
@@ -162,6 +166,11 @@ export function EditProfilePage() {
         >
           Salvar Dados
         </Button>
+        <Link to={"/"}>
+          <Button color="warning" variant="contained" fullWidth>
+            Cancelar
+          </Button>
+        </Link>
       </FormWrapper>
       <Footer />
     </>
