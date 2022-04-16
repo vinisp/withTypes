@@ -497,17 +497,6 @@ export function IndexCourse() {
     price: e.price,
   }));
 
-  /* function LoadingPageOrRedirect() {
-    const { user } = useAuth();
-    useEffect(() => {
-      typeof user === "undefined" ? (
-        <div>Carregando.... </div>
-      ) : (
-        console.log("temos dados do usuário")
-      );
-    }, [user]);
-  } */
-
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -687,6 +676,7 @@ export function IndexCourse() {
                   >
                     Lista de Cursos
                   </Typography>
+
                   <DataGrid
                     rows={rows}
                     columns={columns}
@@ -842,9 +832,6 @@ export function IndexCourse() {
                   </LineDetailsBoxBody>
                 </BottomSections>
               </MainInfoBox>
-
-              {/* MainCourseInformations() */}
-              {/* SwipeableTemporaryDrawer() */}
             </MainBox>
           </ThemeProvider>
         </Main>
