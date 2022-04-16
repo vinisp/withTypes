@@ -89,7 +89,8 @@ const FieldBoxHalfWrapper = styled("div")(({ theme }) => ({
 }));
 
 export function IndexCoursePage() {
-  const [userName, setUserName] = useState<string>("");
+  const [courseName, setCourseName] = useState<string>("");
+  const [courseImg, setCourseImg] = useState<string>("");
   const [mainInfosFirst, setMainInfosFirst] = useState<string>("");
   const [resume1, setResume1] = useState<string>("");
   const [resume2, setResume2] = useState<string>("");
@@ -105,9 +106,21 @@ export function IndexCoursePage() {
           <label>Nome do curso</label>
           <TextField
             id="outlined-name"
-            value={userName}
+            value={courseName}
             onChange={(event) => {
-              setUserName(event.target.value);
+              setCourseName(event.target.value);
+            }}
+            required
+          />
+        </FieldBox>
+
+        <FieldBox>
+          <label>Url da Imagem de capa</label>
+          <TextField
+            id="outlined-name"
+            value={courseImg}
+            onChange={(event) => {
+              setCourseImg(event.target.value);
             }}
             required
           />
@@ -182,7 +195,7 @@ export function IndexCoursePage() {
           </FieldBoxHalf>
 
           <FieldBoxHalf>
-            <label>Informação Promocional 1</label>
+            <label>Informação Promocional 2</label>
             <TextareaAutosize
               id="outlined-name"
               minRows={10}
@@ -216,7 +229,7 @@ export function IndexCoursePage() {
           </FieldBoxHalf>
 
           <FieldBoxHalf>
-            <label>Informação Promocional 1</label>
+            <label>Informação Promocional 3</label>
             <TextareaAutosize
               id="outlined-name"
               minRows={10}
