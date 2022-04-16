@@ -83,7 +83,11 @@ function App() {
               <Route exact path="/memberhome" component={MemberAreaHome} />
               <Route exact path="/race/:idRace" component={RacePage} />
               <Route exact path="/profile" component={Profile} />
-              <Route exact path="/profile/edit" component={EditProfilePage} />
+              <Route
+                exact
+                path="/profile/edit/:firebaseID"
+                component={EditProfilePage}
+              />
               <Route exact path="/course" component={IndexCourse} />
               <Route
                 exact

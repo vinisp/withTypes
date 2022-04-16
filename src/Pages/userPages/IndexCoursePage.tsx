@@ -21,7 +21,6 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 
 import CircleIcon from "@mui/icons-material/Circle";
 
@@ -583,7 +582,14 @@ export function IndexCourse() {
             </ListItem>
             <ListItem button sx={{ padding: 0 }}>
               <ListItemIcon>
-                <Button sx={sideBarItemStyle} variant="text" color="success">
+                <Button
+                  sx={sideBarItemStyle}
+                  variant="text"
+                  color="success"
+                  onClick={() => {
+                    history.push(`/profile/edit/${user?.id}`);
+                  }}
+                >
                   <PersonIcon sx={{ color: `${mainColor}` }} />
                   <Typography className="hideOnMobile" fontSize={"10px"}>
                     Editar Perfil
@@ -594,14 +600,6 @@ export function IndexCourse() {
             </ListItem>
           </List>
 
-          <List>
-            <ListItem button>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText />
-            </ListItem>
-          </List>
           <Divider />
           <Typography
             sx={{
