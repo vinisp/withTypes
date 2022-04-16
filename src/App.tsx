@@ -10,6 +10,7 @@ import { CreateCourse } from "./Pages/userPages/CreateCourse";
 import { IndexCourse } from "./Pages/userPages/IndexCoursePage";
 import { CoursePage } from "./Pages/userPages/CoursePage";
 import { EditProfilePage } from "./Pages/userPages/EditProfilePage";
+import { IndexCoursePage } from "./Pages/userPages/EditIndexCoursePage";
 
 //Default Pages
 
@@ -87,6 +88,11 @@ function App() {
                 exact
                 path="/profile/edit/:firebaseID"
                 component={EditProfilePage}
+              />
+              <Route
+                exact
+                path="/course/editsellpage/:course_id"
+                component={IndexCoursePage}
               />
               <Route exact path="/course" component={IndexCourse} />
               <Route
