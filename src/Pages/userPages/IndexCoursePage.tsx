@@ -24,7 +24,7 @@ import ListItemText from "@mui/material/ListItemText";
 
 import CircleIcon from "@mui/icons-material/Circle";
 
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
@@ -497,7 +497,7 @@ export function IndexCourse() {
     price: e.price,
   }));
 
-  function LoadingPageOrRedirect() {
+  /* function LoadingPageOrRedirect() {
     const { user } = useAuth();
     useEffect(() => {
       typeof user === "undefined" ? (
@@ -506,7 +506,7 @@ export function IndexCourse() {
         console.log("temos dados do usuário")
       );
     }, [user]);
-  }
+  } */
 
   return (
     <>
