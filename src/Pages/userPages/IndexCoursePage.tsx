@@ -366,10 +366,12 @@ export function IndexCourse() {
     setOpen(false);
   };
 
-  const { user } = useAuth();
+  /* const { user } = useAuth();
   if (!user) {
     return <Redirect to="/login" />;
-  }
+  } */
+
+  const { user } = useAuth();
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 50 },
@@ -475,11 +477,12 @@ export function IndexCourse() {
   const user_id = user?.id;
 
   function RenderCourseInTable() {
+    const { user } = useAuth();
     useEffect(() => {
       axios.get(`${APIURL}search/${user_id}`).then((response) => {
         setMyCourses(response.data);
       });
-    }, []);
+    }, [user]);
   }
 
   RenderCourseInTable();
@@ -493,6 +496,17 @@ export function IndexCourse() {
     totalSell: 85,
     price: e.price,
   }));
+
+  function LoadingPageOrRedirect() {
+    const { user } = useAuth();
+    useEffect(() => {
+      typeof user === "undefined" ? (
+        <div>Carregando.... </div>
+      ) : (
+        console.log("temos dados do usuário")
+      );
+    }, [user]);
+  }
 
   return (
     <>
@@ -706,6 +720,7 @@ export function IndexCourse() {
                   <Typography color="rgb(115,115,116)">
                     Atualizado em 31/03/2022
                   </Typography>
+
                   <Typography sx={{}}>Ver detalhes</Typography>
                 </BalanceInfo>
 
