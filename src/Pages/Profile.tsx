@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import { styled } from "@mui/material/styles";
 
 import { Typography, Button } from "@mui/material";
@@ -16,7 +17,7 @@ import AliceCarousel from "react-alice-carousel";
 
 import { Footer } from "../Components/widgets/Footer";
 
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import axios from "axios";
 
@@ -775,6 +776,11 @@ export function Profile() {
 
   const [userName, setUserName] = useState("");
   const [resume, setResume] = useState("");
+  const [facebook, setFacebook] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [twitter, setTwitter] = useState("");
+  const [telegram, setTelegram] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
 
   const handleDragStart = (e: any) => e.preventDefault();
 
@@ -786,6 +792,11 @@ export function Profile() {
           const data = response.data[0];
           setUserName(data.user_name);
           setResume(data.resume);
+          setFacebook(data.facebook_link);
+          setInstagram(data.instagram_link);
+          setTwitter(data.twitter_link);
+          setTelegram(data.telegram);
+          setWhatsapp(data.whatsapp);
         });
     }, []);
   }
@@ -910,11 +921,22 @@ export function Profile() {
                 Redes Sociais
               </Typography>
               <IconsWrapper>
-                <FacebookIcon />
-                <InstagramIcon />
-                <TwitterIcon />
-                <TelegramIcon />
-                <WhatsAppIcon />
+                <Link to={facebook}>
+                  <FacebookIcon />
+                </Link>
+                <Link to={instagram}>
+                  <InstagramIcon />
+                </Link>
+                <Link to={twitter}>
+                  <TwitterIcon />
+                </Link>
+                <Link to={telegram}>
+                  <TelegramIcon />
+                </Link>
+
+                <a href={`https://wa.me/${whatsapp}`} target="_blank">
+                  <WhatsAppIcon />
+                </a>
               </IconsWrapper>
             </SectionAside>
           </BottomSectionsAside>

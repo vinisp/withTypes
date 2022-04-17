@@ -55,11 +55,18 @@ export function EditProfilePage() {
   function GetUserData() {
     const { user } = useAuth();
     useEffect(() => {
-      user
-        ? axios
-            .get(`http://localhost:3001/findUser/${user.id}`)
-            .then((response: any) => console.log(response.data))
-        : console.log("não temos dados do usuário");
+      axios
+        .get(`http://localhost:3001/findUser/${user?.id}`)
+        .then((response) => {
+          const data = response.data[0];
+          setUserName(data.user_name);
+          setResume(data.resume);
+          setFacebookLink(data.facebook_link);
+          setInstagramLink(data.instagram_link);
+          setTwitterLink(data.twitter_link);
+          setTelegram(data.telegram);
+          setWhatsapp(data.whatsapp);
+        });
     }, [user]);
   }
 
@@ -68,7 +75,7 @@ export function EditProfilePage() {
   return (
     <>
       <FormWrapper>
-        <h1>Olá {user?.email} vamos finalizar seu perfil </h1>
+        <h1>Olá {userName ? userName : user?.email}</h1>
         <FieldBox>
           <label>Nome do usuário</label>
           <TextField

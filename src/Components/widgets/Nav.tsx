@@ -279,7 +279,7 @@ function Nav() {
 
                 <li>
                   <MenuItem onClick={handleClose}>
-                    <Link to="/profile">Perfil</Link>
+                    <Link to={`profile/${user.id}`}>Perfil</Link>
                   </MenuItem>
                 </li>
                 <li>
@@ -354,7 +354,7 @@ function Nav() {
                 <CartNav />
               </li>
               <li>
-                <Link to="/profile">Perfil</Link>
+                <Link to={`/profile/${user.id}`}>Perfil</Link>
               </li>
               <li>
                 <StyledButton onClick={LogOut}>Logout</StyledButton>
