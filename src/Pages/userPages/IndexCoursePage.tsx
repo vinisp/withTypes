@@ -373,6 +373,20 @@ export function IndexCourse() {
 
   const { user } = useAuth();
 
+  function SendDataTeste() {
+    const { user } = useAuth();
+    useEffect(() => {
+      user
+        ? axios.post(`http://localhost:3001/users`, {
+            idfirebase: user.id,
+            email: user.email,
+          })
+        : console.log("não temos dados do usuário");
+    }, [user]);
+  }
+
+  SendDataTeste();
+
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 50 },
     {

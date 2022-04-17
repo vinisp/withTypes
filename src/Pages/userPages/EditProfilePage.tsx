@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TextField, TextareaAutosize, Button } from "@mui/material";
 import { Footer } from "../../Components/widgets/Footer";
+import { useAuth } from "../../hooks/useAuth";
 
 import { styled } from "@mui/material/styles";
+
+import axios from "axios";
 
 import { Link } from "react-router-dom";
 
@@ -47,11 +50,25 @@ export function EditProfilePage() {
   const [twitterLink, setTwitterLink] = useState<string>("");
   const [telegram, setTelegram] = useState<string>("");
   const [whatsapp, setWhatsapp] = useState<string>("");
+  const { user } = useAuth();
+
+  function GetUserData() {
+    const { user } = useAuth();
+    useEffect(() => {
+      user
+        ? axios
+            .get(`http://localhost:3001/findUser/${user.id}`)
+            .then((response: any) => console.log(response.data))
+        : console.log("não temos dados do usuário");
+    }, [user]);
+  }
+
+  GetUserData();
 
   return (
     <>
       <FormWrapper>
-        <h1>Minha página de edição do perfil</h1>
+        <h1>Olá {user?.email} vamos finalizar seu perfil </h1>
         <FieldBox>
           <label>Nome do usuário</label>
           <TextField
@@ -154,10 +171,12 @@ export function EditProfilePage() {
           variant="contained"
           color="success"
           onClick={() => {
-            console.log({
+            axios.post("http://localhost:3001/user/update", {
+              idfirebase: user?.id,
               user_name: userName,
               resume: resume,
               facebook_link: facebookLink,
+              instagram_link: instagramLink,
               twitter_link: twitterLink,
               telegram: telegram,
               whatsapp: whatsapp,

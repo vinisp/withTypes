@@ -16,8 +16,13 @@ import AliceCarousel from "react-alice-carousel";
 
 import { Footer } from "../Components/widgets/Footer";
 
+import { useParams } from "react-router-dom";
+
+import axios from "axios";
+
 import "react-alice-carousel/lib/alice-carousel.css";
 import "./styles/Slider.css";
+import { useEffect, useState } from "react";
 
 const MainContainerProfile = styled("div")(({ theme }) => ({
   backgroundColor: "#f2f2f2f2",
@@ -766,7 +771,26 @@ const SliderWrapper = styled("div")(({ theme }) => ({
 }));
 
 export function Profile() {
+  let { user_id } = useParams<any>();
+
+  const [userName, setUserName] = useState("");
+  const [resume, setResume] = useState("");
+
   const handleDragStart = (e: any) => e.preventDefault();
+
+  function GetUserData() {
+    useEffect(() => {
+      axios
+        .get(`http://localhost:3001/findUser/${user_id}`)
+        .then((response) => {
+          const data = response.data[0];
+          setUserName(data.user_name);
+          setResume(data.resume);
+        });
+    }, []);
+  }
+
+  GetUserData();
 
   const items = [
     <CardSlider onDragStart={handleDragStart}>
@@ -852,7 +876,7 @@ export function Profile() {
             </PhotoWrapper>
 
             <Typography fontWeight={600} sx={{ color: "silver" }}>
-              Nome do Usuário
+              {userName}
             </Typography>
           </PhotoAndName>
           <BottomSectionsAside>
@@ -872,8 +896,7 @@ export function Profile() {
 
             <SectionAside>
               <Typography textAlign={"center"} sx={{ padding: "0 20px " }}>
-                Texto com resumo sobre o Tipster, Sessão para apresentação, pode
-                contar sobre exp e etc... Limite 255
+                {resume}
               </Typography>
             </SectionAside>
 
