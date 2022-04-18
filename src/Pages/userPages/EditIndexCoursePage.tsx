@@ -134,6 +134,28 @@ export function IndexCoursePage() {
         setCoursePrice(courseData[0].price);
         setCourseCategory(courseData[0].category);
         setCourseLevel(courseData[0].level);
+        setCourseImg(courseData[0].thumb_url);
+        setResumoDoCurso(courseData[0].main_resume);
+        setTitleResume1(courseData[0].titulo_topico_um);
+        setResume1(courseData[0].text_topico_um);
+        setTitleResume2(courseData[0].titulo_topico_dois);
+        setResume2(courseData[0].text_topico_dois);
+        setTitleResume3(courseData[0].titulo_topico_tres);
+        setResume3(courseData[0].text_topico_tres);
+        setCompetenciaTitle1(courseData[0].titulo_competencia_um);
+        setTextoCompetencia1(courseData[0].text_competencia_um);
+        setCompetenciaTitle2(courseData[0].titulo_competencia_dois);
+        setTextoCompetencia2(courseData[0].text_competencia_dois);
+        setCompetenciaTitle3(courseData[0].titulo_competencia_tres);
+        setTextoCompetencia3(courseData[0].text_competencia_tres);
+        setCompetenciaTitle4(courseData[0].titulo_competencia_quatro);
+        setTextoCompetencia4(courseData[0].text_competencia_quatro);
+        setMaisDetalhes(courseData[0].mais_detalhes);
+        setPlanoDeEnsino(courseData[0].plano_ensino);
+        setBonus1(courseData[0].bonus_um);
+        setBonus2(courseData[0].bonus_dois);
+        setBonus3(courseData[0].bonus_tres);
+        setBonus4(courseData[0].bonus_quatro);
       });
     }, []);
   }
@@ -646,6 +668,10 @@ export function IndexCoursePage() {
               text_competencia_quatro: textoCompetencia4,
               mais_detalhes: maisDetalhes,
               plano_ensino: planoDeEnsino,
+              bonus_um: bonus1,
+              bonus_dois: bonus2,
+              bonus_tres: bonus3,
+              bonus_quatro: bonus4,
             });
           }}
         >
