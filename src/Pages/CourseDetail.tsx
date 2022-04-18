@@ -388,22 +388,19 @@ export function CourseDetail() {
                 <HintBox>
                   <Hint>
                     <HintContent>
-                      <div>Icone</div>
-                      <Typography>SubTititulo</Typography>
+                      <Typography>Informação Promocional 1</Typography>
                       <Typography>Explicação</Typography>
                     </HintContent>
                   </Hint>
                   <Hint>
                     <HintContent>
-                      <div>Icone</div>
-                      <Typography>SubTititulo</Typography>
+                      <Typography>Informação Promocional 2</Typography>
                       <Typography>Explicação</Typography>
                     </HintContent>
                   </Hint>
                   <Hint>
                     <HintContent>
-                      <div>Icone</div>
-                      <Typography>SubTititulo</Typography>
+                      <Typography>Informação Promocional 3</Typography>
                       <Typography>Explicação</Typography>
                     </HintContent>
                   </Hint>
@@ -419,11 +416,9 @@ export function CourseDetail() {
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                       >
-                        {module.moduleTitle}{" "}
+                        {module.moduleTitle}
                       </AccordionSummary>
-                      <AccordionDetails>
-                        {module.moduleResume}{" "}
-                      </AccordionDetails>
+                      <AccordionDetails>{module.moduleResume}</AccordionDetails>
                     </Accordion>
                   ))}
                 </ModulesBox>
@@ -440,13 +435,15 @@ export function CourseDetail() {
 
                 <ModulesBox>
                   <Typography>Plano de ensino</Typography>
-                  {e.modules?.map((module) => (
-                    <div>{module.moduleTitle} </div>
-                  ))}
+
+                  <div>
+                    Texto explicando a metologia e o plano de ensino, conteúdo
+                    em pdf, textos, vídeos e etc..
+                  </div>
                 </ModulesBox>
 
                 <ModulesBox>
-                  <Typography>Comentários</Typography>
+                  <Typography>Comentários dos clientes</Typography>
                 </ModulesBox>
               </FlexContainer>
               <TechDetailsBox>
@@ -458,12 +455,18 @@ export function CourseDetail() {
                   </Button>
                 </MicoInfoBox>
                 <MicoInfoBoxBGCOLOR>
-                  50% de desconto na próxima compra
+                  50% de desconto na próxima compra (programa de desconto caso
+                  deseje desenvolver)
                 </MicoInfoBoxBGCOLOR>
-                <Button>100% do dinheiro garantido</Button>
+                <Button>
+                  100% do dinheiro garantido(Caso deseje oferecer alguma
+                  garantia)
+                </Button>
                 <MicoInfoBoxColumn>
                   <Typography>
-                    <strong> Incluso </strong>
+                    <strong>
+                      Incluso (Caso deseje disponibilizar algum bônus)
+                    </strong>
                   </Typography>
                   <ul>
                     <li>Item 1</li>

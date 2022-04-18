@@ -4,9 +4,7 @@ import { Footer } from "../../Components/widgets/Footer";
 
 import { styled } from "@mui/material/styles";
 
-import { Link } from "react-router-dom";
-
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import axios from "axios";
 
@@ -101,9 +99,12 @@ export function IndexCoursePage() {
   const [category, setCourseCategory] = useState<string>("");
   const [courseImg, setCourseImg] = useState<string>("");
 
-  const [mainInfosFirst, setMainInfosFirst] = useState<string>("");
+  const [resumoDoCurso, setResumoDoCurso] = useState<string>("");
+  const [titleResume1, setTitleResume1] = useState<string>("");
   const [resume1, setResume1] = useState<string>("");
+  const [titleResume2, setTitleResume2] = useState<string>("");
   const [resume2, setResume2] = useState<string>("");
+  const [titleResume3, setTitleResume3] = useState<string>("");
   const [resume3, setResume3] = useState<string>("");
   const [maisDetalhes, setMaisDetalhes] = useState<string>("");
   const [planoDeEnsino, setPlanoDeEnsino] = useState<string>("");
@@ -128,6 +129,9 @@ export function IndexCoursePage() {
     <>
       <FormWrapper>
         <h1>Edição do Curso (Informações gerais e dados promocionais) </h1>
+        <p style={{ color: "blue" }}>
+          <Link to="/course/1"> Clique aqui para ver um exemplo </Link>{" "}
+        </p>
         <FieldBox>
           <label>Nome do curso</label>
           <TextField
@@ -193,7 +197,7 @@ export function IndexCoursePage() {
           <TextareaAutosize
             id="outlined-name"
             minRows={10}
-            value={mainInfosFirst}
+            value={resumoDoCurso}
             style={{
               width: "100%",
               maxWidth: "100%",
@@ -201,22 +205,22 @@ export function IndexCoursePage() {
               padding: "20px",
             }}
             onChange={(event) => {
-              mainInfosFirst.length <= 255
-                ? setMainInfosFirst(event.target.value)
-                : mainInfosFirst.length > 255
-                ? mainInfosFirst.split("", 255 - mainInfosFirst.length)
+              resumoDoCurso.length <= 255
+                ? setResumoDoCurso(event.target.value)
+                : resumoDoCurso.length > 255
+                ? resumoDoCurso.split("", 255 - resumoDoCurso.length)
                 : console.log(false);
-              setMainInfosFirst(event.target.value);
+              setResumoDoCurso(event.target.value);
             }}
           />
           <p
             style={{
-              color: `${mainInfosFirst.length > 255 ? "red" : "black"}`,
+              color: `${resumoDoCurso.length > 255 ? "red" : "black"}`,
               textAlign: "right",
             }}
           >
-            Número de caracteres: {mainInfosFirst.length}
-            {mainInfosFirst.length > 255
+            Número de caracteres: {resumoDoCurso.length}
+            {resumoDoCurso.length > 255
               ? " (número maxímo de caracteres 255)"
               : false}
           </p>
@@ -224,8 +228,15 @@ export function IndexCoursePage() {
         <FieldBoxHalfWrapper>
           <FieldBoxHalf>
             <label>Informação Promocional 1</label>
+            <TextField
+              sx={{ marginTop: "8px" }}
+              label="Título"
+              value={titleResume1}
+              onChange={(event) => setTitleResume1(event.target.value)}
+            />
             <TextareaAutosize
               id="outlined-name"
+              placeholder="Insira o texto aqui..."
               minRows={10}
               value={resume1}
               style={{
@@ -258,8 +269,15 @@ export function IndexCoursePage() {
 
           <FieldBoxHalf>
             <label>Informação Promocional 2</label>
+            <TextField
+              sx={{ marginTop: "8px" }}
+              label="Título"
+              value={titleResume2}
+              onChange={(event) => setTitleResume2(event.target.value)}
+            />
             <TextareaAutosize
               id="outlined-name"
+              placeholder="Insira o texto aqui..."
               minRows={10}
               value={resume2}
               style={{
@@ -292,8 +310,15 @@ export function IndexCoursePage() {
 
           <FieldBoxHalf>
             <label>Informação Promocional 3</label>
+            <TextField
+              sx={{ marginTop: "8px" }}
+              label="Título"
+              value={titleResume3}
+              onChange={(event) => setTitleResume3(event.target.value)}
+            />
             <TextareaAutosize
               id="outlined-name"
+              placeholder="Insira o texto aqui..."
               minRows={10}
               value={resume3}
               style={{
@@ -329,6 +354,7 @@ export function IndexCoursePage() {
           <label>Mais Detalhes</label>
           <TextareaAutosize
             id="outlined-name"
+            placeholder="Insira o texto aqui..."
             minRows={10}
             value={maisDetalhes}
             style={{
