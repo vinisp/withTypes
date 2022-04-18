@@ -7,7 +7,7 @@ import { styled } from "@mui/material/styles";
 
 import axios from "axios";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const FormWrapper = styled("div")(({ theme }) => ({
   padding: "160px 40px",
@@ -43,39 +43,67 @@ const FieldBox = styled("div")(({ theme }) => ({
 }));
 
 export function EditProfilePage() {
-  const [userName, setUserName] = useState<string>("");
-  const [resume, setResume] = useState<string>("");
-  const [facebookLink, setFacebookLink] = useState<string>("");
-  const [instagramLink, setInstagramLink] = useState<string>("");
-  const [twitterLink, setTwitterLink] = useState<string>("");
-  const [telegram, setTelegram] = useState<string>("");
-  const [whatsapp, setWhatsapp] = useState<string>("");
-  const { user } = useAuth();
+  const [userName, setUserName] = useState<any>("");
+  const [userEmail, setUserEmail] = useState<any>("");
+  const [userID, setUserID] = useState<any>("");
+  const [resume, setResume] = useState<any>("");
+  const [facebookLink, setFacebookLink] = useState<any>("");
+  const [instagramLink, setInstagramLink] = useState<any>("");
+  const [twitterLink, setTwitterLink] = useState<any>("");
+  const [telegram, setTelegram] = useState<any>("");
+  const [whatsapp, setWhatsapp] = useState<any>("");
+
+  let history = useHistory();
 
   function GetUserData() {
     const { user } = useAuth();
     useEffect(() => {
-      axios
-        .get(`http://localhost:3001/findUser/${user?.id}`)
-        .then((response) => {
-          const data = response.data[0];
-          setUserName(data.user_name);
-          setResume(data.resume);
-          setFacebookLink(data.facebook_link);
-          setInstagramLink(data.instagram_link);
-          setTwitterLink(data.twitter_link);
-          setTelegram(data.telegram);
-          setWhatsapp(data.whatsapp);
-        });
+      if (user) {
+        console.log(user);
+        axios
+          .get(`http://localhost:3001/findUser/${user?.id}`)
+          .then((response) => {
+            console.log(response.data[0].resume);
+            const data = response.data[0];
+            setUserName(data.user_name);
+            setResume(data.resume === null ? "" : data.resume);
+            setFacebookLink(data.facebook_link);
+            setInstagramLink(data.instagram_link);
+            setTwitterLink(data.twitter_link);
+            setTelegram(data.telegram);
+            setWhatsapp(data.whatsapp);
+            console.log(data);
+          })
+          .catch((err) => console.error(err));
+      } else {
+        return console.log("sem dados");
+      }
     }, [user]);
   }
 
   GetUserData();
 
+  function GetUserEmail() {
+    const { user } = useAuth();
+    useEffect(() => {
+      setUserEmail(user?.email);
+      setUserID(user?.id);
+    }, [user]);
+  }
+
+  GetUserEmail();
+
   return (
     <>
       <FormWrapper>
-        <h1>Olá {userName ? userName : user?.email}</h1>
+        <h1>
+          Olá{" "}
+          {userName
+            ? userName
+            : userEmail +
+              " " +
+              "ainda não temos seu nome de usuário cadastrado"}
+        </h1>
         <FieldBox>
           <label>Nome do usuário</label>
           <TextField
@@ -101,17 +129,17 @@ export function EditProfilePage() {
               padding: "20px",
             }}
             onChange={(event) => {
-              resume.length <= 255
+              resume?.length <= 255
                 ? setResume(event.target.value)
                 : resume.length > 255
-                ? resume.split("", 255 - resume.length)
+                ? resume.split("", 255 - resume?.length)
                 : console.log(false);
               setResume(event.target.value);
             }}
           />
           <p
             style={{
-              color: `${resume.length > 255 ? "red" : "black"}`,
+              color: `${resume?.length > 255 ? "red" : "black"}`,
               textAlign: "right",
             }}
           >
@@ -179,7 +207,7 @@ export function EditProfilePage() {
           color="success"
           onClick={() => {
             axios.post("http://localhost:3001/user/update", {
-              idfirebase: user?.id,
+              idfirebase: userID,
               user_name: userName,
               resume: resume,
               facebook_link: facebookLink,
@@ -188,6 +216,7 @@ export function EditProfilePage() {
               telegram: telegram,
               whatsapp: whatsapp,
             });
+            history.push("/course");
           }}
         >
           Salvar Dados
