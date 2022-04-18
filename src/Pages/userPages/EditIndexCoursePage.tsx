@@ -618,7 +618,37 @@ export function IndexCoursePage() {
           </p>
         </FieldBox>
 
-        <Button variant="contained" color="success" onClick={() => {}}>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            axios.post("http://localhost:3001/course/updatePromoInfos", {
+              course_id: course_id,
+              name: courseName,
+              price: coursePrice,
+              category: category,
+              level: courseLevel,
+              thumb_url: courseImg,
+              main_resume: resumoDoCurso,
+              titulo_topico_um: titleResume1,
+              text_topico_um: resume1,
+              titulo_topico_dois: titleResume2,
+              text_topico_dois: resume2,
+              titulo_topico_tres: titleResume3,
+              text_topico_tres: resume2,
+              titulo_competencia_um: competenciaTitle1,
+              text_competencia_um: textoCompetencia1,
+              titulo_competencia_dois: competenciaTitle2,
+              text_competencia_dois: textoCompetencia2,
+              titulo_competencia_tres: competenciaTitle3,
+              text_competencia_tres: textoCompetencia3,
+              titulo_competencia_quatro: competenciaTitle4,
+              text_competencia_quatro: textoCompetencia4,
+              mais_detalhes: maisDetalhes,
+              plano_ensino: planoDeEnsino,
+            });
+          }}
+        >
           Salvar Dados
         </Button>
         <Link to={"/"}>
