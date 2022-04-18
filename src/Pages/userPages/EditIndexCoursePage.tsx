@@ -116,6 +116,11 @@ export function IndexCoursePage() {
   const [competenciaTitle4, setCompetenciaTitle4] = useState<string>("");
   const [textoCompetencia4, setTextoCompetencia4] = useState<string>("");
 
+  const [bonus1, setBonus1] = useState<string>("");
+  const [bonus2, setBonus2] = useState<string>("");
+  const [bonus3, setBonus3] = useState<string>("");
+  const [bonus4, setBonus4] = useState<string>("");
+
   const [maisDetalhes, setMaisDetalhes] = useState<string>("");
   const [planoDeEnsino, setPlanoDeEnsino] = useState<string>("");
 
@@ -552,6 +557,30 @@ export function IndexCoursePage() {
               ? " (número maxímo de caracteres 255)"
               : false}
           </p>
+        </FieldBox>
+
+        <FieldBox>
+          <h3>Bônus</h3>
+          <h4>Bônus1</h4>
+          <TextField
+            value={bonus1}
+            onChange={(event) => setBonus1(event.target.value)}
+          />
+          <h4>Bônus2</h4>
+          <TextField
+            value={bonus2}
+            onChange={(event) => setBonus2(event.target.value)}
+          />
+          <h4>Bônus3</h4>
+          <TextField
+            value={bonus3}
+            onChange={(event) => setBonus3(event.target.value)}
+          />
+          <h4>Bônus4</h4>
+          <TextField
+            value={bonus4}
+            onChange={(event) => setBonus4(event.target.value)}
+          />
         </FieldBox>
 
         <FieldBox>
