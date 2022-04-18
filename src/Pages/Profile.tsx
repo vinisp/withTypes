@@ -25,6 +25,8 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import "./styles/Slider.css";
 import { useEffect, useState } from "react";
 
+const APIURL = "https://deppback.herokuapp.com/";
+
 const MainContainerProfile = styled("div")(({ theme }) => ({
   backgroundColor: "#f2f2f2f2",
   paddingTop: "120px",
@@ -713,16 +715,6 @@ const UserAvatar = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
-/* const Divisor = styled("div")(({ theme }) => ({
-  borderBottom: "solid 1px rgba(177,255,70,0.4)",
-  width: "100%",
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
-
-  [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
-})); */
-
 const IconsWrapper = styled("div")(({ theme }) => ({
   paddingTop: "8px",
   width: "100%",
@@ -786,18 +778,16 @@ export function Profile() {
 
   function GetUserData() {
     useEffect(() => {
-      axios
-        .get(`http://localhost:3001/findUser/${user_id}`)
-        .then((response) => {
-          const data = response.data[0];
-          setUserName(data.user_name);
-          setResume(data.resume);
-          setFacebook(data.facebook_link);
-          setInstagram(data.instagram_link);
-          setTwitter(data.twitter_link);
-          setTelegram(data.telegram);
-          setWhatsapp(data.whatsapp);
-        });
+      axios.get(`${APIURL}findUser/${user_id}`).then((response) => {
+        const data = response.data[0];
+        setUserName(data.user_name);
+        setResume(data.resume);
+        setFacebook(data.facebook_link);
+        setInstagram(data.instagram_link);
+        setTwitter(data.twitter_link);
+        setTelegram(data.telegram);
+        setWhatsapp(data.whatsapp);
+      });
     }, []);
   }
 

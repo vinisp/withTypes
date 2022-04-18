@@ -377,7 +377,7 @@ export function IndexCourse() {
     const { user } = useAuth();
     useEffect(() => {
       user
-        ? axios.post(`http://localhost:3001/users`, {
+        ? axios.post(`${APIURL}users`, {
             idfirebase: user.id,
             email: user.email,
           })
