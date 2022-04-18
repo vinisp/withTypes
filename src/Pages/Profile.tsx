@@ -17,7 +17,7 @@ import AliceCarousel from "react-alice-carousel";
 
 import { Footer } from "../Components/widgets/Footer";
 
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import axios from "axios";
 
