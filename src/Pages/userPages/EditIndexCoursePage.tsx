@@ -32,7 +32,7 @@ const FieldBox = styled("div")(({ theme }) => ({
   gap: "4px",
 
   label: {
-    color: "darkgreen",
+    color: "black",
     fontWeight: "600",
   },
 
@@ -49,7 +49,7 @@ const FieldBoxHalf = styled("div")(({ theme }) => ({
   gap: "4px",
 
   label: {
-    color: "darkgreen",
+    color: "black",
     fontWeight: "600",
   },
 
@@ -72,7 +72,7 @@ const FieldBoxHalfWrapper = styled("div")(({ theme }) => ({
   width: "100%",
 
   label: {
-    color: "darkgreen",
+    color: "black",
     fontWeight: "600",
   },
 
@@ -106,6 +106,16 @@ export function IndexCoursePage() {
   const [resume2, setResume2] = useState<string>("");
   const [titleResume3, setTitleResume3] = useState<string>("");
   const [resume3, setResume3] = useState<string>("");
+
+  const [competenciaTitle1, setCompetenciaTitle1] = useState<string>("");
+  const [textoCompetencia1, setTextoCompetencia1] = useState<string>("");
+  const [competenciaTitle2, setCompetenciaTitle2] = useState<string>("");
+  const [textoCompetencia2, setTextoCompetencia2] = useState<string>("");
+  const [competenciaTitle3, setCompetenciaTitle3] = useState<string>("");
+  const [textoCompetencia3, setTextoCompetencia3] = useState<string>("");
+  const [competenciaTitle4, setCompetenciaTitle4] = useState<string>("");
+  const [textoCompetencia4, setTextoCompetencia4] = useState<string>("");
+
   const [maisDetalhes, setMaisDetalhes] = useState<string>("");
   const [planoDeEnsino, setPlanoDeEnsino] = useState<string>("");
 
@@ -221,6 +231,40 @@ export function IndexCoursePage() {
           >
             Número de caracteres: {resumoDoCurso.length}
             {resumoDoCurso.length > 255
+              ? " (número maxímo de caracteres 255)"
+              : false}
+          </p>
+        </FieldBox>
+
+        <FieldBox>
+          <label>Plano de Ensino</label>
+          <TextareaAutosize
+            id="outlined-name"
+            minRows={10}
+            value={planoDeEnsino}
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              minWidth: "100%",
+              padding: "20px",
+            }}
+            onChange={(event) => {
+              planoDeEnsino.length <= 255
+                ? setPlanoDeEnsino(event.target.value)
+                : planoDeEnsino.length > 255
+                ? planoDeEnsino.split("", 255 - planoDeEnsino.length)
+                : console.log(false);
+              setPlanoDeEnsino(event.target.value);
+            }}
+          />
+          <p
+            style={{
+              color: `${planoDeEnsino.length > 255 ? "red" : "black"}`,
+              textAlign: "right",
+            }}
+          >
+            Número de caracteres: {planoDeEnsino.length}
+            {planoDeEnsino.length > 255
               ? " (número maxímo de caracteres 255)"
               : false}
           </p>
@@ -351,6 +395,166 @@ export function IndexCoursePage() {
         </FieldBoxHalfWrapper>
 
         <FieldBox>
+          <h3>Competência e domínios</h3>
+
+          <h4>Competência 1</h4>
+          <TextField
+            sx={{ marginTop: "8px" }}
+            label="Título"
+            value={competenciaTitle1}
+            onChange={(event) => setCompetenciaTitle1(event.target.value)}
+          />
+          <TextareaAutosize
+            id="outlined-name"
+            placeholder="Insira o texto aqui..."
+            minRows={10}
+            value={textoCompetencia1}
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              minWidth: "100%",
+              padding: "20px",
+            }}
+            onChange={(event) => {
+              textoCompetencia1.length <= 255
+                ? setTextoCompetencia1(event.target.value)
+                : textoCompetencia1.length > 255
+                ? textoCompetencia1.split("", 255 - textoCompetencia1.length)
+                : console.log(false);
+              setTextoCompetencia1(event.target.value);
+            }}
+          />
+          <p
+            style={{
+              color: `${textoCompetencia1.length > 255 ? "red" : "black"}`,
+              textAlign: "right",
+            }}
+          >
+            Número de caracteres: {textoCompetencia1.length}
+            {textoCompetencia1.length > 255
+              ? " (número maxímo de caracteres 255)"
+              : false}
+          </p>
+
+          <h4>Competência 2</h4>
+          <TextField
+            sx={{ marginTop: "8px" }}
+            label="Título"
+            value={competenciaTitle2}
+            onChange={(event) => setCompetenciaTitle2(event.target.value)}
+          />
+          <TextareaAutosize
+            id="outlined-name"
+            placeholder="Insira o texto aqui..."
+            minRows={10}
+            value={textoCompetencia2}
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              minWidth: "100%",
+              padding: "20px",
+            }}
+            onChange={(event) => {
+              textoCompetencia2.length <= 255
+                ? setTextoCompetencia2(event.target.value)
+                : textoCompetencia2.length > 255
+                ? textoCompetencia2.split("", 255 - textoCompetencia2.length)
+                : console.log(false);
+              setTextoCompetencia2(event.target.value);
+            }}
+          />
+          <p
+            style={{
+              color: `${textoCompetencia2.length > 255 ? "red" : "black"}`,
+              textAlign: "right",
+            }}
+          >
+            Número de caracteres: {textoCompetencia2.length}
+            {textoCompetencia2.length > 255
+              ? " (número maxímo de caracteres 255)"
+              : false}
+          </p>
+
+          <h4>Competência 3</h4>
+          <TextField
+            sx={{ marginTop: "8px" }}
+            label="Título"
+            value={competenciaTitle3}
+            onChange={(event) => setCompetenciaTitle3(event.target.value)}
+          />
+          <TextareaAutosize
+            id="outlined-name"
+            placeholder="Insira o texto aqui..."
+            minRows={10}
+            value={textoCompetencia3}
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              minWidth: "100%",
+              padding: "20px",
+            }}
+            onChange={(event) => {
+              textoCompetencia3.length <= 255
+                ? setTextoCompetencia3(event.target.value)
+                : textoCompetencia3.length > 255
+                ? textoCompetencia3.split("", 255 - textoCompetencia3.length)
+                : console.log(false);
+              setTextoCompetencia3(event.target.value);
+            }}
+          />
+          <p
+            style={{
+              color: `${textoCompetencia3.length > 255 ? "red" : "black"}`,
+              textAlign: "right",
+            }}
+          >
+            Número de caracteres: {textoCompetencia3.length}
+            {textoCompetencia3.length > 255
+              ? " (número maxímo de caracteres 255)"
+              : false}
+          </p>
+
+          <h4>Competência 4</h4>
+          <TextField
+            sx={{ marginTop: "8px" }}
+            label="Título"
+            value={competenciaTitle4}
+            onChange={(event) => setCompetenciaTitle4(event.target.value)}
+          />
+          <TextareaAutosize
+            id="outlined-name"
+            placeholder="Insira o texto aqui..."
+            minRows={10}
+            value={textoCompetencia4}
+            style={{
+              width: "100%",
+              maxWidth: "100%",
+              minWidth: "100%",
+              padding: "20px",
+            }}
+            onChange={(event) => {
+              textoCompetencia4.length <= 255
+                ? setTextoCompetencia4(event.target.value)
+                : textoCompetencia4.length > 255
+                ? textoCompetencia4.split("", 255 - textoCompetencia4.length)
+                : console.log(false);
+              setTextoCompetencia4(event.target.value);
+            }}
+          />
+          <p
+            style={{
+              color: `${textoCompetencia4.length > 255 ? "red" : "black"}`,
+              textAlign: "right",
+            }}
+          >
+            Número de caracteres: {textoCompetencia4.length}
+            {textoCompetencia4.length > 255
+              ? " (número maxímo de caracteres 255)"
+              : false}
+          </p>
+        </FieldBox>
+
+        <FieldBox>
           <label>Mais Detalhes</label>
           <TextareaAutosize
             id="outlined-name"
@@ -380,40 +584,6 @@ export function IndexCoursePage() {
           >
             Número de caracteres: {maisDetalhes.length}
             {maisDetalhes.length > 255
-              ? " (número maxímo de caracteres 255)"
-              : false}
-          </p>
-        </FieldBox>
-
-        <FieldBox>
-          <label>Plano de Ensino</label>
-          <TextareaAutosize
-            id="outlined-name"
-            minRows={10}
-            value={planoDeEnsino}
-            style={{
-              width: "100%",
-              maxWidth: "100%",
-              minWidth: "100%",
-              padding: "20px",
-            }}
-            onChange={(event) => {
-              planoDeEnsino.length <= 255
-                ? setPlanoDeEnsino(event.target.value)
-                : planoDeEnsino.length > 255
-                ? planoDeEnsino.split("", 255 - planoDeEnsino.length)
-                : console.log(false);
-              setPlanoDeEnsino(event.target.value);
-            }}
-          />
-          <p
-            style={{
-              color: `${planoDeEnsino.length > 255 ? "red" : "black"}`,
-              textAlign: "right",
-            }}
-          >
-            Número de caracteres: {planoDeEnsino.length}
-            {planoDeEnsino.length > 255
               ? " (número maxímo de caracteres 255)"
               : false}
           </p>
