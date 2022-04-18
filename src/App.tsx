@@ -7,6 +7,7 @@ import { TestarComponentes } from "./Pages/paginas_testes/testar_componentes";
 //Test Pages
 
 import { CreateCourse } from "./Pages/userPages/CreateCourse";
+
 import { IndexCourse } from "./Pages/userPages/IndexCoursePage";
 import { CoursePage } from "./Pages/userPages/CoursePage";
 import { EditProfilePage } from "./Pages/userPages/EditProfilePage";

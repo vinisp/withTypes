@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TextField, TextareaAutosize, Button } from "@mui/material";
 import { Footer } from "../../Components/widgets/Footer";
 
 import { styled } from "@mui/material/styles";
 
 import { Link } from "react-router-dom";
+
+import { useParams } from "react-router-dom";
+
+import axios from "axios";
+
+const APIURL = "https://deppback.herokuapp.com/";
 
 const FormWrapper = styled("div")(({ theme }) => ({
   padding: "160px 40px",
@@ -90,7 +96,11 @@ const FieldBoxHalfWrapper = styled("div")(({ theme }) => ({
 
 export function IndexCoursePage() {
   const [courseName, setCourseName] = useState<string>("");
+  const [coursePrice, setCoursePrice] = useState<string>("");
+  const [courseLevel, setCourseLevel] = useState<string>("");
+  const [category, setCourseCategory] = useState<string>("");
   const [courseImg, setCourseImg] = useState<string>("");
+
   const [mainInfosFirst, setMainInfosFirst] = useState<string>("");
   const [resume1, setResume1] = useState<string>("");
   const [resume2, setResume2] = useState<string>("");
@@ -98,10 +108,26 @@ export function IndexCoursePage() {
   const [maisDetalhes, setMaisDetalhes] = useState<string>("");
   const [planoDeEnsino, setPlanoDeEnsino] = useState<string>("");
 
+  let { course_id } = useParams<any>();
+
+  function GetCourseInfo() {
+    useEffect(() => {
+      axios.get(`${APIURL}course/${course_id}`).then((response) => {
+        const courseData = response.data;
+        setCourseName(courseData[0].name);
+        setCoursePrice(courseData[0].price);
+        setCourseCategory(courseData[0].category);
+        setCourseLevel(courseData[0].level);
+      });
+    }, []);
+  }
+
+  GetCourseInfo();
+
   return (
     <>
       <FormWrapper>
-        <h1>Edição do Curso</h1>
+        <h1>Edição do Curso (Informações gerais e dados promocionais) </h1>
         <FieldBox>
           <label>Nome do curso</label>
           <TextField
@@ -109,6 +135,42 @@ export function IndexCoursePage() {
             value={courseName}
             onChange={(event) => {
               setCourseName(event.target.value);
+            }}
+            required
+          />
+        </FieldBox>
+
+        <FieldBox>
+          <label>Preço</label>
+          <TextField
+            id="outlined-name"
+            value={coursePrice}
+            onChange={(event) => {
+              setCoursePrice(event.target.value);
+            }}
+            required
+          />
+        </FieldBox>
+
+        <FieldBox>
+          <label>Categoria</label>
+          <TextField
+            id="outlined-name"
+            value={category}
+            onChange={(event) => {
+              setCourseCategory(event.target.value);
+            }}
+            required
+          />
+        </FieldBox>
+
+        <FieldBox>
+          <label>Dificuldade</label>
+          <TextField
+            id="outlined-name"
+            value={courseLevel}
+            onChange={(event) => {
+              setCourseLevel(event.target.value);
             }}
             required
           />

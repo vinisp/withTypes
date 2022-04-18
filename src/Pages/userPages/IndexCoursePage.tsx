@@ -433,7 +433,23 @@ export function IndexCourse() {
             history.push(`/editcourse/${params.row.id}`);
           }}
         >
-          Editar
+          Conteúdo
+        </Button>
+      ),
+    },
+    {
+      field: "editPromo",
+      headerName: "Editar",
+      renderCell: (params: GridRenderCellParams<any>) => (
+        <Button
+          variant="text"
+          color="success"
+          size="small"
+          onClick={() => {
+            history.push(`/course/editsellpage/${params.row.id}`);
+          }}
+        >
+          Promocional
         </Button>
       ),
     },
