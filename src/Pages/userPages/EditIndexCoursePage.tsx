@@ -644,7 +644,7 @@ export function IndexCoursePage() {
           variant="contained"
           color="success"
           onClick={() => {
-            axios.post("http://localhost:3001/course/updatePromoInfos", {
+            axios.post(`${APIURL}course/updatePromoInfos`, {
               course_id: course_id,
               name: courseName,
               price: coursePrice,

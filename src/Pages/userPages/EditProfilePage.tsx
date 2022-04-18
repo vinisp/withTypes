@@ -9,6 +9,8 @@ import axios from "axios";
 
 import { Link, useHistory } from "react-router-dom";
 
+const APIURL = "https://deppback.herokuapp.com/";
+
 const FormWrapper = styled("div")(({ theme }) => ({
   padding: "160px 40px",
   background: "rgba(255,255,255, 1)",
@@ -61,7 +63,7 @@ export function EditProfilePage() {
       if (user) {
         console.log(user);
         axios
-          .get(`http://localhost:3001/findUser/${user?.id}`)
+          .get(`${APIURL}findUser/${user?.id}`)
           .then((response) => {
             console.log(response.data[0].resume);
             const data = response.data[0];
@@ -206,7 +208,7 @@ export function EditProfilePage() {
           variant="contained"
           color="success"
           onClick={() => {
-            axios.post("http://localhost:3001/user/update", {
+            axios.post(`${APIURL}user/update`, {
               idfirebase: userID,
               user_name: userName,
               resume: resume,
