@@ -911,18 +911,18 @@ export function Profile() {
                 Redes Sociais
               </Typography>
               <IconsWrapper>
-                <Link to={facebook}>
+                <a href={facebook} target="_blank">
                   <FacebookIcon />
-                </Link>
-                <Link to={instagram}>
+                </a>
+                <a href={instagram} target="_blank">
                   <InstagramIcon />
-                </Link>
-                <Link to={twitter}>
+                </a>
+                <a href={twitter} target="_blank">
                   <TwitterIcon />
-                </Link>
-                <Link to={telegram}>
+                </a>
+                <a href={telegram} target="_blank">
                   <TelegramIcon />
-                </Link>
+                </a>
 
                 <a href={`https://wa.me/${whatsapp}`} target="_blank">
                   <WhatsAppIcon />
