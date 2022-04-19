@@ -3,33 +3,27 @@ import { CartContext } from "./CartContext";
 
 import { Drawer, Badge, Button, Typography } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import Item from "./Item/Item";
+// import Item from "./Item/Item";
 import Cart from "./Cart/Cart";
 import { Wrapper, StyledButton } from "./NewCart.styles";
 import { styled } from "@mui/material/styles";
 import { Footer } from "../Footer";
 
-import data from "../../../backendFake/allcourses.json";
+import axios from "axios";
+
+// import data from "../../../backendFake/allcourses.json";
 
 export type CartItemType = {
   id: number;
-  title: string;
+  title?: string;
   price: number;
   category: string;
-  description: string;
-  image: string;
+  description?: string;
+  image?: string;
   amount: number;
 };
 const CourseWrapperMain = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  background: "#f2f2f2",
-  padding: "30px 0 0 0",
-
-  [theme.breakpoints.down("sm")]: {
-    display: "flex",
-  },
+  [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
   [theme.breakpoints.up("md")]: {},
@@ -37,29 +31,16 @@ const CourseWrapperMain = styled("div")(({ theme }) => ({
 }));
 
 const CategoriesMainWrapper = styled("div")(({ theme }) => ({
+  paddingTop: "160px",
+  paddingBottom: "60px",
   display: "flex",
-  background: "#0e0e0e",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "space-around",
+  justifyContent: "center",
+  borderBottom: "solid 1px green",
+  [theme.breakpoints.down("xs")]: {},
+  [theme.breakpoints.up("sm")]: {},
 
-  gap: "15px",
-
-  [theme.breakpoints.down("xs")]: {
-    width: "100%",
-  },
-  [theme.breakpoints.up("sm")]: {
-    width: "100%",
-  },
-
-  [theme.breakpoints.up("md")]: {
-    width: "100%",
-    height: "400px",
-  },
-  [theme.breakpoints.up("lg")]: {
-    width: "100%",
-    height: "420px",
-  },
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
 }));
 
 const CategoriesWrapper = styled("div")(({ theme }) => ({
@@ -86,12 +67,6 @@ const CategoriesWrapper = styled("div")(({ theme }) => ({
 }));
 
 const CoursesGrid = styled("div")(({ theme }) => ({
-  display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "center",
-  gap: "25px",
-  padding: "45px 0",
-
   [theme.breakpoints.down("xs")]: {
     width: "100%",
   },
@@ -103,33 +78,74 @@ const CoursesGrid = styled("div")(({ theme }) => ({
     width: "100%",
   },
   [theme.breakpoints.up("lg")]: {
-    width: "60%",
+    width: "100%",
+    height: "1200px",
+    display: "flex",
+    paddingTop: "80px",
+    justifyContent: "center",
+    gap: "32px",
   },
 }));
 
-const CourseBox = styled("div")(({ theme }) => ({
+const CardDoItem = styled("div")(({ theme }) => ({
+  border: "solid 1px green",
+  padding: "0",
+  borderRadius: "8px",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  width: "100%",
 
-  [theme.breakpoints.down("sm")]: {
-    display: "flex",
-  },
-  [theme.breakpoints.up("sm")]: {
-    flex: "0 0 25%",
+  color: "white",
+  img: {
+    width: 300,
   },
 
-  [theme.breakpoints.up("md")]: {
-    flex: "0 0 25%",
+  h1: {
+    borderRadius: "7px 7px 0 0",
+    textAling: "center",
+    color: "white",
+    backgroundColor: "darkgreen",
+    padding: "15px",
   },
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {
-    flex: "0 0 25%",
+    minHeigth: "750px",
+    width: "301px",
   },
 }));
 
-const Categories = new Set<string>(data.map((e) => e.category));
-const ListCategorys = Array.from(Categories);
+const TextContent = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "5px",
+  paddingTop: "10px",
+
+  ".price": {
+    borderBottom: "solid 1px green",
+    width: "100%",
+    fontSize: "36px",
+  },
+
+  ".priceSymbol": {
+    color: "green",
+
+    fontSize: "24px",
+    fontWeigth: "800",
+  },
+
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+// const Categories = new Set<string>(data.map((e) => e.category));
+// const ListCategorys = Array.from(Categories);
 
 export const CartNav = () => {
   const [cartOpen, setCartOpen] = useState(false);
@@ -191,15 +207,17 @@ export const CartNav = () => {
 
 export const MyStore = () => {
   const [cartItems, setCartItems] = useState([] as CartItemType[]);
-  const [listCourses, setListCourses] = useState([] as CartItemType[]);
+  // const [listCourses, setListCourses] = useState([] as CartItemType[]);
+  const [allCourses, setAllCourses] = useState<any>([]);
+  const [carrinhoDeCurso, setCarrinho] = useState<any[]>([]);
 
   const myCartItems = useContext(CartContext);
 
-  const handleAddToCart = (clickedItem: CartItemType) => {
+  /* const handleAddToCart = (clickedItem: CartItemType) => {
     myCartItems[0].find((e: any) => e.id === clickedItem.id)
       ? console.log("achamos")
       : myCartItems[0].push(clickedItem);
-  };
+  }; */
 
   const handleUpdate = () => {
     myCartItems.splice(0, myCartItems.length);
@@ -217,7 +235,7 @@ export const MyStore = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartItems.length]);
 
-  function FilterByTipe(type: any) {
+  /* function FilterByTipe(type: any) {
     const coursesByType = data.filter((e) => e.category === type);
     return setListCourses(coursesByType);
   }
@@ -225,6 +243,30 @@ export const MyStore = () => {
   function ShowAllCourses() {
     const coursesByType = data.map((e) => e);
     return setListCourses(coursesByType);
+  } */
+
+  function GetAllCourses() {
+    useEffect(() => {
+      axios.get(`http://localhost:3001/courses`).then((response) => {
+        setAllCourses(response.data);
+        allCourses.map((e: any) => (e.amount = 0));
+        return allCourses;
+      });
+    }, []);
+  }
+
+  GetAllCourses();
+
+  function addToCart(item: any) {
+    const filterItems =
+      carrinhoDeCurso.length > 0
+        ? carrinhoDeCurso
+            .map((e) => (e.course_id === item.course_id ? true : false))
+            .filter((e) => e === true).length > 0
+          ? false
+          : setCarrinho((element: any) => [...element, item])
+        : setCarrinho((element: any) => [...element, item]);
+    console.log(filterItems);
   }
 
   return (
@@ -247,7 +289,9 @@ export const MyStore = () => {
           </Typography>
           <CategoriesWrapper>
             <Button
-              onClick={() => ShowAllCourses()}
+              onClick={
+                /*() => ShowAllCourses()*/ () => console.log("todos os cursos")
+              }
               color="success"
               sx={{ width: "120px" }}
               variant="outlined"
@@ -255,7 +299,7 @@ export const MyStore = () => {
               Todos os Cursos
             </Button>
 
-            {ListCategorys.map((e) => (
+            {/* ListCategorys.map((e) => (
               <>
                 <Button
                   key={e}
@@ -267,12 +311,12 @@ export const MyStore = () => {
                   {e}
                 </Button>
               </>
-            ))}
+            )) */}
           </CategoriesWrapper>
         </div>
       </CategoriesMainWrapper>
       <CoursesGrid>
-        {listCourses.length > 0
+        {/* listCourses.length > 0
           ? listCourses.map((item) => (
               <CourseBox key={item.id}>
                 <Item item={item} handleAddToCart={handleAddToCart}></Item>
@@ -282,7 +326,40 @@ export const MyStore = () => {
               <CourseBox key={item.id}>
                 <Item item={item} handleAddToCart={handleAddToCart}></Item>
               </CourseBox>
-            ))}
+            )) */}
+
+        {allCourses.length > 0
+          ? allCourses.map((item: any) => (
+              <div>
+                <CardDoItem key={item.id}>
+                  <h1 style={{ textAlign: "center" }}>{item.name} </h1>
+                  <img src={item.thumb_url} alt={item.name}></img>
+                  <TextContent>
+                    <Typography
+                      className="price"
+                      fontWeight={600}
+                      textAlign="center"
+                    >
+                      <span className="priceSymbol"> R$ </span> {item.price}
+                    </Typography>
+                    <p> {item.main_resume}</p>
+                    <p>Categoria: {item.category}</p>
+                    <p>Dificuldade: {item.level}</p>
+                  </TextContent>
+                  <Button
+                    sx={{ marginTop: "25px", padding: "15px 0" }}
+                    color="success"
+                    variant="contained"
+                    fullWidth
+                    onClick={() => addToCart(item)}
+                  >
+                    Comprar
+                  </Button>
+                </CardDoItem>
+              </div>
+            ))
+          : "loading..."}
+        <Button onClick={() => console.log(carrinhoDeCurso)}>Aleatório</Button>
       </CoursesGrid>
       <Footer />
     </CourseWrapperMain>
