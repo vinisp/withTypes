@@ -13,6 +13,8 @@ import axios from "axios";
 
 // import data from "../../../backendFake/allcourses.json";
 
+const APIURL = "https://deppback.herokuapp.com/";
+
 export type CartItemType = {
   id: number;
   title?: string;
@@ -247,7 +249,7 @@ export const MyStore = () => {
 
   function GetAllCourses() {
     useEffect(() => {
-      axios.get(`http://localhost:3001/courses`).then((response) => {
+      axios.get(`${APIURL}courses`).then((response) => {
         setAllCourses(response.data);
         allCourses.map((e: any) => (e.amount = 0));
         return allCourses;
@@ -333,7 +335,12 @@ export const MyStore = () => {
               <div>
                 <CardDoItem key={item.id}>
                   <h1 style={{ textAlign: "center" }}>{item.name} </h1>
-                  <img src={item.thumb_url} alt={item.name}></img>
+                  {item.thumb_url ? (
+                    <img src={item.thumb_url} alt={item.name} />
+                  ) : (
+                    false
+                  )}
+
                   <TextContent>
                     <Typography
                       className="price"
