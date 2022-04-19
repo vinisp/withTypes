@@ -1,10 +1,10 @@
 import { useState, useContext, useEffect } from "react";
 import { CartContext } from "./CartContext";
 
-import { Drawer, Badge, Button, Typography } from "@mui/material";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { Drawer, Button, Typography } from "@mui/material";
+// import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 // import Item from "./Item/Item";
-import Cart from "./Cart/Cart";
+//import Cart from "./Cart/Cart";
 import { Wrapper, StyledButton } from "./NewCart.styles";
 import { styled } from "@mui/material/styles";
 import { Footer } from "../Footer";
@@ -119,6 +119,35 @@ const CardDoItem = styled("div")(({ theme }) => ({
   },
 }));
 
+const CardDoCarrinho = styled("div")(({ theme }) => ({
+  border: "solid 1px green",
+  padding: "0",
+  borderRadius: "0px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+
+  color: "black",
+  img: {
+    width: 100,
+  },
+
+  h1: {
+    borderRadius: "7px 7px 0 0",
+    textAling: "center",
+    color: "black",
+    fontSize: "14px",
+    padding: "15px",
+  },
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    width: "100px",
+  },
+}));
+
 const TextContent = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -151,101 +180,66 @@ const TextContent = styled("div")(({ theme }) => ({
 
 export const CartNav = () => {
   const [cartOpen, setCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([] as CartItemType[]);
+  // const [cartItems, setCartItems] = useState([] as CartItemType[]);
 
-  const myCartItems: any = useContext(CartContext);
+  const [cartItems, setCarItems] = useState<any[]>([]);
 
-  function getTotalItems(items: CartItemType[]): number {
-    return items.reduce((acc, item) => acc + item.amount, 0);
+  //const myCartItems: any = useContext(CartContext);
+
+  function CheckCartItems() {
+    const myCartItems: any = useContext(CartContext);
+
+    useEffect(() => {
+      setCarItems(myCartItems);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [myCartItems.length]);
   }
 
-  function checkActualCart() {
-    cartItems.length === 0
-      ? checkPreviewCart()
-      : console.log({ HookUSe: cartItems, HookContext: myCartItems[0] });
-  }
-
-  checkActualCart();
-
-  function checkPreviewCart() {
-    myCartItems.length > 0
-      ? myCartItems[0].length > 0
-        ? setCartItems((cartItems) => [...cartItems, ...myCartItems[0]])
-        : console.log("não é a primeira seção e não temos item no carrinho")
-      : console.log("não temos items no carrinho primeira seção");
-  }
-
-  useEffect(() => {
-    cartItems.splice(0, cartItems.length);
-    checkPreviewCart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [myCartItems[0]?.length]);
-
-  const updateRender = () => {
-    cartItems.splice(0, cartItems.length);
-    setCartItems((cartItems) => [...cartItems, ...myCartItems[0]]);
-  };
-
-  const handleRemoveFromCart = (id: any) => {
-    const IndexElement = myCartItems[0].findIndex((e: any) => e.id === id);
-    myCartItems[0].splice(IndexElement, 1);
-    console.log(myCartItems[0]);
-    updateRender();
-  };
+  CheckCartItems();
 
   return (
     <Wrapper>
       <Drawer anchor="right" open={cartOpen} onClose={() => setCartOpen(false)}>
-        <Cart cartItems={cartItems} removeFromCart={handleRemoveFromCart} />
+        <div>
+          {cartItems.length > 0
+            ? cartItems.map((e: any, index: any) => (
+                <>
+                  <CardDoCarrinho key={e.course_id}>
+                    {e.thumb_url ? (
+                      <img src={e.thumb_url} alt={e.name} />
+                    ) : (
+                      false
+                    )}
+                    <h1> {e.name} </h1>
+
+                    <h2>R$ {e.price}</h2>
+                    <Button
+                      color="error"
+                      onClick={() => {
+                        cartItems.splice(index, 1);
+                        setCarItems(cartItems.filter((e) => e));
+                      }}
+                    >
+                      Excluir
+                    </Button>
+                  </CardDoCarrinho>
+                </>
+              ))
+            : "não temos items no carrinho"}
+        </div>
+        <div>
+          Total: {cartItems.reduce((e: any, i: any) => e + +i.price, 0)}
+        </div>
       </Drawer>
-      <StyledButton onClick={() => setCartOpen(true)}>
-        <Badge badgeContent={getTotalItems(cartItems)} color="secondary">
-          <AddShoppingCartIcon />
-        </Badge>
-      </StyledButton>
+      <StyledButton onClick={() => setCartOpen(true)}></StyledButton>
     </Wrapper>
   );
 };
 
 export const MyStore = () => {
-  const [cartItems, setCartItems] = useState([] as CartItemType[]);
   // const [listCourses, setListCourses] = useState([] as CartItemType[]);
   const [allCourses, setAllCourses] = useState<any>([]);
   const [carrinhoDeCurso, setCarrinho] = useState<any[]>([]);
-
-  const myCartItems = useContext(CartContext);
-
-  /* const handleAddToCart = (clickedItem: CartItemType) => {
-    myCartItems[0].find((e: any) => e.id === clickedItem.id)
-      ? console.log("achamos")
-      : myCartItems[0].push(clickedItem);
-  }; */
-
-  const handleUpdate = () => {
-    myCartItems.splice(0, myCartItems.length);
-    myCartItems.push(cartItems);
-  };
-
-  const youNeedUpdate = () => {
-    myCartItems[0]
-      ? setCartItems((cartItems) => [...cartItems, ...myCartItems[0]])
-      : handleUpdate();
-  };
-
-  useEffect(() => {
-    youNeedUpdate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartItems.length]);
-
-  /* function FilterByTipe(type: any) {
-    const coursesByType = data.filter((e) => e.category === type);
-    return setListCourses(coursesByType);
-  }
-
-  function ShowAllCourses() {
-    const coursesByType = data.map((e) => e);
-    return setListCourses(coursesByType);
-  } */
 
   function GetAllCourses() {
     useEffect(() => {
@@ -259,7 +253,9 @@ export const MyStore = () => {
 
   GetAllCourses();
 
-  function addToCart(item: any) {
+  const myCartItems = useContext(CartContext);
+
+  function AddToCart(item: any) {
     const filterItems =
       carrinhoDeCurso.length > 0
         ? carrinhoDeCurso
@@ -268,7 +264,17 @@ export const MyStore = () => {
           ? false
           : setCarrinho((element: any) => [...element, item])
         : setCarrinho((element: any) => [...element, item]);
-    console.log(filterItems);
+
+    const filterToContext =
+      myCartItems.length > 0
+        ? myCartItems
+            .map((e: any) => (e.course_id === item.course_id ? true : false))
+            .filter((e: any) => e === true).length > 0
+          ? false
+          : myCartItems.push(item)
+        : myCartItems.push(item);
+
+    return [filterItems, filterToContext];
   }
 
   return (
@@ -318,18 +324,6 @@ export const MyStore = () => {
         </div>
       </CategoriesMainWrapper>
       <CoursesGrid>
-        {/* listCourses.length > 0
-          ? listCourses.map((item) => (
-              <CourseBox key={item.id}>
-                <Item item={item} handleAddToCart={handleAddToCart}></Item>
-              </CourseBox>
-            ))
-          : data?.map((item) => (
-              <CourseBox key={item.id}>
-                <Item item={item} handleAddToCart={handleAddToCart}></Item>
-              </CourseBox>
-            )) */}
-
         {allCourses.length > 0
           ? allCourses.map((item: any) => (
               <div>
@@ -358,7 +352,7 @@ export const MyStore = () => {
                     color="success"
                     variant="contained"
                     fullWidth
-                    onClick={() => addToCart(item)}
+                    onClick={() => AddToCart(item)}
                   >
                     Comprar
                   </Button>
@@ -366,7 +360,6 @@ export const MyStore = () => {
               </div>
             ))
           : "loading..."}
-        <Button onClick={() => console.log(carrinhoDeCurso)}>Aleatório</Button>
       </CoursesGrid>
       <Footer />
     </CourseWrapperMain>
