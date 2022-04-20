@@ -244,6 +244,16 @@ const PhotoWrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
+const CardTitle = styled("div")(({ theme }) => ({
+  borderBottom: "solid 1px rgba(177,177,15,0.4)",
+  marginBottom: "4px",
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
 const AllCoursesDiv = styled("div")(({ theme }) => ({
   display: "flex",
   flexWrap: "wrap",
@@ -252,7 +262,6 @@ const AllCoursesDiv = styled("div")(({ theme }) => ({
   gap: "20px",
   overflowX: "hidden",
   borderRadius: "8px",
-  height: "auto",
 
   [theme.breakpoints.down("sm")]: {
     width: "100%",
@@ -273,6 +282,7 @@ const AllCoursesDiv = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {
     padding: "0px 15px",
     width: "80%",
+    height: "auto",
   },
 }));
 
@@ -283,7 +293,7 @@ const SectionWrapper = styled("div")(({ theme }) => ({
   gap: "10px",
   backgroundColor: "#0c0c0c",
   borderRadius: "8px",
-  height: "auto",
+
   padding: "16px 32px",
 
   [theme.breakpoints.down("sm")]: {
@@ -293,17 +303,19 @@ const SectionWrapper = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {},
 
   [theme.breakpoints.up("md")]: {},
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("lg")]: {
+    minHeight: "750px",
+  },
 }));
 
 const Card = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  gap: "10px",
+
   padding: "5px 5px",
   backgroundColor: "transparent",
   border: "solid 2px rgba(199,234,70,0.3)",
-  height: "500px",
+
   borderRadius: "8px",
   cursor: "pointer",
   transition: "all 350ms ease",
@@ -328,6 +340,7 @@ const Card = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     width: "20%",
+    height: "550px",
   },
 }));
 
@@ -419,7 +432,7 @@ const CardImg = styled("div")(({ theme }) => ({
 const CardText = styled("div")(({ theme }) => ({
   backgroundColor: "#f2f2f2",
   borderRadius: "8px",
-  flex: "0 0 40%",
+
   color: "black",
   fontSize: "16px",
   fontWeight: 600,
@@ -434,6 +447,7 @@ const CardText = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {
     width: "100%",
+    flex: "0 0 30%",
   },
 }));
 
@@ -459,6 +473,7 @@ const CardReview = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {
+    margin: "5px 0",
     width: "100%",
   },
 }));
@@ -773,6 +788,7 @@ export function Profile() {
   const [twitter, setTwitter] = useState("");
   const [telegram, setTelegram] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
+  const [coursesByUser, setCoursesByUser] = useState<any[]>([]);
 
   const handleDragStart = (e: any) => e.preventDefault();
 
@@ -792,6 +808,16 @@ export function Profile() {
   }
 
   GetUserData();
+
+  function GetCoursesByUser() {
+    useEffect(() => {
+      axios.get(`${APIURL}search/${user_id}`).then((response) => {
+        return setCoursesByUser(response.data);
+      });
+    }, []);
+  }
+
+  GetCoursesByUser();
 
   const items = [
     <CardSlider onDragStart={handleDragStart}>
@@ -944,83 +970,118 @@ export function Profile() {
             >
               MAIS VENDIDOS
             </Typography>
+            {/* <CardWrapper>
+              <Card>
+                <CardImg>
+                  <img
+                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
+                    alt=""
+                  />
+                </CardImg>
+                <CardText>Resumo </CardText>
+                <CardReview>
+                  <StarIcon />
+                  <StarIcon />
+                  <StarIcon />
+                  <StarHalfIcon />
+                  <StarBorderIcon />
+                </CardReview>
+                <Button variant="contained" color="success">
+                  Compre
+                </Button>
+              </Card>
+              <Card>
+                <CardImg>
+                  <img
+                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
+                    alt=""
+                  />
+                </CardImg>
+                <CardText>Resumo </CardText>
+                <CardReview>
+                  <StarIcon />
+                  <StarIcon />
+                  <StarIcon />
+                  <StarHalfIcon />
+                  <StarBorderIcon />
+                </CardReview>
+                <Button variant="contained" color="success">
+                  Compre
+                </Button>
+              </Card>
+              <Card>
+                <CardImg>
+                  <img
+                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
+                    alt=""
+                  />
+                </CardImg>
+                <CardText>Resumo </CardText>
+                <CardReview>
+                  <StarIcon />
+                  <StarIcon />
+                  <StarIcon />
+                  <StarHalfIcon />
+                  <StarBorderIcon />
+                </CardReview>
+                <Button variant="contained" color="success">
+                  Compre
+                </Button>
+              </Card>
+              <Card>
+                <CardImg>
+                  <img
+                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
+                    alt=""
+                  />
+                </CardImg>
+                <CardText>Resumo </CardText>
+                <CardReview>
+                  <StarIcon />
+                  <StarIcon />
+                  <StarIcon />
+                  <StarHalfIcon />
+                  <StarBorderIcon />
+                </CardReview>
+                <Button variant="contained" color="success">
+                  Compre
+                </Button>
+              </Card>
+            </CardWrapper> */}
             <CardWrapper>
-              <Card>
-                <CardImg>
-                  <img
-                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-                    alt=""
-                  />
-                </CardImg>
-                <CardText>Resumo </CardText>
-                <CardReview>
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarHalfIcon />
-                  <StarBorderIcon />
-                </CardReview>
-                <Button variant="contained" color="success">
-                  Compre
-                </Button>
-              </Card>
-              <Card>
-                <CardImg>
-                  <img
-                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-                    alt=""
-                  />
-                </CardImg>
-                <CardText>Resumo </CardText>
-                <CardReview>
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarHalfIcon />
-                  <StarBorderIcon />
-                </CardReview>
-                <Button variant="contained" color="success">
-                  Compre
-                </Button>
-              </Card>
-              <Card>
-                <CardImg>
-                  <img
-                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-                    alt=""
-                  />
-                </CardImg>
-                <CardText>Resumo </CardText>
-                <CardReview>
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarHalfIcon />
-                  <StarBorderIcon />
-                </CardReview>
-                <Button variant="contained" color="success">
-                  Compre
-                </Button>
-              </Card>
-              <Card>
-                <CardImg>
-                  <img
-                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-                    alt=""
-                  />
-                </CardImg>
-                <CardText>Resumo </CardText>
-                <CardReview>
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarHalfIcon />
-                  <StarBorderIcon />
-                </CardReview>
-                <Button variant="contained" color="success">
-                  Compre
-                </Button>
-              </Card>
+              {coursesByUser.length > 0
+                ? coursesByUser.map((e) => (
+                    <Card key={e.id}>
+                      <CardTitle>
+                        <Typography
+                          sx={{
+                            fontWeight: 600,
+                            fontSize: "24px",
+
+                            color: "white",
+                          }}
+                          textAlign="center"
+                        >
+                          {e.name}
+                        </Typography>
+                      </CardTitle>
+                      <CardImg>
+                        <img src={e.thumb_url} alt="" />
+                      </CardImg>
+                      <CardText>{e.main_resume}</CardText>
+                      <CardReview>
+                        <StarIcon />
+                        <StarIcon />
+                        <StarIcon />
+                        <StarHalfIcon />
+                        <StarBorderIcon />
+                      </CardReview>
+                      <Button variant="contained" color="success">
+                        Compre
+                      </Button>
+                    </Card>
+                  ))
+                : "Loading..."}{" "}
             </CardWrapper>
 
             {Gallery()}
