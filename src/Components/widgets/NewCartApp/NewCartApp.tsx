@@ -9,6 +9,8 @@ import { Wrapper, StyledButton } from "./NewCart.styles";
 import { styled } from "@mui/material/styles";
 import { Footer } from "../Footer";
 
+import { useHistory } from "react-router-dom";
+
 import axios from "axios";
 
 // import data from "../../../backendFake/allcourses.json";
@@ -241,6 +243,8 @@ export const MyStore = () => {
   const [allCourses, setAllCourses] = useState<any>([]);
   const [carrinhoDeCurso, setCarrinho] = useState<any[]>([]);
 
+  let history = useHistory<any>();
+
   function GetAllCourses() {
     useEffect(() => {
       axios.get(`${APIURL}courses`).then((response) => {
@@ -347,6 +351,19 @@ export const MyStore = () => {
                     <p>Categoria: {item.category}</p>
                     <p>Dificuldade: {item.level}</p>
                   </TextContent>
+                  <Button
+                    sx={{
+                      marginTop: "25px",
+                      padding: "15px 0",
+                      borderRadius: 0,
+                    }}
+                    color="success"
+                    variant="outlined"
+                    fullWidth
+                    onClick={() => history.push(`/course/${item.course_id}`)}
+                  >
+                    VER DETALHES
+                  </Button>
                   <Button
                     sx={{ marginTop: "25px", padding: "15px 0" }}
                     color="success"

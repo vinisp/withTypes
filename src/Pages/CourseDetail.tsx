@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import { useParams } from "react-router-dom";
 import data from "../backendFake/allcourses.json";
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
@@ -9,7 +11,10 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import axios from "axios";
 import { Footer } from "../Components/widgets/Footer";
+
+const APIURL = "https://deppback.herokuapp.com/";
 
 const theme = createTheme({
   typography: {
@@ -367,20 +372,30 @@ const FlexContainer = styled("div")(({ theme }) => ({
 
 export function CourseDetail() {
   const { idCourse } = useParams<any>();
-  const selectCourse = data.filter((e) => e.id === +idCourse);
-  console.log(selectCourse);
+  const [course, setCourse] = useState<any[]>();
+  //Dados Locais
+
+  function GetCourseData() {
+    useEffect(() => {
+      axios
+        .get(`${APIURL}course/${idCourse}`)
+        .then((response) => setCourse(response.data));
+    }, []);
+  }
+
+  GetCourseData();
 
   return (
     <>
-      {selectCourse.map((e) => (
+      {course?.map((e) => (
         <>
           <ThemeProvider theme={theme}>
             <Container>
               <TitleSection>
                 <div key={e.id}>
-                  <Typography variant="h2"> {e.title} </Typography>
+                  <Typography variant="h2"> {e.name} </Typography>
                   <Typography variant="subtitle1" color={"white"}>
-                    {e.courseAbout}
+                    {e.main_resume}
                   </Typography>
                 </div>
               </TitleSection>
@@ -388,20 +403,20 @@ export function CourseDetail() {
                 <HintBox>
                   <Hint>
                     <HintContent>
-                      <Typography>Informação Promocional 1</Typography>
-                      <Typography>Explicação</Typography>
+                      <Typography>{e.titulo_topico_um}</Typography>
+                      <Typography>{e.text_topico_um}</Typography>
                     </HintContent>
                   </Hint>
                   <Hint>
                     <HintContent>
-                      <Typography>Informação Promocional 2</Typography>
-                      <Typography>Explicação</Typography>
+                      <Typography>{e.titulo_topico_dois}</Typography>
+                      <Typography>{e.text_topico_dois}</Typography>
                     </HintContent>
                   </Hint>
                   <Hint>
                     <HintContent>
-                      <Typography>Informação Promocional 3</Typography>
-                      <Typography>Explicação</Typography>
+                      <Typography>{e.titulo_topico_tres}</Typography>
+                      <Typography>{e.text_topico_tres}</Typography>
                     </HintContent>
                   </Hint>
                 </HintBox>
@@ -409,37 +424,66 @@ export function CourseDetail() {
                   <Typography variant="h5" textAlign={"right"}>
                     Competências e domínios
                   </Typography>
-                  {e.modules?.map((module) => (
-                    <Accordion sx={{ width: "90%" }}>
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                      >
-                        {module.moduleTitle}
-                      </AccordionSummary>
-                      <AccordionDetails>{module.moduleResume}</AccordionDetails>
-                    </Accordion>
-                  ))}
+                  <Accordion sx={{ width: "90%" }}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
+                    >
+                      {e.titulo_competencia_um}
+                    </AccordionSummary>
+                    <AccordionDetails>{e.text_competencia_um}</AccordionDetails>
+                  </Accordion>
+                  <Accordion sx={{ width: "90%" }}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
+                    >
+                      {e.titulo_competencia_dois}
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {e.text_competencia_dois}
+                    </AccordionDetails>
+                  </Accordion>
+                  <Accordion sx={{ width: "90%" }}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
+                    >
+                      {e.titulo_competencia_tres}
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {e.text_competencia_tres}
+                    </AccordionDetails>
+                  </Accordion>
+                  <Accordion sx={{ width: "90%" }}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
+                    >
+                      {e.titulo_competencia_quatro}
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {e.text_competencia_quatro}
+                    </AccordionDetails>
+                  </Accordion>
                 </ModulesBox>
                 <ModulesBox>
                   <Typography variant="h5">Mais detalhes</Typography>
                   <Typography variant="body2" sx={{ padding: "15px 25px" }}>
-                    texto explicando mais detalhes sobre o curso texto
-                    explicando mais detalhes sobre o curso texto explicando mais
-                    detalhes sobre o curso texto explicando mais detalhes sobre
-                    o curso texto explicando mais detalhes sobre o cursotexto
-                    explicando mais detalhes sobre o curso
+                    {e.mais_detalhes}
                   </Typography>
                 </ModulesBox>
 
                 <ModulesBox>
                   <Typography>Plano de ensino</Typography>
 
-                  <div>
-                    Texto explicando a metologia e o plano de ensino, conteúdo
-                    em pdf, textos, vídeos e etc..
-                  </div>
+                  <Typography variant="body2" sx={{ padding: "15px 25px" }}>
+                    {e.plano_ensino}
+                  </Typography>
                 </ModulesBox>
 
                 <ModulesBox>
@@ -469,10 +513,10 @@ export function CourseDetail() {
                     </strong>
                   </Typography>
                   <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                    <li>Item 4</li>
+                    <li>{e.bonus_um}</li>
+                    <li>{e.bonus_dois}</li>
+                    <li>{e.bonus_tres}</li>
+                    <li>{e.bonus_quatro}</li>
                   </ul>
                 </MicoInfoBoxColumn>
               </TechDetailsBox>
