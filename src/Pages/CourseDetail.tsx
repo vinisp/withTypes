@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom";
-import data from "../backendFake/allcourses.json";
+
 import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import {
   Typography,
