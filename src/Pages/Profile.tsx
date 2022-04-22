@@ -151,6 +151,7 @@ const BottomSectionsAside = styled("div")(({ theme }) => ({
     flexDirection: "column",
     justifyContent: "center",
     borderBottom: "solid 1px green",
+    width: "100%",
   },
   [theme.breakpoints.up("sm")]: {
     flex: "0 0 50%",
@@ -158,6 +159,7 @@ const BottomSectionsAside = styled("div")(({ theme }) => ({
     flexDirection: "row",
     justifyContent: "center",
     borderBottom: "solid 1px green",
+    width: "100%",
   },
 
   [theme.breakpoints.up("md")]: {
@@ -166,6 +168,7 @@ const BottomSectionsAside = styled("div")(({ theme }) => ({
     flexDirection: "row",
     justifyContent: "center",
     borderBottom: "solid 1px green",
+    width: "100%",
   },
   [theme.breakpoints.up("lg")]: {
     width: "100%",
@@ -308,6 +311,26 @@ const SectionWrapper = styled("div")(({ theme }) => ({
   },
 }));
 
+const CardWrapper = styled("div")(({ theme }) => ({
+  [theme.breakpoints.down("sm")]: {
+    display: "none",
+  },
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    width: "100%",
+    gap: "15px",
+  },
+  [theme.breakpoints.up("lg")]: {
+    flex: "0 0 80%",
+  },
+}));
+
 const Card = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -340,7 +363,8 @@ const Card = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     width: "20%",
-    height: "550px",
+    height: "500px",
+    paddingBottom: "25px",
   },
 }));
 
@@ -383,12 +407,6 @@ const CardSlider = styled("div")(({ theme }) => ({
 }));
 
 const CardImg = styled("div")(({ theme }) => ({
-  borderRadius: "8px",
-  flex: "0 0 36%",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "flex-start",
-
   img: {
     width: "90%",
     heigth: "150px",
@@ -420,10 +438,10 @@ const CardImg = styled("div")(({ theme }) => ({
     },
   },
   [theme.breakpoints.up("lg")]: {
-    flex: "0 0 36%",
+    flex: "0 0 30%",
+
     img: {
       width: "100%",
-      heigth: "150px",
       borderRadius: "8px",
     },
   },
@@ -446,8 +464,9 @@ const CardText = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {
+    marginTop: "0",
     width: "100%",
-    flex: "0 0 30%",
+    flex: "0 0 25%",
   },
 }));
 
@@ -455,7 +474,7 @@ const CardReview = styled("div")(({ theme }) => ({
   backgroundColor: "transparent",
   border: "solid 1px rgba(193,234,70,0.6)",
   borderRadius: "8px",
-  flex: "0 0 10%",
+
   color: "rgba(193,234,70,0.4)",
   fontSize: "42px",
   fontWeight: 600,
@@ -464,7 +483,7 @@ const CardReview = styled("div")(({ theme }) => ({
   alignItems: "center",
 
   [theme.breakpoints.down("sm")]: {
-    flex: "0 0 5%",
+    flex: "0 0 10%",
     svg: {
       fontSize: "18px",
     },
@@ -473,6 +492,7 @@ const CardReview = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {
+    flex: "0 0 5%",
     margin: "5px 0",
     width: "100%",
   },
@@ -562,30 +582,6 @@ const ReviewWrapper = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {},
-}));
-
-const CardWrapper = styled("div")(({ theme }) => ({
-  [theme.breakpoints.down("sm")]: {
-    display: "none",
-  },
-  [theme.breakpoints.up("sm")]: {
-    display: "none",
-  },
-
-  [theme.breakpoints.up("md")]: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-evenly",
-    width: "100%",
-    gap: "15px",
-  },
-  [theme.breakpoints.up("lg")]: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-evenly",
-    width: "100%",
-    gap: "15px",
-  },
 }));
 
 const UserCard = styled("div")(({ theme }) => ({
@@ -1049,39 +1045,42 @@ export function Profile() {
               </Card>
             </CardWrapper> */}
             <CardWrapper>
-              {coursesByUser.length > 0
-                ? coursesByUser.map((e) => (
-                    <Card key={e.id}>
-                      <CardTitle>
-                        <Typography
-                          sx={{
-                            fontWeight: 600,
-                            fontSize: "24px",
+              {coursesByUser.length > 0 ? (
+                coursesByUser.map((e) => (
+                  <Card key={e.id}>
+                    <CardTitle>
+                      <Typography
+                        sx={{
+                          fontWeight: 600,
+                          fontSize: "24px",
 
-                            color: "white",
-                          }}
-                          textAlign="center"
-                        >
-                          {e.name}
-                        </Typography>
-                      </CardTitle>
-                      <CardImg>
-                        <img src={e.thumb_url} alt="" />
-                      </CardImg>
-                      <CardText>{e.main_resume}</CardText>
-                      <CardReview>
-                        <StarIcon />
-                        <StarIcon />
-                        <StarIcon />
-                        <StarHalfIcon />
-                        <StarBorderIcon />
-                      </CardReview>
-                      <Button variant="contained" color="success">
-                        Compre
-                      </Button>
-                    </Card>
-                  ))
-                : "Loading..."}{" "}
+                          color: "white",
+                        }}
+                        textAlign="center"
+                      >
+                        {e.name}
+                      </Typography>
+                    </CardTitle>
+                    <CardImg>
+                      <img src={e.thumb_url} alt="" />
+                    </CardImg>
+                    <CardText>{e.main_resume}</CardText>
+                    <CardReview>
+                      <StarIcon />
+                      <StarIcon />
+                      <StarIcon />
+                      <StarHalfIcon />
+                      <StarBorderIcon />
+                    </CardReview>
+                    <Button>Saiba Mais</Button>
+                    <Button variant="contained" color="success">
+                      Compre
+                    </Button>
+                  </Card>
+                ))
+              ) : (
+                <Typography sx={{ color: "white" }}> "Loading..." </Typography>
+              )}
             </CardWrapper>
 
             {Gallery()}
