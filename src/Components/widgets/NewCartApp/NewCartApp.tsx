@@ -328,55 +328,57 @@ export const MyStore = () => {
         </div>
       </CategoriesMainWrapper>
       <CoursesGrid>
-        {allCourses.length > 0
-          ? allCourses.map((item: any) => (
-              <div>
-                <CardDoItem key={item.id}>
-                  <h1 style={{ textAlign: "center" }}>{item.name} </h1>
-                  {item.thumb_url ? (
-                    <img src={item.thumb_url} alt={item.name} />
-                  ) : (
-                    false
-                  )}
+        {allCourses.length > 0 ? (
+          allCourses.map((item: any) => (
+            <div>
+              <CardDoItem key={item.id}>
+                <h1 style={{ textAlign: "center" }}>{item.name} </h1>
+                {item.thumb_url ? (
+                  <img src={item.thumb_url} alt={item.name} />
+                ) : (
+                  false
+                )}
 
-                  <TextContent>
-                    <Typography
-                      className="price"
-                      fontWeight={600}
-                      textAlign="center"
-                    >
-                      <span className="priceSymbol"> R$ </span> {item.price}
-                    </Typography>
-                    <p> {item.main_resume}</p>
-                    <p>Categoria: {item.category}</p>
-                    <p>Dificuldade: {item.level}</p>
-                  </TextContent>
-                  <Button
-                    sx={{
-                      marginTop: "25px",
-                      padding: "15px 0",
-                      borderRadius: 0,
-                    }}
-                    color="success"
-                    variant="outlined"
-                    fullWidth
-                    onClick={() => history.push(`/course/${item.course_id}`)}
+                <TextContent>
+                  <Typography
+                    className="price"
+                    fontWeight={600}
+                    textAlign="center"
                   >
-                    VER DETALHES
-                  </Button>
-                  <Button
-                    sx={{ marginTop: "25px", padding: "15px 0" }}
-                    color="success"
-                    variant="contained"
-                    fullWidth
-                    onClick={() => AddToCart(item)}
-                  >
-                    Comprar
-                  </Button>
-                </CardDoItem>
-              </div>
-            ))
-          : "loading..."}
+                    <span className="priceSymbol"> R$ </span> {item.price}
+                  </Typography>
+                  <p> {item.main_resume}</p>
+                  <p>Categoria: {item.category}</p>
+                  <p>Dificuldade: {item.level}</p>
+                </TextContent>
+                <Button
+                  sx={{
+                    marginTop: "25px",
+                    padding: "15px 0",
+                    borderRadius: 0,
+                  }}
+                  color="success"
+                  variant="outlined"
+                  fullWidth
+                  onClick={() => history.push(`/course/${item.course_id}`)}
+                >
+                  VER DETALHES
+                </Button>
+                <Button
+                  sx={{ marginTop: "25px", padding: "15px 0" }}
+                  color="success"
+                  variant="contained"
+                  fullWidth
+                  onClick={() => AddToCart(item)}
+                >
+                  Comprar
+                </Button>
+              </CardDoItem>
+            </div>
+          ))
+        ) : (
+          <Typography sx={{ color: "white" }}> Carregando... </Typography>
+        )}
       </CoursesGrid>
       <Footer />
     </CourseWrapperMain>
