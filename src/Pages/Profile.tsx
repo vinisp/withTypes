@@ -17,7 +17,7 @@ import AliceCarousel from "react-alice-carousel";
 
 import { Footer } from "../Components/widgets/Footer";
 
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import axios from "axios";
 
@@ -293,7 +293,7 @@ const SectionWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   width: "100%",
-  gap: "10px",
+
   backgroundColor: "#0c0c0c",
   borderRadius: "8px",
 
@@ -305,9 +305,12 @@ const SectionWrapper = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("sm")]: {},
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    gap: "20px",
+  },
   [theme.breakpoints.up("lg")]: {
-    minHeight: "750px",
+    minHeight: "620px",
+    gap: "20px",
   },
 }));
 
@@ -462,15 +465,16 @@ const CardText = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     flex: "0 0 35%",
   },
-  [theme.breakpoints.up("sm")]: {},
-
-  [theme.breakpoints.up("md")]: {
-    display: "none",
+  [theme.breakpoints.up("sm")]: {
+    display: "flex",
   },
+
+  [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {
     marginTop: "0",
     width: "100%",
     flex: "0 0 25%",
+    display: "flex",
   },
 }));
 
@@ -790,6 +794,8 @@ export function Profile() {
   const [whatsapp, setWhatsapp] = useState("");
   const [coursesByUser, setCoursesByUser] = useState<any[]>([]);
 
+  let history = useHistory();
+
   const handleDragStart = (e: any) => e.preventDefault();
 
   function GetUserData() {
@@ -818,28 +824,6 @@ export function Profile() {
   }
 
   GetCoursesByUser();
-
-  /* const items = [
-    <CardSlider onDragStart={handleDragStart}>
-      <CardImg>
-        <img
-          src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-          alt=""
-        />
-      </CardImg>
-      <CardText>Resumo </CardText>
-      <CardReview>
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
-        <StarHalfIcon />
-        <StarBorderIcon />
-      </CardReview>
-      <Button variant="contained" color="success">
-        Compre
-      </Button>
-    </CardSlider>,
-  ]; */
 
   const items = coursesByUser.map((e) => (
     <CardSlider onDragStart={handleDragStart}>
@@ -954,84 +938,7 @@ export function Profile() {
             >
               MAIS VENDIDOS
             </Typography>
-            {/* <CardWrapper>
-              <Card>
-                <CardImg>
-                  <img
-                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-                    alt=""
-                  />
-                </CardImg>
-                <CardText>Resumo </CardText>
-                <CardReview>
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarHalfIcon />
-                  <StarBorderIcon />
-                </CardReview>
-                <Button variant="contained" color="success">
-                  Compre
-                </Button>
-              </Card>
-              <Card>
-                <CardImg>
-                  <img
-                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-                    alt=""
-                  />
-                </CardImg>
-                <CardText>Resumo </CardText>
-                <CardReview>
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarHalfIcon />
-                  <StarBorderIcon />
-                </CardReview>
-                <Button variant="contained" color="success">
-                  Compre
-                </Button>
-              </Card>
-              <Card>
-                <CardImg>
-                  <img
-                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-                    alt=""
-                  />
-                </CardImg>
-                <CardText>Resumo </CardText>
-                <CardReview>
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarHalfIcon />
-                  <StarBorderIcon />
-                </CardReview>
-                <Button variant="contained" color="success">
-                  Compre
-                </Button>
-              </Card>
-              <Card>
-                <CardImg>
-                  <img
-                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-                    alt=""
-                  />
-                </CardImg>
-                <CardText>Resumo </CardText>
-                <CardReview>
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarHalfIcon />
-                  <StarBorderIcon />
-                </CardReview>
-                <Button variant="contained" color="success">
-                  Compre
-                </Button>
-              </Card>
-            </CardWrapper> */}
+
             <CardWrapper>
               {coursesByUser.length > 0 ? (
                 coursesByUser.map((e) => (
@@ -1060,7 +967,13 @@ export function Profile() {
                       <StarHalfIcon />
                       <StarBorderIcon />
                     </CardReview>
-                    <Button>Saiba Mais</Button>
+                    <Button
+                      variant="outlined"
+                      sx={{ margin: "5px 0" }}
+                      onClick={() => history.push(`/course/${e.course_id}`)}
+                    >
+                      Saiba Mais
+                    </Button>
                     <Button variant="contained" color="success">
                       Compre
                     </Button>
@@ -1087,82 +1000,48 @@ export function Profile() {
               LANÇAMENTOS
             </Typography>
             <CardWrapper>
-              <Card>
-                <CardImg>
-                  <img
-                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-                    alt=""
-                  />
-                </CardImg>
-                <CardText>Resumo </CardText>
-                <CardReview>
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarHalfIcon />
-                  <StarBorderIcon />
-                </CardReview>
-                <Button variant="contained" color="success">
-                  Compre
-                </Button>
-              </Card>
-              <Card>
-                <CardImg>
-                  <img
-                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-                    alt=""
-                  />
-                </CardImg>
-                <CardText>Resumo </CardText>
-                <CardReview>
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarHalfIcon />
-                  <StarBorderIcon />
-                </CardReview>
-                <Button variant="contained" color="success">
-                  Compre
-                </Button>
-              </Card>
-              <Card>
-                <CardImg>
-                  <img
-                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-                    alt=""
-                  />
-                </CardImg>
-                <CardText>Resumo </CardText>
-                <CardReview>
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarHalfIcon />
-                  <StarBorderIcon />
-                </CardReview>
-                <Button variant="contained" color="success">
-                  Compre
-                </Button>
-              </Card>
-              <Card>
-                <CardImg>
-                  <img
-                    src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-                    alt=""
-                  />
-                </CardImg>
-                <CardText>Resumo </CardText>
-                <CardReview>
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarHalfIcon />
-                  <StarBorderIcon />
-                </CardReview>
-                <Button variant="contained" color="success">
-                  Compre
-                </Button>
-              </Card>
+              {coursesByUser.length > 0 ? (
+                coursesByUser.map((e) => (
+                  <Card key={e.id}>
+                    <CardTitle>
+                      <Typography
+                        sx={{
+                          fontWeight: 600,
+                          fontSize: "24px",
+
+                          color: "white",
+                        }}
+                        textAlign="center"
+                      >
+                        {e.name}
+                      </Typography>
+                    </CardTitle>
+                    <CardImg>
+                      <img src={e.thumb_url} alt="" />
+                    </CardImg>
+                    <CardText>{e.main_resume}</CardText>
+                    <CardReview>
+                      <StarIcon />
+                      <StarIcon />
+                      <StarIcon />
+                      <StarHalfIcon />
+                      <StarBorderIcon />
+                    </CardReview>
+                    <Button
+                      variant="outlined"
+                      sx={{ margin: "5px 0" }}
+                      onClick={() => history.push(`/course/${e.course_id}`)}
+                    >
+                      Saiba Mais
+                    </Button>
+                    <Button variant="contained" color="success">
+                      Compre
+                    </Button>
+                  </Card>
+                ))
+              ) : (
+                <Typography sx={{ color: "white" }}> "Loading..." </Typography>
+              )}
             </CardWrapper>
             {Gallery()}
           </SectionWrapper>
