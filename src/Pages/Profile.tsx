@@ -359,10 +359,11 @@ const Card = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.up("md")]: {
-    width: "35%",
+    width: "200px",
+    paddingBottom: "25px",
   },
   [theme.breakpoints.up("lg")]: {
-    width: "20%",
+    width: "250px",
     height: "500px",
     paddingBottom: "25px",
   },
@@ -375,7 +376,7 @@ const CardSlider = styled("div")(({ theme }) => ({
   padding: "5px 5px",
   backgroundColor: "transparent",
   border: "solid 2px rgba(199,234,70,0.3)",
-  height: "500px",
+  height: "400px",
   borderRadius: "8px",
   cursor: "pointer",
   transition: "all 350ms ease",
@@ -390,7 +391,7 @@ const CardSlider = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     margin: "0 auto",
     width: "100%",
-    height: "470px",
+    height: "420px",
   },
   [theme.breakpoints.up("sm")]: {
     margin: "0 auto",
@@ -431,8 +432,9 @@ const CardImg = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {
     flex: "0 0 36%",
+    marginBottom: "5px",
     img: {
-      width: "90%",
+      width: "100%",
       heigth: "150px",
       borderRadius: "8px",
     },
@@ -462,7 +464,9 @@ const CardText = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("sm")]: {},
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    display: "none",
+  },
   [theme.breakpoints.up("lg")]: {
     marginTop: "0",
     width: "100%",
@@ -815,7 +819,7 @@ export function Profile() {
 
   GetCoursesByUser();
 
-  const items = [
+  /* const items = [
     <CardSlider onDragStart={handleDragStart}>
       <CardImg>
         <img
@@ -835,14 +839,14 @@ export function Profile() {
         Compre
       </Button>
     </CardSlider>,
+  ]; */
+
+  const items = coursesByUser.map((e) => (
     <CardSlider onDragStart={handleDragStart}>
+      <Typography sx={{ color: "white" }}> {e.name} </Typography>
       <CardImg>
-        <img
-          src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-          alt=""
-        />
+        <img src={e.thumb_url} alt="" />
       </CardImg>
-      <CardText>Resumo </CardText>
       <CardReview>
         <StarIcon />
         <StarIcon />
@@ -850,30 +854,14 @@ export function Profile() {
         <StarHalfIcon />
         <StarBorderIcon />
       </CardReview>
+      <Button variant="outlined" color="success">
+        Saiba Mais
+      </Button>
       <Button variant="contained" color="success">
         Compre
       </Button>
-    </CardSlider>,
-    <CardSlider onDragStart={handleDragStart}>
-      <CardImg>
-        <img
-          src="https://soccerpracticebooks.com/wp-content/uploads/2016/05/AdobeStock_46062639.jpeg"
-          alt=""
-        />
-      </CardImg>
-      <CardText>Resumo </CardText>
-      <CardReview>
-        <StarIcon />
-        <StarIcon />
-        <StarIcon />
-        <StarHalfIcon />
-        <StarBorderIcon />
-      </CardReview>
-      <Button variant="contained" color="success">
-        Compre
-      </Button>
-    </CardSlider>,
-  ];
+    </CardSlider>
+  ));
 
   const Gallery = () => {
     return (
