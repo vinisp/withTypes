@@ -13,6 +13,8 @@ import { CoursePage } from "./Pages/userPages/CoursePage";
 import { EditProfilePage } from "./Pages/userPages/EditProfilePage";
 import { IndexCoursePage } from "./Pages/userPages/EditIndexCoursePage";
 
+import { PayOneCourse } from "./Pages/PayOneCourse";
+
 //Default Pages
 
 import Home from "./Pages/Home";
@@ -106,6 +108,11 @@ function App() {
                 component={CreateCourse}
               />
               <Route exact path="/createcourse" component={CreateCourse} />
+              <Route
+                exact
+                path="/buycourse/:idCourse"
+                component={PayOneCourse}
+              />
 
               <Route exact path="/checkout" component={CheckoutPage} />
 

@@ -1025,10 +1025,16 @@ export function Profile() {
                           >
                             Saiba Mais
                           </Button>
-                          <Button variant="contained" color="success">
-                            Compre
+                          <Button
+                            onClick={() =>
+                              history.push(`/buycourse/${e.course_id}`)
+                            }
+                            variant="contained"
+                            color="success"
+                          >
+                            Comprar
                           </Button>
-                        </Card>{" "}
+                        </Card>
                       </>
                     ) : (
                       false
