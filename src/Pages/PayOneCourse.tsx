@@ -1,4 +1,4 @@
-import { Box, Typography, TextField, Button } from "@mui/material";
+import { Typography, TextField, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import { useParams } from "react-router-dom";
@@ -30,7 +30,7 @@ const Container = styled("div")(({ theme }) => ({
     flexWrap: "wrap",
   },
   [theme.breakpoints.up("lg")]: {
-    padding: "0 200px",
+    padding: "120px 200px",
   },
 }));
 
@@ -64,7 +64,7 @@ const Banner = styled("div")(({ theme }) => ({
 }));
 
 const Formulario = styled("div")(({ theme }) => ({
-  paddingTop: "120px",
+  paddingTop: "0px",
   paddingBottom: "80px",
   paddingLeft: "80px",
   paddingRight: "80px",
@@ -88,7 +88,7 @@ const Formulario = styled("div")(({ theme }) => ({
     alignItems: "flex-start",
     justifyContent: "center",
     flexWrap: "wrap",
-    paddingTop: "120px",
+    paddingTop: "0px",
     paddingBottom: "80px",
   },
   [theme.breakpoints.up("lg")]: {},
@@ -204,14 +204,14 @@ const GroupSelect = styled("div")(({ theme }) => ({
 }));
 
 const Detalhes = styled("div")(({ theme }) => ({
-  backgroundColor: "yellow",
-
   display: "flex",
   alignItems: "flex-start",
   gap: "10px",
   overflowX: "hidden",
   height: "auto",
   flex: "0 0 30%",
+  border: "solid 1px silver",
+  borderRadius: "4px",
 
   [theme.breakpoints.down("sm")]: {
     flexWrap: "wrap",
@@ -227,6 +227,34 @@ const Detalhes = styled("div")(({ theme }) => ({
     flexWrap: "wrap",
     paddingTop: "120px",
     paddingBottom: "80px",
+  },
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const MiniAndPrice = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "flex-start",
+  gap: "10px",
+  overflowX: "hidden",
+  height: "auto",
+  flex: "0 0 100%",
+
+  img: {
+    width: "180px",
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    flexWrap: "wrap",
+  },
+  [theme.breakpoints.up("sm")]: {
+    flexWrap: "wrap",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    flexWrap: "wrap",
   },
   [theme.breakpoints.up("lg")]: {},
 }));
@@ -297,29 +325,34 @@ export function PayOneCourse() {
 
   return (
     <>
-      <Box
-        sx={{
-          paddingTop: 20,
-          backgroundColor: "#FFF",
-        }}
-      >
-        {course.length > 0 ? (
-          [course[0].name, course[0].price, course[0].thumb_url]
-        ) : (
-          <Typography>Carregando </Typography>
-        )}
-      </Box>
-
       <Container>
         <Banner>Banner</Banner>
         <Formulario>
-          <div className="MiniAndPrice">
-            <div>Miniatura</div>
+          <MiniAndPrice>
             <div>
-              <div>Nome do curso</div>
-              <div>Preço</div>
+              {course.length > 0 ? (
+                <img src={course[0].thumb_url} alt="" />
+              ) : (
+                <Typography>Carregando </Typography>
+              )}
             </div>
-          </div>
+            <div>
+              {course.length > 0 ? (
+                <>
+                  <Typography sx={{ fontWeight: 600, fontSize: 24 }}>
+                    {[course[0].name]}
+                  </Typography>
+                  <Typography sx={{ fontWeight: 600, fontSize: 24 }}>
+                    {" "}
+                    R$ {[course[0].price]}
+                  </Typography>
+                  <Typography>à vista</Typography>
+                </>
+              ) : (
+                <Typography>Carregando </Typography>
+              )}
+            </div>
+          </MiniAndPrice>
           <FormularioFields>
             <Row>
               <label>Nome Completo</label>
@@ -357,7 +390,13 @@ export function PayOneCourse() {
 
           <div>Rodapé</div>
         </Formulario>
-        <Detalhes>25%</Detalhes>
+        <Detalhes>
+          {course.length > 0 ? (
+            <Typography> {course[0].main_resume}</Typography>
+          ) : (
+            <Typography>Carregando </Typography>
+          )}
+        </Detalhes>
       </Container>
     </>
   );
