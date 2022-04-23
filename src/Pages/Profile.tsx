@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-target-blank */
 import { styled } from "@mui/material/styles";
 
 import { Typography, Button } from "@mui/material";
