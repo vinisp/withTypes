@@ -3,7 +3,7 @@
 
 import { Box, ButtonGroup } from "@mui/material";
 
-const MAX_ITEMS = 9;
+const MAX_ITEMS = 10;
 const MAX_LEFT = (MAX_ITEMS - 1) / 2;
 
 export function Pagination({ limit, total, offset, setOffset }: any) {
@@ -18,21 +18,27 @@ export function Pagination({ limit, total, offset, setOffset }: any) {
         sx={{
           paddingTop: 2,
           paddingBottom: 2,
-          backgroundColor: "#FFF",
+
           ul: {
             listStyle: "none",
           },
         }}
       >
         <ul>
-          <ButtonGroup>
+          <ButtonGroup
+            sx={{
+              gap: "5px",
+            }}
+          >
             {Array.from({ length: Math.min(MAX_ITEMS, pages) })
               .map((_, index) => index + first)
               .map((page) => (
                 <li key={page}>
                   <button
                     onClick={() => setOffset((page - 1) * limit)}
-                    className={page === current ? "page-active" : ""}
+                    className={
+                      page === current ? "btnpage page-active" : "btnpage"
+                    }
                   >
                     {page}
                   </button>

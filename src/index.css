@@ -17,7 +17,17 @@ a {
   color: inherit;
 }
 
+.btnpage{
+  padding: 4px 12px;
+  border: solid 1px lime;
+  color: lime;
+  background-color: #000;
+
+}
+
 .page-active{
-  border: solid 2px red;
-  background-color: red;
+  
+  border: 0;
+  background-color: #FFF ;
+  color: #000
 }
