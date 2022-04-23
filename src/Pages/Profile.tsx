@@ -987,150 +987,54 @@ export function Profile() {
                 <Typography sx={{ color: "white" }}> "Loading..." </Typography>
               ) */}
 
-              {coursesByUser.length > 0 ? (
-                <>
-                  <Card>
-                    <CardTitle>
-                      <Typography
-                        sx={{
-                          fontWeight: 600,
-                          fontSize: "24px",
+              {coursesByUser.length > 0
+                ? coursesByUser.map((e, index) =>
+                    index < offset + 3 && index >= offset ? (
+                      <>
+                        <Card>
+                          <CardTitle>
+                            <Typography
+                              sx={{
+                                fontWeight: 600,
+                                fontSize: "24px",
 
-                          color: "white",
-                        }}
-                        textAlign="center"
-                      >
-                        {coursesByUser[offset].name}
-                      </Typography>
-                    </CardTitle>
-                    <CardImg>
-                      <img src={coursesByUser[offset].thumb_url} alt="" />
-                    </CardImg>
-                    <CardText>{coursesByUser[offset].main_resume}</CardText>
-                    <CardReview>
-                      <StarIcon />
-                      <StarIcon />
-                      <StarIcon />
-                      <StarHalfIcon />
-                      <StarBorderIcon />
-                    </CardReview>
-                    <Button
-                      variant="outlined"
-                      sx={{ margin: "5px 0" }}
-                      onClick={() =>
-                        history.push(
-                          `/course/${coursesByUser[offset].course_id}`
-                        )
-                      }
-                    >
-                      Saiba Mais
-                    </Button>
-                    <Button variant="contained" color="success">
-                      Compre
-                    </Button>
-                  </Card>
-                  {coursesByUser[offset + 1] ? (
-                    <Card>
-                      <CardTitle>
-                        <Typography
-                          sx={{
-                            fontWeight: 600,
-                            fontSize: "24px",
-
-                            color: "white",
-                          }}
-                          textAlign="center"
-                        >
-                          {coursesByUser[offset + 1]?.name}
-                        </Typography>
-                      </CardTitle>
-                      <CardImg>
-                        <img
-                          src={coursesByUser[offset + 1]?.thumb_url}
-                          alt=""
-                        />
-                      </CardImg>
-                      <CardText>
-                        {coursesByUser[offset + 1]?.main_resume}
-                      </CardText>
-                      <CardReview>
-                        <StarIcon />
-                        <StarIcon />
-                        <StarIcon />
-                        <StarHalfIcon />
-                        <StarBorderIcon />
-                      </CardReview>
-                      <Button
-                        variant="outlined"
-                        sx={{ margin: "5px 0" }}
-                        onClick={() =>
-                          history.push(
-                            `/course/${coursesByUser[offset + 1]?.course_id}`
-                          )
-                        }
-                      >
-                        Saiba Mais
-                      </Button>
-                      <Button variant="contained" color="success">
-                        Compre
-                      </Button>
-                    </Card>
-                  ) : (
-                    false
-                  )}
-                  {coursesByUser[offset + 2] ? (
-                    <Card>
-                      <CardTitle>
-                        <Typography
-                          sx={{
-                            fontWeight: 600,
-                            fontSize: "24px",
-
-                            color: "white",
-                          }}
-                          textAlign="center"
-                        >
-                          {coursesByUser[offset + 2]?.name}
-                        </Typography>
-                      </CardTitle>
-                      <CardImg>
-                        <img
-                          src={coursesByUser[offset + 2]?.thumb_url}
-                          alt=""
-                        />
-                      </CardImg>
-                      <CardText>
-                        {coursesByUser[offset + 2]?.main_resume}
-                      </CardText>
-                      <CardReview>
-                        <StarIcon />
-                        <StarIcon />
-                        <StarIcon />
-                        <StarHalfIcon />
-                        <StarBorderIcon />
-                      </CardReview>
-                      <Button
-                        variant="outlined"
-                        sx={{ margin: "5px 0" }}
-                        onClick={() =>
-                          history.push(
-                            `/course/${coursesByUser[offset + 2]?.course_id}`
-                          )
-                        }
-                      >
-                        Saiba Mais
-                      </Button>
-                      <Button variant="contained" color="success">
-                        Compre
-                      </Button>
-                    </Card>
-                  ) : (
-                    false
-                  )}
-                </>
-              ) : (
-                <Typography> "loadding" </Typography>
-              )}
+                                color: "white",
+                              }}
+                              textAlign="center"
+                            >
+                              {e.name}
+                            </Typography>
+                          </CardTitle>
+                          <CardImg>
+                            <img src={e.thumb_url} alt="" />
+                          </CardImg>
+                          <CardText>{e.main_resume}</CardText>
+                          <CardReview>
+                            <StarIcon />
+                            <StarIcon />
+                            <StarIcon />
+                            <StarHalfIcon />
+                            <StarBorderIcon />
+                          </CardReview>
+                          <Button
+                            variant="outlined"
+                            sx={{ margin: "5px 0" }}
+                            onClick={() =>
+                              history.push(`/course/${e.course_id}`)
+                            }
+                          >
+                            Saiba Mais
+                          </Button>
+                          <Button variant="contained" color="success">
+                            Compre
+                          </Button>
+                        </Card>{" "}
+                      </>
+                    ) : (
+                      false
+                    )
+                  )
+                : false}
             </CardWrapper>
             <Pagination
               limit={LIMIT}
