@@ -267,7 +267,7 @@ export function PayOneCourse() {
         <TextField fullWidth />
       </Row>
       <Row>
-        <label>Parcelas</label>
+        <label>Parcelas****</label>
         <TextField fullWidth />
       </Row>
     </FormularioFields>
