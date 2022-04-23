@@ -908,20 +908,36 @@ export function Profile() {
                 Redes Sociais
               </Typography>
               <IconsWrapper>
-                <a href={`https://${facebook}`} target="_blank">
+                <a
+                  href={`https://${facebook}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <FacebookIcon />
                 </a>
-                <a href={`https://${instagram}`} target="_blank">
+                <a
+                  href={`https://${instagram}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <InstagramIcon />
                 </a>
-                <a href={`https://${twitter}`} target="_blank">
+                <a href={`https://${twitter}`} target="_blank" rel="noreferrer">
                   <TwitterIcon />
                 </a>
-                <a href={`https:/telegram/${telegram}`} target="_blank">
+                <a
+                  href={`https:/telegram/${telegram}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <TelegramIcon />
                 </a>
 
-                <a href={`https://wa.me/${whatsapp}`} target="_blank">
+                <a
+                  href={`https://wa.me/${whatsapp}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <WhatsAppIcon />
                 </a>
               </IconsWrapper>
