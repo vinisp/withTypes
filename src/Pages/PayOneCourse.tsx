@@ -272,9 +272,16 @@ export function PayOneCourse() {
       </Row>
     </FormularioFields>
   );
-  const Boleto = <div> Boleto: </div>;
-  const Pix = <div> Pix: </div>;
-  const PayPal = <div> PayPal: </div>;
+  const Boleto = (
+    <div>
+      <Button>Gerar Boleto</Button>
+    </div>
+  );
+  const Pix = (
+    <div>
+      <Button>Gerar Pix</Button>
+    </div>
+  );
 
   function PaymentFormRender() {
     if (paymentOption === "credit") {
@@ -285,9 +292,6 @@ export function PayOneCourse() {
     }
     if (paymentOption === "pix") {
       return Pix;
-    }
-    if (paymentOption === "payPal") {
-      return PayPal;
     }
   }
 
@@ -346,11 +350,6 @@ export function PayOneCourse() {
               </div>
               <div>
                 <Button onClick={() => setPaymentOption("pix")}>Pix</Button>
-              </div>
-              <div>
-                <Button onClick={() => setPaymentOption("payPal")}>
-                  PayPal
-                </Button>
               </div>
             </GroupSelect>
             {PaymentFormRender()}
