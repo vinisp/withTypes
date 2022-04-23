@@ -12,6 +12,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import TelegramIcon from "@mui/icons-material/Telegram";
+import { Pagination } from "./paginas_testes/testar_componentes";
 
 import AliceCarousel from "react-alice-carousel";
 
@@ -782,6 +783,8 @@ const SliderWrapper = styled("div")(({ theme }) => ({
   },
 }));
 
+const LIMIT = 12;
+
 export function Profile() {
   let { user_id } = useParams<any>();
 
@@ -793,6 +796,7 @@ export function Profile() {
   const [telegram, setTelegram] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [coursesByUser, setCoursesByUser] = useState<any[]>([]);
+  const [offset, setOffset] = useState(0);
 
   let history = useHistory();
 
@@ -983,6 +987,12 @@ export function Profile() {
                 <Typography sx={{ color: "white" }}> "Loading..." </Typography>
               )}
             </CardWrapper>
+            <Pagination
+              limit={LIMIT}
+              total={coursesByUser.length}
+              offset={offset}
+              setOffset={setOffset}
+            />
 
             {Gallery()}
           </SectionWrapper>

@@ -1,31 +1,45 @@
 //import React from "react";
+//Testando Paginação
 
-import { Box } from "@mui/material";
-import Plyr from "plyr-react";
-import "plyr-react/dist/plyr.css";
+import { Box, ButtonGroup } from "@mui/material";
 
-export function TestarComponentes() {
+const MAX_ITEMS = 9;
+const MAX_LEFT = (MAX_ITEMS - 1) / 2;
+
+export function Pagination({ limit, total, offset, setOffset }: any) {
+  const current = offset ? offset / limit + 1 : 1;
+  const pages = Math.ceil(total / limit);
+
+  const first = Math.max(current - MAX_LEFT, 1);
+
   return (
     <>
       <Box
         sx={{
-          backgroundColor: "#F2f2f2",
-          paddingTop: "80px",
-          width: "350px",
+          paddingTop: 2,
+          paddingBottom: 2,
+          backgroundColor: "#FFF",
+          ul: {
+            listStyle: "none",
+          },
         }}
       >
-        <Plyr
-          source={{
-            type: "video",
-
-            sources: [
-              {
-                src: "268402641",
-                provider: "vimeo",
-              },
-            ],
-          }}
-        />
+        <ul>
+          <ButtonGroup>
+            {Array.from({ length: Math.min(MAX_ITEMS, pages) })
+              .map((_, index) => index + first)
+              .map((page) => (
+                <li key={page}>
+                  <button
+                    onClick={() => setOffset((page - 1) * limit)}
+                    className={page === current ? "page-active" : ""}
+                  >
+                    {page}
+                  </button>
+                </li>
+              ))}
+          </ButtonGroup>
+        </ul>
       </Box>
     </>
   );

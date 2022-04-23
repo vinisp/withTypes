@@ -2,7 +2,7 @@
 
 //Página principal de teste
 
-import { TestarComponentes } from "./Pages/paginas_testes/testar_componentes";
+// import { TestarComponentes } from "./Pages/paginas_testes/testar_componentes";
 
 //Test Pages
 
@@ -78,7 +78,6 @@ function App() {
           <CartContextItemsProvider>
             <Nav />
             <Switch>
-              <Route exact path={"/testar"} component={TestarComponentes} />
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
