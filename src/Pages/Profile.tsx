@@ -190,6 +190,7 @@ const ButtonBox = styled("div")(({ theme }) => ({
 
   heigth: "100%",
   justifySelf: "flex-end",
+  paddingBottom: "5px",
 
   [theme.breakpoints.down("xs")]: {},
   [theme.breakpoints.up("sm")]: {},
@@ -410,8 +411,8 @@ const Card = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("sm")]: {
     marginTop: "24px",
-    width: "250px",
-    height: "650px",
+    width: "300px",
+    height: "600px",
   },
 
   [theme.breakpoints.up("md")]: {
