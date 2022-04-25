@@ -337,6 +337,7 @@ const CardWrapper = styled("div")(({ theme }) => ({
 const Card = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+  minHeight: "350px",
 
   padding: "5px 5px",
   backgroundColor: "transparent",
@@ -796,6 +797,7 @@ export function Profile() {
   const [whatsapp, setWhatsapp] = useState("");
   const [coursesByUser, setCoursesByUser] = useState<any[]>([]);
   const [offset, setOffset] = useState(0);
+  const [offset2, setOffset2] = useState(0);
 
   let history = useHistory();
 
@@ -959,49 +961,6 @@ export function Profile() {
             </Typography>
 
             <CardWrapper>
-              {/* coursesByUser.length > 0 ? (
-                coursesByUser.map((e) => (
-                  <Card key={e.id}>
-                    <CardTitle>
-                      <Typography
-                        sx={{
-                          fontWeight: 600,
-                          fontSize: "24px",
-
-                          color: "white",
-                        }}
-                        textAlign="center"
-                      >
-                        {e.name}
-                      </Typography>
-                    </CardTitle>
-                    <CardImg>
-                      <img src={e.thumb_url} alt="" />
-                    </CardImg>
-                    <CardText>{e.main_resume}</CardText>
-                    <CardReview>
-                      <StarIcon />
-                      <StarIcon />
-                      <StarIcon />
-                      <StarHalfIcon />
-                      <StarBorderIcon />
-                    </CardReview>
-                    <Button
-                      variant="outlined"
-                      sx={{ margin: "5px 0" }}
-                      onClick={() => history.push(`/course/${e.course_id}`)}
-                    >
-                      Saiba Mais
-                    </Button>
-                    <Button variant="contained" color="success">
-                      Compre
-                    </Button>
-                  </Card>
-                ))
-              ) : (
-                <Typography sx={{ color: "white" }}> "Loading..." </Typography>
-              ) */}
-
               {coursesByUser.length > 0
                 ? coursesByUser.map((e, index) =>
                     index < offset + 3 && index >= offset ? (
@@ -1080,49 +1039,67 @@ export function Profile() {
               LANÇAMENTOS
             </Typography>
             <CardWrapper>
-              {coursesByUser.length > 0 ? (
-                coursesByUser.map((e) => (
-                  <Card key={e.id}>
-                    <CardTitle>
-                      <Typography
-                        sx={{
-                          fontWeight: 600,
-                          fontSize: "24px",
+              {coursesByUser.length > 0
+                ? coursesByUser.map((e, index) =>
+                    index < offset2 + 3 && index >= offset2 ? (
+                      <>
+                        <Card>
+                          <CardTitle>
+                            <Typography
+                              sx={{
+                                fontWeight: 600,
+                                fontSize: "24px",
 
-                          color: "white",
-                        }}
-                        textAlign="center"
-                      >
-                        {e.name}
-                      </Typography>
-                    </CardTitle>
-                    <CardImg>
-                      <img src={e.thumb_url} alt="" />
-                    </CardImg>
-                    <CardText>{e.main_resume}</CardText>
-                    <CardReview>
-                      <StarIcon />
-                      <StarIcon />
-                      <StarIcon />
-                      <StarHalfIcon />
-                      <StarBorderIcon />
-                    </CardReview>
-                    <Button
-                      variant="outlined"
-                      sx={{ margin: "5px 0" }}
-                      onClick={() => history.push(`/course/${e.course_id}`)}
-                    >
-                      Saiba Mais
-                    </Button>
-                    <Button variant="contained" color="success">
-                      Compre
-                    </Button>
-                  </Card>
-                ))
-              ) : (
-                <Typography sx={{ color: "white" }}> "Loading..." </Typography>
-              )}
+                                color: "white",
+                              }}
+                              textAlign="center"
+                            >
+                              {e.name}
+                            </Typography>
+                          </CardTitle>
+                          <CardImg>
+                            <img src={e.thumb_url} alt="" />
+                          </CardImg>
+                          <CardText>{e.main_resume}</CardText>
+                          <CardReview>
+                            <StarIcon />
+                            <StarIcon />
+                            <StarIcon />
+                            <StarHalfIcon />
+                            <StarBorderIcon />
+                          </CardReview>
+                          <Button
+                            variant="outlined"
+                            sx={{ margin: "5px 0" }}
+                            onClick={() =>
+                              history.push(`/course/${e.course_id}`)
+                            }
+                          >
+                            Saiba Mais
+                          </Button>
+                          <Button
+                            onClick={() =>
+                              history.push(`/buycourse/${e.course_id}`)
+                            }
+                            variant="contained"
+                            color="success"
+                          >
+                            Comprar
+                          </Button>
+                        </Card>
+                      </>
+                    ) : (
+                      false
+                    )
+                  )
+                : false}
             </CardWrapper>
+            <Pagination
+              limit={LIMIT}
+              total={coursesByUser.length}
+              offset={offset2}
+              setOffset={setOffset2}
+            />
             {Gallery()}
           </SectionWrapper>
           <SectionWrapper>

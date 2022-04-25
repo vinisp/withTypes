@@ -83,8 +83,9 @@ const CoursesGrid = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     width: "100%",
-    height: "1200px",
+    height: "1400px",
     display: "flex",
+    flexWrap: "wrap",
     paddingTop: "80px",
     justifyContent: "center",
     gap: "32px",
@@ -98,7 +99,7 @@ const CardDoItem = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-
+  minHeight: "550px",
   color: "white",
   img: {
     width: 300,
@@ -116,7 +117,6 @@ const CardDoItem = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {
-    minHeigth: "750px",
     width: "301px",
   },
 }));
