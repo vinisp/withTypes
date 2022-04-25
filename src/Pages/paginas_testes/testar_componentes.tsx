@@ -27,7 +27,6 @@ export function Pagination({ limit, total, offset, setOffset }: any) {
           ul: {
             listStyle: "none",
           },
-          display: ["none", "none", "flex", "flex"],
         }}
       >
         <ul>

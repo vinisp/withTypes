@@ -334,6 +334,27 @@ const CardWrapper = styled("div")(({ theme }) => ({
   },
 }));
 
+const CardWrapper2 = styled("div")(({ theme }) => ({
+  [theme.breakpoints.down("sm")]: {
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    gap: "15px",
+  },
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+    width: "100%",
+    gap: "15px",
+  },
+  [theme.breakpoints.up("lg")]: {
+    flex: "0 0 80%",
+  },
+}));
+
 const Card = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -355,11 +376,12 @@ const Card = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.down("sm")]: {
-    width: "70%",
-    height: "450px",
+    marginTop: "24px",
+    width: "290px",
+    height: "650px",
   },
   [theme.breakpoints.up("sm")]: {
-    width: "40%",
+    width: "250px",
   },
 
   [theme.breakpoints.up("md")]: {
@@ -960,7 +982,7 @@ export function Profile() {
               MAIS VENDIDOS
             </Typography>
 
-            <CardWrapper>
+            <CardWrapper2>
               {coursesByUser.length > 0
                 ? coursesByUser.map((e, index) =>
                     index < offset + 3 && index >= offset ? (
@@ -1015,15 +1037,13 @@ export function Profile() {
                     )
                   )
                 : false}
-            </CardWrapper>
+            </CardWrapper2>
             <Pagination
               limit={LIMIT}
               total={coursesByUser.length}
               offset={offset}
               setOffset={setOffset}
             />
-
-            {Gallery()}
           </SectionWrapper>
 
           <SectionWrapper>

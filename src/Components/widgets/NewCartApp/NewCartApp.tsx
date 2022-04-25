@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { CartContext } from "./CartContext";
 
 import { Drawer, Button, Typography } from "@mui/material";
+import { Pagination } from "../../../Pages/paginas_testes/testar_componentes";
 // import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 // import Item from "./Item/Item";
 //import Cart from "./Cart/Cart";
@@ -27,6 +28,16 @@ export type CartItemType = {
   amount: number;
 };
 const CourseWrapperMain = styled("div")(({ theme }) => ({
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+const PagenationWrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+
+  justifyContent: "center",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
@@ -71,11 +82,23 @@ const CategoriesWrapper = styled("div")(({ theme }) => ({
 }));
 
 const CoursesGrid = styled("div")(({ theme }) => ({
-  [theme.breakpoints.down("xs")]: {
+  [theme.breakpoints.down("sm")]: {
     width: "100%",
+
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: "20px",
   },
   [theme.breakpoints.up("sm")]: {
     width: "100%",
+
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: "20px",
+
+    marginTop: "15px",
   },
 
   [theme.breakpoints.up("md")]: {
@@ -88,7 +111,7 @@ const CoursesGrid = styled("div")(({ theme }) => ({
   },
   [theme.breakpoints.up("lg")]: {
     width: "100%",
-    height: "1400px",
+
     display: "flex",
     flexWrap: "wrap",
     paddingTop: "80px",
@@ -144,6 +167,7 @@ const CardDoItem = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "space-between",
   minHeight: "550px",
+  maxHeigth: "550px",
   color: "white",
   img: {
     width: 300,
@@ -156,11 +180,17 @@ const CardDoItem = styled("div")(({ theme }) => ({
     color: "white",
     padding: "0px",
   },
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.down("sm")]: {
+    flex: "0 0 80%",
+    marginTop: "20px",
+  },
+  [theme.breakpoints.up("sm")]: {
+    width: "350px",
+    marginTop: "20px",
+  },
 
   [theme.breakpoints.up("md")]: {
-    flex: "0 0 30%",
+    flex: "0 0 35%",
     marginTop: "20px",
   },
   [theme.breakpoints.up("lg")]: {
@@ -288,9 +318,12 @@ export const CartNav = () => {
 export const MyStore = () => {
   // const [listCourses, setListCourses] = useState([] as CartItemType[]);
   const [allCourses, setAllCourses] = useState<any>([]);
-  const [carrinhoDeCurso, setCarrinho] = useState<any[]>([]);
+  //const [carrinhoDeCurso, setCarrinho] = useState<any[]>([]);
+  const [offset, setOffset] = useState(0);
 
   let history = useHistory<any>();
+
+  const LIMIT = 6;
 
   function GetAllCourses() {
     useEffect(() => {
@@ -304,9 +337,9 @@ export const MyStore = () => {
 
   GetAllCourses();
 
-  const myCartItems = useContext(CartContext);
+  // const myCartItems = useContext(CartContext);
 
-  function AddToCart(item: any) {
+  /* function AddToCart(item: any) {
     const filterItems =
       carrinhoDeCurso.length > 0
         ? carrinhoDeCurso
@@ -326,7 +359,7 @@ export const MyStore = () => {
         : myCartItems.push(item);
 
     return [filterItems, filterToContext];
-  }
+  } */
 
   return (
     <CourseWrapperMain>
@@ -376,63 +409,80 @@ export const MyStore = () => {
       </CategoriesMainWrapper>
       <CoursesGrid>
         {allCourses.length > 0 ? (
-          allCourses.map((item: any) => (
-            <CardDoItem key={item.id}>
-              <TitleBox>
-                <h1 style={{ textAlign: "center", width: "100%" }}>
-                  {item.name}
-                </h1>
-              </TitleBox>
-              <ImgBox>
-                {item.thumb_url ? (
-                  <img src={item.thumb_url} alt={item.name} />
-                ) : (
-                  <Typography>Sem Imagem</Typography>
-                )}
-              </ImgBox>
+          allCourses.map((item: any, index: any) =>
+            index < offset + LIMIT && index >= offset ? (
+              <>
+                <CardDoItem key={item.id}>
+                  <TitleBox>
+                    <h1 style={{ textAlign: "center", width: "100%" }}>
+                      {item.name}
+                    </h1>
+                  </TitleBox>
+                  <ImgBox>
+                    {item.thumb_url ? (
+                      <img src={item.thumb_url} alt={item.name} />
+                    ) : (
+                      <Typography>Sem Imagem</Typography>
+                    )}
+                  </ImgBox>
 
-              <TextContent>
-                <Typography
-                  className="price"
-                  fontWeight={600}
-                  textAlign="center"
-                >
-                  <span className="priceSymbol"> R$ </span> {item.price}
-                </Typography>
-                <p> {item.main_resume}</p>
-                <p>Categoria: {item.category}</p>
-                <p>Dificuldade: {item.level}</p>
-              </TextContent>
-              <ButtonBox>
-                <Button
-                  sx={{
-                    borderRadius: 0,
-                  }}
-                  color="success"
-                  variant="outlined"
-                  fullWidth
-                  onClick={() => history.push(`/course/${item.course_id}`)}
-                >
-                  VER DETALHES
-                </Button>
-                <Button
-                  sx={{
-                    borderRadius: 0,
-                  }}
-                  color="success"
-                  variant="contained"
-                  fullWidth
-                  onClick={() => AddToCart(item)}
-                >
-                  Comprar
-                </Button>
-              </ButtonBox>
-            </CardDoItem>
-          ))
+                  <TextContent>
+                    <Typography
+                      className="price"
+                      fontWeight={600}
+                      textAlign="center"
+                    >
+                      <span className="priceSymbol"> R$ </span> {item.price}
+                    </Typography>
+                    <p> {item.main_resume}</p>
+                    <p>Categoria: {item.category}</p>
+                    <p>Dificuldade: {item.level}</p>
+                  </TextContent>
+                  <ButtonBox>
+                    <Button
+                      sx={{
+                        borderRadius: 0,
+                      }}
+                      color="success"
+                      variant="outlined"
+                      fullWidth
+                      onClick={() => history.push(`/course/${item.course_id}`)}
+                    >
+                      VER DETALHES
+                    </Button>
+                    <Button
+                      sx={{
+                        borderRadius: 0,
+                      }}
+                      color="success"
+                      variant="contained"
+                      fullWidth
+                      onClick={
+                        /*() => AddToCart(item) */ () =>
+                          history.push(`/buycourse/${item.course_id}`)
+                      }
+                    >
+                      Comprar
+                    </Button>
+                  </ButtonBox>
+                </CardDoItem>
+              </>
+            ) : (
+              false
+            )
+          )
         ) : (
           <Typography sx={{ color: "white" }}> Carregando... </Typography>
         )}
       </CoursesGrid>
+      <PagenationWrapper>
+        <Pagination
+          limit={LIMIT}
+          total={allCourses.length}
+          offset={offset}
+          setOffset={setOffset}
+        />
+      </PagenationWrapper>
       <Footer />
     </CourseWrapperMain>
   );
