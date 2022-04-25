@@ -80,6 +80,11 @@ const CoursesGrid = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {
     width: "100%",
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: "20px",
+    padding: "0",
   },
   [theme.breakpoints.up("lg")]: {
     width: "100%",
@@ -92,6 +97,44 @@ const CoursesGrid = styled("div")(({ theme }) => ({
   },
 }));
 
+const ImgBox = styled("div")(({ theme }) => ({
+  flex: "0 0 30%",
+  [theme.breakpoints.down("xs")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const TitleBox = styled("div")(({ theme }) => ({
+  width: "100%",
+  flex: "0 0 15%",
+  borderBottom: "solid 0.7px green",
+  display: "flex",
+  alignItems: "center",
+  padding: "0 5px",
+
+  [theme.breakpoints.down("xs")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
+const ButtonBox = styled("div")(({ theme }) => ({
+  width: "100%",
+  flex: "0 0 5%",
+
+  display: "flex",
+  gap: "15px",
+  paddingBottom: "15px",
+  [theme.breakpoints.down("xs")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
 const CardDoItem = styled("div")(({ theme }) => ({
   border: "solid 1px green",
   padding: "0",
@@ -99,25 +142,29 @@ const CardDoItem = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  justifyContent: "space-between",
   minHeight: "550px",
   color: "white",
   img: {
     width: 300,
+    flex: "0 0 20%",
   },
 
   h1: {
     borderRadius: "7px 7px 0 0",
     textAling: "center",
     color: "white",
-    backgroundColor: "darkgreen",
-    padding: "15px",
+    padding: "0px",
   },
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    flex: "0 0 30%",
+    marginTop: "20px",
+  },
   [theme.breakpoints.up("lg")]: {
-    width: "301px",
+    flex: "0 0 20%",
   },
 }));
 
@@ -330,31 +377,35 @@ export const MyStore = () => {
       <CoursesGrid>
         {allCourses.length > 0 ? (
           allCourses.map((item: any) => (
-            <div>
-              <CardDoItem key={item.id}>
-                <h1 style={{ textAlign: "center" }}>{item.name} </h1>
+            <CardDoItem key={item.id}>
+              <TitleBox>
+                <h1 style={{ textAlign: "center", width: "100%" }}>
+                  {item.name}
+                </h1>
+              </TitleBox>
+              <ImgBox>
                 {item.thumb_url ? (
                   <img src={item.thumb_url} alt={item.name} />
                 ) : (
-                  false
+                  <Typography>Sem Imagem</Typography>
                 )}
+              </ImgBox>
 
-                <TextContent>
-                  <Typography
-                    className="price"
-                    fontWeight={600}
-                    textAlign="center"
-                  >
-                    <span className="priceSymbol"> R$ </span> {item.price}
-                  </Typography>
-                  <p> {item.main_resume}</p>
-                  <p>Categoria: {item.category}</p>
-                  <p>Dificuldade: {item.level}</p>
-                </TextContent>
+              <TextContent>
+                <Typography
+                  className="price"
+                  fontWeight={600}
+                  textAlign="center"
+                >
+                  <span className="priceSymbol"> R$ </span> {item.price}
+                </Typography>
+                <p> {item.main_resume}</p>
+                <p>Categoria: {item.category}</p>
+                <p>Dificuldade: {item.level}</p>
+              </TextContent>
+              <ButtonBox>
                 <Button
                   sx={{
-                    marginTop: "25px",
-                    padding: "15px 0",
                     borderRadius: 0,
                   }}
                   color="success"
@@ -365,7 +416,9 @@ export const MyStore = () => {
                   VER DETALHES
                 </Button>
                 <Button
-                  sx={{ marginTop: "25px", padding: "15px 0" }}
+                  sx={{
+                    borderRadius: 0,
+                  }}
                   color="success"
                   variant="contained"
                   fullWidth
@@ -373,8 +426,8 @@ export const MyStore = () => {
                 >
                   Comprar
                 </Button>
-              </CardDoItem>
-            </div>
+              </ButtonBox>
+            </CardDoItem>
           ))
         ) : (
           <Typography sx={{ color: "white" }}> Carregando... </Typography>
