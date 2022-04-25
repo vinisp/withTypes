@@ -180,6 +180,24 @@ const BottomSectionsAside = styled("div")(({ theme }) => ({
   },
 }));
 
+const ButtonBox = styled("div")(({ theme }) => ({
+  width: "100%",
+  flex: "0 0 5%",
+
+  display: "flex",
+  flexDirection: "column",
+  gap: "5px",
+
+  heigth: "100%",
+  justifySelf: "flex-end",
+
+  [theme.breakpoints.down("xs")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
 const SectionAside = styled("div")(({ theme }) => ({
   paddingBottom: "8px",
   [theme.breakpoints.down("sm")]: {
@@ -249,7 +267,12 @@ const PhotoWrapper = styled("div")(({ theme }) => ({
 
 const CardTitle = styled("div")(({ theme }) => ({
   borderBottom: "solid 1px rgba(177,177,15,0.4)",
-  marginBottom: "4px",
+
+  flex: "0 0 15%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: "0 5px",
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.up("sm")]: {},
 
@@ -341,7 +364,12 @@ const CardWrapper2 = styled("div")(({ theme }) => ({
     flexWrap: "wrap",
     gap: "15px",
   },
-  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.up("sm")]: {
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    gap: "15px",
+  },
 
   [theme.breakpoints.up("md")]: {
     display: "flex",
@@ -358,9 +386,9 @@ const CardWrapper2 = styled("div")(({ theme }) => ({
 const Card = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  minHeight: "350px",
+  justifyContent: "space-between",
 
-  padding: "5px 5px",
+  padding: "0px 5px",
   backgroundColor: "transparent",
   border: "solid 2px rgba(199,234,70,0.3)",
 
@@ -381,16 +409,19 @@ const Card = styled("div")(({ theme }) => ({
     height: "650px",
   },
   [theme.breakpoints.up("sm")]: {
+    marginTop: "24px",
     width: "250px",
+    height: "650px",
   },
 
   [theme.breakpoints.up("md")]: {
-    width: "200px",
+    width: "300px",
+    height: "650px",
     paddingBottom: "25px",
   },
   [theme.breakpoints.up("lg")]: {
     width: "250px",
-    height: "500px",
+    height: "510px",
     paddingBottom: "25px",
   },
 }));
@@ -441,27 +472,27 @@ const CardImg = styled("div")(({ theme }) => ({
   },
 
   [theme.breakpoints.down("sm")]: {
-    flex: "0 0 10%",
+    flex: "0 0 30%",
     img: {
       width: "100%",
       borderRadius: "8px",
     },
   },
   [theme.breakpoints.up("sm")]: {
-    flex: "0 0 20%",
+    flex: "0 0 30%",
     img: {
-      width: "90%",
+      width: "100%",
       heigth: "150px",
       borderRadius: "8px",
     },
   },
 
   [theme.breakpoints.up("md")]: {
-    flex: "0 0 36%",
-    marginBottom: "5px",
+    flex: "0 0 30%",
+
     img: {
       width: "100%",
-      heigth: "150px",
+      heigth: "100px",
       borderRadius: "8px",
     },
   },
@@ -485,6 +516,7 @@ const CardText = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  flex: "0 0 30%",
   [theme.breakpoints.down("sm")]: {
     flex: "0 0 35%",
   },
@@ -496,7 +528,7 @@ const CardText = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {
     marginTop: "0",
     width: "100%",
-    flex: "0 0 25%",
+
     display: "flex",
   },
 }));
@@ -514,7 +546,7 @@ const CardReview = styled("div")(({ theme }) => ({
   alignItems: "center",
 
   [theme.breakpoints.down("sm")]: {
-    flex: "0 0 10%",
+    flex: "0 0 5%",
     svg: {
       fontSize: "18px",
     },
@@ -1012,24 +1044,26 @@ export function Profile() {
                             <StarHalfIcon />
                             <StarBorderIcon />
                           </CardReview>
-                          <Button
-                            variant="outlined"
-                            sx={{ margin: "5px 0" }}
-                            onClick={() =>
-                              history.push(`/course/${e.course_id}`)
-                            }
-                          >
-                            Saiba Mais
-                          </Button>
-                          <Button
-                            onClick={() =>
-                              history.push(`/buycourse/${e.course_id}`)
-                            }
-                            variant="contained"
-                            color="success"
-                          >
-                            Comprar
-                          </Button>
+                          <ButtonBox>
+                            <Button
+                              variant="outlined"
+                              sx={{ margin: "5px 0" }}
+                              onClick={() =>
+                                history.push(`/course/${e.course_id}`)
+                              }
+                            >
+                              Saiba Mais
+                            </Button>
+                            <Button
+                              onClick={() =>
+                                history.push(`/buycourse/${e.course_id}`)
+                              }
+                              variant="contained"
+                              color="success"
+                            >
+                              Comprar
+                            </Button>
+                          </ButtonBox>
                         </Card>
                       </>
                     ) : (
