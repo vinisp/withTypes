@@ -241,6 +241,7 @@ const Detalhes = styled("div")(({ theme }) => ({
   border: "solid 1px silver",
   borderRadius: "4px",
   marginTop: "16px",
+  backgroundColor: "#FFF",
 
   [theme.breakpoints.down("sm")]: {
     flexWrap: "wrap",
