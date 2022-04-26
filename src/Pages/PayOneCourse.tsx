@@ -17,6 +17,7 @@ const Container = styled("div")(({ theme }) => ({
 
   overflowX: "hidden",
   height: "auto",
+  gap: "20px",
 
   [theme.breakpoints.down("sm")]: {
     flexWrap: "wrap",
@@ -34,6 +35,30 @@ const Container = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {
     padding: "120px 200px",
   },
+}));
+
+const SelosWrap = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "flex-start",
+
+  overflowX: "hidden",
+  height: "auto",
+  gap: "16px",
+
+  [theme.breakpoints.down("sm")]: {
+    flexWrap: "wrap",
+  },
+  [theme.breakpoints.up("sm")]: {
+    flexWrap: "wrap",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    flexWrap: "wrap",
+  },
+  [theme.breakpoints.up("lg")]: {},
 }));
 
 const Banner = styled("div")(({ theme }) => ({
@@ -66,7 +91,7 @@ const Banner = styled("div")(({ theme }) => ({
 }));
 
 const Formulario = styled("div")(({ theme }) => ({
-  paddingTop: "0px",
+  paddingTop: "20px",
   paddingBottom: "80px",
   paddingLeft: "80px",
   paddingRight: "80px",
@@ -75,9 +100,9 @@ const Formulario = styled("div")(({ theme }) => ({
   gap: "10px",
   backgroundColor: "#FFF",
 
-  flex: "0 0 70%",
+  flex: "0 0 60%",
   border: "solid 1px silver",
-  marginTop: 5,
+  marginTop: "16px",
 
   [theme.breakpoints.down("sm")]: {
     flexWrap: "wrap",
@@ -91,7 +116,7 @@ const Formulario = styled("div")(({ theme }) => ({
     alignItems: "flex-start",
     justifyContent: "center",
     flexWrap: "wrap",
-    paddingTop: "0px",
+    paddingTop: "40px",
     paddingBottom: "80px",
   },
   [theme.breakpoints.up("lg")]: {},
@@ -215,6 +240,7 @@ const Detalhes = styled("div")(({ theme }) => ({
   flex: "0 0 30%",
   border: "solid 1px silver",
   borderRadius: "4px",
+  marginTop: "16px",
 
   [theme.breakpoints.down("sm")]: {
     flexWrap: "wrap",
@@ -357,7 +383,6 @@ export function PayOneCourse() {
                     {[course[0].name]}
                   </Typography>
                   <Typography sx={{ fontWeight: 600, fontSize: 24 }}>
-                    {" "}
                     R$ {[course[0].price]}
                   </Typography>
                   <Typography>à vista</Typography>
@@ -402,7 +427,11 @@ export function PayOneCourse() {
             {PaymentFormRender()}
           </FormularioFields>
 
-          <div>Rodapé</div>
+          <SelosWrap>
+            <div>Selo 1</div>
+            <div>Selo 2</div>
+            <div>Selo 3</div>
+          </SelosWrap>
         </Formulario>
         <Detalhes>
           {course.length > 0 ? (
