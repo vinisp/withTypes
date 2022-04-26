@@ -4,6 +4,8 @@ import { styled } from "@mui/material/styles";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+import InputMask from "react-input-mask";
+
 import axios from "axios";
 
 const APIURL = "https://deppback.herokuapp.com/";
@@ -262,6 +264,7 @@ const MiniAndPrice = styled("div")(({ theme }) => ({
 export function PayOneCourse() {
   const [course, setCourse] = useState<any[]>([]);
   const [paymentOption, setPaymentOption] = useState<string>("");
+  const [cardNumber, setCardNumber] = useState<string>("");
   let { idCourse } = useParams<any>();
 
   function GetCourseData() {
@@ -278,7 +281,12 @@ export function PayOneCourse() {
     <FormularioFields>
       <Row>
         <label>Número do cartão</label>
-        <TextField fullWidth />
+        <InputMask
+          className="cardNumber"
+          mask={"9999-9999-9999-9999"}
+          onChange={(e: any) => setCardNumber(e.target.value)}
+        />
+        {console.log(cardNumber)}
       </Row>
       <RowOpt2>
         <RowChild sx={{ flex: "0 0 55%" }}>
