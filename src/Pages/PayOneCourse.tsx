@@ -3,6 +3,9 @@ import { styled } from "@mui/material/styles";
 
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import QrCodeIcon from "@mui/icons-material/QrCode";
+import BarCode from "../assets/img/barcode-solid.svg";
 
 import InputMask from "react-input-mask";
 
@@ -212,8 +215,21 @@ const RowChild = styled("div")(({ theme }) => ({
 const GroupSelect = styled("div")(({ theme }) => ({
   display: "flex",
 
-  gap: "6px",
+  gap: "18px",
   flex: "0 0 100%",
+  border: "solid 1px black",
+
+  img: {
+    width: "20px",
+  },
+
+  button: {
+    color: "black",
+    border: "solid 1px black",
+    height: "60px",
+    width: "160px",
+    display: "flex",
+  },
 
   [theme.breakpoints.down("sm")]: {
     flexWrap: "wrap",
@@ -225,7 +241,7 @@ const GroupSelect = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("md")]: {
     display: "flex",
     alignItems: "flex-start",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     flexWrap: "wrap",
   },
   [theme.breakpoints.up("lg")]: {},
@@ -411,19 +427,19 @@ export function PayOneCourse() {
               <TextField fullWidth />
             </Row>
             <GroupSelect>
-              <div>
-                <Button onClick={() => setPaymentOption("credit")}>
-                  Cartão de Crédito
-                </Button>
-              </div>
-              <div>
-                <Button onClick={() => setPaymentOption("boleto")}>
-                  Boleto
-                </Button>
-              </div>
-              <div>
-                <Button onClick={() => setPaymentOption("pix")}>Pix</Button>
-              </div>
+              <Button onClick={() => setPaymentOption("credit")}>
+                <CreditCardIcon /> <span> Cartão de Crédito </span>
+              </Button>
+
+              <Button onClick={() => setPaymentOption("boleto")}>
+                <img src={BarCode} alt="icone de barras" />
+                <span> Boleto </span>
+              </Button>
+
+              <Button onClick={() => setPaymentOption("pix")}>
+                <QrCodeIcon />
+                <span> Pix </span>
+              </Button>
             </GroupSelect>
             {PaymentFormRender()}
           </FormularioFields>
