@@ -73,6 +73,7 @@ const Formulario = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "flex-start",
   gap: "10px",
+  backgroundColor: "#FFF",
 
   flex: "0 0 70%",
   border: "solid 1px silver",
@@ -97,7 +98,7 @@ const Formulario = styled("div")(({ theme }) => ({
 }));
 
 const FormularioFields = styled("div")(({ theme }) => ({
-  backgroundColor: "#f2f2f2f2",
+  backgroundColor: "#fff",
   display: "flex",
 
   gap: "12px",
@@ -305,6 +306,11 @@ export function PayOneCourse() {
       <Row>
         <label>Parcelas****</label>
         <TextField fullWidth />
+      </Row>
+      <Row>
+        <Button color="success" fullWidth variant="contained">
+          Finalizar Compra
+        </Button>
       </Row>
     </FormularioFields>
   );
