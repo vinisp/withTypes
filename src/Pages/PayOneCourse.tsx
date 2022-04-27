@@ -10,11 +10,13 @@ import BarCode from "../assets/img/barcode-solid.svg";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
-import InputMask from "react-input-mask";
+import NumberFormat from "react-number-format";
 
 import axios from "axios";
 
 const APIURL = "https://deppback.herokuapp.com/";
+
+// "###.###.###-##" || "##.###.###/####-##";
 
 const Container = styled("div")(({ theme }) => ({
   backgroundColor: "#f2f2f2",
@@ -313,15 +315,24 @@ const PaySchema = Yup.object().shape({
     .required("Required"),
 
   Email: Yup.string().email("Invalid email").required("Required"),
-  Phone: Yup.string().min(10).max(11).required("Required"),
-  Cpf: Yup.string(),
+  Phone: Yup.string().required("Required"),
+  CpfC: Yup.string().required("Required"),
 });
 
 export function PayOneCourse() {
   const [course, setCourse] = useState<any[]>([]);
   const [paymentOption, setPaymentOption] = useState<string>("");
-  const [cardNumber, setCardNumber] = useState<string>("");
+
+  const [maskCpf, setMaskCpf] = useState<string>("");
   let { idCourse } = useParams<any>();
+
+  function MaskCpfCnpjGenerator(Cpf: string) {
+    if (Cpf.length > 11) {
+      return "###-###-###-##";
+    } else {
+      return "####-###-###-#####";
+    }
+  }
 
   function GetCourseData() {
     useEffect(() => {
@@ -336,27 +347,43 @@ export function PayOneCourse() {
   const Credit = (
     <FormularioFields>
       <Row>
-        <label>Número do cartão</label>
-        <InputMask
-          className="cardNumber"
-          mask={"9999-9999-9999-9999"}
-          onChange={(e: any) => setCardNumber(e.target.value)}
-        />
-        {console.log(cardNumber)}
+        <Row>
+          <label htmlFor="CardNumber">Número do Cartão</label>
+          <Field
+            name="CardNumber"
+            render={({ field }: any) => (
+              <NumberFormat
+                {...field}
+                mask="_"
+                format={`####-####-####-####`}
+              />
+            )}
+          />
+        </Row>
       </Row>
       <RowOpt2>
         <RowChild sx={{ flex: "0 0 55%" }}>
-          <label>Validade</label>
-          <TextField sx={{ width: "100%" }} />
+          <label htmlFor="CardValid">Validade do Cartão(MM/AA)</label>
+          <Field
+            name="CardValid"
+            render={({ field }: any) => (
+              <NumberFormat {...field} mask="_" format={`##/##`} />
+            )}
+          />
         </RowChild>
         <RowChild sx={{ flex: "0 0 40%" }}>
-          <label>Cód de Segurança</label>
-          <TextField sx={{ width: "100%" }} />
+          <label htmlFor="CodSeg">Cod. Segurança</label>
+          <Field
+            name="CodSeg"
+            render={({ field }: any) => (
+              <NumberFormat {...field} mask="_" format={`####`} />
+            )}
+          />
         </RowChild>
       </RowOpt2>
       <Row>
-        <label>Nome impresso no cartão</label>
-        <TextField fullWidth />
+        <label htmlFor="CardName">Nome impresso no Cartão</label>
+        <Field name="CardName" />
       </Row>
       <Row>
         <label>Parcelas****</label>
@@ -427,7 +454,11 @@ export function PayOneCourse() {
                 Name: "",
                 Email: "",
                 Phone: "",
-                Cpf: "",
+                CpfOrCnpJ: "",
+                CardNumber: "",
+                CardValid: "",
+                CodSeg: "",
+                CardName: "",
               }}
               validationSchema={PaySchema}
               onSubmit={(values) => {
@@ -437,41 +468,75 @@ export function PayOneCourse() {
             >
               {({ errors, touched }) => (
                 <Form>
-                  <label htmlFor="Name">Nome</label>
-                  <Field name="Name" />
-                  {errors.Name && touched.Name ? (
-                    <div>{errors.Name}</div>
-                  ) : null}
-                  <label htmlFor="Email">Email</label>
-                  <Field name="Email" type="email" />
-                  {errors.Email && touched.Email ? (
-                    <div>{errors.Email}</div>
-                  ) : null}
-                  <label htmlFor="Phone">Telefone</label>
-                  <Field name="Phone" />
-                  {errors.Phone && touched.Phone ? (
-                    <div>{errors.Phone}</div>
-                  ) : null}
+                  <Row>
+                    <label htmlFor="Name">Nome Completo</label>
+                    <Field name="Name" type="text" />
+                    {errors.Name && touched.Name ? (
+                      <div>{errors.Name}</div>
+                    ) : null}
+                  </Row>
+                  <Row>
+                    <label htmlFor="Email">Email</label>
+                    <Field name="Email" type="email" />
+                    {errors.Email && touched.Email ? (
+                      <div>{errors.Email}</div>
+                    ) : null}
+                  </Row>
+                  <Row>
+                    <label htmlFor="Phone">Celular</label>
+                    <Field
+                      name="Phone"
+                      render={({ field }: any) => (
+                        <NumberFormat
+                          {...field}
+                          type="tel"
+                          mask="_"
+                          format="(##) #####-####"
+                        />
+                      )}
+                    />
+                    {errors.Phone && touched.Phone ? (
+                      <div>{errors.Phone}</div>
+                    ) : null}
+                  </Row>
+                  <Row>
+                    <label htmlFor="CpfOrCnpj">CPF ou CNPJ</label>
+                    <Field
+                      name="CpfOrCnpj"
+                      render={({ field }: any) => (
+                        <NumberFormat
+                          {...field}
+                          mask="_"
+                          format={`${MaskCpfCnpjGenerator(maskCpf)}`}
+                          onChange={(e: any) => setMaskCpf(e.target.value)}
+                        />
+                      )}
+                    />
+                    {errors.CpfOrCnpJ && touched.CpfOrCnpJ ? (
+                      <div>{errors.CpfOrCnpJ}</div>
+                    ) : null}
+                  </Row>
+                  <GroupSelect>
+                    <Button onClick={() => setPaymentOption("credit")}>
+                      <CreditCardIcon /> <span> Cartão de Crédito </span>
+                    </Button>
+
+                    <Button onClick={() => setPaymentOption("boleto")}>
+                      <img src={BarCode} alt="icone de barras" />
+                      <span> Boleto </span>
+                    </Button>
+
+                    <Button onClick={() => setPaymentOption("pix")}>
+                      <QrCodeIcon />
+                      <span> Pix </span>
+                    </Button>
+                  </GroupSelect>
+                  {PaymentFormRender()}
+
                   <button type="submit">Submit</button>
                 </Form>
               )}
             </Formik>
-            <GroupSelect>
-              <Button onClick={() => setPaymentOption("credit")}>
-                <CreditCardIcon /> <span> Cartão de Crédito </span>
-              </Button>
-
-              <Button onClick={() => setPaymentOption("boleto")}>
-                <img src={BarCode} alt="icone de barras" />
-                <span> Boleto </span>
-              </Button>
-
-              <Button onClick={() => setPaymentOption("pix")}>
-                <QrCodeIcon />
-                <span> Pix </span>
-              </Button>
-            </GroupSelect>
-            {PaymentFormRender()}
           </FormularioFields>
 
           <SelosWrap>
