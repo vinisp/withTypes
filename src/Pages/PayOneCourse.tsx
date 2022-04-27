@@ -217,8 +217,6 @@ const GroupSelect = styled("div")(({ theme }) => ({
 
   gap: "18px",
   flex: "0 0 100%",
-  border: "solid 1px black",
-
   img: {
     width: "20px",
   },
