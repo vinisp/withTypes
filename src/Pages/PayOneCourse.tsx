@@ -96,8 +96,8 @@ const Banner = styled("div")(({ theme }) => ({
 const Formulario = styled("div")(({ theme }) => ({
   paddingTop: "20px",
   paddingBottom: "80px",
-  paddingLeft: "80px",
-  paddingRight: "80px",
+  paddingLeft: "20px",
+  paddingRight: "20px",
   display: "flex",
   alignItems: "flex-start",
   gap: "10px",
