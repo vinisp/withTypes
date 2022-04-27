@@ -408,22 +408,6 @@ export function PayOneCourse() {
             </div>
           </MiniAndPrice>
           <FormularioFields>
-            <Row>
-              <label>Nome Completo</label>
-              <TextField fullWidth />
-            </Row>
-            <Row>
-              <label>E-mail</label>
-              <TextField fullWidth />
-            </Row>
-            <Row>
-              <label>Celular</label>
-              <TextField fullWidth />
-            </Row>
-            <Row>
-              <label>CPF ou CNPJ</label>
-              <TextField fullWidth />
-            </Row>
             <GroupSelect>
               <Button onClick={() => setPaymentOption("credit")}>
                 <CreditCardIcon /> <span> Cartão de Crédito </span>
