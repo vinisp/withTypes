@@ -10,7 +10,7 @@ import BarCode from "../assets/img/barcode-solid.svg";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
-import NumberFormat from "react-number-format";
+// import NumberFormat from "react-number-format";
 
 import axios from "axios";
 
@@ -469,16 +469,7 @@ export function PayOneCourse() {
                         <Row>
                           <Row>
                             <label htmlFor="CardNumber">Número do Cartão</label>
-                            <Field
-                              name="CardNumber"
-                              render={({ field }: any) => (
-                                <NumberFormat
-                                  {...field}
-                                  mask="_"
-                                  format={`####-####-####-####`}
-                                />
-                              )}
-                            />
+                            <Field name="CardNumber" />
                           </Row>
                         </Row>
                         <RowOpt2>
@@ -486,29 +477,11 @@ export function PayOneCourse() {
                             <label htmlFor="CardValid">
                               Validade do Cartão(MM/AA)
                             </label>
-                            <Field
-                              name="CardValid"
-                              render={({ field }: any) => (
-                                <NumberFormat
-                                  {...field}
-                                  mask="_"
-                                  format={`##/##`}
-                                />
-                              )}
-                            />
+                            <Field name="CardValid" />
                           </RowChild>
                           <RowChild sx={{ flex: "0 0 40%" }}>
                             <label htmlFor="CodSeg">Cod. Segurança</label>
-                            <Field
-                              name="CodSeg"
-                              render={({ field }: any) => (
-                                <NumberFormat
-                                  {...field}
-                                  mask="_"
-                                  format={`####`}
-                                />
-                              )}
-                            />
+                            <Field name="CodSeg" />
                           </RowChild>
                         </RowOpt2>
                         <Row>
