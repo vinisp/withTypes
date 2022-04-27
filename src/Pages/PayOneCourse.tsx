@@ -7,6 +7,9 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import QrCodeIcon from "@mui/icons-material/QrCode";
 import BarCode from "../assets/img/barcode-solid.svg";
 
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+
 import InputMask from "react-input-mask";
 
 import axios from "axios";
@@ -303,6 +306,17 @@ const MiniAndPrice = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
+const PaySchema = Yup.object().shape({
+  Name: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+
+  Email: Yup.string().email("Invalid email").required("Required"),
+  Phone: Yup.string().min(10).max(11).required("Required"),
+  Cpf: Yup.string(),
+});
+
 export function PayOneCourse() {
   const [course, setCourse] = useState<any[]>([]);
   const [paymentOption, setPaymentOption] = useState<string>("");
@@ -408,6 +422,40 @@ export function PayOneCourse() {
             </div>
           </MiniAndPrice>
           <FormularioFields>
+            <Formik
+              initialValues={{
+                Name: "",
+                Email: "",
+                Phone: "",
+                Cpf: "",
+              }}
+              validationSchema={PaySchema}
+              onSubmit={(values) => {
+                // same shape as initial values
+                console.log(values);
+              }}
+            >
+              {({ errors, touched }) => (
+                <Form>
+                  <label htmlFor="Name">Nome</label>
+                  <Field name="Name" />
+                  {errors.Name && touched.Name ? (
+                    <div>{errors.Name}</div>
+                  ) : null}
+                  <label htmlFor="Email">Email</label>
+                  <Field name="Email" type="email" />
+                  {errors.Email && touched.Email ? (
+                    <div>{errors.Email}</div>
+                  ) : null}
+                  <label htmlFor="Phone">Telefone</label>
+                  <Field name="Phone" />
+                  {errors.Phone && touched.Phone ? (
+                    <div>{errors.Phone}</div>
+                  ) : null}
+                  <button type="submit">Submit</button>
+                </Form>
+              )}
+            </Formik>
             <GroupSelect>
               <Button onClick={() => setPaymentOption("credit")}>
                 <CreditCardIcon /> <span> Cartão de Crédito </span>
