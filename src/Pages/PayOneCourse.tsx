@@ -344,7 +344,7 @@ export function PayOneCourse() {
 
   GetCourseData();
 
-  const Credit = (
+  const Credit = () => (
     <FormularioFields>
       <Row>
         <Row>
@@ -411,7 +411,7 @@ export function PayOneCourse() {
 
   function PaymentFormRender() {
     if (paymentOption === "credit") {
-      return Credit;
+      return <Credit />;
     }
     if (paymentOption === "boleto") {
       return Boleto;
@@ -517,6 +517,8 @@ export function PayOneCourse() {
                     {errors.CpfOrCnpJ && touched.CpfOrCnpJ ? (
                       <div>{errors.CpfOrCnpJ}</div>
                     ) : null}
+                    <p>Seus dados serão mantidos em sigilo</p>
+                    <p>SELECIONE UM MÉTODO DE PAGAMENTO</p>
                   </Row>
                   <GroupSelect>
                     <Button onClick={() => setPaymentOption("credit")}>
