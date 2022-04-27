@@ -344,56 +344,7 @@ export function PayOneCourse() {
 
   GetCourseData();
 
-  const Credit = () => (
-    <FormularioFields>
-      <Row>
-        <Row>
-          <label htmlFor="CardNumber">Número do Cartão</label>
-          <Field
-            name="CardNumber"
-            render={({ field }: any) => (
-              <NumberFormat
-                {...field}
-                mask="_"
-                format={`####-####-####-####`}
-              />
-            )}
-          />
-        </Row>
-      </Row>
-      <RowOpt2>
-        <RowChild sx={{ flex: "0 0 55%" }}>
-          <label htmlFor="CardValid">Validade do Cartão(MM/AA)</label>
-          <Field
-            name="CardValid"
-            render={({ field }: any) => (
-              <NumberFormat {...field} mask="_" format={`##/##`} />
-            )}
-          />
-        </RowChild>
-        <RowChild sx={{ flex: "0 0 40%" }}>
-          <label htmlFor="CodSeg">Cod. Segurança</label>
-          <Field
-            name="CodSeg"
-            render={({ field }: any) => (
-              <NumberFormat {...field} mask="_" format={`####`} />
-            )}
-          />
-        </RowChild>
-      </RowOpt2>
-      <Row>
-        <label htmlFor="CardName">Nome impresso no Cartão</label>
-        <Field name="CardName" />
-      </Row>
-      <Row>
-        <label>Parcelas****</label>
-        <TextField fullWidth />
-      </Row>
-      <Button color="success" fullWidth variant="contained">
-        Finalizar Compra
-      </Button>
-    </FormularioFields>
-  );
+  // const Credit = () => <FormularioFields></FormularioFields>;
   const Boleto = (
     <div>
       <Button color="success" fullWidth variant="contained">
@@ -410,9 +361,6 @@ export function PayOneCourse() {
   );
 
   function PaymentFormRender() {
-    if (paymentOption === "credit") {
-      return <Credit />;
-    }
     if (paymentOption === "boleto") {
       return Boleto;
     }
@@ -523,6 +471,78 @@ export function PayOneCourse() {
                   <GroupSelect>
                     <Button onClick={() => setPaymentOption("credit")}>
                       <CreditCardIcon /> <span> Cartão de Crédito </span>
+                      {paymentOption === "credit" ? (
+                        <>
+                          <FormularioFields>
+                            <Row>
+                              <Row>
+                                <label htmlFor="CardNumber">
+                                  Número do Cartão
+                                </label>
+                                <Field
+                                  name="CardNumber"
+                                  render={({ field }: any) => (
+                                    <NumberFormat
+                                      {...field}
+                                      mask="_"
+                                      format={`####-####-####-####`}
+                                    />
+                                  )}
+                                />
+                              </Row>
+                            </Row>
+                            <RowOpt2>
+                              <RowChild sx={{ flex: "0 0 55%" }}>
+                                <label htmlFor="CardValid">
+                                  Validade do Cartão(MM/AA)
+                                </label>
+                                <Field
+                                  name="CardValid"
+                                  render={({ field }: any) => (
+                                    <NumberFormat
+                                      {...field}
+                                      mask="_"
+                                      format={`##/##`}
+                                    />
+                                  )}
+                                />
+                              </RowChild>
+                              <RowChild sx={{ flex: "0 0 40%" }}>
+                                <label htmlFor="CodSeg">Cod. Segurança</label>
+                                <Field
+                                  name="CodSeg"
+                                  render={({ field }: any) => (
+                                    <NumberFormat
+                                      {...field}
+                                      mask="_"
+                                      format={`####`}
+                                    />
+                                  )}
+                                />
+                              </RowChild>
+                            </RowOpt2>
+                            <Row>
+                              <label htmlFor="CardName">
+                                Nome impresso no Cartão
+                              </label>
+                              <Field name="CardName" />
+                            </Row>
+                            <Row>
+                              <label>Parcelas****</label>
+                              <TextField fullWidth />
+                            </Row>
+                            <Button
+                              color="success"
+                              fullWidth
+                              variant="contained"
+                            >
+                              Finalizar Compra
+                            </Button>
+                          </FormularioFields>
+                        </>
+                      ) : (
+                        false
+                      )}
                     </Button>
 
                     <Button onClick={() => setPaymentOption("boleto")}>
