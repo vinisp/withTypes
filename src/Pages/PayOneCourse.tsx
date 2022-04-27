@@ -389,21 +389,23 @@ export function PayOneCourse() {
         <label>Parcelas****</label>
         <TextField fullWidth />
       </Row>
-      <Row>
-        <Button color="success" fullWidth variant="contained">
-          Finalizar Compra
-        </Button>
-      </Row>
+      <Button color="success" fullWidth variant="contained">
+        Finalizar Compra
+      </Button>
     </FormularioFields>
   );
   const Boleto = (
     <div>
-      <Button>Gerar Boleto</Button>
+      <Button color="success" fullWidth variant="contained">
+        Gerar Boleto
+      </Button>
     </div>
   );
   const Pix = (
     <div>
-      <Button>Gerar Pix</Button>
+      <Button color="success" fullWidth variant="contained">
+        Gerar Pix
+      </Button>
     </div>
   );
 
@@ -532,8 +534,6 @@ export function PayOneCourse() {
                     </Button>
                   </GroupSelect>
                   {PaymentFormRender()}
-
-                  <button type="submit">Submit</button>
                 </Form>
               )}
             </Formik>
