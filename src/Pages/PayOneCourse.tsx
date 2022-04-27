@@ -434,7 +434,7 @@ export function PayOneCourse() {
                   </Row>
                   <Row>
                     <label htmlFor="Phone">Celular</label>
-                    <Field
+                    {/* <Field
                       name="Phone"
                       render={({ field }: any) => (
                         <NumberFormat
@@ -447,7 +447,12 @@ export function PayOneCourse() {
                     />
                     {errors.Phone && touched.Phone ? (
                       <div>{errors.Phone}</div>
-                    ) : null}
+                    ) : null} */}
+                    <NumberFormat
+                      type="tel"
+                      mask="_"
+                      format="(##) #####-####"
+                    />
                   </Row>
                   <Row>
                     <label htmlFor="CpfOrCnpj">CPF ou CNPJ</label>
