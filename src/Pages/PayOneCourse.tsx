@@ -323,16 +323,16 @@ export function PayOneCourse() {
   const [course, setCourse] = useState<any[]>([]);
   const [paymentOption, setPaymentOption] = useState<string>("");
 
-  const [maskCpf, setMaskCpf] = useState<string>("");
+  // const [maskCpf, setMaskCpf] = useState<string>("");
   let { idCourse } = useParams<any>();
 
-  function MaskCpfCnpjGenerator(Cpf: string) {
+  /* function MaskCpfCnpjGenerator(Cpf: string) {
     if (Cpf.length > 11) {
       return "###-###-###-##";
     } else {
       return "####-###-###-#####";
     }
-  }
+  } */
 
   function GetCourseData() {
     useEffect(() => {
@@ -434,39 +434,14 @@ export function PayOneCourse() {
                   </Row>
                   <Row>
                     <label htmlFor="Phone">Celular</label>
-                    {/* <Field
-                      name="Phone"
-                      render={({ field }: any) => (
-                        <NumberFormat
-                          {...field}
-                          type="tel"
-                          mask="_"
-                          format="(##) #####-####"
-                        />
-                      )}
-                    />
+                    <Field name="Phone" />
                     {errors.Phone && touched.Phone ? (
                       <div>{errors.Phone}</div>
-                    ) : null} */}
-                    <NumberFormat
-                      type="tel"
-                      mask="_"
-                      format="(##) #####-####"
-                    />
+                    ) : null}
                   </Row>
                   <Row>
                     <label htmlFor="CpfOrCnpj">CPF ou CNPJ</label>
-                    <Field
-                      name="CpfOrCnpj"
-                      render={({ field }: any) => (
-                        <NumberFormat
-                          {...field}
-                          mask="_"
-                          format={`${MaskCpfCnpjGenerator(maskCpf)}`}
-                          onChange={(e: any) => setMaskCpf(e.target.value)}
-                        />
-                      )}
-                    />
+                    <Field name="CpfOrCnpj" />
                     {errors.CpfOrCnpJ && touched.CpfOrCnpJ ? (
                       <div>{errors.CpfOrCnpJ}</div>
                     ) : null}
