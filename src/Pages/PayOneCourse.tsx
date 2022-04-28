@@ -369,6 +369,44 @@ export function PayOneCourse() {
     }
   }
 
+  //Mascáras
+
+  const masks = {
+    cpf(value: string) {
+      return value
+        .replace(/\D/g, "")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d{1,2})/, "$1-$2")
+        .replace(/(-\d{2})\d+?$/, "$1");
+    },
+    phone(value: string) {
+      return value
+        .replace(/\D/g, "")
+        .replace(/(\d{2})/, "($1)")
+        .replace(/(\d{5})(\d)/, "$1-$2")
+        .replace(/(-\d{4})\d+?$/, "$1");
+    },
+    cardValid(value: string) {
+      return value;
+    },
+  };
+
+  document.querySelectorAll("input").forEach(($input) => {
+    //const field = $input.dataset.js ? $input.dataset.js : false;
+
+    $input.addEventListener("input", (e: any) => {
+      e.target.id === "cpfOrCnpj"
+        ? (e.target.value = masks.cpf(e.target.value))
+        : console.log("mask");
+    });
+    $input.addEventListener("input", (e: any) => {
+      e.target.id === "phone"
+        ? (e.target.value = masks.phone(e.target.value))
+        : console.log("mask");
+    });
+  });
+
   return (
     <>
       <Container>
@@ -420,7 +458,7 @@ export function PayOneCourse() {
                 <Form>
                   <Row>
                     <label htmlFor="Name">Nome Completo</label>
-                    <Field name="Name" type="text" />
+                    <Field name="Name" type="text" id="namePayForm" />
                     {errors.Name && touched.Name ? (
                       <div>{errors.Name}</div>
                     ) : null}
@@ -434,14 +472,14 @@ export function PayOneCourse() {
                   </Row>
                   <Row>
                     <label htmlFor="Phone">Celular</label>
-                    <Field name="Phone" />
+                    <Field name="Phone" id="phone" />
                     {errors.Phone && touched.Phone ? (
                       <div>{errors.Phone}</div>
                     ) : null}
                   </Row>
                   <Row>
                     <label htmlFor="CpfOrCnpj">CPF ou CNPJ</label>
-                    <Field name="CpfOrCnpj" />
+                    <Field name="CpfOrCnpj" id="cpfOrCnpj" />
                     {errors.CpfOrCnpJ && touched.CpfOrCnpJ ? (
                       <div>{errors.CpfOrCnpJ}</div>
                     ) : null}
@@ -477,7 +515,7 @@ export function PayOneCourse() {
                             <label htmlFor="CardValid">
                               Validade do Cartão(MM/AA)
                             </label>
-                            <Field name="CardValid" />
+                            <Field name="CardValid" id="cardValid" />
                           </RowChild>
                           <RowChild sx={{ flex: "0 0 40%" }}>
                             <label htmlFor="CodSeg">Cod. Segurança</label>
