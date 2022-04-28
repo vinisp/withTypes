@@ -7,7 +7,7 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import QrCodeIcon from "@mui/icons-material/QrCode";
 import BarCode from "../assets/img/barcode-solid.svg";
 
-import { Formik, Form, Field } from "formik";
+import { useFormikContext, Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 
 // import NumberFormat from "react-number-format";
@@ -322,17 +322,7 @@ const PaySchema = Yup.object().shape({
 export function PayOneCourse() {
   const [course, setCourse] = useState<any[]>([]);
   const [paymentOption, setPaymentOption] = useState<string>("");
-
-  // const [maskCpf, setMaskCpf] = useState<string>("");
   let { idCourse } = useParams<any>();
-
-  /* function MaskCpfCnpjGenerator(Cpf: string) {
-    if (Cpf.length > 11) {
-      return "###-###-###-##";
-    } else {
-      return "####-###-###-#####";
-    }
-  } */
 
   function GetCourseData() {
     useEffect(() => {
@@ -344,7 +334,6 @@ export function PayOneCourse() {
 
   GetCourseData();
 
-  // const Credit = () => <FormularioFields></FormularioFields>;
   const Boleto = (
     <div>
       <Button color="success" fullWidth variant="contained">
@@ -388,8 +377,16 @@ export function PayOneCourse() {
         .replace(/(-\d{4})\d+?$/, "$1");
     },
     cardValid(value: string) {
-      return value;
+      return value.replace(/\D/g, "").replace(/(\[1-3]{1})(\d)/, "$1/$2");
     },
+  };
+
+  const FormObserver: React.FC = () => {
+    const { values } = useFormikContext();
+    useEffect(() => {
+      console.log("FormObserver::values", values);
+    }, [values]);
+    return null;
   };
 
   document.querySelectorAll("input").forEach(($input) => {
@@ -403,6 +400,11 @@ export function PayOneCourse() {
     $input.addEventListener("input", (e: any) => {
       e.target.id === "phone"
         ? (e.target.value = masks.phone(e.target.value))
+        : console.log("mask");
+    });
+    $input.addEventListener("input", (e: any) => {
+      e.target.id === "cardValid"
+        ? (e.target.value = masks.cardValid(e.target.value))
         : console.log("mask");
     });
   });
@@ -503,6 +505,7 @@ export function PayOneCourse() {
                   </GroupSelect>
                   {paymentOption === "credit" ? (
                     <>
+                      <FormObserver />
                       <FormularioFields>
                         <Row>
                           <Row>
@@ -511,7 +514,9 @@ export function PayOneCourse() {
                           </Row>
                         </Row>
                         <RowOpt2>
-                          <RowChild sx={{ flex: "0 0 55%" }}>
+                          <RowChild
+                            sx={{ flex: "0 0 55%", border: "solid 2px red" }}
+                          >
                             <label htmlFor="CardValid">
                               Validade do Cartão(MM/AA)
                             </label>
