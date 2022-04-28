@@ -360,7 +360,7 @@ export function PayOneCourse() {
 
   //Mascáras
 
-  const masks = {
+  /* const masks = {
     cpf(value: string) {
       return value
         .replace(/\D/g, "")
@@ -372,43 +372,51 @@ export function PayOneCourse() {
     phone(value: string) {
       return value
         .replace(/\D/g, "")
-        .replace(/(\d{2})/, "($1)")
-        .replace(/(\d{5})(\d)/, "$1-$2")
-        .replace(/(-\d{4})\d+?$/, "$1");
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d{1,2})/, "$1-$2")
+        .replace(/(-\d{2})\d+?$/, "$1");
     },
     cardValid(value: string) {
-      return value.replace(/\D/g, "").replace(/(\[1-3]{1})(\d)/, "$1/$2");
+      return value.replace(/\D/g, "");
     },
-  };
+  }; */
 
   const FormObserver: React.FC = () => {
     const { values } = useFormikContext();
+    const selectAllInputs = document.querySelectorAll("input");
 
     useEffect(() => {
       console.log(values);
-    }, [values]);
+      selectAllInputs.forEach(($input) => {
+        //const field = $input.dataset.js ? $input.dataset.js : false;
+        /* $input.addEventListener("input", (e: any) => {
+          e.target.id === "cpfOrCnpj"
+            ? (e.target.value = masks.cpf(e.target.value))
+            : console.log("mask");
+        });
+        $input.addEventListener("input", (e: any) => {
+          e.target.id === "phone"
+            ? (e.target.value = masks.phone(e.target.value))
+            : console.log("mask");
+        });
+        $input.addEventListener("input", (e: any) => {
+          e.target.id === "cardValid"
+            ? (e.target.value = masks.cardValid(e.target.value))
+            : console.log("Validade do Cartão");
+        }); */
+
+        $input.addEventListener(
+          "input",
+          (e) => {
+            console.log(e.target);
+          },
+          false
+        );
+      });
+    }, [values, selectAllInputs]);
     return null;
   };
-
-  document.querySelectorAll("input").forEach(($input) => {
-    //const field = $input.dataset.js ? $input.dataset.js : false;
-
-    $input.addEventListener("input", (e: any) => {
-      e.target.id === "cpfOrCnpj"
-        ? (e.target.value = masks.cpf(e.target.value))
-        : console.log("mask");
-    });
-    $input.addEventListener("input", (e: any) => {
-      e.target.id === "phone"
-        ? (e.target.value = masks.phone(e.target.value))
-        : console.log("mask");
-    });
-    $input.addEventListener("input", (e: any) => {
-      e.target.id === "cardValid"
-        ? (e.target.value = masks.cardValid(e.target.value))
-        : console.log("mask");
-    });
-  });
 
   return (
     <>
