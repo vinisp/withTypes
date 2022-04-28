@@ -383,8 +383,9 @@ export function PayOneCourse() {
 
   const FormObserver: React.FC = () => {
     const { values } = useFormikContext();
+
     useEffect(() => {
-      console.log("FormObserver::values", values);
+      console.log(values);
     }, [values]);
     return null;
   };
