@@ -306,6 +306,9 @@ export function PayOneCourse() {
   const [paymentOption, setPaymentOption] = useState<string>("");
   const [cpf, setCpf] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
+  const [cardNumber, setCardNumber] = useState<string>("");
+  const [cardValid, setCardValid] = useState<string>("");
+  const [secCode, setSecCode] = useState<string>("");
   let { idCourse } = useParams<any>();
 
   function GetCourseData() {
@@ -320,7 +323,31 @@ export function PayOneCourse() {
 
   const Credit = (
     <>
-      <Button color="success">Crédito</Button>
+      <TextField
+        label="Número do Cartão"
+        placeholder="XXXX-XXXX-XXXX-XXXX"
+        value={cardNumber}
+        onChange={(e) => setCardNumber(masks.cardNumber(e.target.value))}
+      />
+      <TextField
+        label="Validade"
+        placeholder="MM/AA"
+        value={cardValid}
+        onChange={(e) => setCardValid(masks.cardValid(e.target.value))}
+      />
+
+      <TextField
+        label="Cod Segurança"
+        placeholder="XXX"
+        value={secCode}
+        onChange={(e) => setSecCode(masks.secCode(e.target.value))}
+      />
+
+      <TextField
+        label="Nome Impresso no Cartão"
+        placeholder="XXX"
+        onChange={(e) => console.log(e.target.value)}
+      />
     </>
   );
 
@@ -369,8 +396,22 @@ export function PayOneCourse() {
         .replace(/(\d{5})(\d)/, "$1-$2")
         .replace(/(-\d{4})\d+?$/, "$1");
     },
+    cardNumber(value: string) {
+      return value
+        .replace(/\D/g, "")
+        .replace(/(\d{4})(\d)/, "$1-$2")
+        .replace(/(\d{4})(\d)/, "$1-$2")
+        .replace(/(\d{4})(\d)/, "$1-$2")
+        .replace(/(\d{4})\d+?$/, "$1");
+    },
     cardValid(value: string) {
-      return value.replace(/\D/g, "");
+      return value
+        .replace(/\D/g, "")
+        .replace(/(\d{2})(\d)/, "$1/$2")
+        .replace(/(\d{2})\d+?$/, "$1");
+    },
+    secCode(value: string) {
+      return value.replace(/\D/g, "").replace(/(\d{4})\d+?$/, "$1");
     },
   };
 
