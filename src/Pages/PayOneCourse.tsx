@@ -1,22 +1,15 @@
-import { Typography, TextField, Button } from "@mui/material";
+import { Typography, TextField, Button, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
-import QrCodeIcon from "@mui/icons-material/QrCode";
-import BarCode from "../assets/img/barcode-solid.svg";
-
-import { useFormikContext, Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-
-// import NumberFormat from "react-number-format";
+// import CreditCardIcon from "@mui/icons-material/CreditCard";
+// import QrCodeIcon from "@mui/icons-material/QrCode";
+// import BarCode from "../assets/img/barcode-solid.svg";
 
 import axios from "axios";
 
 const APIURL = "https://deppback.herokuapp.com/";
-
-// "###.###.###-##" || "##.###.###/####-##";
 
 const Container = styled("div")(({ theme }) => ({
   backgroundColor: "#f2f2f2",
@@ -45,7 +38,7 @@ const Container = styled("div")(({ theme }) => ({
   },
 }));
 
-const SelosWrap = styled("div")(({ theme }) => ({
+/* const SelosWrap = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "flex-start",
 
@@ -67,7 +60,7 @@ const SelosWrap = styled("div")(({ theme }) => ({
     flexWrap: "wrap",
   },
   [theme.breakpoints.up("lg")]: {},
-}));
+})); */
 
 const Banner = styled("div")(({ theme }) => ({
   backgroundColor: "#0c0c0c",
@@ -175,7 +168,7 @@ const Row = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
-const RowOpt2 = styled("div")(({ theme }) => ({
+/* const RowOpt2 = styled("div")(({ theme }) => ({
   display: "flex",
   gap: "20px",
   flex: "0 0 100%",
@@ -248,7 +241,7 @@ const GroupSelect = styled("div")(({ theme }) => ({
     flexWrap: "wrap",
   },
   [theme.breakpoints.up("lg")]: {},
-}));
+})); */
 
 const Detalhes = styled("div")(({ theme }) => ({
   display: "flex",
@@ -308,20 +301,11 @@ const MiniAndPrice = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
-const PaySchema = Yup.object().shape({
-  Name: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-
-  Email: Yup.string().email("Invalid email").required("Required"),
-  Phone: Yup.string().required("Required"),
-  CpfC: Yup.string().required("Required"),
-});
-
 export function PayOneCourse() {
   const [course, setCourse] = useState<any[]>([]);
   const [paymentOption, setPaymentOption] = useState<string>("");
+  const [cpf, setCpf] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
   let { idCourse } = useParams<any>();
 
   function GetCourseData() {
@@ -334,16 +318,22 @@ export function PayOneCourse() {
 
   GetCourseData();
 
+  const Credit = (
+    <>
+      <Button color="success">Crédito</Button>
+    </>
+  );
+
   const Boleto = (
     <div>
-      <Button color="success" fullWidth variant="contained">
+      <Button color="success" variant="contained">
         Gerar Boleto
       </Button>
     </div>
   );
   const Pix = (
     <div>
-      <Button color="success" fullWidth variant="contained">
+      <Button color="success" variant="contained">
         Gerar Pix
       </Button>
     </div>
@@ -356,11 +346,14 @@ export function PayOneCourse() {
     if (paymentOption === "pix") {
       return Pix;
     }
+    if (paymentOption === "credit") {
+      return Credit;
+    }
   }
 
   //Mascáras
 
-  /* const masks = {
+  const masks = {
     cpf(value: string) {
       return value
         .replace(/\D/g, "")
@@ -372,50 +365,13 @@ export function PayOneCourse() {
     phone(value: string) {
       return value
         .replace(/\D/g, "")
-        .replace(/(\d{3})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d)/, "$1.$2")
-        .replace(/(\d{3})(\d{1,2})/, "$1-$2")
-        .replace(/(-\d{2})\d+?$/, "$1");
+        .replace(/(\d{2})(\d)/, "($1)$2")
+        .replace(/(\d{5})(\d)/, "$1-$2")
+        .replace(/(-\d{4})\d+?$/, "$1");
     },
     cardValid(value: string) {
       return value.replace(/\D/g, "");
     },
-  }; */
-
-  const FormObserver: React.FC = () => {
-    const { values } = useFormikContext();
-    const selectAllInputs = document.querySelectorAll("input");
-
-    useEffect(() => {
-      console.log(values);
-      selectAllInputs.forEach(($input) => {
-        //const field = $input.dataset.js ? $input.dataset.js : false;
-        /* $input.addEventListener("input", (e: any) => {
-          e.target.id === "cpfOrCnpj"
-            ? (e.target.value = masks.cpf(e.target.value))
-            : console.log("mask");
-        });
-        $input.addEventListener("input", (e: any) => {
-          e.target.id === "phone"
-            ? (e.target.value = masks.phone(e.target.value))
-            : console.log("mask");
-        });
-        $input.addEventListener("input", (e: any) => {
-          e.target.id === "cardValid"
-            ? (e.target.value = masks.cardValid(e.target.value))
-            : console.log("Validade do Cartão");
-        }); */
-
-        $input.addEventListener(
-          "input",
-          (e) => {
-            console.log(e.target);
-          },
-          false
-        );
-      });
-    }, [values, selectAllInputs]);
-    return null;
   };
 
   return (
@@ -447,124 +403,72 @@ export function PayOneCourse() {
               )}
             </div>
           </MiniAndPrice>
-          <FormularioFields>
-            <Formik
-              initialValues={{
-                Name: "",
-                Email: "",
-                Phone: "",
-                CpfOrCnpJ: "",
-                CardNumber: "",
-                CardValid: "",
-                CodSeg: "",
-                CardName: "",
-              }}
-              validationSchema={PaySchema}
-              onSubmit={(values) => {
-                // same shape as initial values
-                console.log(values);
-              }}
-            >
-              {({ errors, touched }) => (
-                <Form>
-                  <Row>
-                    <label htmlFor="Name">Nome Completo</label>
-                    <Field name="Name" type="text" id="namePayForm" />
-                    {errors.Name && touched.Name ? (
-                      <div>{errors.Name}</div>
-                    ) : null}
-                  </Row>
-                  <Row>
-                    <label htmlFor="Email">Email</label>
-                    <Field name="Email" type="email" />
-                    {errors.Email && touched.Email ? (
-                      <div>{errors.Email}</div>
-                    ) : null}
-                  </Row>
-                  <Row>
-                    <label htmlFor="Phone">Celular</label>
-                    <Field name="Phone" id="phone" />
-                    {errors.Phone && touched.Phone ? (
-                      <div>{errors.Phone}</div>
-                    ) : null}
-                  </Row>
-                  <Row>
-                    <label htmlFor="CpfOrCnpj">CPF ou CNPJ</label>
-                    <Field name="CpfOrCnpj" id="cpfOrCnpj" />
-                    {errors.CpfOrCnpJ && touched.CpfOrCnpJ ? (
-                      <div>{errors.CpfOrCnpJ}</div>
-                    ) : null}
-                    <p>Seus dados serão mantidos em sigilo</p>
-                    <p>SELECIONE UM MÉTODO DE PAGAMENTO</p>
-                  </Row>
-                  <GroupSelect>
-                    <Button onClick={() => setPaymentOption("credit")}>
-                      <CreditCardIcon /> <span> Cartão de Crédito </span>
-                    </Button>
 
-                    <Button onClick={() => setPaymentOption("boleto")}>
-                      <img src={BarCode} alt="icone de barras" />
-                      <span> Boleto </span>
-                    </Button>
+          <form>
+            <FormularioFields>
+              <Row>
+                <TextField
+                  fullWidth
+                  label="Nome Completo"
+                  placeholder=""
+                  variant="standard"
+                  required
+                />
+              </Row>
+              <Row>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  placeholder=""
+                  variant="standard"
+                  type={"email"}
+                  required
+                />
+              </Row>
+              <Row>
+                <TextField
+                  fullWidth
+                  label="CPF"
+                  placeholder="999.999.999-99"
+                  variant="standard"
+                  value={cpf}
+                  onChange={(e) => setCpf(masks.cpf(e.target.value))}
+                  required
+                />
+              </Row>
+              <Row>
+                <TextField
+                  fullWidth
+                  label="Celular"
+                  placeholder="(99)99999-9999"
+                  variant="standard"
+                  value={phone}
+                  onChange={(e) => setPhone(masks.phone(e.target.value))}
+                  required
+                />
+              </Row>
+              <Row>
+                <Typography>Escolha uma forma de pagamento: </Typography>
+                <Box
+                  sx={{
+                    border: "1px solid red",
+                    width: "100%",
+                    display: "flex",
+                  }}
+                >
+                  <Button onClick={() => setPaymentOption("credit")}>
+                    Cartão de Crédito
+                  </Button>
+                  <Button onClick={() => setPaymentOption("boleto")}>
+                    Boleto
+                  </Button>
+                  <Button onClick={() => setPaymentOption("pix")}>Pix</Button>
+                </Box>
+              </Row>
 
-                    <Button onClick={() => setPaymentOption("pix")}>
-                      <QrCodeIcon />
-                      <span> Pix </span>
-                    </Button>
-                  </GroupSelect>
-                  {paymentOption === "credit" ? (
-                    <>
-                      <FormObserver />
-                      <FormularioFields>
-                        <Row>
-                          <Row>
-                            <label htmlFor="CardNumber">Número do Cartão</label>
-                            <Field name="CardNumber" />
-                          </Row>
-                        </Row>
-                        <RowOpt2>
-                          <RowChild
-                            sx={{ flex: "0 0 55%", border: "solid 2px red" }}
-                          >
-                            <label htmlFor="CardValid">
-                              Validade do Cartão(MM/AA)
-                            </label>
-                            <Field name="CardValid" id="cardValid" />
-                          </RowChild>
-                          <RowChild sx={{ flex: "0 0 40%" }}>
-                            <label htmlFor="CodSeg">Cod. Segurança</label>
-                            <Field name="CodSeg" />
-                          </RowChild>
-                        </RowOpt2>
-                        <Row>
-                          <label htmlFor="CardName">
-                            Nome impresso no Cartão
-                          </label>
-                          <Field name="CardName" />
-                        </Row>
-                        <Row>
-                          <label>Parcelas****</label>
-                          <TextField fullWidth />
-                        </Row>
-                        <Button color="success" fullWidth variant="contained">
-                          Finalizar Compra
-                        </Button>
-                      </FormularioFields>
-                    </>
-                  ) : (
-                    false
-                  )}
-                  {PaymentFormRender()}
-                </Form>
-              )}
-            </Formik>
-          </FormularioFields>
-
-          <SelosWrap>
-            <div>Selo 1</div>
-            <div>Selo 2</div>
-            <div>Selo 3</div>
-          </SelosWrap>
+              <Row>{PaymentFormRender()}</Row>
+            </FormularioFields>
+          </form>
         </Formulario>
         <Detalhes>
           {course.length > 0 ? (
