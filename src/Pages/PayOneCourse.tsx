@@ -41,7 +41,7 @@ const Container = styled("div")(({ theme }) => ({
   },
 }));
 
-/* const SelosWrap = styled("div")(({ theme }) => ({
+const SelosWrap = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "flex-start",
 
@@ -63,7 +63,7 @@ const Container = styled("div")(({ theme }) => ({
     flexWrap: "wrap",
   },
   [theme.breakpoints.up("lg")]: {},
-})); */
+}));
 
 const Banner = styled("div")(({ theme }) => ({
   backgroundColor: "#0c0c0c",
@@ -110,9 +110,12 @@ const Formulario = styled("div")(({ theme }) => ({
 
   [theme.breakpoints.down("sm")]: {
     flexWrap: "wrap",
+    flex: "0 0 100%",
   },
   [theme.breakpoints.up("sm")]: {
     flexWrap: "wrap",
+    flex: "0 0 100%",
+    margin: "15px 5px",
   },
 
   [theme.breakpoints.up("md")]: {
@@ -122,8 +125,11 @@ const Formulario = styled("div")(({ theme }) => ({
     flexWrap: "wrap",
     paddingTop: "40px",
     paddingBottom: "80px",
+    flex: "0 0 60%",
   },
-  [theme.breakpoints.up("lg")]: {},
+  [theme.breakpoints.up("lg")]: {
+    flex: "0 0 60%",
+  },
 }));
 
 const FormularioFields = styled("div")(({ theme }) => ({
@@ -259,10 +265,10 @@ const Detalhes = styled("div")(({ theme }) => ({
   backgroundColor: "#FFF",
 
   [theme.breakpoints.down("sm")]: {
-    flexWrap: "wrap",
+    display: "none",
   },
   [theme.breakpoints.up("sm")]: {
-    flexWrap: "wrap",
+    display: "none",
   },
 
   [theme.breakpoints.up("md")]: {
@@ -611,6 +617,11 @@ export function PayOneCourse() {
               <Row>{PaymentFormRender()}</Row>
             </FormularioFields>
           </form>
+          <SelosWrap>
+            <div>Selo 1</div>
+            <div>Selo 2</div>
+            <div>Selo 3</div>
+          </SelosWrap>
         </Formulario>
         <Detalhes>
           {course.length > 0 ? (
