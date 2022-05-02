@@ -303,6 +303,26 @@ const MiniAndPrice = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
+const LabelCustom = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  flex: "0 0 100%",
+  color: "#FFF",
+  fontWeight: "600",
+  padding: "8px 8px",
+  backgroundColor: "darkgreen",
+
+  [theme.breakpoints.down("sm")]: {
+    flexWrap: "wrap",
+  },
+  [theme.breakpoints.up("sm")]: {
+    flexWrap: "wrap",
+  },
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
 export function PayOneCourse() {
   const [course, setCourse] = useState<any[]>([]);
   const [paymentOption, setPaymentOption] = useState<string>("");
@@ -332,20 +352,27 @@ export function PayOneCourse() {
       <>
         <Box
           sx={{
-            border: "2px dashed lime",
+            border: "2px dashed darkgreen",
             width: "100%",
             marginBottom: "2rem",
           }}
         >
-          <Checkbox
-            id="vaiQuererOBump"
-            onChange={(e) => setGetBump(e.target.checked)}
-          />
-          <label htmlFor="vaiQuererOBump">
+          <Box sx={{ display: "flex", gap: "2rem" }}>
+            <div>Miniatura</div>
+            <Typography>Detalhes da oferta</Typography>
+          </Box>
+
+          <LabelCustom>
+            <Checkbox
+              id="vaiQuererOBump"
+              onChange={(e) => setGetBump(e.target.checked)}
+              color="success"
+            />
             Sim quero adicionar a oferta na minha compra
-          </label>
+          </LabelCustom>
           {getBump ? (
             <>
+              <Typography>Resumo da compra</Typography>
               <Typography>
                 {course[0].name} : R$ {course[0].price}
               </Typography>
@@ -412,6 +439,7 @@ export function PayOneCourse() {
             cardValid,
             secCode,
             saveCardData,
+            getBump,
           })
         }
       >
