@@ -314,6 +314,7 @@ export function PayOneCourse() {
   const [cardName, setCardName] = useState<string>("");
   const [saveCardData, setSaveCardData] = useState<boolean>(false);
   const [getBump, setGetBump] = useState<boolean>(false);
+  const bumpValue = 799.0;
   let { idCourse } = useParams<any>();
 
   function GetCourseData() {
@@ -329,8 +330,13 @@ export function PayOneCourse() {
   const BumbElement = () => {
     return (
       <>
-        <Box sx={{ border: "2px dashed lime", width: "100%" }}>
-          Aqui a vai o Order Bump
+        <Box
+          sx={{
+            border: "2px dashed lime",
+            width: "100%",
+            marginBottom: "2rem",
+          }}
+        >
           <Checkbox
             id="vaiQuererOBump"
             onChange={(e) => setGetBump(e.target.checked)}
@@ -338,7 +344,19 @@ export function PayOneCourse() {
           <label htmlFor="vaiQuererOBump">
             Sim quero adicionar a oferta na minha compra
           </label>
-          {getBump ? "quero" : "não quero"}
+          {getBump ? (
+            <>
+              <Typography>
+                {course[0].name} : R$ {course[0].price}
+              </Typography>
+              <Typography>Nome do Bump: R$ {bumpValue} </Typography>
+
+              <Typography>Total: {+course[0].price + +bumpValue} </Typography>
+              <Typography></Typography>
+            </>
+          ) : (
+            false
+          )}
         </Box>
       </>
     );
