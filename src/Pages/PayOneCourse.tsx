@@ -432,6 +432,8 @@ export function PayOneCourse() {
       </div>
       {BumbElement()}
       <Button
+        variant="contained"
+        color="success"
         onClick={() =>
           console.log({
             cardName,
