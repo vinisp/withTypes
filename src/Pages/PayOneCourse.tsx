@@ -74,6 +74,7 @@ const Banner = styled("div")(({ theme }) => ({
   overflowX: "hidden",
   height: "280px",
   flex: "0 0 100%",
+  marginTop: "60px",
 
   [theme.breakpoints.down("sm")]: {
     flexWrap: "wrap",
@@ -99,6 +100,7 @@ const Formulario = styled("div")(({ theme }) => ({
   paddingBottom: "80px",
   paddingLeft: "20px",
   paddingRight: "20px",
+  marginBottom: "4rem",
   display: "flex",
   alignItems: "flex-start",
   gap: "10px",
@@ -115,7 +117,6 @@ const Formulario = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
     flexWrap: "wrap",
     flex: "0 0 100%",
-    margin: "15px 5px",
   },
 
   [theme.breakpoints.up("md")]: {
