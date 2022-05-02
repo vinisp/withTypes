@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
+import { Footer } from "../Components/widgets/Footer";
 
 // import CreditCardIcon from "@mui/icons-material/CreditCard";
 // import QrCodeIcon from "@mui/icons-material/QrCode";
@@ -619,6 +620,7 @@ export function PayOneCourse() {
           )}
         </Detalhes>
       </Container>
+      <Footer />
     </>
   );
 }
