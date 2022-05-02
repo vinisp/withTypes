@@ -245,6 +245,14 @@ const GroupSelect = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 })); */
 
+const BumbElement = () => {
+  return (
+    <>
+      <p>Aqui a vai o Order Bump</p>
+    </>
+  );
+};
+
 const Detalhes = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "flex-start",
@@ -366,6 +374,7 @@ export function PayOneCourse() {
           Usar esses dados nas próximas compras
         </label>
       </div>
+      {BumbElement()}
       <Button
         onClick={() =>
           console.log({
@@ -384,6 +393,7 @@ export function PayOneCourse() {
 
   const Boleto = (
     <div>
+      {BumbElement()}
       <Button color="success" variant="contained">
         Gerar Boleto
       </Button>
@@ -391,6 +401,7 @@ export function PayOneCourse() {
   );
   const Pix = (
     <div>
+      {BumbElement()}
       <Button color="success" variant="contained">
         Gerar Pix
       </Button>
