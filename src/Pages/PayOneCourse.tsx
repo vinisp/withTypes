@@ -312,6 +312,7 @@ export function PayOneCourse() {
   const [cardValid, setCardValid] = useState<string>("");
   const [secCode, setSecCode] = useState<string>("");
   const [cardName, setCardName] = useState<string>("");
+  const [saveCardData, setSaveCardData] = useState<boolean>(false);
   let { idCourse } = useParams<any>();
 
   function GetCourseData() {
@@ -327,12 +328,14 @@ export function PayOneCourse() {
   const Credit = (
     <>
       <TextField
+        required
         label="Número do Cartão"
         placeholder="XXXX-XXXX-XXXX-XXXX"
         value={cardNumber}
         onChange={(e) => setCardNumber(masks.cardNumber(e.target.value))}
       />
       <TextField
+        required
         label="Validade"
         placeholder="MM/AA"
         value={cardValid}
@@ -340,6 +343,7 @@ export function PayOneCourse() {
       />
 
       <TextField
+        required
         label="Cod Segurança"
         placeholder="XXX"
         value={secCode}
@@ -347,13 +351,34 @@ export function PayOneCourse() {
       />
 
       <TextField
+        required
         label="Nome Impresso no Cartão"
         value={cardName}
         onChange={(e) => setCardName(e.target.value)}
       />
       <div>
-        <Checkbox color="success" />
+        <Checkbox
+          color="success"
+          id="saveCardData"
+          onChange={(e) => setSaveCardData(e.target.checked)}
+        />
+        <label htmlFor="saveCardData">
+          Usar esses dados nas próximas compras
+        </label>
       </div>
+      <Button
+        onClick={() =>
+          console.log({
+            cardName,
+            cardNumber,
+            cardValid,
+            secCode,
+            saveCardData,
+          })
+        }
+      >
+        Finalizar Compra
+      </Button>
     </>
   );
 
