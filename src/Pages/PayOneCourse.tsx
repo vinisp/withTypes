@@ -3,6 +3,8 @@ import { styled } from "@mui/material/styles";
 
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Checkbox from "@mui/material/Checkbox";
+
 // import CreditCardIcon from "@mui/icons-material/CreditCard";
 // import QrCodeIcon from "@mui/icons-material/QrCode";
 // import BarCode from "../assets/img/barcode-solid.svg";
@@ -251,7 +253,7 @@ const Detalhes = styled("div")(({ theme }) => ({
   height: "auto",
   flex: "0 0 30%",
   border: "solid 1px silver",
-  borderRadius: "4px",
+  borderRadius: "1px",
   marginTop: "16px",
   backgroundColor: "#FFF",
 
@@ -309,6 +311,7 @@ export function PayOneCourse() {
   const [cardNumber, setCardNumber] = useState<string>("");
   const [cardValid, setCardValid] = useState<string>("");
   const [secCode, setSecCode] = useState<string>("");
+  const [cardName, setCardName] = useState<string>("");
   let { idCourse } = useParams<any>();
 
   function GetCourseData() {
@@ -345,9 +348,12 @@ export function PayOneCourse() {
 
       <TextField
         label="Nome Impresso no Cartão"
-        placeholder="XXX"
-        onChange={(e) => console.log(e.target.value)}
+        value={cardName}
+        onChange={(e) => setCardName(e.target.value)}
       />
+      <div>
+        <Checkbox color="success" />
+      </div>
     </>
   );
 
@@ -492,7 +498,6 @@ export function PayOneCourse() {
                 <Typography>Escolha uma forma de pagamento: </Typography>
                 <Box
                   sx={{
-                    border: "1px solid red",
                     width: "100%",
                     display: "flex",
                   }}
