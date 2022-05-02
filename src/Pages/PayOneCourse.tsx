@@ -278,7 +278,7 @@ const Detalhes = styled("div")(({ theme }) => ({
     justifyContent: "center",
     flexWrap: "wrap",
     paddingTop: "120px",
-    paddingBottom: "80px",
+    paddingBottom: "120px",
   },
   [theme.breakpoints.up("lg")]: {},
 }));
@@ -399,62 +399,68 @@ export function PayOneCourse() {
 
   const Credit = (
     <>
-      <TextField
-        required
-        label="Número do Cartão"
-        placeholder="XXXX-XXXX-XXXX-XXXX"
-        value={cardNumber}
-        onChange={(e) => setCardNumber(masks.cardNumber(e.target.value))}
-      />
-      <TextField
-        required
-        label="Validade"
-        placeholder="MM/AA"
-        value={cardValid}
-        onChange={(e) => setCardValid(masks.cardValid(e.target.value))}
-      />
-
-      <TextField
-        required
-        label="Cod Segurança"
-        placeholder="XXX"
-        value={secCode}
-        onChange={(e) => setSecCode(masks.secCode(e.target.value))}
-      />
-
-      <TextField
-        required
-        label="Nome Impresso no Cartão"
-        value={cardName}
-        onChange={(e) => setCardName(e.target.value)}
-      />
-      <div>
-        <Checkbox
-          color="success"
-          id="saveCardData"
-          onChange={(e) => setSaveCardData(e.target.checked)}
+      <Box sx={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
+        <TextField
+          required
+          fullWidth
+          label="Número do Cartão"
+          placeholder="XXXX-XXXX-XXXX-XXXX"
+          value={cardNumber}
+          onChange={(e) => setCardNumber(masks.cardNumber(e.target.value))}
         />
-        <label htmlFor="saveCardData">
-          Usar esses dados nas próximas compras
-        </label>
-      </div>
-      {BumbElement()}
-      <Button
-        variant="contained"
-        color="success"
-        onClick={() =>
-          console.log({
-            cardName,
-            cardNumber,
-            cardValid,
-            secCode,
-            saveCardData,
-            getBump,
-          })
-        }
-      >
-        Finalizar Compra
-      </Button>
+        <TextField
+          sx={{ flex: "0 0 60%" }}
+          required
+          label="Validade"
+          placeholder="MM/AA"
+          value={cardValid}
+          onChange={(e) => setCardValid(masks.cardValid(e.target.value))}
+        />
+
+        <TextField
+          required
+          sx={{ flex: "0 0 38%" }}
+          label="Cod Segurança"
+          placeholder="XXX"
+          value={secCode}
+          onChange={(e) => setSecCode(masks.secCode(e.target.value))}
+        />
+
+        <TextField
+          required
+          fullWidth
+          label="Nome Impresso no Cartão"
+          value={cardName}
+          onChange={(e) => setCardName(e.target.value)}
+        />
+        <div>
+          <Checkbox
+            color="success"
+            id="saveCardData"
+            onChange={(e) => setSaveCardData(e.target.checked)}
+          />
+          <label htmlFor="saveCardData">
+            Usar esses dados nas próximas compras
+          </label>
+        </div>
+        {BumbElement()}
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() =>
+            console.log({
+              cardName,
+              cardNumber,
+              cardValid,
+              secCode,
+              saveCardData,
+              getBump,
+            })
+          }
+        >
+          Finalizar Compra
+        </Button>
+      </Box>
     </>
   );
 
@@ -605,13 +611,24 @@ export function PayOneCourse() {
                     display: "flex",
                   }}
                 >
-                  <Button onClick={() => setPaymentOption("credit")}>
+                  <Button
+                    color="success"
+                    onClick={() => setPaymentOption("credit")}
+                  >
                     Cartão de Crédito
                   </Button>
-                  <Button onClick={() => setPaymentOption("boleto")}>
+                  <Button
+                    color="success"
+                    onClick={() => setPaymentOption("boleto")}
+                  >
                     Boleto
                   </Button>
-                  <Button onClick={() => setPaymentOption("pix")}>Pix</Button>
+                  <Button
+                    color="success"
+                    onClick={() => setPaymentOption("pix")}
+                  >
+                    Pix
+                  </Button>
                 </Box>
               </Row>
 
