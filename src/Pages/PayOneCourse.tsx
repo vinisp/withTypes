@@ -245,14 +245,6 @@ const GroupSelect = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 })); */
 
-const BumbElement = () => {
-  return (
-    <>
-      <p>Aqui a vai o Order Bump</p>
-    </>
-  );
-};
-
 const Detalhes = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "flex-start",
@@ -321,6 +313,7 @@ export function PayOneCourse() {
   const [secCode, setSecCode] = useState<string>("");
   const [cardName, setCardName] = useState<string>("");
   const [saveCardData, setSaveCardData] = useState<boolean>(false);
+  const [getBump, setGetBump] = useState<boolean>(false);
   let { idCourse } = useParams<any>();
 
   function GetCourseData() {
@@ -332,6 +325,24 @@ export function PayOneCourse() {
   }
 
   GetCourseData();
+
+  const BumbElement = () => {
+    return (
+      <>
+        <Box sx={{ border: "2px dashed lime", width: "100%" }}>
+          Aqui a vai o Order Bump
+          <Checkbox
+            id="vaiQuererOBump"
+            onChange={(e) => setGetBump(e.target.checked)}
+          />
+          <label htmlFor="vaiQuererOBump">
+            Sim quero adicionar a oferta na minha compra
+          </label>
+          {getBump ? "quero" : "não quero"}
+        </Box>
+      </>
+    );
+  };
 
   const Credit = (
     <>
