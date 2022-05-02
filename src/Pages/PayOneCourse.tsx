@@ -356,6 +356,7 @@ export function PayOneCourse() {
   GetCourseData();
 
   const BumbElement = () => {
+    const totalValue = +course[0].price + +bumpValue;
     return (
       <>
         <Box
@@ -384,9 +385,9 @@ export function PayOneCourse() {
               <Typography>
                 {course[0].name} : R$ {course[0].price}
               </Typography>
-              <Typography>Nome do Bump: R$ {bumpValue} </Typography>
+              <Typography>Nome do Bump: R$ {bumpValue.toFixed(2)} </Typography>
 
-              <Typography>Total: {+course[0].price + +bumpValue} </Typography>
+              <Typography>Total: R$ {totalValue.toFixed(2)}</Typography>
               <Typography></Typography>
             </>
           ) : (
