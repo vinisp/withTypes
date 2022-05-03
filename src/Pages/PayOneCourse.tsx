@@ -331,6 +331,17 @@ const LabelCustom = styled("div")(({ theme }) => ({
   [theme.breakpoints.up("lg")]: {},
 }));
 
+const Stripes = styled("div")(({ theme }) => ({
+  "p:nth-child(even)": {
+    backgroundColor: "#c0c0c069",
+  },
+  [theme.breakpoints.down("sm")]: {},
+  [theme.breakpoints.up("sm")]: {},
+
+  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {},
+}));
+
 export function PayOneCourse() {
   const [course, setCourse] = useState<any[]>([]);
   const [paymentOption, setPaymentOption] = useState<string>("");
@@ -381,14 +392,17 @@ export function PayOneCourse() {
           </LabelCustom>
           {getBump ? (
             <>
-              <Typography>Resumo da compra</Typography>
-              <Typography>
-                {course[0].name} : R$ {course[0].price}
-              </Typography>
-              <Typography>Nome do Bump: R$ {bumpValue.toFixed(2)} </Typography>
+              <Stripes>
+                <Typography>Resumo da compra</Typography>
+                <Typography>
+                  {course[0].name} : R$ {course[0].price}
+                </Typography>
+                <Typography>
+                  Nome do Bump: R$ {bumpValue.toFixed(2)}{" "}
+                </Typography>
 
-              <Typography>Total: R$ {totalValue.toFixed(2)}</Typography>
-              <Typography></Typography>
+                <Typography>Total: R$ {totalValue.toFixed(2)}</Typography>
+              </Stripes>
             </>
           ) : (
             false
