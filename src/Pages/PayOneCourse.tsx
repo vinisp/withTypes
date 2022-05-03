@@ -480,20 +480,20 @@ export function PayOneCourse() {
   );
 
   const Boleto = (
-    <div>
+    <Box sx={{ display: "flex", flexWrap: "wrap", gap: "1rem", width: "100%" }}>
       {BumbElement()}
       <Button color="success" variant="contained">
         Gerar Boleto
       </Button>
-    </div>
+    </Box>
   );
   const Pix = (
-    <div>
+    <Box sx={{ display: "flex", flexWrap: "wrap", gap: "1rem", width: "100%" }}>
       {BumbElement()}
       <Button color="success" variant="contained">
         Gerar Pix
       </Button>
-    </div>
+    </Box>
   );
 
   function PaymentFormRender() {
