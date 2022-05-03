@@ -353,7 +353,12 @@ export function PayOneCourse() {
   const [cardName, setCardName] = useState<string>("");
   const [saveCardData, setSaveCardData] = useState<boolean>(false);
   const [getBump, setGetBump] = useState<boolean>(false);
+  const [pixCode, setPixCode] = useState<string>("");
   const bumpValue = 799.0;
+  const totalValue = getBump
+    ? +course[0]?.price + +bumpValue
+    : +course[0]?.price;
+
   let { idCourse } = useParams<any>();
 
   function GetCourseData() {
@@ -367,7 +372,6 @@ export function PayOneCourse() {
   GetCourseData();
 
   const BumbElement = () => {
-    const totalValue = +course[0]?.price + +bumpValue;
     return (
       <>
         <Box
@@ -470,6 +474,7 @@ export function PayOneCourse() {
               secCode,
               saveCardData,
               getBump,
+              totalValue,
             })
           }
         >
@@ -490,9 +495,21 @@ export function PayOneCourse() {
   const Pix = (
     <Box sx={{ display: "flex", flexWrap: "wrap", gap: "1rem", width: "100%" }}>
       {BumbElement()}
-      <Button color="success" variant="contained">
+      <Button
+        color="success"
+        variant="contained"
+        onClick={() => {
+          axios.get("http://localhost:5000/pix").then((response) => {
+            setPixCode(response.data.imagemQrcode);
+          });
+        }}
+      >
         Gerar Pix
       </Button>
+
+      <div className="PixContainer">
+        <img src={pixCode} alt="pixCode" />
+      </div>
     </Box>
   );
 
