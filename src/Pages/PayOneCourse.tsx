@@ -356,7 +356,7 @@ export function PayOneCourse() {
   GetCourseData();
 
   const BumbElement = () => {
-    const totalValue = +course[0].price + +bumpValue;
+    const totalValue = +course[0]?.price + +bumpValue;
     return (
       <>
         <Box
