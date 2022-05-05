@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import { Footer } from "../Components/widgets/Footer";
+import { useAuth } from "../hooks/useAuth";
+
 
 // import CreditCardIcon from "@mui/icons-material/CreditCard";
 // import QrCodeIcon from "@mui/icons-material/QrCode";
@@ -13,6 +15,7 @@ import { Footer } from "../Components/widgets/Footer";
 import axios from "axios";
 
 const APIURL = "https://deppback.herokuapp.com/";
+const FIN_API = "http://35.153.152.10:8000/"
 
 const Container = styled("div")(({ theme }) => ({
   backgroundColor: "#f2f2f2",
@@ -345,6 +348,8 @@ const Stripes = styled("div")(({ theme }) => ({
 export function PayOneCourse() {
   const [course, setCourse] = useState<any[]>([]);
   const [paymentOption, setPaymentOption] = useState<string>("");
+  const [userName, setUserName] = useState<string>("")
+  const [userEmail, setUserEmail] = useState<string>("")
   const [cpf, setCpf] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [cardNumber, setCardNumber] = useState<string>("");
@@ -354,6 +359,9 @@ export function PayOneCourse() {
   const [saveCardData, setSaveCardData] = useState<boolean>(false);
   const [getBump, setGetBump] = useState<boolean>(false);
   const [pixCode, setPixCode] = useState<string>("");
+  const [userId, setUserID] = useState<string>("")
+  const { user } = useAuth();
+  
   const bumpValue = 799.0;
   const totalValue = getBump
     ? +course[0]?.price + +bumpValue
@@ -367,9 +375,46 @@ export function PayOneCourse() {
         .get(`${APIURL}course/${idCourse}`)
         .then((response) => setCourse(response.data));
     }, []);
+    return null;
   }
 
   GetCourseData();
+
+  function GetUserId(){
+    const { user } = useAuth();
+    useEffect(() => { user ? setUserID(user.id) : console.log('usuário não está logado') }, [user]);
+    return null;
+  }
+
+  GetUserId()
+
+  if(!user){
+    console.log('não tá logado')
+  }
+
+  function CheckCommomFields(){
+    if(!user) {
+      return window.alert('Por gentileza realize o login para continuar a compra.')
+    }
+
+    if(userId.length === 0){
+      return window.alert('Por gentileza realize o login novamente.')
+    }
+    if(userName.trim().length < 4){
+      return window.alert('Informe seu nome completo.')
+    }
+    if(userEmail.trim().length < 4){
+      return window.alert('por favor informe seu email.')
+    }
+    
+    if(cpf.trim().length < 14){
+      return window.alert('Cpf incompleto.')
+    }
+    if(phone.trim().length < 14){
+      return window.alert('Celular incompleto.')
+    }
+    
+  }
 
   const BumbElement = () => {
     return (
@@ -498,8 +543,10 @@ export function PayOneCourse() {
       <Button
         color="success"
         variant="contained"
-        onClick={() => {
-          axios.get("http://localhost:5000/pix").then((response) => {
+        onClick={() => { 
+          CheckCommomFields();
+  
+          axios.get(`${FIN_API}pix/course/${idCourse}/user/${userId}/${totalValue.toFixed(2)}`).then((response) => {
             setPixCode(response.data.imagemQrcode);
           });
         }}
@@ -508,7 +555,8 @@ export function PayOneCourse() {
       </Button>
 
       <div className="PixContainer">
-        <img src={pixCode} alt="pixCode" />
+        {pixCode ? <img src={pixCode} alt="pixCode" /> : 'não' }
+        
       </div>
     </Box>
   );
@@ -600,6 +648,9 @@ export function PayOneCourse() {
                   label="Nome Completo"
                   placeholder=""
                   variant="standard"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+
                   required
                 />
               </Row>
@@ -610,6 +661,8 @@ export function PayOneCourse() {
                   placeholder=""
                   variant="standard"
                   type={"email"}
+                  value={userEmail}
+                  onChange={(e) => setUserEmail(e.target.value)}
                   required
                 />
               </Row>
