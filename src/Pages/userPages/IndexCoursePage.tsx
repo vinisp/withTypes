@@ -617,7 +617,7 @@ export function IndexCourse() {
                   variant="text"
                   color="success"
                   onClick={() => {
-                    handleOpen();
+                    history.push('/newpost')
                   }}
                 >
                   <PostAddIcon sx={{ color: `${mainColor}` }} />
