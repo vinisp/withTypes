@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { TextareaAutosize, Button } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
+import { v4 as uuid } from "uuid";
 import { Footer } from "../../Components/widgets/Footer";
 
 const APIURL = "https://deppback.herokuapp.com/";
@@ -50,12 +51,13 @@ export const MakePost = () => {
               .post(`${APIURL}post/create`, {
                 user_id: user.id,
                 post_content: post,
+                post_id: uuid() 
               })
               .then((response) =>
                 response.status === 200 ? AlertAndClear() : false
               )
               .catch((error) => console.error(error));
-            setPost("");
+            setPost(""); 
           }}
         >
           Enviar Postagem
