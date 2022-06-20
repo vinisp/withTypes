@@ -47,6 +47,9 @@ export const MakePost = () => {
         <Button
           variant="contained"
           color="success"
+          style={{
+            marginBottom: "2rem",
+          }}
           onClick={() => {
             axios
               .post(`${APIURL}post/create`, {
