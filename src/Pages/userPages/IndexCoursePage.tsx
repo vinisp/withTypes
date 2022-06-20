@@ -10,6 +10,7 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import PersonIcon from "@mui/icons-material/Person";
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
 import Divider from "@mui/material/Divider";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
@@ -22,10 +23,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-import CircleIcon from "@mui/icons-material/Circle";
 
 // import { Redirect } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import axios from "axios";
 
 import { Button, Box, Typography } from "@mui/material/";
@@ -41,27 +41,7 @@ const boxShadowConfig =
 
 const mainColor = "#97C930";
 
-const favButtonStyle = {
-  width: "100%",
-  padding: "5px 10px",
-  color: "black",
-  borderLeft: "solid 3px transparent",
-  transition: "all 500ms ease",
-  display: "flex",
-  justifyContent: "flex-start",
-  gap: "15px",
-  svg: {
-    color: `${mainColor}`,
-    fontSize: "13px",
-  },
 
-  "&:hover": {
-    borderLeft: "solid 3px lime",
-    svg: {
-      color: "red",
-    },
-  },
-};
 
 const PhotoAndNameWrapper = styled("div")(({ theme }) => ({
   flex: "0 0 25%",
@@ -135,6 +115,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
 const MainBox = styled("div")(({ theme }) => ({
   paddingTop: "80px",
   backgroundColor: "#030303",
+  minHeight: '100vh',
   display: "flex",
   overflowX: "hidden",
 
@@ -366,12 +347,10 @@ export function IndexCourse() {
     setOpen(false);
   };
 
-  /* const { user } = useAuth();
+  const { user } = useAuth();
   if (!user) {
     return <Redirect to="/login" />;
-  } */
-
-  const { user } = useAuth();
+  }
 
   function SendDataTeste() {
     const { user } = useAuth();
@@ -602,6 +581,24 @@ export function IndexCourse() {
                   variant="text"
                   color="success"
                   onClick={() => {
+                    history.push(`/profile/edit/${user?.id}`);
+                  }}
+                >
+                  <PersonIcon sx={{ color: `${mainColor}` }} />
+                  <Typography className="hideOnMobile" fontSize={"10px"}>
+                    Editar Perfil
+                  </Typography>
+                </Button>
+              </ListItemIcon>
+              <ListItemText />
+            </ListItem>
+            <ListItem button sx={{ padding: 0 }}>
+              <ListItemIcon>
+                <Button
+                  sx={sideBarItemStyle}
+                  variant="text"
+                  color="success"
+                  onClick={() => {
                     handleOpen();
                   }}
                 >
@@ -620,12 +617,12 @@ export function IndexCourse() {
                   variant="text"
                   color="success"
                   onClick={() => {
-                    history.push(`/profile/edit/${user?.id}`);
+                    handleOpen();
                   }}
                 >
-                  <PersonIcon sx={{ color: `${mainColor}` }} />
+                  <PostAddIcon sx={{ color: `${mainColor}` }} />
                   <Typography className="hideOnMobile" fontSize={"10px"}>
-                    Editar Perfil
+                    Criar Nova Postagem
                   </Typography>
                 </Button>
               </ListItemIcon>
@@ -634,58 +631,7 @@ export function IndexCourse() {
           </List>
 
           <Divider />
-          <Typography
-            sx={{
-              marginTop: "15px",
-              marginLeft: "5px",
-              fontWeight: 600,
-              color: "silver",
-            }}
-          >
-            Favoritos
-          </Typography>
-          <List>
-            <ListItem button sx={{ padding: 0 }}>
-              <ListItemIcon sx={{ width: "100%" }}>
-                <Button sx={favButtonStyle}>
-                  <CircleIcon />
-                  Item I
-                </Button>
-              </ListItemIcon>
-            </ListItem>
-            <ListItem button sx={{ padding: 0 }}>
-              <ListItemIcon sx={{ width: "100%" }}>
-                <Button sx={favButtonStyle}>
-                  <CircleIcon />
-                  Item I
-                </Button>
-              </ListItemIcon>
-            </ListItem>
-            <ListItem button sx={{ padding: 0 }}>
-              <ListItemIcon sx={{ width: "100%" }}>
-                <Button sx={favButtonStyle}>
-                  <CircleIcon />
-                  Item I
-                </Button>
-              </ListItemIcon>
-            </ListItem>
-            <ListItem button sx={{ padding: 0 }}>
-              <ListItemIcon sx={{ width: "100%" }}>
-                <Button sx={favButtonStyle}>
-                  <CircleIcon />
-                  Item I
-                </Button>
-              </ListItemIcon>
-            </ListItem>
-            <ListItem button sx={{ padding: 0 }}>
-              <ListItemIcon sx={{ width: "100%" }}>
-                <Button sx={favButtonStyle}>
-                  <CircleIcon />
-                  Item I
-                </Button>
-              </ListItemIcon>
-            </ListItem>
-          </List>
+          
         </Drawer>
 
         <Main open={open}>
@@ -778,89 +724,7 @@ export function IndexCourse() {
                     </Typography>
                   </LineDetailsBoxBody>
                 </BottomSections>
-                <BottomSections>
-                  <LineDetailsBoxHead>
-                    <Typography variant="h6">Meus Cursos Comprados</Typography>
-                    <Typography variant="h6">Categoria</Typography>
-                    <Typography variant="h6">Acessar</Typography>
-                  </LineDetailsBoxHead>
-                  <LineDetailsBoxBody>
-                    <Typography>Curso 1</Typography>
-                    <Typography>Categoria 3 </Typography>
-                    <Typography>
-                      <button
-                        style={{
-                          border: "0",
-                          width: "100%",
 
-                          fontSize: "16px",
-                          cursor: "pointer",
-                          backgroundColor: "transparent",
-                          color: "white",
-                        }}
-                      >
-                        clique aqui
-                      </button>
-                    </Typography>
-                  </LineDetailsBoxBody>
-                  <LineDetailsBoxBody>
-                    <Typography>Curso 1</Typography>
-                    <Typography>Categoria 3 </Typography>
-                    <Typography>
-                      <button
-                        style={{
-                          border: "0",
-                          width: "100%",
-
-                          fontSize: "16px",
-                          cursor: "pointer",
-                          backgroundColor: "transparent",
-                          color: "white",
-                        }}
-                      >
-                        clique aqui
-                      </button>
-                    </Typography>
-                  </LineDetailsBoxBody>
-                  <LineDetailsBoxBody>
-                    <Typography>Curso 1</Typography>
-                    <Typography>Categoria 3 </Typography>
-                    <Typography>
-                      <button
-                        style={{
-                          border: "0",
-                          width: "100%",
-
-                          fontSize: "16px",
-                          cursor: "pointer",
-                          backgroundColor: "transparent",
-                          color: "white",
-                        }}
-                      >
-                        clique aqui
-                      </button>
-                    </Typography>
-                  </LineDetailsBoxBody>
-                  <LineDetailsBoxBody>
-                    <Typography>Curso 1</Typography>
-                    <Typography>Categoria 3 </Typography>
-                    <Typography>
-                      <button
-                        style={{
-                          border: "0",
-                          width: "100%",
-
-                          fontSize: "16px",
-                          cursor: "pointer",
-                          backgroundColor: "transparent",
-                          color: "white",
-                        }}
-                      >
-                        clique aqui
-                      </button>
-                    </Typography>
-                  </LineDetailsBoxBody>
-                </BottomSections>
               </MainInfoBox>
             </MainBox>
           </ThemeProvider>

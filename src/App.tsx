@@ -5,15 +5,12 @@
 // import { TestarComponentes } from "./Pages/paginas_testes/testar_componentes";
 
 //Test Pages
-
 import { CreateCourse } from "./Pages/userPages/CreateCourse";
-
 import { IndexCourse } from "./Pages/userPages/IndexCoursePage";
 import { CoursePage } from "./Pages/userPages/CoursePage";
 import { EditProfilePage } from "./Pages/userPages/EditProfilePage";
 import { IndexCoursePage } from "./Pages/userPages/EditIndexCoursePage";
-
-import { PayOneCourse } from "./Pages/PayOneCourse";
+import { MakePost } from "./Pages/userPages/MakePost";
 
 //Default Pages
 
@@ -79,11 +76,13 @@ function App() {
         <AuthContextProvider>
           <CartContextItemsProvider>
             <Nav />
+
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/memberhome" component={MemberAreaHome} />
+              <Route exact path="/newpost" component={MakePost} />
               <Route exact path="/race/:idRace" component={RacePage} />
               <Route exact path="/profile/:user_id" component={Profile} />
               <Route
@@ -108,14 +107,7 @@ function App() {
                 component={CreateCourse}
               />
               <Route exact path="/createcourse" component={CreateCourse} />
-              <Route
-                exact
-                path="/buycourse/:idCourse"
-                component={PayOneCourse}
-              />
-
               <Route exact path="/checkout" component={CheckoutPage} />
-
               <Route exact path="/store" component={MyStore} />
               <Route exact path="/course/:idCourse" component={CourseDetail} />
               <Route path="*" component={PageNotFound} />
