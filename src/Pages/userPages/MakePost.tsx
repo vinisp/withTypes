@@ -29,6 +29,7 @@ export const MakePost = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          marginBottom: '1rem'
         }}
       >
         <h1>Crie uma nova Postagem</h1>
