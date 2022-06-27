@@ -250,7 +250,7 @@ export function IndexCoursePage() {
               setResumoDoCurso(event.target.value);
             }}
           />
-          <p
+          {/* {<p
             style={{
               color: `${resumoDoCurso.length > 255 ? "red" : "black"}`,
               textAlign: "right",
@@ -260,7 +260,7 @@ export function IndexCoursePage() {
             {resumoDoCurso.length > 255
               ? " (número maxímo de caracteres 255)"
               : false}
-          </p>
+          </p>} */}
         </FieldBox>
 
         <FieldBox>
@@ -284,7 +284,7 @@ export function IndexCoursePage() {
               setPlanoDeEnsino(event.target.value);
             }}
           />
-          <p
+  {/* {        <p
             style={{
               color: `${planoDeEnsino.length > 255 ? "red" : "black"}`,
               textAlign: "right",
@@ -294,7 +294,7 @@ export function IndexCoursePage() {
             {planoDeEnsino.length > 255
               ? " (número maxímo de caracteres 255)"
               : false}
-          </p>
+          </p>} */}
         </FieldBox>
         <FieldBoxHalfWrapper>
           <FieldBoxHalf>
@@ -325,17 +325,17 @@ export function IndexCoursePage() {
                 setResume1(event.target.value);
               }}
             />
-            <p
+          {/* {  <p
               style={{
                 color: `${resume1.length > 255 ? "red" : "black"}`,
                 textAlign: "right",
               }}
-            >
+            >}
               Número de caracteres: {resume1.length}
               {resume1.length > 255
                 ? " (número maxímo de caracteres 255)"
                 : false}
-            </p>
+            </p> */}
           </FieldBoxHalf>
 
           <FieldBoxHalf>
@@ -366,7 +366,7 @@ export function IndexCoursePage() {
                 setResume2(event.target.value);
               }}
             />
-            <p
+           {/* { <p
               style={{
                 color: `${resume2.length > 255 ? "red" : "black"}`,
                 textAlign: "right",
@@ -376,7 +376,7 @@ export function IndexCoursePage() {
               {resume2.length > 255
                 ? " (número maxímo de caracteres 255)"
                 : false}
-            </p>
+            </p>} */}
           </FieldBoxHalf>
 
           <FieldBoxHalf>
@@ -407,7 +407,7 @@ export function IndexCoursePage() {
                 setResume3(event.target.value);
               }}
             />
-            <p
+        {/* {    <p
               style={{
                 color: `${resume3.length > 255 ? "red" : "black"}`,
                 textAlign: "right",
@@ -417,7 +417,7 @@ export function IndexCoursePage() {
               {resume3.length > 255
                 ? " (número maxímo de caracteres 255)"
                 : false}
-            </p>
+            </p>} */}
           </FieldBoxHalf>
         </FieldBoxHalfWrapper>
 
@@ -451,7 +451,7 @@ export function IndexCoursePage() {
               setTextoCompetencia1(event.target.value);
             }}
           />
-          <p
+     {/* {     <p
             style={{
               color: `${textoCompetencia1.length > 255 ? "red" : "black"}`,
               textAlign: "right",
@@ -461,7 +461,7 @@ export function IndexCoursePage() {
             {textoCompetencia1.length > 255
               ? " (número maxímo de caracteres 255)"
               : false}
-          </p>
+          </p>} */}
 
           <h4>Competência 2</h4>
           <TextField
@@ -490,7 +490,7 @@ export function IndexCoursePage() {
               setTextoCompetencia2(event.target.value);
             }}
           />
-          <p
+   {/* {       <p
             style={{
               color: `${textoCompetencia2.length > 255 ? "red" : "black"}`,
               textAlign: "right",
@@ -500,7 +500,7 @@ export function IndexCoursePage() {
             {textoCompetencia2.length > 255
               ? " (número maxímo de caracteres 255)"
               : false}
-          </p>
+          </p>} */}
 
           <h4>Competência 3</h4>
           <TextField
@@ -529,7 +529,7 @@ export function IndexCoursePage() {
               setTextoCompetencia3(event.target.value);
             }}
           />
-          <p
+    {/* {      <p
             style={{
               color: `${textoCompetencia3.length > 255 ? "red" : "black"}`,
               textAlign: "right",
@@ -539,7 +539,7 @@ export function IndexCoursePage() {
             {textoCompetencia3.length > 255
               ? " (número maxímo de caracteres 255)"
               : false}
-          </p>
+          </p>} */}
 
           <h4>Competência 4</h4>
           <TextField
@@ -568,7 +568,7 @@ export function IndexCoursePage() {
               setTextoCompetencia4(event.target.value);
             }}
           />
-          <p
+      {/* {    <p
             style={{
               color: `${textoCompetencia4.length > 255 ? "red" : "black"}`,
               textAlign: "right",
@@ -578,7 +578,7 @@ export function IndexCoursePage() {
             {textoCompetencia4.length > 255
               ? " (número maxímo de caracteres 255)"
               : false}
-          </p>
+          </p>} */}
         </FieldBox>
 
         <FieldBox>
@@ -627,7 +627,7 @@ export function IndexCoursePage() {
               setMaisDetalhes(event.target.value);
             }}
           />
-          <p
+       {/* {   <p
             style={{
               color: `${maisDetalhes.length > 255 ? "red" : "black"}`,
               textAlign: "right",
@@ -637,7 +637,7 @@ export function IndexCoursePage() {
             {maisDetalhes.length > 255
               ? " (número maxímo de caracteres 255)"
               : false}
-          </p>
+          </p>} */}
         </FieldBox>
 
         <Button
