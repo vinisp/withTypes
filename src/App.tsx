@@ -11,6 +11,7 @@ import { CoursePage } from "./Pages/userPages/CoursePage";
 import { EditProfilePage } from "./Pages/userPages/EditProfilePage";
 import { IndexCoursePage } from "./Pages/userPages/EditIndexCoursePage";
 import { MakePost } from "./Pages/userPages/MakePost";
+import { Subscribe } from "./Pages/userPages/Subscribes";
 
 //Default Pages
 
@@ -83,6 +84,7 @@ function App() {
               <Route exact path="/register" component={Register} />
               <Route exact path="/memberhome" component={MemberAreaHome} />
               <Route exact path="/newpost" component={MakePost} />
+              <Route exact path="/subscribe" component={Subscribe} />
               <Route exact path="/race/:idRace" component={RacePage} />
               <Route exact path="/profile/:user_id" component={Profile} />
               <Route

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { Footer } from "../../Components/widgets/Footer";
 import { styled, useTheme, ThemeProvider } from "@mui/material/styles";
-import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { v4 as uuidv4 } from "uuid";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -22,13 +21,25 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 
 // import { Redirect } from "react-router-dom";
 import { useHistory, Redirect } from "react-router-dom";
 import axios from "axios";
 
 import { Button, Box, Typography } from "@mui/material/";
+
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+// import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Avatar from "@mui/material/Avatar";
+import { red } from "@mui/material/colors";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 // import { TextField, Button, Box, Modal, Typography } from "@mui/material/";
 
@@ -317,15 +328,22 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export function IndexCourse() {
+export function Subscribe() {
   const theme = useTheme();
-  const [myCourses, setMyCourses] = useState<any[]>([]);
+
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
+
   const [level, setCourseLevel] = useState("");
   const [category, setCategory] = useState("");
+  const [sub_monthly, setSub_mothly] = useState(false);
+  const [priceSubMonthly, setPriceSubMonthly] = useState(0);
+  const [sub_quarterly, setSub_quarterly] = useState(false);
+  const [priceSubQuarterly, setPriceSubQuarterly] = useState(0);
+  const [sub_semi_annual, setSub_semi_annual] = useState(false);
+  const [priceSubSemi_annual, setPriceSubSemi_annual] = useState(0);
 
   let history = useHistory();
 
@@ -364,145 +382,158 @@ export function IndexCourse() {
 
   SendDataTeste();
 
-  const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 50 },
-    {
-      field: "courseName",
-      headerName: "Nome do curso",
-      width: 160,
-      editable: false,
-    },
-    {
-      field: "category",
-      headerName: "Categoria",
-      width: 100,
-      editable: false,
-    },
-    {
-      field: "price",
-      headerName: "Preço",
-      width: 70,
-      editable: false,
-    },
-    {
-      field: "totalSell",
-      headerName: "Total de vendas",
-      width: 120,
-      editable: false,
-    },
-    {
-      field: "owner",
-      headerName: "Dono",
-      width: 70,
-      renderCell: (params: GridRenderCellParams<any>) => (
-        <Typography>{params.row.owner === user_id ? "Sim" : "Não"}</Typography>
-      ),
-    },
-    {
-      field: "edit",
-      headerName: "Editar",
-      renderCell: (params: GridRenderCellParams<any>) => (
-        <Button
-          variant="text"
-          color="success"
-          size="small"
-          onClick={() => {
-            history.push(`/editcourse/${params.row.id}`);
-          }}
-        >
-          Conteúdo
-        </Button>
-      ),
-    },
-    {
-      field: "editPromo",
-      headerName: "Editar",
-      renderCell: (params: GridRenderCellParams<any>) => (
-        <Button
-          variant="text"
-          color="success"
-          size="small"
-          onClick={() => {
-            history.push(`/course/editsellpage/${params.row.id}`);
-          }}
-        >
-          Promocional
-        </Button>
-      ),
-    },
-    {
-      field: "delete",
-      headerName: "Deletar",
-      renderCell: (params: GridRenderCellParams<any>) => (
-        <Button
-          variant="text"
-          color="warning"
-          onClick={async () => {
-            try {
-              axios
-                .delete(`${APIURL}course/delete/${params.row.id}`)
-                .then((response) => console.log("deletado", response))
-                .catch((err) => console.error(err));
-            } catch (err) {
-              console.error(err);
-            }
-            try {
-              axios
-                .delete(`${APIURL}champters/delete/${params.row.id}`)
-                .then((response) => console.log("deletado", response))
-                .catch((err) => console.error(err));
-            } catch (err) {
-              console.error(err);
-            }
-            try {
-              axios
-                .delete(`${APIURL}elements/delete/${params.row.id}`)
-                .then((response) => console.log("deletado", response))
-                .catch((err) => console.error(err));
-            } catch (err) {
-              console.error(err);
-            }
-
-            try {
-              const getCourses = await axios
-                .get(`${APIURL}search/${user_id}`)
-                .then((response) => {
-                  setMyCourses(response.data);
-                });
-              return getCourses;
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-        >
-          Deletar
-        </Button>
-      ),
-    },
-  ];
-
   const user_id = user?.id;
 
-  function RenderCourseInTable() {
+  function GetUserData() {
     const { user } = useAuth();
     useEffect(() => {
-      axios.get(`${APIURL}search/${user_id}`).then((response) => {
-        setMyCourses(response.data);
-      });
+      user
+        ? axios
+            .get(`${APIURL}findUser/${user.id}`)
+            .then((response) => {
+              setSub_mothly(response.data[0].sub_monthly);
+              setSub_quarterly(response.data[0].sub_quarterly);
+              setSub_semi_annual(response.data[0].sub_semi_annual);
+            })
+            .catch((err) => console.error(err))
+        : console.log("não temos dados do usuário");
     }, [user]);
   }
 
-  RenderCourseInTable();
+  GetUserData();
 
-  const rows = myCourses.map((e) => ({
-    id: e.course_id,
-    owner: e.created_by,
-    courseName: e.name,
-    category: e.category,
-    level: e.level,
-    totalSell: 85,
-    price: e.price,
-  }));
+  const RenderCard = (planName: string, planAbr: string, active: boolean) => {
+    return (
+      <>
+        <Card sx={{ maxWidth: 345 }}>
+          <CardHeader
+            avatar={
+              <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                {planAbr}
+              </Avatar>
+            }
+            action={
+              <IconButton aria-label="settings">
+                <MoreVertIcon />
+              </IconButton>
+            }
+            title={planName}
+            subheader={`Status: ${active ? "Ativo" : "Desativado"}`}
+          />
+
+          <CardContent>
+            <TextField
+              required
+              type="text"
+              inputProps={{
+                inputMode: "numeric",
+
+                pattern: "[0-9]*",
+              }}
+              id="filled-basic"
+              label={"Preço do Curso"}
+              variant="filled"
+              sx={{ background: "white", width: "100%" }}
+              onChange={(event) => {
+                if (planName === "Mensal") {
+                  setPriceSubMonthly(+event.target.value);
+                }
+                if (planName === "Trimestral") {
+                  setPriceSubQuarterly(+event.target.value);
+                }
+                if (planName === "Semestral") {
+                  setPriceSubSemi_annual(+event.target.value);
+                }
+              }}
+            />
+            <Button
+              fullWidth
+              sx={{ marginBottom: "1rem", borderBottom: "1px solid" }}
+              onClick={() => {
+                if (planName === "Mensal") {
+                  console.log(priceSubMonthly);
+                  axios.post(`${APIURL}sub/price`, {
+                    user_id: user.id,
+                    interval: "month",
+                    interval_count: 1,
+                    price: priceSubMonthly,
+                    planName: planName,
+                  });
+                }
+                if (planName === "Trimestral") {
+                  console.log(priceSubQuarterly);
+                  axios.post(`${APIURL}sub/price`, {
+                    user_id: user.id,
+                    interval: "month",
+                    interval_count: 3,
+                    price: priceSubQuarterly,
+                    planName: planName,
+                  });
+                }
+                if (planName === "Semestral") {
+                  console.log(priceSubSemi_annual);
+                  axios.post(`${APIURL}sub/price`, {
+                    user_id: user.id,
+                    interval: "month",
+                    interval_count: 6,
+                    price: priceSubSemi_annual,
+                    planName: planName,
+                  });
+                }
+              }}
+            >
+              Salvar
+            </Button>
+
+            <Typography variant="body2" color="text.secondary">
+              Resumo com números de postagens e eventos analisados, histórico de
+              acerto e etc...
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton
+              sx={{ color: `${active ? "red" : "silver"}` }}
+              aria-label="add to favorites"
+              onClick={() => {
+                if (planName === "Mensal") {
+                  axios
+                    .post(`${APIURL}sub/month`, {
+                      user_id: user.id,
+                      name: planName,
+                    })
+                    .then((response) => console.log(response.data))
+                    .catch((err) => console.error(err));
+                }
+                if (planName === "Trimestral") {
+                  axios
+                    .post(`${APIURL}sub/quart`, {
+                      user_id: user.id,
+                      name: planName,
+                    })
+                    .then((response) => console.log(response.data))
+                    .catch((err) => console.error(err));
+                }
+                if (planName === "Semestral") {
+                  axios
+                    .post(`${APIURL}sub/semiannual`, {
+                      user_id: user.id,
+                      name: planName,
+                    })
+                    .then((response) => console.log(response.data))
+                    .catch((err) => console.error(err));
+                }
+              }}
+            >
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton>
+          </CardActions>
+        </Card>
+      </>
+    );
+  };
 
   return (
     <>
@@ -633,10 +664,10 @@ export function IndexCourse() {
                   variant="text"
                   color="success"
                   onClick={() => {
-                    history.push("/subscribe");
+                    history.push("/newpost");
                   }}
                 >
-                  <LibraryBooksIcon sx={{ color: `${mainColor}` }} />
+                  <LibraryBooksIcon sx={{ color: `red` }} />
                   <Typography className="hideOnMobile" fontSize={"10px"}>
                     Gerenciar Assinaturas
                   </Typography>
@@ -665,25 +696,21 @@ export function IndexCourse() {
                     }}
                     variant="h5"
                   >
-                    Lista de Cursos
+                    Minhas Assinaturas
                   </Typography>
-
-                  <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection
-                    disableSelectionOnClick
-                    sx={{
-                      backgroundColor: "#212423",
-                      border: 0,
-                      color: "white",
-                      p: {
-                        color: "white",
-                      },
+                  <div
+                    style={{
+                      marginTop: "2rem",
+                      display: "flex",
+                      flexWrap: "wrap",
+                      justifyContent: "center",
+                      gap: "2rem",
                     }}
-                  />
+                  >
+                    {RenderCard("Mensal", "M", sub_monthly)}
+                    {RenderCard("Trimestral", "T", sub_quarterly)}
+                    {RenderCard("Semestral", "A", sub_semi_annual)}
+                  </div>
                 </BoxAllInfo>
                 <BalanceInfo>
                   <Typography variant="h5" color="white">
