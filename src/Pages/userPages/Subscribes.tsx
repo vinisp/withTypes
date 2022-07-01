@@ -344,6 +344,7 @@ export function Subscribe() {
   const [priceSubQuarterly, setPriceSubQuarterly] = useState(0);
   const [sub_semi_annual, setSub_semi_annual] = useState(false);
   const [priceSubSemi_annual, setPriceSubSemi_annual] = useState(0);
+  const [plansData, setPlansData] = useState<any[]>();
 
   let history = useHistory();
 
@@ -368,6 +369,8 @@ export function Subscribe() {
     return <Redirect to="/login" />;
   }
 
+  const user_id = user?.id;
+
   function SendDataTeste() {
     const { user } = useAuth();
     useEffect(() => {
@@ -382,7 +385,39 @@ export function Subscribe() {
 
   SendDataTeste();
 
-  const user_id = user?.id;
+  function CheckSub() {
+    const { user } = useAuth();
+    useEffect(() => {
+      user
+        ? axios
+            .get(`http://localhost:3001/sub/check/${user.id}`)
+            .then((response) => console.log(response.data))
+            .catch((err) => console.error(err))
+        : console.log("Não temos usuário");
+    }, [user]);
+  }
+
+  CheckSub();
+
+  function CheckProductId() {
+    const { user } = useAuth();
+    useEffect(() => {
+      user
+        ? axios
+            .get(`http://localhost:3001/sub/prod/${user.id}`)
+            .then((response) =>
+              setPlansData(
+                response.data.product.data.map((e: any) => ({
+                  prod_id: e.id,
+                  planName: e.name,
+                }))
+              )
+            )
+            .catch((err) => console.error(err))
+        : console.log("Não temos usuário");
+    }, [user]);
+  }
+  CheckProductId();
 
   function GetUserData() {
     const { user } = useAuth();
@@ -401,6 +436,19 @@ export function Subscribe() {
   }
 
   GetUserData();
+
+  function GetSubId() {
+    const { user } = useAuth();
+    useEffect(() => {
+      user
+        ? axios
+            .get(`http://localhost:3001/sub/actives/${user.email}`)
+            .then((response) => console.log(response.data))
+        : console.log("Não temos usuário");
+    }, [user]);
+  }
+
+  GetSubId();
 
   const RenderCard = (planName: string, planAbr: string, active: boolean) => {
     return (
@@ -451,18 +499,19 @@ export function Subscribe() {
               sx={{ marginBottom: "1rem", borderBottom: "1px solid" }}
               onClick={() => {
                 if (planName === "Mensal") {
-                  console.log(priceSubMonthly);
-                  axios.post(`${APIURL}sub/price`, {
-                    user_id: user.id,
-                    interval: "month",
-                    interval_count: 1,
-                    price: priceSubMonthly,
-                    planName: planName,
-                  });
+                  axios
+                    .post(`http://localhost:3001/sub/price`, {
+                      user_id: user.id,
+                      interval: "month",
+                      interval_count: 1,
+                      price: priceSubMonthly,
+                      planName: planName,
+                    })
+                    .then((response) => console.log(response.data));
                 }
                 if (planName === "Trimestral") {
                   console.log(priceSubQuarterly);
-                  axios.post(`${APIURL}sub/price`, {
+                  axios.post(`http://localhost:3001/sub/price`, {
                     user_id: user.id,
                     interval: "month",
                     interval_count: 3,
@@ -472,7 +521,7 @@ export function Subscribe() {
                 }
                 if (planName === "Semestral") {
                   console.log(priceSubSemi_annual);
-                  axios.post(`${APIURL}sub/price`, {
+                  axios.post(`http://localhost:3001/sub/price`, {
                     user_id: user.id,
                     interval: "month",
                     interval_count: 6,
@@ -482,7 +531,7 @@ export function Subscribe() {
                 }
               }}
             >
-              Salvar
+              Ativar Preço
             </Button>
 
             <Typography variant="body2" color="text.secondary">
@@ -529,6 +578,18 @@ export function Subscribe() {
             <IconButton aria-label="share">
               <ShareIcon />
             </IconButton>
+            <Button
+              onClick={() => {
+                const prodId = plansData?.filter(
+                  (e) => e.planName === planName
+                )[0].prod_id;
+                axios
+                  .get(`http://localhost:3001/sub/${prodId}`)
+                  .then((response) => console.log(response.data.result[0].id));
+              }}
+            >
+              Check Price ID
+            </Button>
           </CardActions>
         </Card>
       </>
@@ -707,6 +768,9 @@ export function Subscribe() {
                       gap: "2rem",
                     }}
                   >
+                    <Button onClick={() => console.log(plansData)}>
+                      Olha as coisas acontecendo
+                    </Button>
                     {RenderCard("Mensal", "M", sub_monthly)}
                     {RenderCard("Trimestral", "T", sub_quarterly)}
                     {RenderCard("Semestral", "A", sub_semi_annual)}
