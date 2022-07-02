@@ -385,19 +385,33 @@ export function Subscribe() {
 
   SendDataTeste();
 
-  function CheckSub() {
+  // function CheckSub() {
+  //   const { user } = useAuth();
+  //   useEffect(() => {
+  //     user
+  //       ? axios
+  //           .get(`http://localhost:3001/sub/check/${user.id}`)
+  //           .then((response) => console.log(response.data))
+  //           .catch((err) => console.error(err))
+  //       : console.log("Não temos usuário");
+  //   }, [user]);
+  // }
+
+  // CheckSub();
+
+  function CheckActiveSub() {
     const { user } = useAuth();
     useEffect(() => {
       user
         ? axios
-            .get(`http://localhost:3001/sub/check/${user.id}`)
-            .then((response) => console.log(response.data))
+            .get(`http://localhost:3001/sub/list/${user.email}`)
+            .then((response) => console.log(response.data.subList))
             .catch((err) => console.error(err))
         : console.log("Não temos usuário");
     }, [user]);
   }
 
-  CheckSub();
+  CheckActiveSub();
 
   function CheckProductId() {
     const { user } = useAuth();
@@ -786,7 +800,6 @@ export function Subscribe() {
                       gap: "2rem",
                     }}
                   >
-                  
                     {RenderCard("Mensal", "M", sub_monthly)}
                     {RenderCard("Trimestral", "T", sub_quarterly)}
                     {RenderCard("Semestral", "A", sub_semi_annual)}

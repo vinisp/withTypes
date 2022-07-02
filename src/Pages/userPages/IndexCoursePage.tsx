@@ -597,7 +597,7 @@ export function IndexCourse() {
                   variant="text"
                   color="success"
                   onClick={() => {
-                    history.push("");
+                    history.push("/subscribe");
                   }}
                 >
                   <LibraryBooksIcon sx={{ color: `${mainColor}` }} />
