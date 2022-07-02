@@ -597,6 +597,24 @@ export function IndexCourse() {
                   variant="text"
                   color="success"
                   onClick={() => {
+                    history.push("");
+                  }}
+                >
+                  <LibraryBooksIcon sx={{ color: `${mainColor}` }} />
+                  <Typography className="hideOnMobile" fontSize={"10px"}>
+                    Gerenciar Assinaturas
+                  </Typography>
+                </Button>
+              </ListItemIcon>
+              <ListItemText />
+            </ListItem>
+            <ListItem button sx={{ padding: 0 }}>
+              <ListItemIcon>
+                <Button
+                  sx={sideBarItemStyle}
+                  variant="text"
+                  color="success"
+                  onClick={() => {
                     handleOpen();
                   }}
                 >
@@ -620,7 +638,7 @@ export function IndexCourse() {
                 >
                   <PostAddIcon sx={{ color: `${mainColor}` }} />
                   <Typography className="hideOnMobile" fontSize={"10px"}>
-                    Criar Nova Postagem
+                    Nova Postagem Pública
                   </Typography>
                 </Button>
               </ListItemIcon>
@@ -633,12 +651,12 @@ export function IndexCourse() {
                   variant="text"
                   color="success"
                   onClick={() => {
-                    history.push("/subscribe");
+                    history.push("/privatepost");
                   }}
                 >
-                  <LibraryBooksIcon sx={{ color: `${mainColor}` }} />
+                  <PostAddIcon sx={{ color: `${mainColor}` }} />
                   <Typography className="hideOnMobile" fontSize={"10px"}>
-                    Gerenciar Assinaturas
+                    Nova Postagem Privada
                   </Typography>
                 </Button>
               </ListItemIcon>

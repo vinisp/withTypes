@@ -8,7 +8,7 @@ import { Footer } from "../../Components/widgets/Footer";
 
 const APIURL = "https://deppback.herokuapp.com/";
 
-export const MakePost = () => {
+export const MakePrivatePost = () => {
   const [postTitle, setPostTitle] = useState<string>("");
   const [post, setPost] = useState<string>("");
   const { user } = useAuth();
@@ -33,7 +33,7 @@ export const MakePost = () => {
           marginBottom: "1rem",
         }}
       >
-        <h1>Crie uma nova Postagem Pública</h1>
+        <h1>Criar uma nova Postagem Exclusiva</h1>
         <TextField
           label="Título da Postagem"
           style={{
@@ -63,7 +63,7 @@ export const MakePost = () => {
           }}
           onClick={() => {
             axios
-              .post(`${APIURL}post/create`, {
+              .post(`${APIURL}private_post/create`, {
                 user_id: user.id,
                 post_title: postTitle,
                 post_content: post,

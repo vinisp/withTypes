@@ -689,6 +689,24 @@ export function Subscribe() {
                   variant="text"
                   color="success"
                   onClick={() => {
+                    history.push("");
+                  }}
+                >
+                  <LibraryBooksIcon sx={{ color: `red` }} />
+                  <Typography className="hideOnMobile" fontSize={"10px"}>
+                    Gerenciar Assinaturas
+                  </Typography>
+                </Button>
+              </ListItemIcon>
+              <ListItemText />
+            </ListItem>
+            <ListItem button sx={{ padding: 0 }}>
+              <ListItemIcon>
+                <Button
+                  sx={sideBarItemStyle}
+                  variant="text"
+                  color="success"
+                  onClick={() => {
                     handleOpen();
                   }}
                 >
@@ -712,7 +730,7 @@ export function Subscribe() {
                 >
                   <PostAddIcon sx={{ color: `${mainColor}` }} />
                   <Typography className="hideOnMobile" fontSize={"10px"}>
-                    Criar Nova Postagem
+                    Nova Postagem Pública
                   </Typography>
                 </Button>
               </ListItemIcon>
@@ -725,12 +743,12 @@ export function Subscribe() {
                   variant="text"
                   color="success"
                   onClick={() => {
-                    history.push("/newpost");
+                    history.push("/privatepost");
                   }}
                 >
-                  <LibraryBooksIcon sx={{ color: `red` }} />
+                  <PostAddIcon sx={{ color: `${mainColor}` }} />
                   <Typography className="hideOnMobile" fontSize={"10px"}>
-                    Gerenciar Assinaturas
+                    Nova Postagem Privada
                   </Typography>
                 </Button>
               </ListItemIcon>
@@ -768,9 +786,7 @@ export function Subscribe() {
                       gap: "2rem",
                     }}
                   >
-                    <Button onClick={() => console.log(plansData)}>
-                      Olha as coisas acontecendo
-                    </Button>
+                  
                     {RenderCard("Mensal", "M", sub_monthly)}
                     {RenderCard("Trimestral", "T", sub_quarterly)}
                     {RenderCard("Semestral", "A", sub_semi_annual)}
